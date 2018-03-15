@@ -12,7 +12,6 @@ enum Screen
   GameSelection = 1,
   PlayerSelection = 2,
   FighterSelection = 3,
-  Statistics = 4,
 };
 
 bool doUpdate = true;
@@ -50,6 +49,12 @@ void RandomizerInitScreen()
     lcd.print(seed);
     lcd.print(" F ");
     lcd.print(fairness_selected);
+
+    Serial.print("Seed: ");
+    Serial.println(seed);
+    Serial.print("Fairness: ");
+    Serial.println(fairness_selected);
+
     redraw_needed = false;
   }
 
@@ -58,6 +63,9 @@ void RandomizerInitScreen()
     if (x_right)
     {
       fairness_selected = fairness_selected + n_players;
+      Serial.print("Fairness: ");
+      Serial.println(fairness_selected);
+
       input_allowed = false;
       redraw_needed = true;
     }
@@ -65,6 +73,9 @@ void RandomizerInitScreen()
     if (x_left)
     {
       fairness_selected = fairness_selected - n_players;
+      Serial.print("Fairness: ");
+      Serial.println(fairness_selected);
+
       input_allowed = false;
       redraw_needed = true;
     }
@@ -72,6 +83,8 @@ void RandomizerInitScreen()
     if (button_black_pressed)
     {
       screen_state = Screen::GameSelection;
+      Serial.println("Go to GameSelection");
+
       input_allowed = false;
       redraw_needed = true;
     }
@@ -85,6 +98,9 @@ void GameSelectionScreen()
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print(games[games_selected]);
+    Serial.print("Game: ");
+    Serial.println(games[games_selected]);
+
     redraw_needed = false;
   }
 
@@ -95,6 +111,9 @@ void GameSelectionScreen()
       games_selected = (games_selected + n_games + 1) % n_games;
       fighter_map_selected = fighter_map[games_selected];
       n_fighter_map_selected = n_fighter_map[games_selected];
+      Serial.print("Game: ");
+      Serial.println(games[games_selected]);
+
       input_allowed = false;
       redraw_needed = true;
     }
@@ -104,6 +123,9 @@ void GameSelectionScreen()
       games_selected = (games_selected + n_games - 1) % n_games;
       fighter_map_selected = fighter_map[games_selected];
       n_fighter_map_selected = n_fighter_map[games_selected];
+      Serial.print("Game: ");
+      Serial.println(games[games_selected]);
+
       input_allowed = false;
       redraw_needed = true;
     }
@@ -111,6 +133,8 @@ void GameSelectionScreen()
     if (button_black_pressed)
     {
       screen_state = Screen::PlayerSelection;
+      Serial.println("Go to PlayerSelection");
+
       input_allowed = false;
       redraw_needed = true;
     }
@@ -122,7 +146,19 @@ void PlayerSelectionScreen()
   player_left = 0;
   player_right = 1;
   screen_state = Screen::FighterSelection;
+  Serial.println("Go to FighterSelection");
 }
+
+enum Winner
+{
+  None,
+  First,
+  Second,
+  Draw,
+};
+
+int winner_selected = Winner::None;
+bool not_fair_win = false;
 
 void FighterSelectionScreen()
 {
@@ -137,6 +173,11 @@ void FighterSelectionScreen()
     lcd.setCursor(0, 1);
     lcd.print(fighter_map_selected[fighter_right]);
 
+    Serial.print("First: ");
+    Serial.println(fighter_map_selected[fighter_left]);
+    Serial.print("Second: ");
+    Serial.println(fighter_map_selected[fighter_right]);
+
     redraw_needed = false;
   }
 
@@ -144,31 +185,44 @@ void FighterSelectionScreen()
   {
     if (button_black_pressed)
     {
-      screen_state = Screen::FighterSelection;
-      input_allowed = false;
-      redraw_needed = true;
-    }
-
-    if (button_joystick_pressed)
-    {
-      screen_state = Screen::Statistics;
+      screen_state = Screen::GameSelection;
       input_allowed = false;
       redraw_needed = true;
     }
   }
 
+  if (x_left && !x_right && !y_up)
+  {
+    winner_selected = Winner::First;
+  }
+
+  if (!x_left && x_right && !y_up)
+  {
+    winner_selected = Winner::Second;
+  }
+
+  if (!x_left && !x_right && y_up)
+  {
+    winner_selected = Winner::Draw;
+  }
+
+  if (y_down || (x_left && y_up) || (x_right && y_up) || (x_left && x_right))
+  {
+    winner_selected = Winner::None;
+  }
+
+  not_fair_win = y_down;
+
   digitalWrite(pin_led_green, x_left || x_right);
   digitalWrite(pin_led_blue, y_down || y_up);
-}
 
-void StatisticsScreen()
-{
-  if (redraw_needed)
+  if (winner_selected != Winner::None && x_center && y_center)
   {
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Game Over");
-    redraw_needed = false;
+    Serial.println(winner_selected);
+    screen_state = Screen::FighterSelection;
+    winner_selected = Winner::None;
+    input_allowed = false;
+    redraw_needed = true;
   }
 }
 
@@ -192,10 +246,6 @@ void loop()
 
   case Screen::FighterSelection:
     FighterSelectionScreen();
-    break;
-
-  case Screen::Statistics:
-    StatisticsScreen();
     break;
   }
 }
