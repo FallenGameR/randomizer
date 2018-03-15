@@ -1,17 +1,22 @@
 #include <Arduino.h>
 #include "pins.h"
 #include "random.h"
+#include "input.h"
 #include "games.h"
 #include "players.h"
 
+enum Screen
+{
+  RandomizerInit = 0,
+  GameSelection = 1,
+  PlayerSelection = 2,
+  FighterSelection = 3,
+  Statistics = 4,
+};
+
 bool doUpdate = true;
 bool commandAwait = true;
-
-enum State
-{
-  Working = 1,
-  Failed = 0
-};
+int screen_state = Screen::RandomizerInit;
 
 void setup()
 {
@@ -29,38 +34,10 @@ void setup()
 
 void loop()
 {
-  bool button_black_pressed = !digitalRead(pin_button_black);
+  readInput();
+
   digitalWrite(pin_led_green, button_black_pressed);
-
-  if (button_black_pressed)
-  {
-    Serial.println("test");
-    Serial.print("A0 = ");
-    Serial.println(analogRead(0));
-    Serial.print("A1 = ");
-    Serial.println(analogRead(1));
-    Serial.print("A2 = ");
-    Serial.println(analogRead(2));
-    Serial.print("A3 = ");
-    Serial.println(analogRead(3));
-    Serial.print("A4 = ");
-    Serial.println(analogRead(4));
-    Serial.print("A5 = ");
-    Serial.println(analogRead(5));
-  }
-
-  bool button_joystick_pressed = !digitalRead(pin_button_joystick);
   digitalWrite(pin_led_blue, button_joystick_pressed);
-
-  int x = analogRead(pin_x_joystick);
-  int y = analogRead(pin_y_joystick);
-
-  bool x_left = x < 400;
-  bool x_right = x > 600;
-  bool x_center = !x_left && !x_right;
-  bool y_up = y > 600;
-  bool y_down = y < 400;
-  bool y_center = !y_up && !y_down;
 
   if ((x_left || x_right) && commandAwait)
   {
