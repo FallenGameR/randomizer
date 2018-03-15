@@ -12,7 +12,7 @@ const int pin_button_joystick = 13;
 const int pin_x_joystick = 0;
 const int pin_y_joystick = 1;
 
-bool doUpdate = false;
+bool doUpdate = true;
 bool commandAwait = true;
 
 void setup()
@@ -23,8 +23,7 @@ void setup()
   pinMode(pin_led_green, OUTPUT);
   pinMode(pin_led_blue, OUTPUT);
   pinMode(pin_button_black, INPUT_PULLUP);
-  pinMode(pin_button_joystick, INPUT);
-  digitalWrite(pin_button_joystick, HIGH);
+  pinMode(pin_button_joystick, INPUT_PULLUP);
 
   int noise =
       analogRead(0) *
@@ -37,14 +36,36 @@ void setup()
   randomSeed(noise);
 
   Serial.println(noise);
-
-  doUpdate = true;
 }
 
 void loop()
 {
   bool button_black_pressed = !digitalRead(pin_button_black);
   digitalWrite(pin_led_green, button_black_pressed);
+
+  if (button_black_pressed)
+  {
+    Serial.println("test");
+    Serial.print("A0 = ");
+    Serial.println(analogRead(0));
+    Serial.print("A1 = ");
+    Serial.println(analogRead(1));
+    Serial.print("A2 = ");
+    Serial.println(analogRead(2));
+    Serial.print("A3 = ");
+    Serial.println(analogRead(3));
+    Serial.print("A4 = ");
+    Serial.println(analogRead(4));
+    Serial.print("A5 = ");
+    Serial.println(analogRead(5));
+
+    int tempReading = analogRead(2);
+    double tempK = log(10000.0 * ((1024.0 / tempReading - 1)));
+    tempK = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * tempK * tempK)) * tempK); //  Temp Kelvin
+    float tempC = tempK - 273.15;                                                          // Convert Kelvin to Celcius
+    Serial.print("t = ");
+    Serial.println(tempC);
+  }
 
   bool button_joystick_pressed = !digitalRead(pin_button_joystick);
   digitalWrite(pin_led_blue, button_joystick_pressed);
