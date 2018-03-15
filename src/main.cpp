@@ -1,19 +1,17 @@
 #include <Arduino.h>
-#include <LiquidCrystal.h>
+#include "pins.h"
+#include "random.h"
 #include "games.h"
 #include "players.h"
 
-// Pins used
-LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
-const int pin_led_green = 4;
-const int pin_led_blue = 5;
-const int pin_button_black = 6;
-const int pin_button_joystick = 13;
-const int pin_x_joystick = 0;
-const int pin_y_joystick = 1;
-
 bool doUpdate = true;
 bool commandAwait = true;
+
+enum State
+{
+  Working = 1,
+  Failed = 0
+};
 
 void setup()
 {
@@ -25,17 +23,8 @@ void setup()
   pinMode(pin_button_black, INPUT_PULLUP);
   pinMode(pin_button_joystick, INPUT_PULLUP);
 
-  int noise =
-      analogRead(0) *
-      analogRead(1) *
-      analogRead(2) *
-      analogRead(3) *
-      analogRead(4) *
-      analogRead(5);
-
-  randomSeed(noise);
-
-  Serial.println(noise);
+  initRandom();
+  delay(10000);
 }
 
 void loop()
@@ -58,13 +47,6 @@ void loop()
     Serial.println(analogRead(4));
     Serial.print("A5 = ");
     Serial.println(analogRead(5));
-
-    int tempReading = analogRead(2);
-    double tempK = log(10000.0 * ((1024.0 / tempReading - 1)));
-    tempK = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * tempK * tempK)) * tempK); //  Temp Kelvin
-    float tempC = tempK - 273.15;                                                          // Convert Kelvin to Celcius
-    Serial.print("t = ");
-    Serial.println(tempC);
   }
 
   bool button_joystick_pressed = !digitalRead(pin_button_joystick);
