@@ -63,9 +63,6 @@ void RandomizerInitScreen()
     if (x_right)
     {
       fairness_selected = fairness_selected + n_players;
-      Serial.print("Fairness: ");
-      Serial.println(fairness_selected);
-
       input_allowed = false;
       redraw_needed = true;
     }
@@ -73,9 +70,6 @@ void RandomizerInitScreen()
     if (x_left)
     {
       fairness_selected = fairness_selected - n_players;
-      Serial.print("Fairness: ");
-      Serial.println(fairness_selected);
-
       input_allowed = false;
       redraw_needed = true;
     }
@@ -111,9 +105,6 @@ void GameSelectionScreen()
       games_selected = (games_selected + n_games + 1) % n_games;
       fighter_map_selected = fighter_map[games_selected];
       n_fighter_map_selected = n_fighter_map[games_selected];
-      Serial.print("Game: ");
-      Serial.println(games[games_selected]);
-
       input_allowed = false;
       redraw_needed = true;
     }
@@ -123,9 +114,6 @@ void GameSelectionScreen()
       games_selected = (games_selected + n_games - 1) % n_games;
       fighter_map_selected = fighter_map[games_selected];
       n_fighter_map_selected = n_fighter_map[games_selected];
-      Serial.print("Game: ");
-      Serial.println(games[games_selected]);
-
       input_allowed = false;
       redraw_needed = true;
     }
@@ -186,17 +174,19 @@ void FighterSelectionScreen()
     if (button_black_pressed)
     {
       screen_state = Screen::GameSelection;
+      Serial.println("Go to GameSelection");
+
       input_allowed = false;
       redraw_needed = true;
     }
   }
 
-  if (x_left && !x_right && !y_up)
+  if (x_left)
   {
     winner_selected = Winner::First;
   }
 
-  if (!x_left && x_right && !y_up)
+  if (x_right)
   {
     winner_selected = Winner::Second;
   }
@@ -218,8 +208,14 @@ void FighterSelectionScreen()
 
   if (winner_selected != Winner::None && x_center && y_center)
   {
+    Serial.print("Won: ");
     Serial.println(winner_selected);
+    Serial.print("Fair: ");
+    Serial.println(!not_fair_win);
+
     screen_state = Screen::FighterSelection;
+    Serial.println("Go to FighterSelection");
+
     winner_selected = Winner::None;
     input_allowed = false;
     redraw_needed = true;

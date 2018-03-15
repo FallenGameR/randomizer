@@ -31,6 +31,8 @@ void readInput()
 
     if (x_center && y_center && !button_black_pressed && !button_joystick_pressed)
     {
+        // needs to be in this state for at least 100ms
+        // otherwise we may have accidental triggering
         input_allowed = true;
     }
 }
