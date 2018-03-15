@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 // Arduino pin numbers
 const int SW_pin = 13;
 const int X_pin = 0;
@@ -90,7 +92,7 @@ void setup() {
 
   pinMode(SW_pin, INPUT);
   digitalWrite(SW_pin, HIGH);
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   Serial.println(noise);
 
