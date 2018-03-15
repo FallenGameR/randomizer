@@ -9,6 +9,11 @@ const char *games[] = {
     "Dead or Alive 5",
 };
 
+#define n_games (sizeof(games) / sizeof(const char *))
+
+int games_selected = 0;
+int fairness_selected = 20;
+
 const char **fighter_map[] = {
     tekken7,
     doa5,
@@ -18,7 +23,5 @@ const int n_fighter_map[] = {
     n_tekken7,
     n_doa5,
 };
-
-#define n_games (sizeof(games) / sizeof(const char *))
 
 #endif // GAMES_H

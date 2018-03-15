@@ -4,6 +4,7 @@
 #include "input.h"
 #include "games.h"
 #include "players.h"
+#include "fighters.h"
 
 enum Screen
 {
@@ -16,8 +17,10 @@ enum Screen
 
 bool doUpdate = true;
 bool commandAwait = true;
-bool redraw_needed = true;
+
 int screen_state = Screen::RandomizerInit;
+
+bool redraw_needed = true;
 
 void setup()
 {
@@ -30,6 +33,9 @@ void setup()
   pinMode(pin_button_joystick, INPUT_PULLUP);
 
   initRandom();
+
+  // For testing
+  screen_state = Screen::GameSelection;
 }
 
 void RandomizerInitScreen()
@@ -38,11 +44,27 @@ void RandomizerInitScreen()
   {
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Randomizer");
+    lcd.print("Randomizer ");
     lcd.setCursor(0, 1);
-    lcd.print("Seed ");
+    lcd.print("S ");
     lcd.print(seed);
+    lcd.print(" F ");
+    lcd.print(fairness_selected);
     redraw_needed = false;
+  }
+
+  if (x_right && input_allowed)
+  {
+    fairness_selected = fairness_selected + n_players;
+    input_allowed = false;
+    redraw_needed = true;
+  }
+
+  if (x_left && input_allowed)
+  {
+    fairness_selected = fairness_selected - n_players;
+    input_allowed = false;
+    redraw_needed = true;
   }
 
   if (button_black_pressed)
@@ -58,19 +80,60 @@ void GameSelectionScreen()
   {
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Tekken");
-    lcd.setCursor(0, 1);
-    lcd.print("Fairness ");
+    lcd.print(games[games_selected]);
     redraw_needed = false;
+  }
+
+  if (x_right && input_allowed)
+  {
+    games_selected = (games_selected + n_games + 1) % n_games;
+    input_allowed = false;
+    redraw_needed = true;
+  }
+
+  if (x_left && input_allowed)
+  {
+    games_selected = (games_selected + n_games - 1) % n_games;
+    input_allowed = false;
+    redraw_needed = true;
+  }
+
+  if (button_black_pressed)
+  {
+    screen_state = Screen::PlayerSelection;
+    redraw_needed = true;
   }
 }
 
 void PlayerSelectionScreen()
 {
+  player_left = 0;
+  player_right = 1;
+  screen_state = Screen::FighterSelection;
 }
 
 void FighterSelectionScreen()
 {
+  if (redraw_needed)
+  {
+    /*
+    fighter_left =
+
+        int first = random(n_tekken7);
+    int second = random(n_tekken7);
+
+    lcd.setCursor(0, 0);
+    lcd.print(tekken7[first]);
+    lcd.setCursor(0, 1);
+    lcd.print(tekken7[second]);
+
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(games[games_selected]);
+    redraw_needed = false;
+    /**/
+  }
 }
 
 void StatisticsScreen()

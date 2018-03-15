@@ -12,6 +12,7 @@ bool x_center = false;
 bool y_up = false;
 bool y_down = false;
 bool y_center = false;
+bool input_allowed = false;
 
 void readInput()
 {
@@ -27,6 +28,11 @@ void readInput()
     y_up = y > 600;
     y_down = y < 400;
     y_center = !y_up && !y_down;
+
+    if (x_center && y_center)
+    {
+        input_allowed = true;
+    }
 }
 
 #endif // INPUT_H

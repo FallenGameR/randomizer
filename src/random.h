@@ -5,6 +5,7 @@
 #include "pins.h"
 
 int seed = 0;
+int fairness_selected = 20;
 
 // http://planetmath.org/goodhashtableprimes
 int getRandomSeedFromAnalogNoise()
