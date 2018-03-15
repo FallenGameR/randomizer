@@ -29,7 +29,7 @@ void readInput()
     y_down = y < 400;
     y_center = !y_up && !y_down;
 
-    if (x_center && y_center)
+    if (x_center && y_center && !button_black_pressed && !button_joystick_pressed)
     {
         input_allowed = true;
     }

@@ -22,7 +22,7 @@ const char *doa5[] = {
     "Kokoro",
     "Leifang",
     "Leon",
-    "Lisa Hamilton (La Mariposa)",
+    "Lisa Hamilton",
     "Mai Shiranui",
     "Marie Rose",
     "Mila",

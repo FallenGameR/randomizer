@@ -35,7 +35,7 @@ void setup()
   initRandom();
 
   // For testing
-  screen_state = Screen::GameSelection;
+  //screen_state = Screen::GameSelection;
 }
 
 void RandomizerInitScreen()
@@ -53,24 +53,28 @@ void RandomizerInitScreen()
     redraw_needed = false;
   }
 
-  if (x_right && input_allowed)
+  if (input_allowed)
   {
-    fairness_selected = fairness_selected + n_players;
-    input_allowed = false;
-    redraw_needed = true;
-  }
+    if (x_right)
+    {
+      fairness_selected = fairness_selected + n_players;
+      input_allowed = false;
+      redraw_needed = true;
+    }
 
-  if (x_left && input_allowed)
-  {
-    fairness_selected = fairness_selected - n_players;
-    input_allowed = false;
-    redraw_needed = true;
-  }
+    if (x_left)
+    {
+      fairness_selected = fairness_selected - n_players;
+      input_allowed = false;
+      redraw_needed = true;
+    }
 
-  if (button_black_pressed)
-  {
-    screen_state = Screen::GameSelection;
-    redraw_needed = true;
+    if (button_black_pressed)
+    {
+      screen_state = Screen::GameSelection;
+      input_allowed = false;
+      redraw_needed = true;
+    }
   }
 }
 
@@ -84,24 +88,32 @@ void GameSelectionScreen()
     redraw_needed = false;
   }
 
-  if (x_right && input_allowed)
+  if (input_allowed)
   {
-    games_selected = (games_selected + n_games + 1) % n_games;
-    input_allowed = false;
-    redraw_needed = true;
-  }
+    if (x_right)
+    {
+      games_selected = (games_selected + n_games + 1) % n_games;
+      fighter_map_selected = fighter_map[games_selected];
+      n_fighter_map_selected = n_fighter_map[games_selected];
+      input_allowed = false;
+      redraw_needed = true;
+    }
 
-  if (x_left && input_allowed)
-  {
-    games_selected = (games_selected + n_games - 1) % n_games;
-    input_allowed = false;
-    redraw_needed = true;
-  }
+    if (x_left)
+    {
+      games_selected = (games_selected + n_games - 1) % n_games;
+      fighter_map_selected = fighter_map[games_selected];
+      n_fighter_map_selected = n_fighter_map[games_selected];
+      input_allowed = false;
+      redraw_needed = true;
+    }
 
-  if (button_black_pressed)
-  {
-    screen_state = Screen::PlayerSelection;
-    redraw_needed = true;
+    if (button_black_pressed)
+    {
+      screen_state = Screen::PlayerSelection;
+      input_allowed = false;
+      redraw_needed = true;
+    }
   }
 }
 
@@ -116,24 +128,30 @@ void FighterSelectionScreen()
 {
   if (redraw_needed)
   {
-    /*
-    fighter_left =
-
-        int first = random(n_tekken7);
-    int second = random(n_tekken7);
-
-    lcd.setCursor(0, 0);
-    lcd.print(tekken7[first]);
-    lcd.setCursor(0, 1);
-    lcd.print(tekken7[second]);
-
+    fighter_left = random(n_fighter_map_selected);
+    fighter_right = random(n_fighter_map_selected);
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print(games[games_selected]);
+    lcd.print(fighter_map_selected[fighter_left]);
+    lcd.setCursor(0, 1);
+    lcd.print(fighter_map_selected[fighter_right]);
+
     redraw_needed = false;
-    /**/
   }
+
+  if (input_allowed)
+  {
+    if (button_black_pressed)
+    {
+      screen_state = Screen::FighterSelection;
+      input_allowed = false;
+      redraw_needed = true;
+    }
+  }
+
+  digitalWrite(pin_led_green, x_left || x_right);
+  digitalWrite(pin_led_blue, y_down || y_up);
 }
 
 void StatisticsScreen()
@@ -165,36 +183,5 @@ void loop()
   case Screen::Statistics:
     StatisticsScreen();
     break;
-  }
-
-  return;
-
-  digitalWrite(pin_led_green, button_black_pressed);
-  digitalWrite(pin_led_blue, button_joystick_pressed);
-
-  if ((x_left || x_right) && commandAwait)
-  {
-    doUpdate = true;
-    commandAwait = false;
-    Serial.println("Update");
-  }
-
-  if (x_center)
-  {
-    commandAwait = true;
-  }
-
-  if (doUpdate)
-  {
-    doUpdate = false;
-    lcd.clear();
-
-    int first = random(n_tekken7);
-    int second = random(n_tekken7);
-
-    lcd.setCursor(0, 0);
-    lcd.print(tekken7[first]);
-    lcd.setCursor(0, 1);
-    lcd.print(tekken7[second]);
   }
 }
