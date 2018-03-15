@@ -1,27 +1,30 @@
 #include <Arduino.h>
 #include <LiquidCrystal.h>
 #include "games.h"
+#include "players.h"
 
 // Pins used
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
-const int ledGreenPin = 4;
-const int ledBluePin = 5;
-const int buttonPin = 6;
-const int SW_pin = 13;
-const int X_pin = 0;
-const int Y_pin = 1;
+const int pin_led_green = 4;
+const int pin_led_blue = 5;
+const int pin_button_black = 6;
+const int pin_button_joystick = 13;
+const int pin_x_joystick = 0;
+const int pin_y_joystick = 1;
 
 bool doUpdate = false;
 bool commandAwait = true;
 
 void setup()
 {
-  pinMode(ledGreenPin, OUTPUT);
-  pinMode(ledBluePin, OUTPUT);
-  pinMode(buttonPin, INPUT_PULLUP);
+  Serial.begin(9600);
 
-  // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
+  pinMode(pin_led_green, OUTPUT);
+  pinMode(pin_led_blue, OUTPUT);
+  pinMode(pin_button_black, INPUT_PULLUP);
+  pinMode(pin_button_joystick, INPUT);
+  digitalWrite(pin_button_joystick, HIGH);
 
   int noise =
       analogRead(0) *
@@ -33,10 +36,6 @@ void setup()
 
   randomSeed(noise);
 
-  pinMode(SW_pin, INPUT);
-  digitalWrite(SW_pin, HIGH);
-  Serial.begin(9600);
-
   Serial.println(noise);
 
   doUpdate = true;
@@ -44,20 +43,14 @@ void setup()
 
 void loop()
 {
-  if (digitalRead(buttonPin) == LOW)
-  {
-    digitalWrite(ledGreenPin, HIGH);
-    digitalWrite(ledBluePin, HIGH);
-  }
-  else if (digitalRead(buttonPin) == HIGH)
-  {
-    digitalWrite(ledGreenPin, LOW);
-    digitalWrite(ledBluePin, LOW);
-  }
+  bool button_black_pressed = !digitalRead(pin_button_black);
+  digitalWrite(pin_led_green, button_black_pressed);
 
-  int x = analogRead(X_pin);
-  int y = analogRead(Y_pin);
-  bool pressed = !digitalRead(SW_pin);
+  bool button_joystick_pressed = !digitalRead(pin_button_joystick);
+  digitalWrite(pin_led_blue, button_joystick_pressed);
+
+  int x = analogRead(pin_x_joystick);
+  int y = analogRead(pin_y_joystick);
 
   bool x_left = x < 400;
   bool x_right = x > 600;
@@ -83,12 +76,12 @@ void loop()
     doUpdate = false;
     lcd.clear();
 
-    int first = random(n_tekken);
-    int second = random(n_tekken);
+    int first = random(n_tekken7);
+    int second = random(n_tekken7);
 
     lcd.setCursor(0, 0);
-    lcd.print(tekken[first]);
+    lcd.print(tekken7[first]);
     lcd.setCursor(0, 1);
-    lcd.print(tekken[second]);
+    lcd.print(tekken7[second]);
   }
 }

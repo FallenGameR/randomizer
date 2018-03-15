@@ -1,7 +1,7 @@
 #ifndef GAMES_H
 #define GAMES_H
 
-#include "tekken.h"
+#include "tekken7.h"
 #include "doa5.h"
 
 const char *games[] = {
