@@ -1,7 +1,7 @@
-#ifndef TEKKEN_H
-#define TEKKEN_H
+#ifndef TEKKEN7_H
+#define TEKKEN7_H
 
-const char *tekken[] = {
+const char *tekken7[] = {
     "Akuma",
     "Alisa Bosconovitch",
     "Asuka Kazama",
@@ -40,6 +40,6 @@ const char *tekken[] = {
     "Shaheen",
 };
 
-#define n_tekken (sizeof(tekken) / sizeof(const char *))
+#define n_tekken7 (sizeof(tekken7) / sizeof(const char *))
 
-#endif // TEKKEN_H
+#endif // TEKKEN7_H

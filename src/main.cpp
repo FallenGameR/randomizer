@@ -1,18 +1,15 @@
 #include <Arduino.h>
 #include <LiquidCrystal.h>
-#include "tekken.h"
+#include "games.h"
 
-// Arduino pin numbers
+// Pins used
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+const int ledGreenPin = 4;
+const int ledBluePin = 5;
+const int buttonPin = 6;
 const int SW_pin = 13;
 const int X_pin = 0;
 const int Y_pin = 1;
-
-// initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
-
-int ledGreenPin = 4;
-int ledBluePin = 5;
-int buttonPin = 6;
 
 bool doUpdate = false;
 bool commandAwait = true;
