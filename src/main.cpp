@@ -148,6 +148,13 @@ void FighterSelectionScreen()
       input_allowed = false;
       redraw_needed = true;
     }
+
+    if (button_joystick_pressed)
+    {
+      screen_state = Screen::Statistics;
+      input_allowed = false;
+      redraw_needed = true;
+    }
   }
 
   digitalWrite(pin_led_green, x_left || x_right);
@@ -156,6 +163,13 @@ void FighterSelectionScreen()
 
 void StatisticsScreen()
 {
+  if (redraw_needed)
+  {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Game Over");
+    redraw_needed = false;
+  }
 }
 
 void loop()
