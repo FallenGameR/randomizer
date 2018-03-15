@@ -64,7 +64,15 @@ const char * tekken[] = {
 bool doUpdate = false;
 bool commandAwait = true;
 
+int ledGreenPin = 4;
+int ledBluePin = 5;
+int buttonPin = 6;
+
 void setup() {
+  pinMode(ledGreenPin, OUTPUT);
+  pinMode(ledBluePin, OUTPUT);
+  pinMode(buttonPin, INPUT_PULLUP);  
+
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
 
@@ -90,9 +98,18 @@ void setup() {
 }
 
 
-
 void loop() {
-
+  if (digitalRead(buttonPin) == LOW)
+  {
+    digitalWrite(ledGreenPin, HIGH);
+    digitalWrite(ledBluePin, HIGH);
+  }
+  else if (digitalRead(buttonPin) == HIGH)
+  {
+    digitalWrite(ledGreenPin, LOW);
+    digitalWrite(ledBluePin, LOW);
+  }
+  
   int x = analogRead(X_pin);
   int y = analogRead(Y_pin);
   bool pressed = !digitalRead(SW_pin);
@@ -109,7 +126,6 @@ void loop() {
     doUpdate = true;
     commandAwait = false;
     Serial.println("Update");
-
   }
 
   if( x_center )
