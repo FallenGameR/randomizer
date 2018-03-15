@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include "pins.h"
 
+int seed = 0;
+
 // http://planetmath.org/goodhashtableprimes
 int getRandomSeedFromAnalogNoise()
 {
@@ -17,14 +19,8 @@ int getRandomSeedFromAnalogNoise()
 
 void initRandom()
 {
-    int seed = getRandomSeedFromAnalogNoise();
+    seed = getRandomSeedFromAnalogNoise();
     randomSeed(seed);
-
-    lcd.setCursor(0, 0);
-    lcd.print("Randomizer");
-    lcd.setCursor(0, 1);
-    lcd.print("Seed ");
-    lcd.print(seed);
 }
 
-#endif // DOA5_H
+#endif // RANDOM_H

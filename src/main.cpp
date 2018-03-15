@@ -16,6 +16,7 @@ enum Screen
 
 bool doUpdate = true;
 bool commandAwait = true;
+bool redraw_needed = true;
 int screen_state = Screen::RandomizerInit;
 
 void setup()
@@ -29,12 +30,81 @@ void setup()
   pinMode(pin_button_joystick, INPUT_PULLUP);
 
   initRandom();
-  delay(10000);
+}
+
+void RandomizerInitScreen()
+{
+  if (redraw_needed)
+  {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Randomizer");
+    lcd.setCursor(0, 1);
+    lcd.print("Seed ");
+    lcd.print(seed);
+    redraw_needed = false;
+  }
+
+  if (button_black_pressed)
+  {
+    screen_state = Screen::GameSelection;
+    redraw_needed = true;
+  }
+}
+
+void GameSelectionScreen()
+{
+  if (redraw_needed)
+  {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Tekken");
+    lcd.setCursor(0, 1);
+    lcd.print("Fairness ");
+    redraw_needed = false;
+  }
+}
+
+void PlayerSelectionScreen()
+{
+}
+
+void FighterSelectionScreen()
+{
+}
+
+void StatisticsScreen()
+{
 }
 
 void loop()
 {
   readInput();
+
+  switch (screen_state)
+  {
+  case Screen::RandomizerInit:
+    RandomizerInitScreen();
+    break;
+
+  case Screen::GameSelection:
+    GameSelectionScreen();
+    break;
+
+  case Screen::PlayerSelection:
+    PlayerSelectionScreen();
+    break;
+
+  case Screen::FighterSelection:
+    FighterSelectionScreen();
+    break;
+
+  case Screen::Statistics:
+    StatisticsScreen();
+    break;
+  }
+
+  return;
 
   digitalWrite(pin_led_green, button_black_pressed);
   digitalWrite(pin_led_blue, button_joystick_pressed);
