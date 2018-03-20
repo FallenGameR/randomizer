@@ -4,6 +4,25 @@
 #include <Arduino.h>
 #include "pins.h"
 
+/*
+
+enum Input
+{
+    button_black,
+    button_joystick,
+    x_left,
+    x_right,
+    x_center,
+    y_up,
+    y_down,
+    y_center,
+};
+
+input_current
+input_started
+input_ready
+*/
+
 bool button_black_pressed = false;
 bool button_joystick_pressed = false;
 bool x_left = false;
