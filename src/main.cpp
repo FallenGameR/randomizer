@@ -152,19 +152,19 @@ void FighterSelectionScreen()
 {
   if (redraw_needed)
   {
-    fighter_left = random(n_fighter_map_selected);
-    fighter_right = random(n_fighter_map_selected);
+    fighter_index_first = random(n_fighter_map_selected);
+    fighter_index_second = random(n_fighter_map_selected);
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print(fighter_map_selected[fighter_left]);
+    lcd.print(fighter_map_selected[fighter_index_first]);
     lcd.setCursor(0, 1);
-    lcd.print(fighter_map_selected[fighter_right]);
+    lcd.print(fighter_map_selected[fighter_index_second]);
 
     Serial.print("First: ");
-    Serial.println(fighter_map_selected[fighter_left]);
+    Serial.println(fighter_map_selected[fighter_index_first]);
     Serial.print("Second: ");
-    Serial.println(fighter_map_selected[fighter_right]);
+    Serial.println(fighter_map_selected[fighter_index_second]);
 
     redraw_needed = false;
   }
