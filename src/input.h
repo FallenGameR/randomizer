@@ -4,34 +4,38 @@
 #include <Arduino.h>
 #include "pins.h"
 
-/*
-
 enum Input
 {
     button_black,
     button_joystick,
-    x_left,
-    x_right,
-    x_center,
-    y_up,
-    y_down,
-    y_center,
+    xx_left,
+    xx_right,
+    xx_center,
+    yy_up,
+    yy_down,
+    yy_center,
+    size
 };
 
-input_current
-input_started
-input_ready
-*/
+bool input_current[Input::size];
+unsigned long input_started[Input::size];
+bool input_ready[Input::size];
 
-bool button_black_pressed = false;
-bool button_joystick_pressed = false;
-bool x_left = false;
-bool x_right = false;
-bool x_center = false;
-bool y_up = false;
-bool y_down = false;
-bool y_center = false;
+unsigned long now;
 bool input_allowed = false;
+
+void processInput(int input)
+{
+}
+
+#define button_black_pressed input_ready[Input::button_black]
+#define button_joystick_pressed input_ready[Input::button_joystick]
+#define x_left input_ready[Input::xx_left]
+#define x_right input_ready[Input::xx_right]
+#define x_center input_ready[Input::xx_center]
+#define y_up input_ready[Input::yy_up]
+#define y_down input_ready[Input::yy_down]
+#define y_center input_ready[Input::yy_center]
 
 void readInput()
 {
