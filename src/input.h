@@ -17,13 +17,22 @@ enum Input
     size
 };
 
+#define BUTTON_BLACK (input_ready[Input::button_black])
+#define BUTTON_JOYSTICK (input_ready[Input::button_joystick])
+#define X_LEFT (input_ready[Input::x_left])
+#define X_RIGHT (input_ready[Input::x_right])
+#define X_CENTER (input_ready[Input::x_center])
+#define Y_UP (input_ready[Input::y_up])
+#define Y_DOWN (input_ready[Input::y_down])
+#define Y_CENTER (input_ready[Input::y_center])
+
 bool input_current[Input::size];
 unsigned long input_started[Input::size];
 bool input_ready[Input::size];
 
-unsigned long now;
+const unsigned long input_threshold_ms = 100;
 bool input_allowed = false;
-const unsigned long input_threshold_ms = 300;
+unsigned long now;
 
 void processInput(int key, bool value)
 {
@@ -50,15 +59,6 @@ void processInput(int key, bool value)
         input_ready[key] = now - input_started[key] >= input_threshold_ms;
     }
 }
-
-#define BUTTON_BLACK (input_ready[Input::button_black])
-#define BUTTON_JOYSTICK (input_ready[Input::button_joystick])
-#define X_LEFT (input_ready[Input::x_left])
-#define X_RIGHT (input_ready[Input::x_right])
-#define X_CENTER (input_ready[Input::x_center])
-#define Y_UP (input_ready[Input::y_up])
-#define Y_DOWN (input_ready[Input::y_down])
-#define Y_CENTER (input_ready[Input::y_center])
 
 void readInput()
 {
