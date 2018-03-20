@@ -23,9 +23,32 @@ bool input_ready[Input::size];
 
 unsigned long now;
 bool input_allowed = false;
+const unsigned long input_threshold_ms = 100;
 
-void processInput(int input)
+void processInput(int key, bool value)
 {
+    // Cancellation
+    if (!value)
+    {
+        input_current[key] = false;
+        input_started[key] = 0;
+        input_ready[key] = false;
+        return;
+    }
+
+    // Processing
+    if (!input_current[key])
+    {
+        // Start
+        input_current[key] = true;
+        input_started[key] = now;
+        input_ready[key] = false;
+    }
+    else
+    {
+        // Continue
+        input_ready[key] = now - input_started[key] >= input_threshold_ms;
+    }
 }
 
 #define BUTTON_BLACK input_ready[Input::button_black]
@@ -39,6 +62,9 @@ void processInput(int input)
 
 void readInput()
 {
+    now = millis();
+
+    processInput(BUTTON_BLACK, !digitalRead(pin_button_black));
     BUTTON_BLACK = !digitalRead(pin_button_black);
     BUTTON_JOYSTICK = !digitalRead(pin_button_joystick);
 
