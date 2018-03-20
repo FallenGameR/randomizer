@@ -60,21 +60,21 @@ void RandomizerInitScreen()
 
   if (input_allowed)
   {
-    if (x_right)
+    if (input_ready[Input::x_right])
     {
       random_fairness = random_fairness + n_players;
       input_allowed = false;
       redraw_needed = true;
     }
 
-    if (x_left)
+    if (input_ready[Input::x_left])
     {
       random_fairness = random_fairness - n_players;
       input_allowed = false;
       redraw_needed = true;
     }
 
-    if (button_black_pressed)
+    if (input_ready[Input::button_black])
     {
       screen_state = Screen::GameSelection;
       Serial.println("Go to GameSelection");
@@ -100,7 +100,7 @@ void GameSelectionScreen()
 
   if (input_allowed)
   {
-    if (x_right)
+    if (input_ready[Input::x_right])
     {
       games_index = (games_index + n_games + 1) % n_games;
       fighter_map_selected = fighter_map[games_index];
@@ -109,7 +109,7 @@ void GameSelectionScreen()
       redraw_needed = true;
     }
 
-    if (x_left)
+    if (input_ready[Input::x_left])
     {
       games_index = (games_index + n_games - 1) % n_games;
       fighter_map_selected = fighter_map[games_index];
@@ -118,7 +118,7 @@ void GameSelectionScreen()
       redraw_needed = true;
     }
 
-    if (button_black_pressed)
+    if (input_ready[Input::button_black])
     {
       screen_state = Screen::PlayerSelection;
       Serial.println("Go to PlayerSelection");
@@ -171,7 +171,7 @@ void FighterSelectionScreen()
 
   if (input_allowed)
   {
-    if (button_black_pressed)
+    if (input_ready[Input::button_black])
     {
       screen_state = Screen::GameSelection;
       Serial.println("Go to GameSelection");
@@ -181,32 +181,32 @@ void FighterSelectionScreen()
     }
   }
 
-  if (x_left)
+  if (input_ready[Input::x_left])
   {
     winner_selected = Winner::First;
   }
 
-  if (x_right)
+  if (input_ready[Input::x_right])
   {
     winner_selected = Winner::Second;
   }
 
-  if (!x_left && !x_right && y_up)
+  if (!input_ready[Input::x_left] && !input_ready[Input::x_right] && input_ready[Input::y_up])
   {
     winner_selected = Winner::Draw;
   }
 
-  if (y_down || (x_left && y_up) || (x_right && y_up) || (x_left && x_right))
+  if (input_ready[Input::y_down] || (input_ready[Input::x_left] && input_ready[Input::y_up]) || (input_ready[Input::x_right] && input_ready[Input::y_up]) || (input_ready[Input::x_left] && input_ready[Input::x_right]))
   {
     winner_selected = Winner::None;
   }
 
-  not_fair_win = y_down;
+  not_fair_win = input_ready[Input::y_down];
 
-  digitalWrite(pin_led_green, x_left || x_right);
-  digitalWrite(pin_led_blue, y_down || y_up);
+  digitalWrite(pin_led_green, input_ready[Input::x_left] || input_ready[Input::x_right]);
+  digitalWrite(pin_led_blue, input_ready[Input::y_down] || input_ready[Input::y_up]);
 
-  if (winner_selected != Winner::None && x_center && y_center)
+  if (winner_selected != Winner::None && input_ready[Input::x_center] && input_ready[Input::y_center])
   {
     Serial.print("Won: ");
     Serial.println(winner_selected);
