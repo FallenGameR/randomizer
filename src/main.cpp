@@ -60,21 +60,21 @@ void RandomizerInitScreen()
 
   if (input_allowed)
   {
-    if (x_right)
+    if (X_RIGHT)
     {
       random_fairness = random_fairness + n_players;
       input_allowed = false;
       redraw_needed = true;
     }
 
-    if (x_left)
+    if (X_LEFT)
     {
       random_fairness = random_fairness - n_players;
       input_allowed = false;
       redraw_needed = true;
     }
 
-    if (button_black_pressed)
+    if (BUTTON_BLACK)
     {
       screen_state = Screen::GameSelection;
       Serial.println("Go to GameSelection");
@@ -100,7 +100,7 @@ void GameSelectionScreen()
 
   if (input_allowed)
   {
-    if (x_right)
+    if (X_RIGHT)
     {
       games_index = (games_index + n_games + 1) % n_games;
       fighter_map_selected = fighter_map[games_index];
@@ -109,7 +109,7 @@ void GameSelectionScreen()
       redraw_needed = true;
     }
 
-    if (x_left)
+    if (X_LEFT)
     {
       games_index = (games_index + n_games - 1) % n_games;
       fighter_map_selected = fighter_map[games_index];
@@ -118,7 +118,7 @@ void GameSelectionScreen()
       redraw_needed = true;
     }
 
-    if (button_black_pressed)
+    if (BUTTON_BLACK)
     {
       screen_state = Screen::PlayerSelection;
       Serial.println("Go to PlayerSelection");
@@ -171,7 +171,7 @@ void FighterSelectionScreen()
 
   if (input_allowed)
   {
-    if (button_black_pressed)
+    if (BUTTON_BLACK)
     {
       screen_state = Screen::GameSelection;
       Serial.println("Go to GameSelection");
@@ -181,32 +181,32 @@ void FighterSelectionScreen()
     }
   }
 
-  if (x_left)
+  if (X_LEFT)
   {
     winner_selected = Winner::First;
   }
 
-  if (x_right)
+  if (X_RIGHT)
   {
     winner_selected = Winner::Second;
   }
 
-  if (!x_left && !x_right && y_up)
+  if (!X_LEFT && !X_RIGHT && Y_UP)
   {
     winner_selected = Winner::Draw;
   }
 
-  if (y_down || (x_left && y_up) || (x_right && y_up) || (x_left && x_right))
+  if (Y_DOWN || (X_LEFT && Y_UP) || (X_RIGHT && Y_UP) || (X_LEFT && X_RIGHT))
   {
     winner_selected = Winner::None;
   }
 
-  not_fair_win = y_down;
+  not_fair_win = Y_DOWN;
 
-  digitalWrite(pin_led_green, x_left || x_right);
-  digitalWrite(pin_led_blue, y_down || y_up);
+  digitalWrite(pin_led_green, X_LEFT || X_RIGHT);
+  digitalWrite(pin_led_blue, Y_DOWN || Y_UP);
 
-  if (winner_selected != Winner::None && x_center && y_center)
+  if (winner_selected != Winner::None && X_CENTER && Y_CENTER)
   {
     Serial.print("Won: ");
     Serial.println(winner_selected);

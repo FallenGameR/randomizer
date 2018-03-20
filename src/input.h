@@ -8,12 +8,12 @@ enum Input
 {
     button_black,
     button_joystick,
-    xx_left,
-    xx_right,
-    xx_center,
-    yy_up,
-    yy_down,
-    yy_center,
+    x_left,
+    x_right,
+    x_center,
+    y_up,
+    y_down,
+    y_center,
     size
 };
 
@@ -28,31 +28,31 @@ void processInput(int input)
 {
 }
 
-#define button_black_pressed input_ready[Input::button_black]
-#define button_joystick_pressed input_ready[Input::button_joystick]
-#define x_left input_ready[Input::xx_left]
-#define x_right input_ready[Input::xx_right]
-#define x_center input_ready[Input::xx_center]
-#define y_up input_ready[Input::yy_up]
-#define y_down input_ready[Input::yy_down]
-#define y_center input_ready[Input::yy_center]
+#define BUTTON_BLACK input_ready[Input::button_black]
+#define BUTTON_JOYSTICK input_ready[Input::button_joystick]
+#define X_LEFT input_ready[Input::x_left]
+#define X_RIGHT input_ready[Input::x_right]
+#define X_CENTER input_ready[Input::x_center]
+#define Y_UP input_ready[Input::y_up]
+#define Y_DOWN input_ready[Input::y_down]
+#define Y_CENTER input_ready[Input::y_center]
 
 void readInput()
 {
-    button_black_pressed = !digitalRead(pin_button_black);
-    button_joystick_pressed = !digitalRead(pin_button_joystick);
+    BUTTON_BLACK = !digitalRead(pin_button_black);
+    BUTTON_JOYSTICK = !digitalRead(pin_button_joystick);
 
     int x = analogRead(pin_x_joystick);
     int y = analogRead(pin_y_joystick);
 
-    x_left = x < 400;
-    x_right = x > 600;
-    x_center = !x_left && !x_right;
-    y_up = y > 600;
-    y_down = y < 400;
-    y_center = !y_up && !y_down;
+    X_LEFT = x < 400;
+    X_RIGHT = x > 600;
+    X_CENTER = !X_LEFT && !X_RIGHT;
+    Y_UP = y > 600;
+    Y_DOWN = y < 400;
+    Y_CENTER = !Y_UP && !Y_DOWN;
 
-    if (x_center && y_center && !button_black_pressed && !button_joystick_pressed)
+    if (X_CENTER && Y_CENTER && !BUTTON_BLACK && !BUTTON_JOYSTICK)
     {
         // needs to be in this state for at least 100ms
         // otherwise we may have accidental triggering
