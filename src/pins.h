@@ -9,7 +9,7 @@ const int pin_led_green = 4;
 const int pin_led_blue = 5;
 const int pin_button_black = 6;
 const int pin_button_joystick = 13;
-const int pin_x_joystick = 0;
-const int pin_y_joystick = 1;
+const int pin_x_joystick = 1;
+const int pin_y_joystick = 0;
 
 #endif // PINS_H

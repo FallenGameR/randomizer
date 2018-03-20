@@ -68,11 +68,11 @@ void readInput()
 
     processInput(Input::button_black, !digitalRead(pin_button_black));
     processInput(Input::button_joystick, !digitalRead(pin_button_joystick));
-    processInput(Input::x_left, x < 400);
-    processInput(Input::x_right, x > 600);
+    processInput(Input::x_left, x > 600);
+    processInput(Input::x_right, x < 400);
     processInput(Input::x_center, x >= 400 && x <= 600);
-    processInput(Input::y_up, y > 600);
-    processInput(Input::y_down, y < 400);
+    processInput(Input::y_up, y < 400);
+    processInput(Input::y_down, y > 600);
     processInput(Input::y_center, y >= 400 && y <= 600);
 
     if (X_CENTER && Y_CENTER && !BUTTON_BLACK && !BUTTON_JOYSTICK)
