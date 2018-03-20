@@ -131,8 +131,8 @@ void GameSelectionScreen()
 
 void PlayerSelectionScreen()
 {
-  player_left = 0;
-  player_right = 1;
+  player_index_first = 0;
+  player_index_second = 1;
   screen_state = Screen::FighterSelection;
   Serial.println("Go to FighterSelection");
 }
