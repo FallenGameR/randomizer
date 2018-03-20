@@ -4,8 +4,8 @@
 #include <Arduino.h>
 #include "pins.h"
 
-int seed = 0;
-int fairness_selected = 20;
+int random_seed = 0;
+int random_fairness = 20;
 
 // http://planetmath.org/goodhashtableprimes
 int getRandomSeedFromAnalogNoise()
@@ -20,8 +20,8 @@ int getRandomSeedFromAnalogNoise()
 
 void initRandom()
 {
-    seed = getRandomSeedFromAnalogNoise();
-    randomSeed(seed);
+    random_seed = getRandomSeedFromAnalogNoise();
+    randomSeed(random_seed);
 }
 
 #endif // RANDOM_H

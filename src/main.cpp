@@ -46,14 +46,14 @@ void RandomizerInitScreen()
     lcd.print("Randomizer ");
     lcd.setCursor(0, 1);
     lcd.print("S ");
-    lcd.print(seed);
+    lcd.print(random_seed);
     lcd.print(" F ");
-    lcd.print(fairness_selected);
+    lcd.print(random_fairness);
 
     Serial.print("Seed: ");
-    Serial.println(seed);
+    Serial.println(random_seed);
     Serial.print("Fairness: ");
-    Serial.println(fairness_selected);
+    Serial.println(random_fairness);
 
     redraw_needed = false;
   }
@@ -62,14 +62,14 @@ void RandomizerInitScreen()
   {
     if (x_right)
     {
-      fairness_selected = fairness_selected + n_players;
+      random_fairness = random_fairness + n_players;
       input_allowed = false;
       redraw_needed = true;
     }
 
     if (x_left)
     {
-      fairness_selected = fairness_selected - n_players;
+      random_fairness = random_fairness - n_players;
       input_allowed = false;
       redraw_needed = true;
     }
