@@ -34,7 +34,7 @@ const char *tekken7[] = {
     "Master Raven",
     "Miguel",
     "Nina Williams",
-    //"Noctis Lucis Caelum",
+    "Noctis Lucis Caelum",
     "Panda",
     "Paul Phoenix",
     "Shaheen",
