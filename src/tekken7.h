@@ -20,7 +20,7 @@ const char *tekken7[] = {
     "Jin Kazama",
     "Josie Rizal",
     "Katarina Alves",
-    "Kazumi Mishima",
+    "Kazumi Mishima", // Tiger girl
     "Kazuya Mishima",
     "King",
     "Kuma",
