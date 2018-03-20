@@ -3,7 +3,7 @@
 
 const char *tekken7[] = {
     "Akuma",
-    "Alisa Bosconovitch",
+    "Alisa",
     "Asuka Kazama",
     "Bob",
     "Bryan Fury",
@@ -14,7 +14,7 @@ const char *tekken7[] = {
     "Feng Wei",
     "Geese Howard",
     "Gigas",
-    "Heihachi Mishima",
+    "Heihachi Mishima", // The longest name that fit LCD
     "Hwoarang",
     "Jack-7",
     "Jin Kazama",
@@ -24,7 +24,7 @@ const char *tekken7[] = {
     "Kazuya Mishima",
     "King",
     "Kuma",
-    "Lars Alexandersson",
+    "Lars",
     "Lee Chaolan",
     "Leo",
     "Lili",
@@ -34,7 +34,7 @@ const char *tekken7[] = {
     "Master Raven",
     "Miguel",
     "Nina Williams",
-    "Noctis Lucis Caelum",
+    "Noctis Lucis",
     "Panda",
     "Paul Phoenix",
     "Shaheen",
