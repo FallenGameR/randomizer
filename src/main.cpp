@@ -91,9 +91,9 @@ void GameSelectionScreen()
   {
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print(games[games_selected]);
+    lcd.print(games[games_index]);
     Serial.print("Game: ");
-    Serial.println(games[games_selected]);
+    Serial.println(games[games_index]);
 
     redraw_needed = false;
   }
@@ -102,18 +102,18 @@ void GameSelectionScreen()
   {
     if (x_right)
     {
-      games_selected = (games_selected + n_games + 1) % n_games;
-      fighter_map_selected = fighter_map[games_selected];
-      n_fighter_map_selected = n_fighter_map[games_selected];
+      games_index = (games_index + n_games + 1) % n_games;
+      fighter_map_selected = fighter_map[games_index];
+      n_fighter_map_selected = n_fighter_map[games_index];
       input_allowed = false;
       redraw_needed = true;
     }
 
     if (x_left)
     {
-      games_selected = (games_selected + n_games - 1) % n_games;
-      fighter_map_selected = fighter_map[games_selected];
-      n_fighter_map_selected = n_fighter_map[games_selected];
+      games_index = (games_index + n_games - 1) % n_games;
+      fighter_map_selected = fighter_map[games_index];
+      n_fighter_map_selected = n_fighter_map[games_index];
       input_allowed = false;
       redraw_needed = true;
     }

@@ -11,7 +11,7 @@ const char *games[] = {
 
 #define n_games (sizeof(games) / sizeof(const char *))
 
-int games_selected = 0;
+int games_index = 0;
 
 const char **fighter_map[] = {
     tekken7,
