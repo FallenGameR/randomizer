@@ -131,9 +131,12 @@ void PlayerSelectionScreen()
   player_index_first = 0;
   player_index_second = 1;
 
-  Serial.print(players[player_index_first]);
-  Serial.print(" and ");
-  Serial.println(players[player_index_second]);
+  if (n_players > 2)
+  {
+    Serial.print(players[player_index_first]);
+    Serial.print(" and ");
+    Serial.println(players[player_index_second]);
+  }
 
   screen_state = Screen::FighterSelection;
 }
@@ -171,6 +174,7 @@ void FighterSelectionScreen()
     redraw_needed = false;
   }
 
+  // Means we just were in neutral state and now test for new input
   if (input_allowed)
   {
     if (BUTTON_BLACK)
@@ -187,6 +191,10 @@ void FighterSelectionScreen()
       input_allowed = false;
     }
 
+    // We need to test for joystick neutral position since event wise it was like this:
+    // - neutral position
+    // - joystick selection, this one doesn't specify final win yet since we may want to cancel this input before completing it
+    // - neutral position
     if (winner_selected != Winner::None && X_CENTER && Y_CENTER)
     {
       switch (winner_selected)
@@ -226,21 +234,25 @@ void FighterSelectionScreen()
   if (Y_DOWN)
   {
     winner_selected = Winner::None;
+    Serial.print("Selection: None");
   }
 
   if (Y_UP)
   {
     winner_selected = Winner::Draw;
+    Serial.print("Selection: Draw");
   }
 
   if (X_LEFT)
   {
     winner_selected = Winner::First;
+    Serial.print("Selection: First");
   }
 
   if (X_RIGHT)
   {
     winner_selected = Winner::Second;
+    Serial.print("Selection: Second");
   }
 
   digitalWrite(pin_led_green, winner_selected != Winner::None);
