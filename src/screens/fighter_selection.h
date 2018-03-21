@@ -18,6 +18,36 @@ enum Winner
 int winner_selected;
 bool not_fair_win;
 
+void RecordMatchOutcome()
+{
+    switch (winner_selected)
+    {
+    case Winner::Draw:
+        Serial.print("Draw");
+        break;
+
+    case Winner::First:
+        Serial.print(players[player_index_first]);
+        Serial.print(" won (");
+        Serial.print(fighter_map_selected[fighter_index_first]);
+        Serial.print(")");
+        break;
+
+    case Winner::Second:
+        Serial.print(players[player_index_second]);
+        Serial.print(" won (");
+        Serial.print(fighter_map_selected[fighter_index_second]);
+        Serial.print(")");
+        break;
+    }
+
+    if (not_fair_win)
+    {
+        Serial.print(" (opponent says not fair)");
+    }
+    Serial.println();
+}
+
 void FighterSelectionScreen()
 {
     if (screen_redraw)
@@ -40,9 +70,10 @@ void FighterSelectionScreen()
         screen_redraw = false;
     }
 
-    // Means we just were in neutral state and now test for new input
+    // input_allowed means we just were in neutral state and now test for new input that is tested in nested ifs
     if (input_allowed)
     {
+        // Black button returns to games selection without chosing of winner
         if (BUTTON_BLACK)
         {
             Serial.println("-> Game");
@@ -51,45 +82,20 @@ void FighterSelectionScreen()
             screen_redraw = true;
         }
 
-        // After modifier selection disable input so that we don't keep flipping the modifier
+        // After fairness modifier switch disable the input so that we don't keep flipping the modifier
         if (Y_DOWN)
         {
             not_fair_win = !not_fair_win;
             input_allowed = false;
         }
 
-        // We need to test for joystick neutral position since event wise it was like this:
+        // Here is what happens event-wise when we select winner:
         // - joystick selection, this one doesn't specify final win yet (since we may want to cancel this input before completing it)
-        //   and doesn't reset input_allowed, so we need to explicitly check for neutral position
-        // - neutral position
+        //   and it doesn't reset input_allowed, so we need to explicitly check for neutral joystick position later on
+        // - neutral joystick position
         if (winner_selected != Winner::None && X_CENTER && Y_CENTER)
         {
-            switch (winner_selected)
-            {
-            case Winner::Draw:
-                Serial.print("Draw");
-                break;
-
-            case Winner::First:
-                Serial.print(players[player_index_first]);
-                Serial.print(" won (");
-                Serial.print(fighter_map_selected[fighter_index_first]);
-                Serial.print(")");
-                break;
-
-            case Winner::Second:
-                Serial.print(players[player_index_second]);
-                Serial.print(" won (");
-                Serial.print(fighter_map_selected[fighter_index_second]);
-                Serial.print(")");
-                break;
-            }
-
-            if (not_fair_win)
-            {
-                Serial.print(" (opponent says not fair)");
-            }
-            Serial.println();
+            RecordMatchOutcome();
 
             Serial.println("-> Match");
             screen_selected = Screen::PlayerSelection;
