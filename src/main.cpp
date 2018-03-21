@@ -34,7 +34,7 @@ void setup()
   initRandom();
 
   // For testing
-  //screen_state = Screen::GameSelection;
+  screen_state = Screen::PlayerSelection;
 }
 
 void RandomizerInitScreen()
@@ -77,7 +77,7 @@ void RandomizerInitScreen()
     if (BUTTON_BLACK)
     {
       screen_state = Screen::GameSelection;
-      Serial.println("-> GameSelection");
+      Serial.println("-> Game");
 
       input_allowed = false;
       redraw_needed = true;
@@ -120,7 +120,7 @@ void GameSelectionScreen()
     if (BUTTON_BLACK)
     {
       screen_state = Screen::PlayerSelection;
-      Serial.println("-> PlayerSelection");
+      Serial.println("-> Match");
 
       input_allowed = false;
       redraw_needed = true;
@@ -133,7 +133,6 @@ void PlayerSelectionScreen()
   player_index_first = 0;
   player_index_second = 1;
   screen_state = Screen::FighterSelection;
-  Serial.println("-> FighterSelection");
 }
 
 enum Winner
@@ -187,7 +186,7 @@ void FighterSelectionScreen()
       input_allowed = false;
     }
 
-    if (winner_selected != Winner::None)
+    if (winner_selected != Winner::None && X_CENTER && Y_CENTER)
     {
       switch (winner_selected)
       {
@@ -218,8 +217,8 @@ void FighterSelectionScreen()
       }
       Serial.println();
 
-      screen_state = Screen::FighterSelection;
-      Serial.println("-> FighterSelection");
+      screen_state = Screen::PlayerSelection;
+      Serial.println("-> Match");
 
       input_allowed = false;
       redraw_needed = true;
