@@ -185,6 +185,7 @@ void FighterSelectionScreen()
       redraw_needed = true;
     }
 
+    // After modifier selection disable input so that we don't keep flipping the modifier
     if (Y_DOWN)
     {
       not_fair_win = !not_fair_win;
@@ -192,8 +193,8 @@ void FighterSelectionScreen()
     }
 
     // We need to test for joystick neutral position since event wise it was like this:
-    // - neutral position
-    // - joystick selection, this one doesn't specify final win yet since we may want to cancel this input before completing it
+    // - joystick selection, this one doesn't specify final win yet (since we may want to cancel this input before completing it)
+    //   and doesn't reset input_allowed, so we need to explicitly check for neutral position
     // - neutral position
     if (winner_selected != Winner::None && X_CENTER && Y_CENTER)
     {
@@ -231,30 +232,29 @@ void FighterSelectionScreen()
     }
   }
 
+  // Note that win selection don't reset input_allowed to allow
+  // for choise change without resetting joystick postion to neutral
   if (Y_DOWN)
   {
     winner_selected = Winner::None;
-    Serial.print("Selection: None");
   }
 
   if (Y_UP)
   {
     winner_selected = Winner::Draw;
-    Serial.print("Selection: Draw");
   }
 
   if (X_LEFT)
   {
     winner_selected = Winner::First;
-    Serial.print("Selection: First");
   }
 
   if (X_RIGHT)
   {
     winner_selected = Winner::Second;
-    Serial.print("Selection: Second");
   }
 
+  // LEDs show what the input would be on winner finalization
   digitalWrite(pin_led_green, winner_selected != Winner::None);
   digitalWrite(pin_led_blue, not_fair_win);
 }

@@ -78,7 +78,8 @@ void readInput()
     if (X_CENTER && Y_CENTER && !BUTTON_BLACK && !BUTTON_JOYSTICK)
     {
         // needs to be in this state for at least 100ms
-        // otherwise we may have accidental triggering
+        // otherwise we may have accidental triggering due to electric noise and accidental wire movements
+        // thus all input is done via processInput that measures input persistence against time threshold
         input_allowed = true;
     }
 }
