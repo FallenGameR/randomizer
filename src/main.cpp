@@ -1,21 +1,11 @@
 #include <Arduino.h>
 #include "games\games.h"
+#include "screens\screens.h"
 #include "pins.h"
 #include "random.h"
 #include "input.h"
 #include "players.h"
 #include "fighters.h"
-
-enum Screen
-{
-  RandomizerInit = 0,
-  GameSelection = 1,
-  PlayerSelection = 2,
-  FighterSelection = 3,
-};
-
-int screen_state;
-bool redraw_needed;
 
 void setup()
 {
@@ -29,17 +19,16 @@ void setup()
 
   initRandom();
 
-  redraw_needed = true;
   //Serial.println("-> Init");
-  //screen_state = Screen::RandomizerInit;
+  //screen_selected = Screen::RandomizerInit;
 
   // For testing
-  screen_state = Screen::PlayerSelection;
+  screen_selected = Screen::PlayerSelection;
 }
 
 void RandomizerInitScreen()
 {
-  if (redraw_needed)
+  if (screen_redraw)
   {
     lcd.clear();
     lcd.setCursor(0, 0);
@@ -55,7 +44,7 @@ void RandomizerInitScreen()
     Serial.print("Fairness = ");
     Serial.println(random_fairness);
 
-    redraw_needed = false;
+    screen_redraw = false;
   }
 
   if (input_allowed)
@@ -64,36 +53,36 @@ void RandomizerInitScreen()
     {
       random_fairness = random_fairness + n_players;
       input_allowed = false;
-      redraw_needed = true;
+      screen_redraw = true;
     }
 
     if (X_LEFT)
     {
       random_fairness = random_fairness - n_players;
       input_allowed = false;
-      redraw_needed = true;
+      screen_redraw = true;
     }
 
     if (BUTTON_BLACK)
     {
       Serial.println("-> Game");
-      screen_state = Screen::GameSelection;
+      screen_selected = Screen::GameSelection;
       input_allowed = false;
-      redraw_needed = true;
+      screen_redraw = true;
     }
   }
 }
 
 void GameSelectionScreen()
 {
-  if (redraw_needed)
+  if (screen_redraw)
   {
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print(games[games_index]);
     Serial.println(games[games_index]);
 
-    redraw_needed = false;
+    screen_redraw = false;
   }
 
   if (input_allowed)
@@ -104,7 +93,7 @@ void GameSelectionScreen()
       fighter_map_selected = fighter_map[games_index];
       n_fighter_map_selected = n_fighter_map[games_index];
       input_allowed = false;
-      redraw_needed = true;
+      screen_redraw = true;
     }
 
     if (X_LEFT)
@@ -113,15 +102,15 @@ void GameSelectionScreen()
       fighter_map_selected = fighter_map[games_index];
       n_fighter_map_selected = n_fighter_map[games_index];
       input_allowed = false;
-      redraw_needed = true;
+      screen_redraw = true;
     }
 
     if (BUTTON_BLACK)
     {
       Serial.println("-> Match");
-      screen_state = Screen::PlayerSelection;
+      screen_selected = Screen::PlayerSelection;
       input_allowed = false;
-      redraw_needed = true;
+      screen_redraw = true;
     }
   }
 }
@@ -138,7 +127,7 @@ void PlayerSelectionScreen()
     Serial.println(players[player_index_second]);
   }
 
-  screen_state = Screen::FighterSelection;
+  screen_selected = Screen::FighterSelection;
 }
 
 enum Winner
@@ -154,7 +143,7 @@ bool not_fair_win;
 
 void FighterSelectionScreen()
 {
-  if (redraw_needed)
+  if (screen_redraw)
   {
     fighter_index_first = random(n_fighter_map_selected);
     fighter_index_second = random(n_fighter_map_selected);
@@ -171,7 +160,7 @@ void FighterSelectionScreen()
     Serial.print(" vs ");
     Serial.println(fighter_map_selected[fighter_index_second]);
 
-    redraw_needed = false;
+    screen_redraw = false;
   }
 
   // Means we just were in neutral state and now test for new input
@@ -180,9 +169,9 @@ void FighterSelectionScreen()
     if (BUTTON_BLACK)
     {
       Serial.println("-> Game");
-      screen_state = Screen::GameSelection;
+      screen_selected = Screen::GameSelection;
       input_allowed = false;
-      redraw_needed = true;
+      screen_redraw = true;
     }
 
     // After modifier selection disable input so that we don't keep flipping the modifier
@@ -226,9 +215,9 @@ void FighterSelectionScreen()
       Serial.println();
 
       Serial.println("-> Match");
-      screen_state = Screen::PlayerSelection;
+      screen_selected = Screen::PlayerSelection;
       input_allowed = false;
-      redraw_needed = true;
+      screen_redraw = true;
     }
   }
 
@@ -263,7 +252,7 @@ void loop()
 {
   readInput();
 
-  switch (screen_state)
+  switch (screen_selected)
   {
   case Screen::RandomizerInit:
     RandomizerInitScreen();
