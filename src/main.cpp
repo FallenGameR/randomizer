@@ -92,7 +92,6 @@ void GameSelectionScreen()
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print(games[games_index]);
-    Serial.print("Game: ");
     Serial.println(games[games_index]);
 
     redraw_needed = false;
@@ -164,9 +163,8 @@ void FighterSelectionScreen()
     lcd.setCursor(0, 1);
     lcd.print(fighter_map_selected[fighter_index_second]);
 
-    Serial.print("First: ");
-    Serial.println(fighter_map_selected[fighter_index_first]);
-    Serial.print("Second: ");
+    Serial.print(fighter_map_selected[fighter_index_first]);
+    Serial.print(" vs ");
     Serial.println(fighter_map_selected[fighter_index_second]);
 
     redraw_needed = false;
@@ -191,8 +189,29 @@ void FighterSelectionScreen()
 
     if (winner_selected != Winner::None)
     {
-      Serial.print("Won: ");
-      Serial.print(players[winner_selected]);
+      switch (winner_selected)
+      {
+      case Winner::Draw:
+        Serial.println("Draw");
+        break;
+
+      case Winner::First:
+        Serial.print("Won: ");
+        Serial.print(players[player_index_first]);
+        Serial.print(" (");
+        Serial.print(fighter_map_selected[fighter_index_first]);
+        Serial.print(")");
+        break;
+
+      case Winner::Second:
+        Serial.print("Won: ");
+        Serial.print(players[player_index_second]);
+        Serial.print(" (");
+        Serial.print(fighter_map_selected[fighter_index_second]);
+        Serial.print(")");
+        break;
+      }
+
       if (not_fair_win)
       {
         Serial.print(" (opponent says not fair)");
