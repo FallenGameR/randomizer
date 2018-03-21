@@ -1,5 +1,5 @@
-#ifndef SCREENS_GAME_SELECTION_H
-#define SCREENS_GAME_SELECTION_H
+#ifndef GAME_SELECTION_H
+#define GAME_SELECTION_H
 
 #include "screens.h"
 #include "..\input.h"
@@ -47,4 +47,4 @@ void GameSelectionScreen()
     }
 }
 
-#endif // SCREENS_GAME_SELECTION_H
+#endif // GAME_SELECTION_H

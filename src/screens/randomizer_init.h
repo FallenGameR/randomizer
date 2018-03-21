@@ -1,5 +1,5 @@
-#ifndef SCREENS_RANDOMIZER_INIT_H
-#define SCREENS_RANDOMIZER_INIT_H
+#ifndef RANDOMIZER_INIT_H
+#define RANDOMIZER_INIT_H
 
 #include "screens.h"
 #include "..\random.h"
@@ -53,4 +53,4 @@ void RandomizerInitScreen()
     }
 }
 
-#endif // SCREENS_RANDOMIZER_INIT_H
+#endif // RANDOMIZER_INIT_H
