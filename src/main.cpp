@@ -77,7 +77,7 @@ void RandomizerInitScreen()
     if (BUTTON_BLACK)
     {
       screen_state = Screen::GameSelection;
-      Serial.println("Go to GameSelection");
+      Serial.println("-> GameSelection");
 
       input_allowed = false;
       redraw_needed = true;
@@ -121,7 +121,7 @@ void GameSelectionScreen()
     if (BUTTON_BLACK)
     {
       screen_state = Screen::PlayerSelection;
-      Serial.println("Go to PlayerSelection");
+      Serial.println("-> PlayerSelection");
 
       input_allowed = false;
       redraw_needed = true;
@@ -134,7 +134,7 @@ void PlayerSelectionScreen()
   player_index_first = 0;
   player_index_second = 1;
   screen_state = Screen::FighterSelection;
-  Serial.println("Go to FighterSelection");
+  Serial.println("-> FighterSelection");
 }
 
 enum Winner
@@ -152,6 +152,9 @@ void FighterSelectionScreen()
 {
   if (redraw_needed)
   {
+    winner_selected = Winner::None;
+    not_fair_win = false;
+
     fighter_index_first = random(n_fighter_map_selected);
     fighter_index_second = random(n_fighter_map_selected);
 
@@ -174,11 +177,44 @@ void FighterSelectionScreen()
     if (BUTTON_BLACK)
     {
       screen_state = Screen::GameSelection;
-      Serial.println("Go to GameSelection");
+      Serial.println("-> GameSelection");
 
       input_allowed = false;
       redraw_needed = true;
     }
+
+    if (Y_DOWN)
+    {
+      not_fair_win = !not_fair_win;
+      input_allowed = false;
+    }
+
+    if (winner_selected != Winner::None)
+    {
+      Serial.print("Won: ");
+      Serial.print(players[winner_selected]);
+      if (not_fair_win)
+      {
+        Serial.print(" (opponent says not fair)");
+      }
+      Serial.println();
+
+      screen_state = Screen::FighterSelection;
+      Serial.println("-> FighterSelection");
+
+      input_allowed = false;
+      redraw_needed = true;
+    }
+  }
+
+  if (Y_DOWN)
+  {
+    winner_selected = Winner::None;
+  }
+
+  if (Y_UP)
+  {
+    winner_selected = Winner::Draw;
   }
 
   if (X_LEFT)
@@ -191,35 +227,8 @@ void FighterSelectionScreen()
     winner_selected = Winner::Second;
   }
 
-  if (!X_LEFT && !X_RIGHT && Y_UP)
-  {
-    winner_selected = Winner::Draw;
-  }
-
-  if (Y_DOWN || (X_LEFT && Y_UP) || (X_RIGHT && Y_UP) || (X_LEFT && X_RIGHT))
-  {
-    winner_selected = Winner::None;
-  }
-
-  not_fair_win = Y_DOWN;
-
-  digitalWrite(pin_led_green, X_LEFT || X_RIGHT);
-  digitalWrite(pin_led_blue, Y_DOWN || Y_UP);
-
-  if (winner_selected != Winner::None && X_CENTER && Y_CENTER)
-  {
-    Serial.print("Won: ");
-    Serial.println(winner_selected);
-    Serial.print("Fair: ");
-    Serial.println(!not_fair_win);
-
-    screen_state = Screen::FighterSelection;
-    Serial.println("Go to FighterSelection");
-
-    winner_selected = Winner::None;
-    input_allowed = false;
-    redraw_needed = true;
-  }
+  digitalWrite(pin_led_green, winner_selected != Winner::None);
+  digitalWrite(pin_led_blue, not_fair_win);
 }
 
 void loop()
