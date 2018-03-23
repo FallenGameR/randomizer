@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <Entropy.h>
-#include "pins.h"
 
 int random_seed = 0;
 int random_fairness = 20;
