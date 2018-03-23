@@ -31,10 +31,21 @@ bool not_fair_win;
 
 int match_current = 0;
 const int match_limit = 1000;
-byte coords[match_limit][Stats::Size];
+byte matches[match_limit][Stats::Size];
 
 void RecordMatchOutcome()
 {
+    // Record in the stats table
+    matches[match_current][Stats::FirstPlayer] = player_index_first;
+    matches[match_current][Stats::SecondPlayer] = player_index_second;
+    matches[match_current][Stats::Game] = games_index;
+    matches[match_current][Stats::FirstFighter] = fighter_index_first;
+    matches[match_current][Stats::SecondFighter] = fighter_index_second;
+    matches[match_current][Stats::Won] = winner_selected;
+    matches[match_current][Stats::NotFair] = not_fair_win;
+    match_current++;
+
+    // Output to console
     switch (winner_selected)
     {
     case Winner::Draw:
