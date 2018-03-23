@@ -3,6 +3,7 @@
 
 #include "screens.h"
 #include "..\input.h"
+#include "..\memory.h"
 #include "..\games\games.h"
 
 void GameSelectionScreen()
@@ -11,8 +12,9 @@ void GameSelectionScreen()
     {
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print(games[games_index]);
-        Serial.println(games[games_index]);
+
+        LCD_PRINT(games, games_index);
+        SERIAL_PRINT_LN(games, games_index);
 
         screen_redraw = false;
     }

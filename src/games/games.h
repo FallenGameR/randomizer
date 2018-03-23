@@ -4,10 +4,23 @@
 #include "tekken7.h"
 #include "doa5.h"
 
+const char games_0[] PROGMEM = "Tekken 7";
+const char games_1[] PROGMEM = "Dead or Alive 5";
+
+const char *const games[] PROGMEM = {
+    games_0,
+    games_1,
+};
+
+// LCD width + 1 for null
+char buffer[17];
+
+/*
 const char *games[] = {
     "Tekken 7",
     "Dead or Alive 5",
 };
+/**/
 
 #define n_games (sizeof(games) / sizeof(const char *))
 
@@ -27,3 +40,6 @@ const char **fighter_map_selected = tekken7;
 int n_fighter_map_selected = n_tekken7;
 
 #endif // GAMES_H
+
+// 7750 7752
+// 1279 1251

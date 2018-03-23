@@ -1,0 +1,24 @@
+#ifndef MEMORY_H
+#define MEMORY_H
+
+// We move as much constant strings to program memory as possible to
+// free up very limited 2k of space used for variables and stats table
+// https://www.arduino.cc/reference/en/language/variables/utilities/progmem/
+
+#define LCD_PRINT(table, index)                               \
+    strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
+    lcd.print(buffer);
+
+#define LCD_PRINT_LN(table, index)                            \
+    strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
+    lcd.println(buffer);
+
+#define SERIAL_PRINT(table, index)                            \
+    strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
+    Serial.print(buffer);
+
+#define SERIAL_PRINT_LN(table, index)                         \
+    strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
+    Serial.println(buffer);
+
+#endif // MEMORY_H
