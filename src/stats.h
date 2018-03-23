@@ -83,17 +83,24 @@ void DumpStats()
     }
 
     Serial.println("FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Won,NotFair");
-
-/*
-    matches[match_current][Stats::FirstPlayer] = player_index_first;
-    matches[match_current][Stats::SecondPlayer] = player_index_second;
-    matches[match_current][Stats::Game] = games_index;
-    matches[match_current][Stats::FirstFighter] = fighter_index_first;
-    matches[match_current][Stats::SecondFighter] = fighter_index_second;
-    matches[match_current][Stats::Won] = winner_selected;
-    matches[match_current][Stats::NotFair] = not_fair_win;
+    for (int i = 0; i < match_current; i++)
+    {
+        Serial.print(matches[i][Stats::FirstPlayer]);
+        Serial.print(",");
+        Serial.print(matches[i][Stats::SecondPlayer]);
+        Serial.print(",");
+        Serial.print(matches[i][Stats::Game]);
+        Serial.print(",");
+        Serial.print(matches[i][Stats::FirstFighter]);
+        Serial.print(",");
+        Serial.print(matches[i][Stats::SecondFighter]);
+        Serial.print(",");
+        Serial.print(matches[i][Stats::Won]);
+        Serial.print(",");
+        Serial.print(matches[i][Stats::NotFair]);
+        Serial.print(",");
     Serial.println();
-    /**/
+    }
 }
 
 #endif // STATS_H
