@@ -1,7 +1,7 @@
 #ifndef DOA5_H
 #define DOA5_H
 
-// Using PROGMEM here to save some spavce for variables
+// Using PROGMEM here to save some space for variables
 
 const char doa5_AkiraYuki[] PROGMEM = "Akira Yuki";
 const char doa5_Alpha152[] PROGMEM = "Alpha-152";
@@ -61,7 +61,7 @@ const char *const doa5[] PROGMEM = {
     doa5_Kokoro,
     doa5_Leifang,
     doa5_Leon,
-    doa5_LisaHamilton,  // La Mariposa = Butterfly
+    doa5_LisaHamilton, // La Mariposa = Butterfly
     doa5_MaiShiranui,
     doa5_MarieRose,
     doa5_Mila,

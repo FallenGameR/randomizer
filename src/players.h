@@ -1,7 +1,7 @@
 #ifndef PLAYERS_H
 #define PLAYERS_H
 
-// Using PROGMEM here to save some spavce for variables
+// Using PROGMEM here to save some space for variables
 
 const char players_FallenGameR[] PROGMEM = "FallenGameR";
 const char players_Pobeditel[] PROGMEM = "Pobeditel";
