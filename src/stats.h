@@ -98,7 +98,7 @@ void DumpStats()
     {
         const char *const *fighterMap = fighter_map[matches[i][Stats::Game]];
 
-        Serial.print(i + 1));
+        Serial.print(i + 1);
         Serial.print(F(","));
         SERIAL_PRINT(players, matches[i][Stats::FirstPlayer]);
         Serial.print(F(","));
