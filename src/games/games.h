@@ -4,8 +4,11 @@
 #include "tekken7.h"
 #include "doa5.h"
 
+// Using PROGMEM here to save some spavce for variables
+
 const char games_Tekken7[] PROGMEM = "Tekken 7";
 const char games_DeadOrAlive5[] PROGMEM = "Dead or Alive 5";
+
 const char *const games[] PROGMEM = {
     games_Tekken7,
     games_DeadOrAlive5,
