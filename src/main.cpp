@@ -7,7 +7,6 @@ void setup()
 {
   Serial.begin(9600);
 
-
   pinMode(pin_led_green, OUTPUT);
   pinMode(pin_led_blue, OUTPUT);
   pinMode(pin_button_black, INPUT_PULLUP);
