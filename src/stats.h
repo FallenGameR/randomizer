@@ -93,11 +93,13 @@ void DumpStats()
         return;
     }
 
-    Serial.println(F("FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Winner,Fair"));
+    Serial.println(F("Match,FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Winner,Fair"));
     for (int i = 0; i < match_current; i++)
     {
         const char *const *fighterMap = fighter_map[matches[i][Stats::Game]];
 
+        Serial.print(i + 1));
+        Serial.print(F(","));
         SERIAL_PRINT(players, matches[i][Stats::FirstPlayer]);
         Serial.print(F(","));
         SERIAL_PRINT(players, matches[i][Stats::SecondPlayer]);
