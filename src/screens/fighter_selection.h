@@ -4,6 +4,7 @@
 #include "screens.h"
 #include "..\input.h"
 #include "..\stats.h"
+#include "..\memory.h"
 
 void FighterSelectionScreen()
 {
@@ -16,13 +17,13 @@ void FighterSelectionScreen()
 
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print(fighter_map_selected[fighter_index_first]);
+        LCD_PRINT(fighter_map_selected, fighter_index_first);
         lcd.setCursor(0, 1);
-        lcd.print(fighter_map_selected[fighter_index_second]);
+        LCD_PRINT(fighter_map_selected, fighter_index_second);
 
-        Serial.print(fighter_map_selected[fighter_index_first]);
+        SERIAL_PRINT(fighter_map_selected, fighter_index_first);
         Serial.print(F(" vs "));
-        Serial.println(fighter_map_selected[fighter_index_second]);
+        SERIAL_PRINT(fighter_map_selected, fighter_index_second);
 
         screen_redraw = false;
     }
