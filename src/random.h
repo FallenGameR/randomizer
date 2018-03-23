@@ -2,26 +2,16 @@
 #define RANDOM_H
 
 #include <Arduino.h>
+#include <Entropy.h>
 #include "pins.h"
 
 int random_seed = 0;
 int random_fairness = 20;
 
-// http://planetmath.org/goodhashtableprimes
-int getRandomSeedFromAnalogNoise()
-{
-    return analogRead(0) * 53 +
-           analogRead(1) * 97 +
-           analogRead(2) * 193 +
-           analogRead(3) * 389 +
-           analogRead(4) * 769 +
-           analogRead(5) * 1543 +
-           micros() * 3079;
-}
-
 void initRandom()
 {
-    random_seed = getRandomSeedFromAnalogNoise();
+    Entropy.Initialize();
+    random_seed = Entropy.random();
     randomSeed(random_seed);
 }
 
