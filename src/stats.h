@@ -38,7 +38,7 @@ bool not_fair_win;
 //      Data : 1978 bytes(96.6 % Full)(.data +.bss +.noinit)
 const int match_limit = 80;
 int match_current = 0;
-byte matches[match_limit][Stats::Size];
+byte matches[1][Stats::Size];
 
 void RecordMatchOutcome()
 {
