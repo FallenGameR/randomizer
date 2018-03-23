@@ -1,0 +1,36 @@
+Match,FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Winner,Fair
+1,FallenGameR,Pobeditel,Tekken 7,Devil Jin,Devil Jin,FallenGameR,true
+2,FallenGameR,Pobeditel,Tekken 7,Ling Xiaoyu,Claudio Serafino,FallenGameR,false
+3,FallenGameR,Pobeditel,Tekken 7,Gigas,Heihachi Mishima,FallenGameR,false
+4,FallenGameR,Pobeditel,Tekken 7,Eddy Gordo,Shaheen,FallenGameR,true
+5,FallenGameR,Pobeditel,Tekken 7,King,Josie Rizal,FallenGameR,true
+6,FallenGameR,Pobeditel,Tekken 7,Eliza,Noctis Lucis,Pobeditel,true
+7,FallenGameR,Pobeditel,Tekken 7,Miguel,Geese Howard,FallenGameR,true
+8,FallenGameR,Pobeditel,Tekken 7,Josie Rizal,Gigas,Pobeditel,true
+9,FallenGameR,Pobeditel,Tekken 7,Lili,Bryan Fury,Pobeditel,true
+10,FallenGameR,Pobeditel,Tekken 7,Ling Xiaoyu,Shaheen,Pobeditel,true
+11,FallenGameR,Pobeditel,Tekken 7,Nina Williams,Bryan Fury,FallenGameR,true
+12,FallenGameR,Pobeditel,Tekken 7,Jack-7,Josie Rizal,FallenGameR,true
+13,FallenGameR,Pobeditel,Tekken 7,Miguel,Bryan Fury,FallenGameR,true
+14,FallenGameR,Pobeditel,Tekken 7,Ling Xiaoyu,Paul Phoenix,FallenGameR,true
+15,FallenGameR,Pobeditel,Tekken 7,Panda,Marshall Law,FallenGameR,true
+16,FallenGameR,Pobeditel,Tekken 7,Josie Rizal,Marshall Law,Pobeditel,true
+17,FallenGameR,Pobeditel,Tekken 7,Nina Williams,Devil Jin,Pobeditel,true
+18,FallenGameR,Pobeditel,Tekken 7,Shaheen,Josie Rizal,FallenGameR,true
+19,FallenGameR,Pobeditel,Dead or Alive 5,Ayane,Akira Yuki,Pobeditel,true
+20,FallenGameR,Pobeditel,Dead or Alive 5,Mila,Honoka,Pobeditel,true
+21,FallenGameR,Pobeditel,Dead or Alive 5,Mai Shiranui,Naotora Ii,FallenGameR,true
+22,FallenGameR,Pobeditel,Dead or Alive 5,Raidou,Raidou,FallenGameR,true
+23,FallenGameR,Pobeditel,Dead or Alive 5,Mila,Leon,FallenGameR,true
+24,FallenGameR,Pobeditel,Dead or Alive 5,Helena Douglas,Brad Wong,Pobeditel,true
+25,FallenGameR,Pobeditel,Dead or Alive 5,Bass Armstrong,Pai Chan,FallenGameR,false
+26,FallenGameR,Pobeditel,Dead or Alive 5,Pai Chan,Raidou,Pobeditel,true
+27,FallenGameR,Pobeditel,Dead or Alive 5,Eliot,Gen Fu,FallenGameR,true
+28,FallenGameR,Pobeditel,Dead or Alive 5,Rachel,Sarah Bryant,Pobeditel,true
+29,FallenGameR,Pobeditel,Dead or Alive 5,Zack,Momiji,FallenGameR,true
+30,FallenGameR,Pobeditel,Dead or Alive 5,Tina Armstrong,Eliot,Pobeditel,false
+31,FallenGameR,Pobeditel,Dead or Alive 5,Phase 4,Lisa Hamilton,Pobeditel,true
+32,FallenGameR,Pobeditel,Dead or Alive 5,Leon,Eliot,FallenGameR,true
+33,FallenGameR,Pobeditel,Dead or Alive 5,Phase 4,Naotora Ii,Pobeditel,true
+34,FallenGameR,Pobeditel,Dead or Alive 5,Marie Rose,Gen Fu,Pobeditel,true
+35,FallenGameR,Pobeditel,Dead or Alive 5,Ein,Akira Yuki,Pobeditel,true
