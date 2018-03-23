@@ -35,7 +35,7 @@ bool not_fair_win;
 // 150 matches lead to buggy behaviour
 //      Device : atmega328p
 //      Program:    7714 bytes (23.5% Full)
-//      Data:       1523 bytes (74.4% Full)
+//      Data:       1451 bytes (70.8% Full)
 
 const int match_limit = 150;
 int match_current = 0;
@@ -93,7 +93,7 @@ void DumpStats()
         return;
     }
 
-    Serial.println(F("FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Won,NotFair"));
+    Serial.println(F("FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Winner,Fair"));
     for (int i = 0; i < match_current; i++)
     {
         const char *const *fighterMap = fighter_map[matches[i][Stats::Game]];
@@ -108,9 +108,36 @@ void DumpStats()
         Serial.print(F(","));
         SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter]);
         Serial.print(F(","));
-        Serial.print(matches[i][Stats::Won]);
+
+        switch (matches[i][Stats::Won])
+        {
+        case Winner::None:
+            Serial.print(F("None"));
+            break;
+
+        case Winner::First:
+            SERIAL_PRINT(players, matches[i][Stats::FirstPlayer]);
+            break;
+
+        case Winner::Second:
+            SERIAL_PRINT(players, matches[i][Stats::SecondPlayer]);
+            break;
+
+        case Winner::Draw:
+            Serial.print(F("Draw"));
+            break;
+        }
         Serial.print(F(","));
-        Serial.print(matches[i][Stats::NotFair]);
+
+        if (matches[i][Stats::NotFair])
+        {
+            Serial.print(F("false"));
+        }
+        else
+        {
+            Serial.print(F("true"));
+        }
+
         Serial.println();
     }
 }
