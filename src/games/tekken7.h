@@ -40,7 +40,7 @@ const char tekken7_Panda[] PROGMEM = "Panda";
 const char tekken7_PaulPhoenix[] PROGMEM = "Paul Phoenix";
 const char tekken7_Shaheen[] PROGMEM = "Shaheen";
 
-const char *const tekken7[] = {
+const char *const tekken7[] PROGMEM = {
     tekken7_Akuma,
     tekken7_Alisa,
     tekken7_AsukaKazama,
