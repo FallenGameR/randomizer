@@ -1,10 +1,7 @@
 <#
-Players
-    + Fighters?
-Pairs
-Chairs
-
-Fairness division across all results
+How often player wins with a character?
+How often there is a fair play for a player?
+Are characters evenly distributed?
 #>
 
 function Get-MatchResults( $info, $condition, $oposite )
@@ -18,11 +15,8 @@ function Get-MatchResults( $info, $condition, $oposite )
     "    {0,2} | {1,2} | {2,2}   <{3,2}>  $info" -f $isTrue, $isFalse, $isDraw, $relevantMatches.Count
 }
 
-function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\data\sample.csv" )
+function Show-PlayersStats( $history, $players )
 {
-    $history = Import-Csv $path
-    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
-
     ""
     Write-Host "Players" -fore DarkYellow
 
@@ -34,7 +28,10 @@ function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\d
             {$_.Winner -eq $player} `
             {($_.Winner -ne $player) -and ($_.Winner -ne "draw")}
     }
+}
 
+function Show-PairsStats( $history, $players )
+{
     ""
     Write-Host "Pairs" -fore DarkYellow
 
@@ -50,7 +47,10 @@ function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\d
             $relevantMatches | Get-MatchResults "$player vs $partner" {$_.Winner -eq $player} {$_.Winner -eq $partner}
         }
     }
+}
 
+function Show-ChairsStats( $history, $players )
+{
     ""
     Write-Host "Chairs" -fore DarkYellow
 
@@ -77,5 +77,15 @@ function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\d
         " $info"
     }
     ""
+}
+
+function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\data\sample.csv" )
+{
+    $history = Import-Csv $path
+    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
+
+    Show-PlayersStats $history $players
+    Show-PairsStats $history $players
+    Show-ChairsStats $history $players
 }
 
