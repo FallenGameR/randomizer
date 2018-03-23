@@ -26,7 +26,7 @@ enum Stats
     Size,
 };
 
-int winner_selected;
+byte winner_selected;
 bool not_fair_win;
 
 // Arduino UNO is at the capacity data-wise.

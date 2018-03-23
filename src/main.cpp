@@ -28,9 +28,6 @@ void setup()
   //screen_selected = Screen::PlayerSelection;
 }
 
-int iteration = 0;
-int maxIterations = 1000;
-
 void loop()
 {
   readInput();
