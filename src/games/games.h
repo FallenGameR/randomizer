@@ -18,7 +18,7 @@ const char *const games[] PROGMEM = {
 
 int games_index = 0;
 
-const char **fighter_map[] = {
+const char *const *fighter_map[] = {
     tekken7,
     doa5,
 };
@@ -28,10 +28,7 @@ const byte n_fighter_map[] = {
     n_doa5,
 };
 
-const char **fighter_map_selected = tekken7;
+const char *const *fighter_map_selected = tekken7;
 byte n_fighter_map_selected = n_tekken7;
 
 #endif // GAMES_H
-
-// 7750 7752
-// 1279 1251
