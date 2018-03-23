@@ -1,9 +1,11 @@
 #ifndef PLAYERS_H
 #define PLAYERS_H
 
-const char *players[] = {
-    "FallenGameR",
-    "Pobeditel",
+const char players_FallenGameR[] PROGMEM = "FallenGameR";
+const char players_Pobeditel[] PROGMEM = "Pobeditel";
+const char *const players[] PROGMEM = {
+    players_FallenGameR,
+    players_Pobeditel,
 };
 
 #define n_players (sizeof(players) / sizeof(const char *))

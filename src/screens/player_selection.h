@@ -4,6 +4,7 @@
 #include "screens.h"
 #include "..\input.h"
 #include "..\players.h"
+#include "..\memory.h"
 
 void PlayerSelectionScreen()
 {
@@ -12,9 +13,10 @@ void PlayerSelectionScreen()
 
     if (n_players > 2)
     {
-        Serial.print(players[player_index_first]);
+        SERIAL_PRINT(players, player_index_first);
         Serial.print(F(" and "));
-        Serial.println(players[player_index_second]);
+        SERIAL_PRINT(players, player_index_second);
+        Serial.println();
     }
 
     screen_selected = Screen::FighterSelection;

@@ -63,14 +63,14 @@ void RecordMatchOutcome()
         break;
 
     case Winner::First:
-        Serial.print(players[player_index_first]);
+        SERIAL_PRINT(players, player_index_first);
         Serial.print(F(" won ("));
         Serial.print(fighter_map_selected[fighter_index_first]);
         Serial.print(F(")"));
         break;
 
     case Winner::Second:
-        Serial.print(players[player_index_second]);
+        SERIAL_PRINT(players, player_index_second);
         Serial.print(F(" won ("));
         Serial.print(fighter_map_selected[fighter_index_second]);
         Serial.print(F(")"));

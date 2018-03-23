@@ -4,11 +4,11 @@
 #include "tekken7.h"
 #include "doa5.h"
 
-const char games_0[] PROGMEM = "Tekken 7";
-const char games_1[] PROGMEM = "Dead or Alive 5";
+const char games_Tekken7[] PROGMEM = "Tekken 7";
+const char games_DeadOrAlive5[] PROGMEM = "Dead or Alive 5";
 const char *const games[] PROGMEM = {
-    games_0,
-    games_1,
+    games_Tekken7,
+    games_DeadOrAlive5,
 };
 
 #define n_games (sizeof(games) / sizeof(const char *))
