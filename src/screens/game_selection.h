@@ -39,6 +39,8 @@ void GameSelectionScreen()
             screen_redraw = true;
         }
 
+        // Some bug here - exists on double press after start
+        
         if (BUTTON_BLACK)
         {
             Serial.println(F("-> Match"));

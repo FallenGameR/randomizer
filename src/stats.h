@@ -32,6 +32,7 @@ bool not_fair_win;
 
 // Arduino UNO is short on data memory even when we move all static strings into PROGMEM.
 // 150 matches is ok since practically we didn't do more than 60 in one day.
+// 150 matches lead to buggy behaviour
 //      Device : atmega328p
 //      Program:    7714 bytes (23.5% Full)
 //      Data:       1523 bytes (74.4% Full)
@@ -95,20 +96,21 @@ void DumpStats()
     Serial.println(F("FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Won,NotFair"));
     for (int i = 0; i < match_current; i++)
     {
-        Serial.print(matches[i][Stats::FirstPlayer]);
+        const char *const *fighterMap = fighter_map[matches[i][Stats::Game]];
+
+        SERIAL_PRINT(players, matches[i][Stats::FirstPlayer]);
         Serial.print(F(","));
-        Serial.print(matches[i][Stats::SecondPlayer]);
+        SERIAL_PRINT(players, matches[i][Stats::SecondPlayer]);
         Serial.print(F(","));
-        Serial.print(matches[i][Stats::Game]);
+        SERIAL_PRINT(games, matches[i][Stats::Game]);
         Serial.print(F(","));
-        Serial.print(matches[i][Stats::FirstFighter]);
+        SERIAL_PRINT(fighterMap, matches[i][Stats::FirstFighter]);
         Serial.print(F(","));
-        Serial.print(matches[i][Stats::SecondFighter]);
+        SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter]);
         Serial.print(F(","));
         Serial.print(matches[i][Stats::Won]);
         Serial.print(F(","));
         Serial.print(matches[i][Stats::NotFair]);
-        Serial.print(F(","));
         Serial.println();
     }
 }
