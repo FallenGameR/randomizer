@@ -24,6 +24,7 @@ void FighterSelectionScreen()
         SERIAL_PRINT(fighter_map_selected, fighter_index_first);
         Serial.print(F(" vs "));
         SERIAL_PRINT(fighter_map_selected, fighter_index_second);
+        Serial.println();
 
         screen_redraw = false;
     }

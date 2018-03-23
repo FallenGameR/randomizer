@@ -5,6 +5,7 @@
 #include "games\games.h"
 #include "players.h"
 #include "fighters.h"
+#include "memory.h"
 
 enum Winner
 {
