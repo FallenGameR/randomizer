@@ -74,4 +74,26 @@ void RecordMatchOutcome()
     Serial.println();
 }
 
+void DumpStats()
+{
+    if (match_current == 0)
+    {
+        Serial.println("No stats available");
+        return;
+    }
+
+    Serial.println("FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Won,NotFair");
+
+/*
+    matches[match_current][Stats::FirstPlayer] = player_index_first;
+    matches[match_current][Stats::SecondPlayer] = player_index_second;
+    matches[match_current][Stats::Game] = games_index;
+    matches[match_current][Stats::FirstFighter] = fighter_index_first;
+    matches[match_current][Stats::SecondFighter] = fighter_index_second;
+    matches[match_current][Stats::Won] = winner_selected;
+    matches[match_current][Stats::NotFair] = not_fair_win;
+    Serial.println();
+    /**/
+}
+
 #endif // STATS_H
