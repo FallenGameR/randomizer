@@ -3,50 +3,7 @@
 
 #include "screens.h"
 #include "..\input.h"
-#include "..\fighters.h"
-#include "..\players.h"
-#include "..\games\games.h"
-
-enum Winner
-{
-    None,
-    First,
-    Second,
-    Draw,
-};
-
-int winner_selected;
-bool not_fair_win;
-
-void RecordMatchOutcome()
-{
-    switch (winner_selected)
-    {
-    case Winner::Draw:
-        Serial.print("Draw");
-        break;
-
-    case Winner::First:
-        Serial.print(players[player_index_first]);
-        Serial.print(" won (");
-        Serial.print(fighter_map_selected[fighter_index_first]);
-        Serial.print(")");
-        break;
-
-    case Winner::Second:
-        Serial.print(players[player_index_second]);
-        Serial.print(" won (");
-        Serial.print(fighter_map_selected[fighter_index_second]);
-        Serial.print(")");
-        break;
-    }
-
-    if (not_fair_win)
-    {
-        Serial.print(" (opponent says not fair)");
-    }
-    Serial.println();
-}
+#include "..\stats.h"
 
 void FighterSelectionScreen()
 {

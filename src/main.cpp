@@ -2,6 +2,7 @@
 #include "screens\game_selection.h"
 #include "screens\player_selection.h"
 #include "screens\fighter_selection.h"
+#include "stats.h"
 
 void setup()
 {
