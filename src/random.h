@@ -15,7 +15,8 @@ int getRandomSeedFromAnalogNoise()
            analogRead(2) * 193 +
            analogRead(3) * 389 +
            analogRead(4) * 769 +
-           analogRead(5) * 1543;
+           analogRead(5) * 1543 +
+           micros() * 3079;
 }
 
 void initRandom()
