@@ -21,7 +21,7 @@ void FighterSelectionScreen()
         lcd.print(fighter_map_selected[fighter_index_second]);
 
         Serial.print(fighter_map_selected[fighter_index_first]);
-        Serial.print(" vs ");
+        Serial.print(F(" vs "));
         Serial.println(fighter_map_selected[fighter_index_second]);
 
         screen_redraw = false;
@@ -33,7 +33,7 @@ void FighterSelectionScreen()
         // Black button returns to games selection without chosing of winner
         if (BUTTON_BLACK)
         {
-            Serial.println("-> Game");
+            Serial.println(F("-> Game"));
             screen_selected = Screen::GameSelection;
             input_allowed = false;
             screen_redraw = true;
@@ -54,7 +54,7 @@ void FighterSelectionScreen()
         {
             RecordMatchOutcome();
 
-            Serial.println("-> Match");
+            Serial.println(F("-> Match"));
             screen_selected = Screen::PlayerSelection;
             input_allowed = false;
             screen_redraw = true;

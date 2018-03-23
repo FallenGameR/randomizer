@@ -13,7 +13,7 @@ void PlayerSelectionScreen()
     if (n_players > 2)
     {
         Serial.print(players[player_index_first]);
-        Serial.print(" and ");
+        Serial.print(F(" and "));
         Serial.println(players[player_index_second]);
     }
 

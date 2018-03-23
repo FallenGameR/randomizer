@@ -59,27 +59,27 @@ void RecordMatchOutcome()
     switch (winner_selected)
     {
     case Winner::Draw:
-        Serial.print("Draw");
+        Serial.print(F("Draw"));
         break;
 
     case Winner::First:
         Serial.print(players[player_index_first]);
-        Serial.print(" won (");
+        Serial.print(F(" won ("));
         Serial.print(fighter_map_selected[fighter_index_first]);
-        Serial.print(")");
+        Serial.print(F(")"));
         break;
 
     case Winner::Second:
         Serial.print(players[player_index_second]);
-        Serial.print(" won (");
+        Serial.print(F(" won ("));
         Serial.print(fighter_map_selected[fighter_index_second]);
-        Serial.print(")");
+        Serial.print(F(")"));
         break;
     }
 
     if (not_fair_win)
     {
-        Serial.print(" (opponent says not fair)");
+        Serial.print(F(" (opponent says not fair)"));
     }
     Serial.println();
 }
@@ -88,27 +88,27 @@ void DumpStats()
 {
     if (match_current == 0)
     {
-        Serial.println("No stats available");
+        Serial.println(F("No stats available"));
         return;
     }
 
-    Serial.println("FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Won,NotFair");
+    Serial.println(F("FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Won,NotFair"));
     for (int i = 0; i < match_current; i++)
     {
         Serial.print(matches[i][Stats::FirstPlayer]);
-        Serial.print(",");
+        Serial.print(F(","));
         Serial.print(matches[i][Stats::SecondPlayer]);
-        Serial.print(",");
+        Serial.print(F(","));
         Serial.print(matches[i][Stats::Game]);
-        Serial.print(",");
+        Serial.print(F(","));
         Serial.print(matches[i][Stats::FirstFighter]);
-        Serial.print(",");
+        Serial.print(F(","));
         Serial.print(matches[i][Stats::SecondFighter]);
-        Serial.print(",");
+        Serial.print(F(","));
         Serial.print(matches[i][Stats::Won]);
-        Serial.print(",");
+        Serial.print(F(","));
         Serial.print(matches[i][Stats::NotFair]);
-        Serial.print(",");
+        Serial.print(F(","));
         Serial.println();
     }
 }

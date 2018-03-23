@@ -18,10 +18,10 @@ void setup()
   lcd.setCursor(0, 0);
   lcd.print(F("Initializing"));
   lcd.setCursor(0, 1);
-  lcd.print("Entropy");
+  lcd.print(F("Entropy"));
   initRandom();
 
-  Serial.println("-> Init");
+  Serial.println(F("-> Init"));
   screen_selected = Screen::RandomizerInit;
 
   // For testing

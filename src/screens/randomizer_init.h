@@ -14,16 +14,16 @@ void RandomizerInitScreen()
     {
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print("Randomizer ");
+        lcd.print(F("Randomizer "));
         lcd.setCursor(0, 1);
-        lcd.print("S ");
+        lcd.print(F("S "));
         lcd.print(random_seed);
-        lcd.print(" F ");
+        lcd.print(F(" F "));
         lcd.print(random_fairness);
 
-        Serial.print("Seed = ");
+        Serial.print(F("Seed = "));
         Serial.println(random_seed);
-        Serial.print("Fairness = ");
+        Serial.print(F("Fairness = "));
         Serial.println(random_fairness);
 
         screen_redraw = false;
@@ -32,17 +32,17 @@ void RandomizerInitScreen()
     if (partial_redraw)
     {
         lcd.setCursor(0, 1);
-        lcd.print("                ");
+        lcd.print(F("                "));
 
         lcd.setCursor(0, 1);
-        lcd.print("S ");
+        lcd.print(F("S "));
         lcd.print(random_seed);
-        lcd.print(" F ");
+        lcd.print(F(" F "));
         lcd.print(random_fairness);
 
-        Serial.print("Seed = ");
+        Serial.print(F("Seed = "));
         Serial.println(random_seed);
-        Serial.print("Fairness = ");
+        Serial.print(F("Fairness = "));
         Serial.println(random_fairness);
 
         partial_redraw = false;
@@ -66,7 +66,7 @@ void RandomizerInitScreen()
 
         if (BUTTON_BLACK)
         {
-            Serial.println("-> Game");
+            Serial.println(F("-> Game"));
             screen_selected = Screen::GameSelection;
             input_allowed = false;
             screen_redraw = true;

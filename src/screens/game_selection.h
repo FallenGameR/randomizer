@@ -39,7 +39,7 @@ void GameSelectionScreen()
 
         if (BUTTON_BLACK)
         {
-            Serial.println("-> Match");
+            Serial.println(F("-> Match"));
             screen_selected = Screen::PlayerSelection;
             input_allowed = false;
             screen_redraw = true;
