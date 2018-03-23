@@ -41,6 +41,14 @@ void FighterSelectionScreen()
             screen_redraw = true;
         }
 
+        // Joystick button prints the current stats
+        if (BUTTON_JOYSTICK)
+        {
+            Serial.println(F("[Stats]"));
+            DumpStats();
+            input_allowed = false;
+        }
+
         // After fairness modifier switch disable the input so that we don't keep flipping the modifier
         if (Y_DOWN)
         {

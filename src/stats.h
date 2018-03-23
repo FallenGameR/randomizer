@@ -30,16 +30,15 @@ enum Stats
 byte winner_selected;
 bool not_fair_win;
 
-// Arduino UNO is at the capacity data-wise.
-// 80 matches is ok since practically we didn't do more than 60.
-// But if there is a way to use Program memory to store this data (place
-// array on stack?) then we should be able to increase the capacity x10.
+// Arduino UNO is short on data memory even when we move all static strings into PROGMEM.
+// 150 matches is ok since practically we didn't do more than 60 in one day.
 //      Device : atmega328p
-//      Program : 7560 bytes(23.1 % Full)(.text +.data +.bootloader)
-//      Data : 1978 bytes(96.6 % Full)(.data +.bss +.noinit)
-const int match_limit = 80;
+//      Program:    7714 bytes (23.5% Full)
+//      Data:       1523 bytes (74.4% Full)
+
+const int match_limit = 150;
 int match_current = 0;
-byte matches[1][Stats::Size];
+byte matches[match_limit][Stats::Size];
 
 void RecordMatchOutcome()
 {
