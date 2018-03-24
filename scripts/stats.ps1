@@ -19,7 +19,7 @@ function Show-PlayersStats( $history, $players )
 {
     ""
     Write-Host "Players" -fore DarkYellow
-    Write-Host "   wins fail draw  total" -fore DarkCyan
+    Write-Host "   win  fail draw  total" -fore DarkCyan
 
     foreach( $player in $players )
     {
@@ -35,6 +35,8 @@ function Show-FighterStats( $history )
 {
     ""
     Write-Host "Fighters" -fore DarkYellow
+    Write-Host "   win  fail draw  total" -fore DarkCyan
+
     $fighters = $history.FirstFighter + $history.SecondFighter | sort -Unique
 
     foreach( $fighter in $fighters )
@@ -51,6 +53,7 @@ function Show-PairsStats( $history, $players )
 {
     ""
     Write-Host "Pairs" -fore DarkYellow
+    Write-Host "   win1 win2 draw  total" -fore DarkCyan
 
     $set = $players
     foreach( $player in $players )
@@ -70,6 +73,7 @@ function Show-ChairsStats( $history, $players )
 {
     ""
     Write-Host "Chairs" -fore DarkYellow
+    Write-Host "   win  fail draw  total" -fore DarkCyan
 
     $history | Get-MatchResults "First chair" {$_.Winner -eq $_.FirstPlayer} {$_.Winner -eq $_.SecondPlayer}
     foreach( $player in $players )
