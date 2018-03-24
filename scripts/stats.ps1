@@ -15,6 +15,27 @@ function Get-MatchResults( $info, $condition, $oposite )
     "    {0,2} | {1,2} | {2,2}    {3,2}   $info" -f $isTrue, $isFalse, $isDraw, ($isTrue + $isFalse + $isDraw)
 }
 
+
+function Draw-ResultRow( $wins, $fair, $fail, $draw, $name )
+{
+    $relevantMatches = @($input)
+
+    $isWin = $relevantMatches | where $wins | measure | % Count
+    $isFairWin = $relevantMatches | where $fair | measure | % Count
+    $isFail = $relevantMatches | where $fail | measure | % Count
+    $isDraw = $relevantMatches | where $draw | measure | % Count
+    $total = $isWin + $isFail + $isDraw
+
+    if( $fair )
+    {
+        "    {0,2}/{1,2} | {2,2} | {3,2}    {4,2}   $name" -f $isWin, $isFairWin, $isFail, $isDraw, $total
+    }
+    else
+    {
+        "    {0,2} | {1,2} | {2,2}    {3,2}   $name" -f $isWin, $isFail, $isDraw, $total
+    }
+}
+
 function Show-PlayersStats( $history, $players )
 {
     ""
