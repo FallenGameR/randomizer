@@ -15,24 +15,17 @@ function Get-MatchResults( $info, $condition, $oposite )
     "    {0,2} | {1,2} | {2,2}    {3,2}   $info" -f $isTrue, $isFalse, $isDraw, ($isTrue + $isFalse + $isDraw)
 }
 
-function Draw-ResultRow( $wins, $fair, $fail, $draw, $name )
+function Draw-ResultRow( $wins, $loose, $draw, $name )
 {
     $relevantMatches = @($input)
 
     $isWin = $relevantMatches | where $wins | measure | % Count
-    $isFairWin = $relevantMatches | where $fair | measure | % Count
-    $isFail = $relevantMatches | where $fail | measure | % Count
+    $isFairWin = $relevantMatches | where $wins | where{ $_.Fair -eq "true" } | measure | % Count
+    $isLoose = $relevantMatches | where $loose | measure | % Count
     $isDraw = $relevantMatches | where $draw | measure | % Count
-    $total = $isWin + $isFail + $isDraw
+    $total = $isWin + $isLoose + $isDraw
 
-    if( $fair )
-    {
-        "    {0,2}/{1,2}     {2,2}   {3,2}    {4,2}    $name" -f $isWin, $isFairWin, $isFail, $isDraw, $total
-    }
-    else
-    {
-        "    {0,2}        {1,2}   {2,2}    {3,2}    $name" -f $isWin, $isFail, $isDraw, $total
-    }
+    "    {0,2}/{1,-2}  {2,2}   {3,2}    {4,2}    $name" -f $isWin, $isFairWin, $isLoose, $isDraw, $total
 }
 
 function Show-PlayersStats( $history )
@@ -49,7 +42,6 @@ function Show-PlayersStats( $history )
 
         $relevantMatches | Draw-ResultRow `
             {($_.Winner -eq $player)} `
-            {($_.Winner -eq $player) -and ($_.Fair -eq "true")} `
             {($_.Winner -ne $player) -and ($_.Winner -ne "draw")} `
             {($_.Winner -eq "draw")} `
             $player
@@ -60,17 +52,29 @@ function Show-FighterStats( $history )
 {
     ""
     Write-Host "Fighters" -fore DarkYellow
-    Write-Host "   win  fail draw  total" -fore DarkCyan
+    $games = $history | group Game
 
-    $fighters = $history.FirstFighter + $history.SecondFighter | sort -Unique
-
-    foreach( $fighter in $fighters )
+    foreach( $game in $games )
     {
-        $relevantMatches = $history | where{ ($_.FirstFighter -eq $fighter) -or ($_.SecondFighter -eq $fighter) }
-        $relevantMatches | Get-MatchResults `
-            $fighter `
-            {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.FirstPlayer)) -or (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
-            {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))}
+        Write-Host " $($game.Name)" -fore DarkYellow
+        Write-Host "   win/f loose draw  total" -fore DarkCyan
+        $fighters = $game.Group.FirstFighter + $game.Group.SecondFighter | group | sort Count -desc
+
+        foreach( $fighter in $fighters.Name )
+        {
+            $relevantMatches = $game.Group |
+                where{ ($_.FirstFighter -eq $fighter) -or ($_.SecondFighter -eq $fighter) }
+
+            $relevantMatches | Draw-ResultRow `
+                {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
+                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
+                {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or
+                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))} `
+                {(($fighter -eq $_.FirstFighter) -or (($fighter -eq $_.SecondFighter))) -and
+                 (($_.Winner -eq "draw"))} `
+                $fighter
+        }
+        ""
     }
 }
 
