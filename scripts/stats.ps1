@@ -12,7 +12,7 @@ function Get-MatchResults( $info, $condition, $oposite )
     $isFalse = $relevantMatches | where $oposite | measure | % Count
     $isDraw = $relevantMatches | where Winner -eq "draw" | measure | % Count
 
-    "    {0,2} | {1,2} | {2,2}   <{3,2}>  $info" -f $isTrue, $isFalse, $isDraw, $relevantMatches.Count
+    "    {0,2} | {1,2} | {2,2}    {3,2}   $info" -f $isTrue, $isFalse, $isDraw, ($isTrue + $isFalse + $isDraw)
 }
 
 function Show-PlayersStats( $history, $players )
@@ -27,6 +27,22 @@ function Show-PlayersStats( $history, $players )
             $player `
             {$_.Winner -eq $player} `
             {($_.Winner -ne $player) -and ($_.Winner -ne "draw")}
+    }
+}
+
+function Show-FighterStats( $history )
+{
+    ""
+    Write-Host "Fighters" -fore DarkYellow
+    $fighters = $history.FirstFighter + $history.SecondFighter | sort -Unique
+
+    foreach( $fighter in $fighters )
+    {
+        $relevantMatches = $history | where{ ($_.FirstFighter -eq $fighter) -or ($_.SecondFighter -eq $fighter) }
+        $relevantMatches | Get-MatchResults `
+            $fighter `
+            {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.FirstPlayer)) -or (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
+            {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))}
     }
 }
 
@@ -85,6 +101,7 @@ function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\d
     $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
     Show-PlayersStats $history $players
+    Show-FighterStats $history
     Show-PairsStats $history $players
     Show-ChairsStats $history $players
 }
