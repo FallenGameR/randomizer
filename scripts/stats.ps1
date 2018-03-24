@@ -15,7 +15,6 @@ function Get-MatchResults( $info, $condition, $oposite )
     "    {0,2} | {1,2} | {2,2}    {3,2}   $info" -f $isTrue, $isFalse, $isDraw, ($isTrue + $isFalse + $isDraw)
 }
 
-
 function Draw-ResultRow( $wins, $fair, $fail, $draw, $name )
 {
     $relevantMatches = @($input)
@@ -28,27 +27,32 @@ function Draw-ResultRow( $wins, $fair, $fail, $draw, $name )
 
     if( $fair )
     {
-        "    {0,2}/{1,2} | {2,2} | {3,2}    {4,2}   $name" -f $isWin, $isFairWin, $isFail, $isDraw, $total
+        "    {0,2}/{1,2}     {2,2}   {3,2}    {4,2}    $name" -f $isWin, $isFairWin, $isFail, $isDraw, $total
     }
     else
     {
-        "    {0,2} | {1,2} | {2,2}    {3,2}   $name" -f $isWin, $isFail, $isDraw, $total
+        "    {0,2}        {1,2}   {2,2}    {3,2}    $name" -f $isWin, $isFail, $isDraw, $total
     }
 }
 
-function Show-PlayersStats( $history, $players )
+function Show-PlayersStats( $history )
 {
     ""
     Write-Host "Players" -fore DarkYellow
-    Write-Host "   win  fail draw  total" -fore DarkCyan
+    Write-Host "   win/fair loose draw  total" -fore DarkCyan
+    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
     foreach( $player in $players )
     {
-        $relevantMatches = $history | where{ ($_.FirstPlayer -eq $player) -or ($_.SecondPlayer -eq $player) }
-        $relevantMatches | Get-MatchResults `
-            $player `
-            {$_.Winner -eq $player} `
-            {($_.Winner -ne $player) -and ($_.Winner -ne "draw")}
+        $relevantMatches = $history |
+            where{ ($_.FirstPlayer -eq $player) -or ($_.SecondPlayer -eq $player) }
+
+        $relevantMatches | Draw-ResultRow `
+            {($_.Winner -eq $player)} `
+            {($_.Winner -eq $player) -and ($_.Fair -eq "true")} `
+            {($_.Winner -ne $player) -and ($_.Winner -ne "draw")} `
+            {($_.Winner -eq "draw")} `
+            $player
     }
 }
 
