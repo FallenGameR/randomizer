@@ -34,3 +34,5 @@ Match,FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Winner,Fair
 33,FallenGameR,Pobeditel,Dead or Alive 5,Phase 4,Naotora Ii,Pobeditel,true
 34,FallenGameR,Pobeditel,Dead or Alive 5,Marie Rose,Gen Fu,Pobeditel,true
 35,FallenGameR,Pobeditel,Dead or Alive 5,Ein,Akira Yuki,Pobeditel,true
+36,FallenGameR,Pobeditel,Dead or Alive 5,Mila,Ayane,draw,true
+37,FallenGameR,Pobeditel,Dead or Alive 5,Helena Douglas,Naotora Ii,draw,false
