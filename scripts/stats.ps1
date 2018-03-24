@@ -1,18 +1,36 @@
 <#
 How often player wins with a character?
-How often there is a fair play for a player?
-Are characters evenly distributed?
 #>
 
-function Get-MatchResults( $info, $condition, $oposite )
+function Draw-WinWinRow( $wins1, $wins2, $draw, $name )
 {
     $relevantMatches = @($input)
 
-    $isTrue = $relevantMatches | where $condition | measure | % Count
-    $isFalse = $relevantMatches | where $oposite | measure | % Count
-    $isDraw = $relevantMatches | where Winner -eq "draw" | measure | % Count
+    $isWin1 = $relevantMatches | where $wins1 | measure | % Count
+    $isFairWin1 = $relevantMatches | where $wins1 | where{ $_.Fair -eq "true" } | measure | % Count
 
-    "    {0,2} | {1,2} | {2,2}    {3,2}   $info" -f $isTrue, $isFalse, $isDraw, ($isTrue + $isFalse + $isDraw)
+    $isWin2 = $relevantMatches | where $wins2 | measure | % Count
+    $isFairWin2 = $relevantMatches | where $wins2 | where{ $_.Fair -eq "true" } | measure | % Count
+
+    $isDraw = $relevantMatches | where $draw | measure | % Count
+    $total = $isWin1 + $isWin2 + $isDraw
+
+    Write-Host "   "  -NoNewline
+    Write-Host ("{0,2}" -f $isWin1) -fore Gray -NoNewline
+    Write-Host (" {0,-2}" -f $isFairWin1) -fore DarkGray -NoNewline
+
+    Write-Host "   "  -NoNewline
+    Write-Host ("{0,2}" -f $isWin2) -fore Gray -NoNewline
+    Write-Host (" {0,-2}" -f $isFairWin2) -fore DarkGray -NoNewline
+
+    Write-Host "   "  -NoNewline
+    Write-Host ("{0,2}" -f $isDraw) -fore Gray -NoNewline
+
+    Write-Host "     "  -NoNewline
+    Write-Host ("{0,2}" -f $total) -fore Gray -NoNewline
+
+    Write-Host "    "  -NoNewline
+    Write-Host ("{0}" -f $name) -fore Gray
 }
 
 function Draw-ResultRow( $wins, $loose, $draw, $name )
@@ -28,25 +46,22 @@ function Draw-ResultRow( $wins, $loose, $draw, $name )
     $isDraw = $relevantMatches | where $draw | measure | % Count
     $total = $isWin + $isLoose + $isDraw
 
-    "    {0,2}/{1,-2}  {2,2}/{3,-2}   {4,2}    {5,2}    $name" -f `
-        $isWin, $isWinFair, $isLoose, $isLooseFair, $isDraw, $total
-}
+    Write-Host "    "  -NoNewline
+    Write-Host ("{0,2}" -f $isWin) -fore Gray -NoNewline
+    Write-Host (" {0,-2}" -f $isWinFair) -fore DarkGray -NoNewline
 
-function Draw-WinWinRow( $wins1, $wins2, $draw, $name )
-{
-    $relevantMatches = @($input)
+    Write-Host "   "  -NoNewline
+    Write-Host ("{0,2}" -f $isLoose) -fore Gray -NoNewline
+    Write-Host (" {0,-2}" -f $isLooseFair) -fore DarkGray -NoNewline
 
-    $isWin1 = $relevantMatches | where $wins1 | measure | % Count
-    $isFairWin1 = $relevantMatches | where $wins1 | where{ $_.Fair -eq "true" } | measure | % Count
+    Write-Host "   "  -NoNewline
+    Write-Host ("{0,2}" -f $isDraw) -fore Gray -NoNewline
 
-    $isWin2 = $relevantMatches | where $wins2 | measure | % Count
-    $isFairWin2 = $relevantMatches | where $wins2 | where{ $_.Fair -eq "true" } | measure | % Count
+    Write-Host "     "  -NoNewline
+    Write-Host ("{0,2}" -f $total) -fore Gray -NoNewline
 
-    $isDraw = $relevantMatches | where $draw | measure | % Count
-    $total = $isWin1 + $isWin2 + $isDraw
-
-    "   {0,2}/{1,-2}   {2,2}/{3,-2}   {4,2}    {5,2}    $name" -f `
-        $isWin1, $isFairWin1, $isWin2, $isFairWin2, $isDraw, $total
+    Write-Host "    "  -NoNewline
+    Write-Host ("{0}" -f $name) -fore Gray
 }
 
 function Show-PairsStats( $history )
@@ -79,7 +94,7 @@ function Show-PlayersStats( $history )
 {
     ""
     Write-Host "Players" -fore DarkYellow
-    Write-Host "    win/f lost/f  draw  total" -fore DarkCyan
+    Write-Host "    win/f  lost/f  draw  total" -fore DarkCyan
     $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
     foreach( $player in $players )
@@ -97,6 +112,8 @@ function Show-PlayersStats( $history )
 
 function Show-FighterStats( $history )
 {
+    # Per player stats?
+
     ""
     Write-Host "Fighters" -fore DarkYellow
     $games = $history | group Game
@@ -104,7 +121,7 @@ function Show-FighterStats( $history )
     foreach( $game in $games )
     {
         Write-Host " $($game.Name)" -fore DarkYellow
-        Write-Host "   win/f loose draw  total" -fore DarkCyan
+        Write-Host "    win/f  lost/f  draw  total" -fore DarkCyan
         $fighters = $game.Group.FirstFighter + $game.Group.SecondFighter | group | sort Count -desc
 
         foreach( $fighter in $fighters.Name )
