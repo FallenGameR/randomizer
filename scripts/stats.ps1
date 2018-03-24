@@ -20,19 +20,66 @@ function Draw-ResultRow( $wins, $loose, $draw, $name )
     $relevantMatches = @($input)
 
     $isWin = $relevantMatches | where $wins | measure | % Count
-    $isFairWin = $relevantMatches | where $wins | where{ $_.Fair -eq "true" } | measure | % Count
+    $isWinFair = $relevantMatches | where $wins | where{ $_.Fair -eq "true" } | measure | % Count
+
     $isLoose = $relevantMatches | where $loose | measure | % Count
+    $isLooseFair = $relevantMatches | where $loose | where{ $_.Fair -eq "true" } | measure | % Count
+
     $isDraw = $relevantMatches | where $draw | measure | % Count
     $total = $isWin + $isLoose + $isDraw
 
-    "    {0,2}/{1,-2}  {2,2}   {3,2}    {4,2}    $name" -f $isWin, $isFairWin, $isLoose, $isDraw, $total
+    "    {0,2}/{1,-2}  {2,2}/{3,-2}   {4,2}    {5,2}    $name" -f `
+        $isWin, $isWinFair, $isLoose, $isLooseFair, $isDraw, $total
+}
+
+function Draw-WinWinRow( $wins1, $wins2, $draw, $name )
+{
+    $relevantMatches = @($input)
+
+    $isWin1 = $relevantMatches | where $wins1 | measure | % Count
+    $isFairWin1 = $relevantMatches | where $wins1 | where{ $_.Fair -eq "true" } | measure | % Count
+
+    $isWin2 = $relevantMatches | where $wins2 | measure | % Count
+    $isFairWin2 = $relevantMatches | where $wins2 | where{ $_.Fair -eq "true" } | measure | % Count
+
+    $isDraw = $relevantMatches | where $draw | measure | % Count
+    $total = $isWin1 + $isWin2 + $isDraw
+
+    "   {0,2}/{1,-2}   {2,2}/{3,-2}   {4,2}    {5,2}    $name" -f `
+        $isWin1, $isFairWin1, $isWin2, $isFairWin2, $isDraw, $total
+}
+
+function Show-PairsStats( $history )
+{
+    ""
+    Write-Host "Pairs" -fore DarkYellow
+    Write-Host "  win1/f  win2/f  draw  total" -fore DarkCyan
+    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
+
+    $set = $players
+    foreach( $player in $players )
+    {
+        $set = $set | where{ $psitem -ne $player }
+        foreach( $partner in $set )
+        {
+            $relevantMatches = @($history | where{
+                (($_.FirstPlayer -eq $player) -or ($_.SecondPlayer -eq $player)) -and
+                (($_.FirstPlayer -eq $partner) -or ($_.SecondPlayer -eq $partner)) })
+
+            $relevantMatches | Draw-WinWinRow `
+                {$_.Winner -eq $player} `
+                {$_.Winner -eq $partner} `
+                {$_.Winner -eq "draw"} `
+                "$player vs $partner"
+        }
+    }
 }
 
 function Show-PlayersStats( $history )
 {
     ""
     Write-Host "Players" -fore DarkYellow
-    Write-Host "   win/fair loose draw  total" -fore DarkCyan
+    Write-Host "    win/f lost/f  draw  total" -fore DarkCyan
     $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
     foreach( $player in $players )
@@ -78,26 +125,6 @@ function Show-FighterStats( $history )
     }
 }
 
-function Show-PairsStats( $history, $players )
-{
-    ""
-    Write-Host "Pairs" -fore DarkYellow
-    Write-Host "   win1 win2 draw  total" -fore DarkCyan
-
-    $set = $players
-    foreach( $player in $players )
-    {
-        $set = $set | where{ $psitem -ne $player }
-        foreach( $partner in $set )
-        {
-            $relevantMatches = @($history | where{
-                (($_.FirstPlayer -eq $player) -or ($_.SecondPlayer -eq $player)) -and
-                (($_.FirstPlayer -eq $partner) -or ($_.SecondPlayer -eq $partner)) })
-            $relevantMatches | Get-MatchResults "$player vs $partner" {$_.Winner -eq $player} {$_.Winner -eq $partner}
-        }
-    }
-}
-
 function Show-ChairsStats( $history, $players )
 {
     ""
@@ -132,11 +159,10 @@ function Show-ChairsStats( $history, $players )
 function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\data\sample.csv" )
 {
     $history = Import-Csv $path
-    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
-    Show-PlayersStats $history $players
+    Show-PairsStats $history
+    Show-PlayersStats $history
     Show-FighterStats $history
-    Show-PairsStats $history $players
-    Show-ChairsStats $history $players
+    Show-ChairsStats $history
 }
 
