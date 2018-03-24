@@ -19,6 +19,7 @@ function Show-PlayersStats( $history, $players )
 {
     ""
     Write-Host "Players" -fore DarkYellow
+    Write-Host "   wins fail draw  total" -fore DarkCyan
 
     foreach( $player in $players )
     {
