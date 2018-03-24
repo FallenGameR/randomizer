@@ -110,10 +110,8 @@ function Show-PlayersStats( $history )
     }
 }
 
-function Show-FighterStats( $history )
+function Show-FighterPerPlayerStats( $history )
 {
-    # Per player stats?
-
     ""
     Write-Host "Fighters" -fore DarkYellow
     $games = $history | group Game
@@ -121,24 +119,35 @@ function Show-FighterStats( $history )
     foreach( $game in $games )
     {
         Write-Host " $($game.Name)" -fore DarkYellow
-        Write-Host "    win/f  lost/f  draw  total" -fore DarkCyan
-        $fighters = $game.Group.FirstFighter + $game.Group.SecondFighter | group | sort Count -desc
+        $players = $game.Group.FirstPlayer + $game.Group.SecondPlayer | sort -Unique
 
-        foreach( $fighter in $fighters.Name )
+        foreach( $player in $players )
         {
-            $relevantMatches = $game.Group |
-                where{ ($_.FirstFighter -eq $fighter) -or ($_.SecondFighter -eq $fighter) }
+            Write-Host "  $player" -fore DarkYellow
+            Write-Host "    win/f  lost/f  draw  total" -fore DarkCyan
 
-            $relevantMatches | Draw-ResultRow `
-                {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
-                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
-                {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or
-                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))} `
-                {(($fighter -eq $_.FirstFighter) -or (($fighter -eq $_.SecondFighter))) -and
-                 (($_.Winner -eq "draw"))} `
-                $fighter
+            $fighters = $game.Group | foreach{
+                if( ($_.FirstPlayer -eq $player) ) {$_.FirstFighter}
+                if( ($_.SecondPlayer -eq $player) ) {$_.SecondFighter} } |
+                group | sort Count -desc
+
+            foreach( $fighter in $fighters.Name )
+            {
+                $relevantMatches = $game.Group | where{
+                    (($_.FirstPlayer -eq $player) -and ($_.FirstFighter -eq $fighter)) -or
+                    (($_.SecondPlayer -eq $player) -and ($_.SecondFighter -eq $fighter)) }
+
+                $relevantMatches | Draw-ResultRow `
+                    {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
+                     (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
+                    {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or
+                     (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))} `
+                    {(($fighter -eq $_.FirstFighter) -or (($fighter -eq $_.SecondFighter))) -and
+                     (($_.Winner -eq "draw"))} `
+                    $fighter
+            }
+            ""
         }
-        ""
     }
 }
 
