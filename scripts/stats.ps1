@@ -231,34 +231,34 @@ function Show-ChairsStats( $history )
             {($_.Winner -eq "draw")} `
             "  $player" `
     }
-    ""
 }
 
 function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\data\sample.csv" )
 {
+    function Show-Output( $name, $scope )
+    {
+        $players = @($scope.FirstPlayer + $scope.SecondPlayer | sort -Unique)
+
+        cls
+        Write-Host $name -fore Green
+
+        Show-PairsStats $scope
+        if( $players.Length -gt 2 )
+        {
+            Show-PlayersStats $scope
+            Show-ChairsStats $scope
+        }
+        Show-FighterStats $scope
+        Read-Host
+    }
+
     $history = Import-Csv $path
-    $players = @($history.FirstPlayer + $history.SecondPlayer | sort -Unique)
+    Show-Output "Totals" $history
 
-    Show-PairsStats $history
-    #if( $players.Length -gt 2 )
-    Show-PlayersStats $history
-    Show-ChairsStats $history
-
-    Show-FighterStats $history
-
-<#
-    We need to output total then per game with fighters
-
-        $games = $history | group Game
+    $games = $history | group Game
     foreach( $game in $games )
     {
-        ""
-        Write-Host "  $($game.Name)" -fore DarkYellow
-        Write-Host "   win    lost   draw  total" -fore DarkCyan
-
-        $scope = $game.Group
-        $players = $scope.FirstPlayer + $scope.SecondPlayer | sort -Unique
-        $set = $players
-#>
+        Show-Output $game.Name $game.Group
+    }
 }
 
