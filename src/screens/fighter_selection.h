@@ -26,6 +26,15 @@ void FighterSelectionScreen()
         SERIAL_PRINT(fighter_map_selected, fighter_index_second);
         Serial.println();
 
+        digitalWrite(pin_led_green, LOW);
+        digitalWrite(pin_led_blue, LOW);
+        delay(200);
+        digitalWrite(pin_led_green, HIGH);
+        digitalWrite(pin_led_blue, HIGH);
+        delay(200);
+        digitalWrite(pin_led_green, LOW);
+        digitalWrite(pin_led_blue, LOW);
+
         screen_redraw = false;
     }
 
