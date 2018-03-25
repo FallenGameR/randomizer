@@ -161,10 +161,13 @@ function Show-FighterStats( $history )
     Write-Host "Fighters" -fore DarkYellow
     $games = $history | group Game
 
+    # Per game
     foreach( $game in $games )
     {
         Write-Host " $($game.Name)" -fore DarkYellow
         Write-Host "     win    lost   draw  total" -fore DarkCyan
+
+        # Fighter stats
         $fighters = $game.Group.FirstFighter + $game.Group.SecondFighter | group | sort Count -desc
 
         foreach( $fighter in $fighters.Name )
@@ -182,23 +185,13 @@ function Show-FighterStats( $history )
                 $fighter
         }
         ""
-    }
-}
 
-function Show-FighterPerPlayerStats( $history )
-{
-    ""
-    Write-Host "Fighters per player" -fore DarkYellow
-    $games = $history | group Game
-
-    foreach( $game in $games )
-    {
-        Write-Host " $($game.Name)" -fore DarkYellow
+        # Figher per player stats
         $players = $game.Group.FirstPlayer + $game.Group.SecondPlayer | sort -Unique
 
         foreach( $player in $players )
         {
-            Write-Host "  $player" -fore DarkYellow
+            Write-Host " $($game.Name) - $player" -fore DarkYellow
             Write-Host "     win    lost   draw  total" -fore DarkCyan
 
             $fighters = $game.Group | foreach{
@@ -225,7 +218,6 @@ function Show-FighterPerPlayerStats( $history )
         }
     }
 }
-
 
 function Show-FighterStats( $history )
 {
@@ -312,6 +304,5 @@ function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\d
     }
 
     Show-FighterStats $history
-    Show-FighterPerPlayerStats $history
 }
 
