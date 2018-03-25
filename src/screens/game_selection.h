@@ -4,6 +4,7 @@
 #include "screens.h"
 #include "..\input.h"
 #include "..\memory.h"
+#include "..\stats.h"
 #include "..\games\games.h"
 
 void GameSelectionScreen()
@@ -41,7 +42,8 @@ void GameSelectionScreen()
 
         if (BUTTON_BLACK)
         {
-            Serial.println(F("-> Match"));
+            Serial.print(F("-> Match "));
+            Serial.println(match_current + 1);
             screen_selected = Screen::PlayerSelection;
             input_allowed = false;
             screen_redraw = true;

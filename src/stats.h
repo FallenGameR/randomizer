@@ -56,9 +56,6 @@ void RecordMatchOutcome()
     }
 
     // Output to console
-    Serial.print(match_current);
-    Serial.print(F(". "));
-
     switch (winner_selected)
     {
     case Winner::Draw:

@@ -11,14 +11,11 @@ void PlayerSelectionScreen()
     player_index_first = 0;
     player_index_second = 1;
 
-    if (n_players > 2)
-    {
-        SERIAL_PRINT(players, player_index_first);
-        Serial.print(F(" and "));
-        SERIAL_PRINT(players, player_index_second);
-        Serial.println();
-    }
-
+    SERIAL_PRINT(players, player_index_first);
+    Serial.print(F(" and "));
+    SERIAL_PRINT(players, player_index_second);
+    Serial.println();
+    
     screen_selected = Screen::FighterSelection;
 }
 
