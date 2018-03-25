@@ -11,6 +11,11 @@ function Draw-WinWinRow( $wins1, $wins2, $draw, $name )
     $isDraw = $relevantMatches | where $draw | measure | % Count
     $total = $isWin1 + $isWin2 + $isDraw
 
+    if( -not $total )
+    {
+        return
+    }
+
     Write-Host "   "  -NoNewline
     if( $isWin1Unfair )
     {
@@ -57,6 +62,11 @@ function Draw-ResultRow( $wins, $loose, $draw, $name )
 
     $isDraw = $relevantMatches | where $draw | measure | % Count
     $total = $isWin + $isLoose + $isDraw
+
+    if( -not $total )
+    {
+        return
+    }
 
     Write-Host "    "  -NoNewline
     if( $isWinUnfair )
@@ -130,7 +140,6 @@ function Show-PlayersStats( $history )
     ""
     Write-Host "Players" -fore DarkYellow
     Write-Host "     win    lost   draw  total" -fore DarkCyan
-
     $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
     foreach( $player in $players )
@@ -217,33 +226,75 @@ function Show-FighterPerPlayerStats( $history )
     }
 }
 
-function Show-ChairsStats( $history, $players )
+
+function Show-FighterStats( $history )
+{
+    ""
+    Write-Host "Fighters" -fore DarkYellow
+    $games = $history | group Game
+
+    foreach( $game in $games )
+    {
+        Write-Host " $($game.Name)" -fore DarkYellow
+        Write-Host "     win    lost   draw  total" -fore DarkCyan
+        $fighters = $game.Group.FirstFighter + $game.Group.SecondFighter | group | sort Count -desc
+
+        foreach( $fighter in $fighters.Name )
+        {
+            $relevantMatches = $game.Group |
+                where{ ($_.FirstFighter -eq $fighter) -or ($_.SecondFighter -eq $fighter) }
+
+            $relevantMatches | Draw-ResultRow `
+                {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
+                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
+                {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or
+                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))} `
+                {(($fighter -eq $_.FirstFighter) -or (($fighter -eq $_.SecondFighter))) -and
+                 (($_.Winner -eq "draw"))} `
+                $fighter
+        }
+        ""
+    }
+}
+
+function Show-ChairsStats( $history )
 {
     ""
     Write-Host "Chairs" -fore DarkYellow
-    Write-Host "   win  fail draw  total" -fore DarkCyan
+    Write-Host "     win    lost   draw  total" -fore DarkCyan
+    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
-    $history | Get-MatchResults "First chair" {$_.Winner -eq $_.FirstPlayer} {$_.Winner -eq $_.SecondPlayer}
+    $history | Draw-ResultRow `
+        {$_.Winner -eq $_.FirstPlayer} `
+        {$_.Winner -eq $_.SecondPlayer} `
+        {$_.Winner -eq "draw"} `
+        "First chair"
+
     foreach( $player in $players )
     {
         $relevantMatches = $history | where{ $_.FirstPlayer -eq $player }
-        $info = $relevantMatches | Get-MatchResults `
-            $player `
-            {$_.Winner -eq $player} `
-            {($_.Winner -ne $player) -and ($_.Winner -ne "draw")}
-        " $info"
+        $relevantMatches | Draw-ResultRow `
+            {($_.Winner -eq $player)} `
+            {($_.Winner -ne $player) -and ($_.Winner -ne "draw")} `
+            {($_.Winner -eq "draw")} `
+            "  $player" `
     }
     ""
 
-    $history | Get-MatchResults "Second chair" {$_.Winner -eq $_.SecondPlayer} {$_.Winner -eq $_.FirstPlayer}
+    $history | Draw-ResultRow `
+        {$_.Winner -eq $_.SecondPlayer} `
+        {$_.Winner -eq $_.FirstPlayer} `
+        {$_.Winner -eq "draw"} `
+        "Second chair"
+
     foreach( $player in $players )
     {
         $relevantMatches = $history | where{ $_.SecondPlayer -eq $player }
-        $info = $relevantMatches | Get-MatchResults `
-            $player `
-            {$_.Winner -eq $player} `
-            {($_.Winner -ne $player) -and ($_.Winner -ne "draw")}
-        " $info"
+        $relevantMatches | Draw-ResultRow `
+            {($_.Winner -eq $player)} `
+            {($_.Winner -ne $player) -and ($_.Winner -ne "draw")} `
+            {($_.Winner -eq "draw")} `
+            "  $player" `
     }
     ""
 }
@@ -251,10 +302,16 @@ function Show-ChairsStats( $history, $players )
 function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\data\sample.csv" )
 {
     $history = Import-Csv $path
+    $players = @($history.FirstPlayer + $history.SecondPlayer | sort -Unique)
 
     Show-PairsStats $history
-    Show-PlayersStats $history
+    if( $players.Length -gt 2 )
+    {
+        Show-PlayersStats $history
+        Show-ChairsStats $history
+    }
+
     Show-FighterStats $history
-    Show-ChairsStats $history
+    Show-FighterPerPlayerStats $history
 }
 
