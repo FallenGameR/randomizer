@@ -1,0 +1,72 @@
+Match,FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Winner,Fair
+1,Ivan,Matthew,Tekken 7,Panda,Asuka Kazama,Ivan,true
+2,Ivan,Matthew,Tekken 7,Nina Williams,Eddy Gordo,Ivan,true
+3,Ivan,Matthew,Tekken 7,Bryan Fury,Panda,Ivan,true
+4,Ivan,Matthew,Tekken 7,Ling Xiaoyu,Ling Xiaoyu,Matthew,true
+5,Ivan,Matthew,Tekken 7,Lars,Kuma,Matthew,true
+6,Ivan,Matthew,Tekken 7,Claudio Serafino,Leo,Draw,true
+7,Ivan,Matthew,Tekken 7,Gigas,Katarina Alves,Matthew,true
+8,Ivan,Matthew,Tekken 7,Bryan Fury,Bob,Ivan,true
+9,Ivan,Matthew,Tekken 7,Feng Wei,Kazumi Mishima,Ivan,true
+10,Ivan,Matthew,Tekken 7,Nina Williams,Miguel,Matthew,false
+11,Ivan,Matthew,Tekken 7,Akuma,Lili,Draw,true
+12,Ivan,Matthew,Tekken 7,Eliza,Master Raven,Matthew,true
+13,Ivan,Matthew,Tekken 7,Marshall Law,Asuka Kazama,Ivan,true
+14,Ivan,Matthew,Tekken 7,Paul Phoenix,Eliza,Matthew,true
+15,Ivan,Matthew,Tekken 7,Gigas,Claudio Serafino,Matthew,false
+16,Ivan,Matthew,Tekken 7,Josie Rizal,Kuma,Ivan,true
+17,Ivan,Matthew,Tekken 7,Kuma,Marshall Law,Matthew,true
+18,Ivan,Matthew,Tekken 7,Jin Kazama,Asuka Kazama,Ivan,true
+19,Ivan,Matthew,Tekken 7,Jin Kazama,Akuma,Matthew,true
+20,Ivan,Matthew,Tekken 7,Miguel,Asuka Kazama,Ivan,true
+21,Ivan,Matthew,Tekken 7,Asuka Kazama,Kazumi Mishima,Matthew,true
+22,Ivan,Matthew,Tekken 7,Lili,Claudio Serafino,Ivan,true
+23,Ivan,Matthew,Tekken 7,Master Raven,Hwoarang,Ivan,true
+24,Ivan,Matthew,Tekken 7,Leo,Heihachi Mishima,Ivan,true
+25,Ivan,Matthew,Tekken 7,Eddy Gordo,Heihachi Mishima,Ivan,true
+26,Ivan,Matthew,Tekken 7,Lucky Chloe,Kazumi Mishima,Matthew,true
+27,Ivan,Matthew,Tekken 7,Kazuya Mishima,Kazuya Mishima,Matthew,true
+28,Ivan,Matthew,Tekken 7,King,Feng Wei,Ivan,true
+29,Ivan,Matthew,Tekken 7,King,Panda,Draw,true
+30,Ivan,Matthew,Tekken 7,Paul Phoenix,Miguel,Draw,true
+31,Ivan,Matthew,Tekken 7,Panda,Eddy Gordo,Matthew,true
+32,Ivan,Matthew,Tekken 7,Paul Phoenix,Miguel,Draw,true
+33,Ivan,Matthew,Tekken 7,Heihachi Mishima,Lucky Chloe,Draw,true
+34,Ivan,Matthew,Tekken 7,Jin Kazama,Eliza,Ivan,true
+35,Ivan,Matthew,Tekken 7,Eliza,Master Raven,Draw,true
+36,Ivan,Matthew,Tekken 7,Noctis Lucis,Akuma,Ivan,true
+37,Ivan,Matthew,Tekken 7,Paul Phoenix,Kazumi Mishima,Matthew,true
+38,Ivan,Matthew,Tekken 7,Eddy Gordo,Devil Jin,Matthew,true
+39,Ivan,Matthew,Tekken 7,Akuma,Devil Jin,Matthew,false
+40,Ivan,Matthew,Tekken 7,Panda,Devil Jin,Matthew,true
+41,Ivan,Matthew,Tekken 7,Lili,Josie Rizal,Ivan,true
+42,Ivan,Matthew,Tekken 7,Akuma,Marshall Law,Ivan,true
+43,Ivan,Matthew,Tekken 7,Lucky Chloe,Devil Jin,Draw,true
+44,Ivan,Matthew,Tekken 7,Eliza,Heihachi Mishima,Ivan,true
+45,Ivan,Matthew,Tekken 7,Gigas,Lili,Ivan,false
+46,Ivan,Matthew,Tekken 7,Lili,Lili,Matthew,true
+47,Ivan,Matthew,Tekken 7,Nina Williams,Jack-7,Ivan,true
+48,Ivan,Matthew,Tekken 7,Lili,Bryan Fury,Draw,true
+49,Ivan,Matthew,Tekken 7,Panda,Lucky Chloe,Matthew,true
+50,Ivan,Matthew,Tekken 7,Hwoarang,Akuma,Draw,true
+51,Ivan,Matthew,Tekken 7,Jack-7,Nina Williams,Ivan,true
+52,Ivan,Matthew,Tekken 7,Devil Jin,Nina Williams,Ivan,true
+53,Ivan,Matthew,Tekken 7,Devil Jin,Geese Howard,Matthew,true
+54,Ivan,Matthew,Tekken 7,Bob,Claudio Serafino,Matthew,true
+55,Ivan,Matthew,Tekken 7,Kazuya Mishima,Bob,Ivan,false
+56,Ivan,Matthew,Tekken 7,Shaheen,Katarina Alves,Ivan,true
+57,Ivan,Matthew,Tekken 7,Geese Howard,Claudio Serafino,Matthew,true
+58,Ivan,Matthew,Tekken 7,Feng Wei,Jack-7,Draw,true
+59,Ivan,Matthew,Tekken 7,Eddy Gordo,Eddy Gordo,Ivan,true
+60,Ivan,Matthew,Tekken 7,Geese Howard,Jack-7,Matthew,true
+61,Ivan,Matthew,Tekken 7,Akuma,Alisa,Draw,true
+62,Ivan,Matthew,Tekken 7,Akuma,Bob,Matthew,true
+63,Ivan,Matthew,Tekken 7,Katarina Alves,Kazuya Mishima,Draw,true
+64,Ivan,Matthew,Tekken 7,Asuka Kazama,Feng Wei,Ivan,true
+65,Ivan,Matthew,Tekken 7,Asuka Kazama,Eliza,Matthew,true
+66,Ivan,Matthew,Tekken 7,Devil Jin,Lili,Matthew,true
+67,Ivan,Matthew,Tekken 7,Bob,Shaheen,Ivan,false
+68,Ivan,Matthew,Tekken 7,Bryan Fury,Nina Williams,Ivan,true
+69,Ivan,Matthew,Tekken 7,Geese Howard,Panda,Matthew,true
+70,Ivan,Matthew,Tekken 7,Eliza,Lili,Ivan,true
+71,Ivan,Matthew,Tekken 7,Hwoarang,Lars,Matthew,true
