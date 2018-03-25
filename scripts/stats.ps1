@@ -1,27 +1,39 @@
-<#
-How often player wins with a character?
-#>
-
 function Draw-WinWinRow( $wins1, $wins2, $draw, $name )
 {
     $relevantMatches = @($input)
 
     $isWin1 = $relevantMatches | where $wins1 | measure | % Count
-    $isFairWin1 = $relevantMatches | where $wins1 | where{ $_.Fair -eq "true" } | measure | % Count
+    $isWin1Unfair = $relevantMatches | where $wins1 | where{ $_.Fair -ne "true" } | measure | % Count
 
     $isWin2 = $relevantMatches | where $wins2 | measure | % Count
-    $isFairWin2 = $relevantMatches | where $wins2 | where{ $_.Fair -eq "true" } | measure | % Count
+    $isWin2Unfair = $relevantMatches | where $wins2 | where{ $_.Fair -ne "true" } | measure | % Count
 
     $isDraw = $relevantMatches | where $draw | measure | % Count
     $total = $isWin1 + $isWin2 + $isDraw
 
     Write-Host "   "  -NoNewline
-    Write-Host ("{0,2}" -f $isWin1) -fore Gray -NoNewline
-    Write-Host (" {0,-2}" -f $isFairWin1) -fore DarkGray -NoNewline
+    if( $isWin1Unfair )
+    {
+        Write-Host ("{0,2}" -f $isWin1) -fore Gray -NoNewline
+        Write-Host ("-{0,-2}" -f $isWin1Unfair) -fore DarkGreen -NoNewline
+    }
+    else
+    {
+        Write-Host ("{0,2}" -f $isWin1) -fore Gray -NoNewline
+        Write-Host "   " -NoNewline
+    }
 
     Write-Host "   "  -NoNewline
-    Write-Host ("{0,2}" -f $isWin2) -fore Gray -NoNewline
-    Write-Host (" {0,-2}" -f $isFairWin2) -fore DarkGray -NoNewline
+    if( $isWin2Unfair )
+    {
+        Write-Host ("{0,2}" -f $isWin2) -fore Gray -NoNewline
+        Write-Host ("-{0,-2}" -f $isWin2Unfair) -fore DarkGreen -NoNewline
+    }
+    else
+    {
+        Write-Host ("{0,2}" -f $isWin2) -fore Gray -NoNewline
+        Write-Host "   " -NoNewline
+    }
 
     Write-Host "   "  -NoNewline
     Write-Host ("{0,2}" -f $isDraw) -fore Gray -NoNewline
@@ -91,7 +103,7 @@ function Show-PairsStats( $history )
 {
     ""
     Write-Host "Pairs" -fore DarkYellow
-    Write-Host "  win1/f  win2/f  draw  total" -fore DarkCyan
+    Write-Host "   win1    win2   draw  total" -fore DarkCyan
     $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
     $set = $players
