@@ -53,7 +53,7 @@ void FighterSelectionScreen()
         // Joystick button prints the current stats
         if (BUTTON_JOYSTICK)
         {
-            Serial.println(F("[Stats]"));
+            Serial.println(F("-> Stats"));
             DumpStats();
             input_allowed = false;
         }
