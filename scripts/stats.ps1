@@ -38,24 +38,47 @@ function Draw-ResultRow( $wins, $loose, $draw, $name )
     $relevantMatches = @($input)
 
     $isWin = $relevantMatches | where $wins | measure | % Count
-    $isWinFair = $relevantMatches | where $wins | where{ $_.Fair -eq "true" } | measure | % Count
+    $isWinUnfair = $relevantMatches | where $wins | where{ $_.Fair -ne "true" } | measure | % Count
 
     $isLoose = $relevantMatches | where $loose | measure | % Count
-    $isLooseFair = $relevantMatches | where $loose | where{ $_.Fair -eq "true" } | measure | % Count
+    $isLooseUnfair = $relevantMatches | where $loose | where{ $_.Fair -ne "true" } | measure | % Count
 
     $isDraw = $relevantMatches | where $draw | measure | % Count
     $total = $isWin + $isLoose + $isDraw
 
     Write-Host "    "  -NoNewline
-    Write-Host ("{0,2}" -f $isWin) -fore Gray -NoNewline
-    Write-Host (" {0,-2}" -f $isWinFair) -fore DarkGray -NoNewline
+    if( $isWinUnfair )
+    {
+        Write-Host ("{0,2}" -f $isWin) -fore Gray -NoNewline
+        Write-Host ("-{0,-2}" -f $isWinUnfair) -fore DarkGreen -NoNewline
+    }
+    else
+    {
+        Write-Host ("{0,2}" -f $isWin) -fore Gray -NoNewline
+        Write-Host "   " -NoNewline
+    }
 
     Write-Host "   "  -NoNewline
-    Write-Host ("{0,2}" -f $isLoose) -fore Gray -NoNewline
-    Write-Host (" {0,-2}" -f $isLooseFair) -fore DarkGray -NoNewline
+    if( $isLooseUnfair )
+    {
+        Write-Host ("{0,2}" -f $isLoose) -fore Gray -NoNewline
+        Write-Host ("-{0,-2}" -f $isLooseUnfair) -fore DarkGreen -NoNewline
+    }
+    else
+    {
+        Write-Host ("{0,2}" -f $isLoose) -fore Gray -NoNewline
+        Write-Host "   " -NoNewline
+    }
 
     Write-Host "   "  -NoNewline
-    Write-Host ("{0,2}" -f $isDraw) -fore Gray -NoNewline
+    if( $isDraw )
+    {
+        Write-Host ("{0,2}" -f $isDraw) -fore Gray -NoNewline
+    }
+    else
+    {
+        Write-Host "  " -NoNewline
+    }
 
     Write-Host "     "  -NoNewline
     Write-Host ("{0,2}" -f $total) -fore Gray -NoNewline
@@ -94,7 +117,8 @@ function Show-PlayersStats( $history )
 {
     ""
     Write-Host "Players" -fore DarkYellow
-    Write-Host "    win/f  lost/f  draw  total" -fore DarkCyan
+    Write-Host "     win    lost   draw  total" -fore DarkCyan
+
     $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
 
     foreach( $player in $players )
@@ -110,10 +134,40 @@ function Show-PlayersStats( $history )
     }
 }
 
-function Show-FighterPerPlayerStats( $history )
+function Show-FighterStats( $history )
 {
     ""
     Write-Host "Fighters" -fore DarkYellow
+    $games = $history | group Game
+
+    foreach( $game in $games )
+    {
+        Write-Host " $($game.Name)" -fore DarkYellow
+        Write-Host "     win    lost   draw  total" -fore DarkCyan
+        $fighters = $game.Group.FirstFighter + $game.Group.SecondFighter | group | sort Count -desc
+
+        foreach( $fighter in $fighters.Name )
+        {
+            $relevantMatches = $game.Group |
+                where{ ($_.FirstFighter -eq $fighter) -or ($_.SecondFighter -eq $fighter) }
+
+            $relevantMatches | Draw-ResultRow `
+                {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
+                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
+                {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or
+                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))} `
+                {(($fighter -eq $_.FirstFighter) -or (($fighter -eq $_.SecondFighter))) -and
+                 (($_.Winner -eq "draw"))} `
+                $fighter
+        }
+        ""
+    }
+}
+
+function Show-FighterPerPlayerStats( $history )
+{
+    ""
+    Write-Host "Fighters per player" -fore DarkYellow
     $games = $history | group Game
 
     foreach( $game in $games )
@@ -124,7 +178,7 @@ function Show-FighterPerPlayerStats( $history )
         foreach( $player in $players )
         {
             Write-Host "  $player" -fore DarkYellow
-            Write-Host "    win/f  lost/f  draw  total" -fore DarkCyan
+            Write-Host "     win    lost   draw  total" -fore DarkCyan
 
             $fighters = $game.Group | foreach{
                 if( ($_.FirstPlayer -eq $player) ) {$_.FirstFighter}
