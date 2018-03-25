@@ -16,7 +16,7 @@ function Draw-WinWinRow( $wins1, $wins2, $draw, $name )
         return
     }
 
-    Write-Host "   "  -NoNewline
+    Write-Host "    "  -NoNewline
     if( $isWin1Unfair )
     {
         Write-Host ("{0,2}" -f $isWin1) -fore Gray -NoNewline
@@ -113,9 +113,9 @@ function Show-PairsStats( $history )
 {
     ""
     Write-Host "Pairs" -fore DarkYellow
-    Write-Host "   win1    win2   draw  total" -fore DarkCyan
-    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
+    Write-Host "    win1    win2   draw  total" -fore DarkCyan
 
+    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
     $set = $players
     foreach( $player in $players )
     {
@@ -159,82 +159,25 @@ function Show-FighterStats( $history )
 {
     ""
     Write-Host "Fighters" -fore DarkYellow
-    $games = $history | group Game
 
-    # Per game
-    foreach( $game in $games )
+    # Figher per player stats
+    $players = $history.FirstPlayer + $history.SecondPlayer | sort -Unique
+
+    foreach( $player in $players )
     {
-        Write-Host " $($game.Name)" -fore DarkYellow
+        Write-Host "  $player" -fore DarkYellow
         Write-Host "     win    lost   draw  total" -fore DarkCyan
 
-        # Fighter stats
-        $fighters = $game.Group.FirstFighter + $game.Group.SecondFighter | group | sort Count -desc
+        $fighters = $history | foreach{
+            if( ($_.FirstPlayer -eq $player) ) {$_.FirstFighter}
+            if( ($_.SecondPlayer -eq $player) ) {$_.SecondFighter} } |
+            group | sort Count -desc
 
         foreach( $fighter in $fighters.Name )
         {
-            $relevantMatches = $game.Group |
-                where{ ($_.FirstFighter -eq $fighter) -or ($_.SecondFighter -eq $fighter) }
-
-            $relevantMatches | Draw-ResultRow `
-                {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
-                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
-                {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or
-                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))} `
-                {(($fighter -eq $_.FirstFighter) -or (($fighter -eq $_.SecondFighter))) -and
-                 (($_.Winner -eq "draw"))} `
-                $fighter
-        }
-        ""
-
-        # Figher per player stats
-        $players = $game.Group.FirstPlayer + $game.Group.SecondPlayer | sort -Unique
-
-        foreach( $player in $players )
-        {
-            Write-Host " $($game.Name) - $player" -fore DarkYellow
-            Write-Host "     win    lost   draw  total" -fore DarkCyan
-
-            $fighters = $game.Group | foreach{
-                if( ($_.FirstPlayer -eq $player) ) {$_.FirstFighter}
-                if( ($_.SecondPlayer -eq $player) ) {$_.SecondFighter} } |
-                group | sort Count -desc
-
-            foreach( $fighter in $fighters.Name )
-            {
-                $relevantMatches = $game.Group | where{
-                    (($_.FirstPlayer -eq $player) -and ($_.FirstFighter -eq $fighter)) -or
-                    (($_.SecondPlayer -eq $player) -and ($_.SecondFighter -eq $fighter)) }
-
-                $relevantMatches | Draw-ResultRow `
-                    {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
-                     (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
-                    {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or
-                     (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))} `
-                    {(($fighter -eq $_.FirstFighter) -or (($fighter -eq $_.SecondFighter))) -and
-                     (($_.Winner -eq "draw"))} `
-                    $fighter
-            }
-            ""
-        }
-    }
-}
-
-function Show-FighterStats( $history )
-{
-    ""
-    Write-Host "Fighters" -fore DarkYellow
-    $games = $history | group Game
-
-    foreach( $game in $games )
-    {
-        Write-Host " $($game.Name)" -fore DarkYellow
-        Write-Host "     win    lost   draw  total" -fore DarkCyan
-        $fighters = $game.Group.FirstFighter + $game.Group.SecondFighter | group | sort Count -desc
-
-        foreach( $fighter in $fighters.Name )
-        {
-            $relevantMatches = $game.Group |
-                where{ ($_.FirstFighter -eq $fighter) -or ($_.SecondFighter -eq $fighter) }
+            $relevantMatches = $history | where{
+                (($_.FirstPlayer -eq $player) -and ($_.FirstFighter -eq $fighter)) -or
+                (($_.SecondPlayer -eq $player) -and ($_.SecondFighter -eq $fighter)) }
 
             $relevantMatches | Draw-ResultRow `
                 {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
@@ -297,12 +240,25 @@ function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\d
     $players = @($history.FirstPlayer + $history.SecondPlayer | sort -Unique)
 
     Show-PairsStats $history
-    if( $players.Length -gt 2 )
-    {
-        Show-PlayersStats $history
-        Show-ChairsStats $history
-    }
+    #if( $players.Length -gt 2 )
+    Show-PlayersStats $history
+    Show-ChairsStats $history
 
     Show-FighterStats $history
+
+<#
+    We need to output total then per game with fighters
+
+        $games = $history | group Game
+    foreach( $game in $games )
+    {
+        ""
+        Write-Host "  $($game.Name)" -fore DarkYellow
+        Write-Host "   win    lost   draw  total" -fore DarkCyan
+
+        $scope = $game.Group
+        $players = $scope.FirstPlayer + $scope.SecondPlayer | sort -Unique
+        $set = $players
+#>
 }
 
