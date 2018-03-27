@@ -1,37 +1,37 @@
 #ifndef KILLER_INSTINCT_H
 #define KILLER_INSTINCT_H
 
-// Using PROGMEM here to save some space for variables
+// Using[] PROGMEM here to save some space for variables
 
-const char killer_instinct_Aganos = "Aganos";
-const char killer_instinct_Arbiter = "Arbiter";
-const char killer_instinct_ARIA = "ARIA";
-const char killer_instinct_BlackOrchid = "Black Orchid";
-const char killer_instinct_ChiefThunder = "Chief Thunder";
-const char killer_instinct_Cinder = "Cinder";
-const char killer_instinct_Eyedol = "Eyedol";
-const char killer_instinct_Eagle = "Eagle";
-const char killer_instinct_Fulgore = "Fulgore";
-const char killer_instinct_Gargos = "Gargos";
-const char killer_instinct_GeneralRAAM = "General RAAM";
-const char killer_instinct_Glacius = "Glacius";
-const char killer_instinct_Hisako = "Hisako";
-const char killer_instinct_Jago = "Jago";
-const char killer_instinct_KanRa = "Kan-Ra";
-const char killer_instinct_Kilgore = "Kilgore";
-const char killer_instinct_KimWu = "Kim Wu";
-const char killer_instinct_Maya = "Maya";
-const char killer_instinct_Mira = "Mira";
-const char killer_instinct_Omen = "Omen";
-const char killer_instinct_Rash = "Rash";
-const char killer_instinct_Riptor = "Riptor";
-const char killer_instinct_Sabrewulf = "Sabrewulf";
-const char killer_instinct_Sadira = "Sadira";
-const char killer_instinct_ShadowJago = "Shadow Jago";
-const char killer_instinct_ShinHisako = "Shin Hisako";
-const char killer_instinct_Spinal = "Spinal";
-const char killer_instinct_TJCombo = "TJ Combo";
-const char killer_instinct_Tusk = "Tusk";
+const char killer_instinct_Aganos[] PROGMEM = "Aganos";
+const char killer_instinct_Arbiter[] PROGMEM = "Arbiter";
+const char killer_instinct_ARIA[] PROGMEM = "ARIA";
+const char killer_instinct_BlackOrchid[] PROGMEM = "Black Orchid";
+const char killer_instinct_ChiefThunder[] PROGMEM = "Chief Thunder";
+const char killer_instinct_Cinder[] PROGMEM = "Cinder";
+const char killer_instinct_Eyedol[] PROGMEM = "Eyedol";
+const char killer_instinct_Eagle[] PROGMEM = "Eagle";
+const char killer_instinct_Fulgore[] PROGMEM = "Fulgore";
+const char killer_instinct_Gargos[] PROGMEM = "Gargos";
+const char killer_instinct_GeneralRAAM[] PROGMEM = "General RAAM";
+const char killer_instinct_Glacius[] PROGMEM = "Glacius";
+const char killer_instinct_Hisako[] PROGMEM = "Hisako";
+const char killer_instinct_Jago[] PROGMEM = "Jago";
+const char killer_instinct_KanRa[] PROGMEM = "Kan-Ra";
+const char killer_instinct_Kilgore[] PROGMEM = "Kilgore";
+const char killer_instinct_KimWu[] PROGMEM = "Kim Wu";
+const char killer_instinct_Maya[] PROGMEM = "Maya";
+const char killer_instinct_Mira[] PROGMEM = "Mira";
+const char killer_instinct_Omen[] PROGMEM = "Omen";
+const char killer_instinct_Rash[] PROGMEM = "Rash";
+const char killer_instinct_Riptor[] PROGMEM = "Riptor";
+const char killer_instinct_Sabrewulf[] PROGMEM = "Sabrewulf";
+const char killer_instinct_Sadira[] PROGMEM = "Sadira";
+const char killer_instinct_ShadowJago[] PROGMEM = "Shadow Jago";
+const char killer_instinct_ShinHisako[] PROGMEM = "Shin Hisako";
+const char killer_instinct_Spinal[] PROGMEM = "Spinal";
+const char killer_instinct_TJCombo[] PROGMEM = "TJ Combo";
+const char killer_instinct_Tusk[] PROGMEM = "Tusk";
 
 const char *const killer_instinct[] PROGMEM = {
     killer_instinct_Aganos,
@@ -63,7 +63,7 @@ const char *const killer_instinct[] PROGMEM = {
     killer_instinct_Spinal,
     killer_instinct_TJCombo,
     killer_instinct_Tusk,
-}
+};
 
 #define n_killer_instinct (sizeof(killer_instinct) / sizeof(const char *))
 
