@@ -11,7 +11,7 @@
 
 const char games_Tekken7[] PROGMEM = "Tekken 7";
 const char games_DeadOrAlive5[] PROGMEM = "Dead or Alive 5";
-const char games_GuiltyGearXrdRev2[] PROGMEM = "Guilty Gear Xrd 2";
+const char games_GuiltyGearXrdRev2[] PROGMEM = "Guilty Gear Xrd";
 const char games_KillerInstinct[] PROGMEM = "Killer Instinct";
 const char games_Dice[] PROGMEM = "Dice";
 
