@@ -28,7 +28,29 @@ const char ggx_KumHaehyun[] PROGMEM = "Kum Haehyun";
 const char ggx_Dizzy[] PROGMEM = "Dizzy";
 
 const char *const guilty_gear[] PROGMEM = {
-    ki_Aganos,
+    ggx_SolBadguy,
+    ggx_KyKiske,
+    ggx_MilliaRage,
+    ggx_Zato1,
+    ggx_May,
+    ggx_Potemkin,
+    ggx_ChippZanuff,
+    ggx_Venom,
+    ggx_AxlLow,
+    ggx_INo,
+    ggx_Faust,
+    ggx_Slayer,
+    ggx_Ramlethal,
+    ggx_Bedman,
+    ggx_SinKiske,
+    ggx_Elphelt,
+    ggx_LeoWhitefang,
+    ggx_Johnny,
+    ggx_JackOValentine,
+    ggx_JamKuradoberi,
+    ggx_Raven,
+    ggx_KumHaehyun,
+    ggx_Dizzy,
 };
 
 #define n_guilty_gear (sizeof(guilty_gear) / sizeof(const char *))
