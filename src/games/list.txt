@@ -1,2 +1,0 @@
-    ki_Thunder,
-    ki_TJCombo,
