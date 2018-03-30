@@ -1,0 +1,49 @@
+Match,FirstPlayer,SecondPlayer,Game,FirstFighter,SecondFighter,Winner,Fair
+1,FallenGameR,Pobeditel,Tekken 7,Alisa,Eddy Gordo,Pobeditel,true
+2,FallenGameR,Pobeditel,Tekken 7,Heihachi Mishima,Feng Wei,FallenGameR,false
+3,FallenGameR,Pobeditel,Tekken 7,Bob,Hwoarang,FallenGameR,false
+4,FallenGameR,Pobeditel,Tekken 7,Eddy Gordo,Devil Jin,FallenGameR,true
+5,FallenGameR,Pobeditel,Tekken 7,Eliza,Leo,Pobeditel,true
+6,FallenGameR,Pobeditel,Tekken 7,Noctis Lucis,Asuka Kazama,Pobeditel,true
+7,FallenGameR,Pobeditel,Tekken 7,Jin Kazama,Claudio Serafino,FallenGameR,true
+8,FallenGameR,Pobeditel,Tekken 7,Jin Kazama,Master Raven,FallenGameR,false
+9,FallenGameR,Pobeditel,Tekken 7,Panda,Paul Phoenix,FallenGameR,false
+10,FallenGameR,Pobeditel,Tekken 7,Asuka Kazama,Claudio Serafino,Pobeditel,false
+11,FallenGameR,Pobeditel,Tekken 7,Lee Chaolan,Geese Howard,FallenGameR,false
+12,FallenGameR,Pobeditel,Tekken 7,Shaheen,Akuma,FallenGameR,true
+13,FallenGameR,Pobeditel,Tekken 7,Lucky Chloe,Gigas,FallenGameR,true
+14,FallenGameR,Pobeditel,Tekken 7,Jack-7,Feng Wei,FallenGameR,true
+15,FallenGameR,Pobeditel,Tekken 7,Paul Phoenix,Akuma,FallenGameR,true
+16,FallenGameR,Pobeditel,Tekken 7,Lili,Master Raven,FallenGameR,true
+17,FallenGameR,Pobeditel,Guilty Gear Xrd,Zato=1,Sin Kiske,FallenGameR,true
+18,FallenGameR,Pobeditel,Guilty Gear Xrd,Ky Kiske,Kum Haehyun,FallenGameR,false
+19,FallenGameR,Pobeditel,Guilty Gear Xrd,Jack-O,Baiken,Pobeditel,false
+20,FallenGameR,Pobeditel,Guilty Gear Xrd,Answer,Faust,FallenGameR,true
+21,FallenGameR,Pobeditel,Guilty Gear Xrd,I-No,Slayer,FallenGameR,true
+22,FallenGameR,Pobeditel,Guilty Gear Xrd,Answer,Johnny,FallenGameR,false
+23,FallenGameR,Pobeditel,Guilty Gear Xrd,Zato=1,Millia Rage,FallenGameR,false
+24,FallenGameR,Pobeditel,Guilty Gear Xrd,Kum Haehyun,Slayer,Pobeditel,true
+25,FallenGameR,Pobeditel,Guilty Gear Xrd,Zato=1,I-No,FallenGameR,false
+26,FallenGameR,Pobeditel,Guilty Gear Xrd,Johnny,Potemkin,FallenGameR,false
+27,FallenGameR,Pobeditel,Guilty Gear Xrd,Raven,Potemkin,FallenGameR,true
+28,FallenGameR,Pobeditel,Guilty Gear Xrd,Chipp Zanuff,Dizzy,FallenGameR,true
+29,FallenGameR,Pobeditel,Guilty Gear Xrd,Baiken,Dizzy,FallenGameR,true
+30,FallenGameR,Pobeditel,Guilty Gear Xrd,Chipp Zanuff,Sin Kiske,Pobeditel,true
+1,FallenGameR,Pobeditel,Dead or Alive 5,Honoka,Brad Wong,FallenGameR,true
+2,FallenGameR,Pobeditel,Dead or Alive 5,Jann Lee,Leifang,Pobeditel,true
+3,FallenGameR,Pobeditel,Dead or Alive 5,Hayate,Bayman,FallenGameR,true
+4,FallenGameR,Pobeditel,Dead or Alive 5,Nyotengu,Akira Yuki,FallenGameR,true
+5,FallenGameR,Pobeditel,Dead or Alive 5,Ryu Hayabusa,Leifang,Pobeditel,true
+6,FallenGameR,Pobeditel,Dead or Alive 5,Helena Douglas,Lisa Hamilton,FallenGameR,true
+7,FallenGameR,Pobeditel,Dead or Alive 5,Tina Armstrong,Bass Armstrong,Pobeditel,false
+8,FallenGameR,Pobeditel,Dead or Alive 5,Phase 4,Zack,FallenGameR,true
+9,FallenGameR,Pobeditel,Dead or Alive 5,Leifang,Leifang,FallenGameR,false
+10,FallenGameR,Pobeditel,Dead or Alive 5,Ayane,Christie,FallenGameR,true
+11,FallenGameR,Pobeditel,Dead or Alive 5,Nyotengu,Leon,Pobeditel,true
+12,FallenGameR,Pobeditel,Dead or Alive 5,Mai Shiranui,Christie,FallenGameR,false
+13,FallenGameR,Pobeditel,Dead or Alive 5,Sarah Bryant,Jacky Bryant,FallenGameR,true
+14,FallenGameR,Pobeditel,Dead or Alive 5,Mai Shiranui,Gen Fu,FallenGameR,true
+15,FallenGameR,Pobeditel,Dead or Alive 5,Bass Armstrong,Leifang,Pobeditel,true
+16,FallenGameR,Pobeditel,Dead or Alive 5,Sarah Bryant,Bayman,Pobeditel,false
+17,FallenGameR,Pobeditel,Dead or Alive 5,Gen Fu,Jann Lee,Pobeditel,true
+18,FallenGameR,Pobeditel,Dead or Alive 5,Alpha-152,Leifang,FallenGameR,true
