@@ -4,7 +4,7 @@
 // Using PROGMEM here to save some space for variables
 
 const char doa5_AkiraYuki[] PROGMEM = "Akira Yuki";
-const char doa5_Alpha152[] PROGMEM = "Alpha-152";
+const char doa5_Alpha152[] PROGMEM = "Alpha-152 ";
 const char doa5_Ayane[] PROGMEM = "Ayane";
 const char doa5_BassArmstrong[] PROGMEM = "Bass Armstrong";
 const char doa5_Bayman[] PROGMEM = "Bayman";

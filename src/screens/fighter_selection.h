@@ -50,9 +50,18 @@ void FighterSelectionScreen()
             screen_redraw = true;
         }
 
-        // Joystick button prints the current stats
+        // Joystick button prints the current stats and resets screen
         if (BUTTON_JOYSTICK)
         {
+            // Reset screen since sometimes on a loose connection it gets into weird state
+            lcd.begin(16, 2);
+            lcd.clear();
+            lcd.setCursor(0, 0);
+            LCD_PRINT(fighter_map_selected, fighter_index_first);
+            lcd.setCursor(0, 1);
+            LCD_PRINT(fighter_map_selected, fighter_index_second);
+
+            // Print stats to console
             Serial.println(F("-> Stats"));
             DumpStats();
             input_allowed = false;
