@@ -6,6 +6,9 @@
 #include "..\stats.h"
 #include "..\memory.h"
 
+unsigned long time_of_last_redraw;
+byte fighter_pair_shown;
+
 void FighterSelectionScreen()
 {
     if (screen_redraw)
