@@ -22,6 +22,10 @@ enum Stats
     Game,
     FirstFighter,
     SecondFighter,
+    FirstFighter2,
+    SecondFighter2,
+    FirstFighter3,
+    SecondFighter3,
     Won,
     NotFair,
     Size,
@@ -36,7 +40,7 @@ bool not_fair_win;
 //      Program:    7714 bytes (23.5% Full)
 //      Data:       1451 bytes (70.8% Full)
 
-const int match_limit = 150;
+const int match_limit = 100;
 int match_current = 0;
 byte matches[match_limit][Stats::Size];
 
