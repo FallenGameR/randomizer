@@ -27,6 +27,7 @@ const char *const games[] PROGMEM = {
 
 int games_index = 0;
 
+// Table of fighter names by game
 const char *const *fighter_map[] = {
     tekken7,
     doa5,
@@ -35,6 +36,7 @@ const char *const *fighter_map[] = {
     dice,
 };
 
+// Table of fighter name count by game
 const byte n_fighter_map[] = {
     n_tekken7,
     n_doa5,
@@ -43,7 +45,19 @@ const byte n_fighter_map[] = {
     n_dice,
 };
 
+// Number of fighters in tag matches by game
+const byte t_fighter_map[] = {
+    0, // no tag matches in Tekken
+    2, // 2 fighters in tag match in Dead or Alive
+    0, // no tag matches in Guilty Gear
+    0, // no tag matches in Killer Instinct
+    0, // no tag matches in Dice
+};
+
+// Selected variables for the firts  game in the list
 const char *const *fighter_map_selected = tekken7;
 byte n_fighter_map_selected = n_tekken7;
+byte t_fighter_map_selected = 0;
+bool isTagGame = false;
 
 #endif // GAMES_H
