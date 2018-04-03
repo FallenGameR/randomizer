@@ -15,6 +15,37 @@ void FighterSelectionScreen()
     {
         fighter_index_first = random(n_fighter_map_selected);
         fighter_index_second = random(n_fighter_map_selected);
+        fighter_index_first2 = -1;
+        fighter_index_second2 = -1;
+        fighter_index_first3 = -1;
+        fighter_index_second3 = -1;
+        if (isTagGame)
+        {
+            if (t_fighter_map_selected <= 2)
+            {
+                do
+                {
+                    fighter_index_first2 = random(n_fighter_map_selected);
+                } while (fighter_index_first2 == fighter_index_first);
+
+                do
+                {
+                    fighter_index_second2 = random(n_fighter_map_selected);
+                } while (fighter_index_second2 == fighter_index_second);
+            }
+            if (t_fighter_map_selected <= 3)
+            {
+                do
+                {
+                    fighter_index_first3 = random(n_fighter_map_selected);
+                } while ((fighter_index_first3 == fighter_index_first) || (fighter_index_first3 == fighter_index_first2));
+
+                do
+                {
+                    fighter_index_second3 = random(n_fighter_map_selected);
+                } while ((fighter_index_second3 == fighter_index_second) || (fighter_index_second3 == fighter_index_second2));
+            }
+        }
         winner_selected = Winner::None;
         not_fair_win = false;
 
@@ -25,8 +56,28 @@ void FighterSelectionScreen()
         LCD_PRINT(fighter_map_selected, fighter_index_second);
 
         SERIAL_PRINT(fighter_map_selected, fighter_index_first);
+        if (fighter_index_first2 >= 0)
+        {
+            Serial.print(F(", "));
+            SERIAL_PRINT(fighter_map_selected, fighter_index_first2);
+        }
+        if (fighter_index_first3 >= 0)
+        {
+            Serial.print(F(", "));
+            SERIAL_PRINT(fighter_map_selected, fighter_index_first3);
+        }
         Serial.print(F(" vs "));
         SERIAL_PRINT(fighter_map_selected, fighter_index_second);
+        if (fighter_index_second2 >= 0)
+        {
+            Serial.print(F(", "));
+            SERIAL_PRINT(fighter_map_selected, fighter_index_second2);
+        }
+        if (fighter_index_second3 >= 0)
+        {
+            Serial.print(F(", "));
+            SERIAL_PRINT(fighter_map_selected, fighter_index_second3);
+        }
         Serial.println();
 
         digitalWrite(pin_led_green, LOW);
@@ -39,6 +90,43 @@ void FighterSelectionScreen()
         digitalWrite(pin_led_blue, LOW);
 
         screen_redraw = false;
+        time_of_last_redraw = now;
+        fighter_pair_shown = 0;
+    }
+
+    // tag fighters cycling
+    unsigned long elapsed = now - time_of_last_redraw;
+    if (isTagGame && (elapsed > 500))
+    {
+        fighter_pair_shown += 1;
+        fighter_pair_shown %= t_fighter_map_selected;
+        lcd.clear();
+
+        switch (fighter_pair_shown)
+        {
+        case 0:
+            lcd.setCursor(0, 0);
+            LCD_PRINT(fighter_map_selected, fighter_index_first);
+            lcd.setCursor(0, 1);
+            LCD_PRINT(fighter_map_selected, fighter_index_second);
+            break;
+
+        case 1:
+            lcd.setCursor(0, 0);
+            LCD_PRINT(fighter_map_selected, fighter_index_first2);
+            lcd.setCursor(0, 1);
+            LCD_PRINT(fighter_map_selected, fighter_index_second2);
+            break;
+
+        case 2:
+            lcd.setCursor(0, 0);
+            LCD_PRINT(fighter_map_selected, fighter_index_first3);
+            lcd.setCursor(0, 1);
+            LCD_PRINT(fighter_map_selected, fighter_index_second3);
+            break;
+        }
+
+        time_of_last_redraw = now;
     }
 
     // input_allowed means we just were in neutral state and now test for new input that is tested in nested ifs
