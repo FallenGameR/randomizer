@@ -120,7 +120,7 @@ void DumpStats()
         return;
     }
 
-    Serial.println(F("Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,SecondFighter,FirstFighter2,SecondFighter2,FirstFighter3,SecondFighter3"));
+    Serial.println(F("Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,FirstFighter2,FirstFighter3,SecondFighter,SecondFighter2,SecondFighter3"));
     for (int i = 0; i < match_current; i++)
     {
         const char *const *fighterMap = fighter_map[matches[i][Stats::Game]];
@@ -164,29 +164,28 @@ void DumpStats()
         }
         Serial.print(F(","));
 
+        // First player fighters
         SERIAL_PRINT(fighterMap, matches[i][Stats::FirstFighter]);
         Serial.print(F(","));
-        SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter]);
-        Serial.print(F(","));
-
         if (matches[i][Stats::FirstFighter2] != NO_FIGHTER)
         {
             SERIAL_PRINT(fighterMap, matches[i][Stats::FirstFighter2]);
         }
         Serial.print(F(","));
-
-        if (matches[i][Stats::SecondFighter2] != NO_FIGHTER)
-        {
-            SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter2]);
-        }
-        Serial.print(F(","));
-
         if (matches[i][Stats::FirstFighter3] != NO_FIGHTER)
         {
             SERIAL_PRINT(fighterMap, matches[i][Stats::FirstFighter3]);
         }
         Serial.print(F(","));
 
+        // Second player fighters
+        SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter]);
+        Serial.print(F(","));
+        if (matches[i][Stats::SecondFighter2] != NO_FIGHTER)
+        {
+            SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter2]);
+        }
+        Serial.print(F(","));
         if (matches[i][Stats::SecondFighter3] != NO_FIGHTER)
         {
             SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter3]);
