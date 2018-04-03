@@ -74,12 +74,12 @@ void RecordMatchOutcome()
         SERIAL_PRINT(players, player_index_first);
         Serial.print(F(" won ("));
         SERIAL_PRINT(fighter_map_selected, fighter_index_first);
-        if (fighter_index_first2 >= 0)
+        if (fighter_index_first2 != NO_FIGHTER)
         {
             Serial.print(F(", "));
             SERIAL_PRINT(fighter_map_selected, fighter_index_first2);
         }
-        if (fighter_index_first3 >= 0)
+        if (fighter_index_first3 != NO_FIGHTER)
         {
             Serial.print(F(", "));
             SERIAL_PRINT(fighter_map_selected, fighter_index_first3);
@@ -91,12 +91,12 @@ void RecordMatchOutcome()
         SERIAL_PRINT(players, player_index_second);
         Serial.print(F(" won ("));
         SERIAL_PRINT(fighter_map_selected, fighter_index_second);
-        if (fighter_index_second2 >= 0)
+        if (fighter_index_second2 != NO_FIGHTER)
         {
             Serial.print(F(", "));
             SERIAL_PRINT(fighter_map_selected, fighter_index_second2);
         }
-        if (fighter_index_second3 >= 0)
+        if (fighter_index_second3 != NO_FIGHTER)
         {
             Serial.print(F(", "));
             SERIAL_PRINT(fighter_map_selected, fighter_index_second3);
@@ -169,25 +169,25 @@ void DumpStats()
         SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter]);
         Serial.print(F(","));
 
-        if (matches[i][Stats::FirstFighter2] >= 0)
+        if (matches[i][Stats::FirstFighter2] != NO_FIGHTER)
         {
             SERIAL_PRINT(fighterMap, matches[i][Stats::FirstFighter2]);
         }
         Serial.print(F(","));
 
-        if (matches[i][Stats::SecondFighter2] >= 0)
+        if (matches[i][Stats::SecondFighter2] != NO_FIGHTER)
         {
             SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter2]);
         }
         Serial.print(F(","));
 
-        if (matches[i][Stats::FirstFighter3] >= 0)
+        if (matches[i][Stats::FirstFighter3] != NO_FIGHTER)
         {
             SERIAL_PRINT(fighterMap, matches[i][Stats::FirstFighter3]);
         }
         Serial.print(F(","));
 
-        if (matches[i][Stats::SecondFighter3] >= 0)
+        if (matches[i][Stats::SecondFighter3] != NO_FIGHTER)
         {
             SERIAL_PRINT(fighterMap, matches[i][Stats::SecondFighter3]);
         }

@@ -5,6 +5,21 @@
 #include "..\input.h"
 #include "..\stats.h"
 #include "..\memory.h"
+#include "..\random.h"
+
+#define LCD_FIGHTERS(first, second)         \
+    lcd.clear();                            \
+    lcd.setCursor(0, 0);                    \
+    LCD_PRINT(fighter_map_selected, first); \
+    lcd.setCursor(0, 1);                    \
+    LCD_PRINT(fighter_map_selected, second);
+
+#define SERIAL_OPTIONAL_FIGHTER(index)             \
+    if (index != NO_FIGHTER)                       \
+    {                                              \
+        Serial.print(F(", "));                     \
+        SERIAL_PRINT(fighter_map_selected, index); \
+    }
 
 unsigned long time_of_last_redraw;
 byte fighter_pair_shown;
@@ -13,73 +28,41 @@ void FighterSelectionScreen()
 {
     if (screen_redraw)
     {
+        // Fighter init
         fighter_index_first = random(n_fighter_map_selected);
         fighter_index_second = random(n_fighter_map_selected);
-        fighter_index_first2 = -1;
-        fighter_index_second2 = -1;
-        fighter_index_first3 = -1;
-        fighter_index_second3 = -1;
+        fighter_index_first2 = NO_FIGHTER;
+        fighter_index_second2 = NO_FIGHTER;
+        fighter_index_first3 = NO_FIGHTER;
+        fighter_index_second3 = NO_FIGHTER;
         if (isTagGame)
         {
-            if (t_fighter_map_selected <= 2)
+            if (t_fighter_map_selected >= 2)
             {
-                do
-                {
-                    fighter_index_first2 = random(n_fighter_map_selected);
-                } while (fighter_index_first2 == fighter_index_first);
-
-                do
-                {
-                    fighter_index_second2 = random(n_fighter_map_selected);
-                } while (fighter_index_second2 == fighter_index_second);
+                RANDOM_EX1(n_fighter_map_selected, fighter_index_first2, fighter_index_first);
+                RANDOM_EX1(n_fighter_map_selected, fighter_index_second2, fighter_index_first);
             }
-            if (t_fighter_map_selected <= 3)
+            if (t_fighter_map_selected >= 3)
             {
-                do
-                {
-                    fighter_index_first3 = random(n_fighter_map_selected);
-                } while ((fighter_index_first3 == fighter_index_first) || (fighter_index_first3 == fighter_index_first2));
-
-                do
-                {
-                    fighter_index_second3 = random(n_fighter_map_selected);
-                } while ((fighter_index_second3 == fighter_index_second) || (fighter_index_second3 == fighter_index_second2));
+                RANDOM_EX2(n_fighter_map_selected, fighter_index_first3, fighter_index_first, fighter_index_first2);
+                RANDOM_EX2(n_fighter_map_selected, fighter_index_second3, fighter_index_second, fighter_index_second2);
             }
         }
-        winner_selected = Winner::None;
-        not_fair_win = false;
 
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        LCD_PRINT(fighter_map_selected, fighter_index_first);
-        lcd.setCursor(0, 1);
-        LCD_PRINT(fighter_map_selected, fighter_index_second);
+        // LCD output
+        LCD_FIGHTERS(fighter_index_first, fighter_index_second);
 
+        // Serial output
         SERIAL_PRINT(fighter_map_selected, fighter_index_first);
-        if (fighter_index_first2 >= 0)
-        {
-            Serial.print(F(", "));
-            SERIAL_PRINT(fighter_map_selected, fighter_index_first2);
-        }
-        if (fighter_index_first3 >= 0)
-        {
-            Serial.print(F(", "));
-            SERIAL_PRINT(fighter_map_selected, fighter_index_first3);
-        }
+        SERIAL_OPTIONAL_FIGHTER(fighter_index_first2);
+        SERIAL_OPTIONAL_FIGHTER(fighter_index_first3);
         Serial.print(F(" vs "));
         SERIAL_PRINT(fighter_map_selected, fighter_index_second);
-        if (fighter_index_second2 >= 0)
-        {
-            Serial.print(F(", "));
-            SERIAL_PRINT(fighter_map_selected, fighter_index_second2);
-        }
-        if (fighter_index_second3 >= 0)
-        {
-            Serial.print(F(", "));
-            SERIAL_PRINT(fighter_map_selected, fighter_index_second3);
-        }
+        SERIAL_OPTIONAL_FIGHTER(fighter_index_second2);
+        SERIAL_OPTIONAL_FIGHTER(fighter_index_second3);
         Serial.println();
 
+        // LEDs blink to signal start of new match
         digitalWrite(pin_led_green, LOW);
         digitalWrite(pin_led_blue, LOW);
         delay(200);
@@ -89,6 +72,9 @@ void FighterSelectionScreen()
         digitalWrite(pin_led_green, LOW);
         digitalWrite(pin_led_blue, LOW);
 
+        // Internal state init
+        winner_selected = Winner::None;
+        not_fair_win = false;
         screen_redraw = false;
         time_of_last_redraw = now;
         fighter_pair_shown = 0;
@@ -105,24 +91,15 @@ void FighterSelectionScreen()
         switch (fighter_pair_shown)
         {
         case 0:
-            lcd.setCursor(0, 0);
-            LCD_PRINT(fighter_map_selected, fighter_index_first);
-            lcd.setCursor(0, 1);
-            LCD_PRINT(fighter_map_selected, fighter_index_second);
+            LCD_FIGHTERS(fighter_index_first, fighter_index_second);
             break;
 
         case 1:
-            lcd.setCursor(0, 0);
-            LCD_PRINT(fighter_map_selected, fighter_index_first2);
-            lcd.setCursor(0, 1);
-            LCD_PRINT(fighter_map_selected, fighter_index_second2);
+            LCD_FIGHTERS(fighter_index_first2, fighter_index_second2);
             break;
 
         case 2:
-            lcd.setCursor(0, 0);
-            LCD_PRINT(fighter_map_selected, fighter_index_first3);
-            lcd.setCursor(0, 1);
-            LCD_PRINT(fighter_map_selected, fighter_index_second3);
+            LCD_FIGHTERS(fighter_index_first3, fighter_index_second3);
             break;
         }
 
@@ -146,11 +123,9 @@ void FighterSelectionScreen()
         {
             // Reset screen since sometimes on a loose connection it gets into weird state
             lcd.begin(16, 2);
-            lcd.clear();
-            lcd.setCursor(0, 0);
-            LCD_PRINT(fighter_map_selected, fighter_index_first);
-            lcd.setCursor(0, 1);
-            LCD_PRINT(fighter_map_selected, fighter_index_second);
+            LCD_FIGHTERS(fighter_index_first, fighter_index_second);
+            time_of_last_redraw = now;
+            fighter_pair_shown = 0;
 
             // Print stats to console
             Serial.println(F("-> Stats"));

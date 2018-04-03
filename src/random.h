@@ -4,6 +4,18 @@
 #include <Arduino.h>
 #include <Entropy.h>
 
+#define RANDOM_EX1(max, current, except1) \
+    do                                    \
+    {                                     \
+        current = random(max);            \
+    } while (current == except1);
+
+#define RANDOM_EX2(max, current, except1, except2) \
+    do                                             \
+    {                                              \
+        current = random(max);                     \
+    } while ((current == except1) || (current == except2));
+
 int random_seed = 0;
 int random_fairness = 20;
 

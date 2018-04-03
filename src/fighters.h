@@ -1,13 +1,15 @@
 #ifndef FIGHTERS_H
 #define FIGHTERS_H
 
-int fighter_index_first = -1;
-int fighter_index_second = -1;
+#define NO_FIGHTER 255
+
+byte fighter_index_first = NO_FIGHTER;
+byte fighter_index_second = NO_FIGHTER;
 
 // For tag matches
-int fighter_index_first2 = -1;
-int fighter_index_second2 = -1;
-int fighter_index_first3 = -1;
-int fighter_index_second3 = -1;
+byte fighter_index_first2 = NO_FIGHTER;
+byte fighter_index_second2 = NO_FIGHTER;
+byte fighter_index_first3 = NO_FIGHTER;
+byte fighter_index_second3 = NO_FIGHTER;
 
 #endif // FIGHTERS_H
