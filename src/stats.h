@@ -37,8 +37,8 @@ bool not_fair_win;
 // Arduino UNO is short on data memory even when we move all static strings into PROGMEM.
 // 150 matches is ok since practically we didn't do more than 60 in one day.
 //      Device : atmega328p
-//      Program:    7714 bytes (23.5% Full)
-//      Data:       1451 bytes (70.8% Full)
+//      Program:    7714 bytes (33.8% Full)
+//      Data:       1451 bytes (74.5% Full)
 
 const int match_limit = 100;
 int match_current = 0;
