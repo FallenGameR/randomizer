@@ -1,11 +1,101 @@
 Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,FirstFighter2,FirstFighter3,SecondFighter,SecondFighter2,SecondFighter3
-1,FallenGameR,Pobeditel,Tekken 7,Pobeditel,true,Nina Williams,,,Lars,,
-2,FallenGameR,Pobeditel,Tekken 7,Draw,true,Miguel,,,Miguel,,
-3,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Marie Rose,Leifang,,Sarah Bryant,Kasumi,
-4,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,false,Akira Yuki,Rig,,Momiji,Hayate,
-5,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Momiji,Honoka,,Rachel,Bass Armstrong,
-6,FallenGameR,Pobeditel,Dead or Alive 5,Pobeditel,true,Hitomi,Leifang,,Christie,Jacky Bryant,
-7,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Eliot,Mila,,Bayman,Naotora Ii,
-8,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Ryu Hayabusa,Tina Armstrong,,Nyotengu,Ein,
-9,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Alpha-152,Bayman,,Ryu Hayabusa,Leon,
-10,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Momiji,Marie Rose,,Mai Shiranui,Brad Wong,
+1,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Iori Yagami,Vanessa,Nelson,Shun'ei,Nelson,Andy Bogard
+2,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Kula Diamond,Mui Mui,Love Heart,Vice,Bandeiras Hatto,Iori Yagami
+3,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Rock Howard,Tung Fu Rue,Clark Still,Xanadu,King,Meitenkun
+4,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Ryo Sakazaki,Antonov,Sie Kensou,Chang Koehan,Andy Bogard,Vice
+5,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Tung Fu Rue,Shun'ei,Kim Kaphwan,Ryo Sakazaki,Kukri,Choi Bounge
+6,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Xanadu,Robert Garcia,Benimaru Nikai,Joe Higashi,Choi Bounge,Iori Yagami
+7,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Leona Heidern,Clark Still,Hein,Chang Koehan,Nelson,Luong
+8,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Maxima,Ramon,Tung Fu Rue,Billy Kane,Billy Kane,King
+9,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Kula Diamond,Billy Kane,Joe Higashi,Iori Yagami,Bandeiras Hatto,King of Dino
+10,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Leona Heidern,King,Ramon,Leona Heidern,Robert Garcia,Mian
+11,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Tung Fu Rue,Chang Koehan,Ryuji Yamazaki,Kukri,Shun'ei,Clark Still
+12,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Geese Howard,Alice,Athena Asamiya,Choi Bounge,Mai Shiranui,Robert Garcia
+13,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Yuri Sakazaki,Xanadu,Nelson,Gang-il,Kula Diamond,Mai Shiranui
+14,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Terry Bogard,Ryo Sakazaki,Benimaru Nikai,Athena Asamiya,Whip,Billy Kane
+15,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Kim Kaphwan,Iori Yagami,Xanadu,Chin Gentsai,Yuri Sakazaki,Kim Kaphwan
+16,FallenGameR,Pobeditel,King of Fighters,Draw,true,Mui Mui,Kula Diamond,Yuri Sakazaki,Love Heart,Ryuji Yamazaki,Geese Howard
+17,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Sie Kensou,King of Dino,Bandeiras Hatto,Iori Yagami,Mui Mui,Meitenkun
+18,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Mai Shiranui,Kukri,Mature,Ryuji Yamazaki,Robert Garcia,Choi Bounge
+19,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Terry Bogard,Andy Bogard,Alice,Sylvie Paula,King of Dino,Whip
+20,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Antonov,Alice,K',Ralf Jones,Maxima,Terry Bogard
+21,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Luong,Angel,Alice,Rock Howard,Vanessa,Yuri Sakazaki
+22,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Verse,Nakoruru,Alice,Ramon,Bandeiras Hatto,Athena Asamiya
+23,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Antonov,Andy Bogard,Luong,Bandeiras Hatto,Meitenkun,Joe Higashi
+24,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Vice,Andy Bogard,Ralf Jones,Zarina,Benimaru Nikai,Vanessa
+25,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Nakoruru,Mui Mui,Benimaru Nikai,Sylvie Paula,Chin Gentsai,Nakoruru
+26,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Antonov,Athena Asamiya,Mai Shiranui,Leona Heidern,Benimaru Nikai,Joe Higashi
+27,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Andy Bogard,Geese Howard,King of Dino,Antonov,Xanadu,Billy Kane
+28,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,King,Benimaru Nikai,Vanessa,Antonov,Terry Bogard,Andy Bogard
+29,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Maxima,Kula Diamond,Benimaru Nikai,Chin Gentsai,Vice,King
+30,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Athena Asamiya,King,Chang Koehan,Ramon,Chang Koehan,Iori Yagami
+31,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Alice,Nakoruru,Benimaru Nikai,Xanadu,Angel,Antonov
+32,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Ramon,Mui Mui,Yuri Sakazaki,Nakoruru,Antonov,Clark Still
+33,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Zarina,Robert Garcia,Love Heart,Kim Kaphwan,Kukri,Billy Kane
+34,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Whip,Vanessa,Yuri Sakazaki,Whip,Athena Asamiya,K'
+35,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Joe Higashi,Ramon,Tung Fu Rue,Chang Koehan,Nelson,Mui Mui
+36,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Vanessa,K',Yuri Sakazaki,Ryuji Yamazaki,Billy Kane,Benimaru Nikai
+37,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Tung Fu Rue,Goro Daimon,Terry Bogard,Nakoruru,Mature,Chang Koehan
+38,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Mai Shiranui,Clark Still,Gang-il,Choi Bounge,Geese Howard,Ryuji Yamazaki
+39,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Kula Diamond,King,Joe Higashi,Choi Bounge,Kyo Kusanagi,Nakoruru
+40,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Chang Koehan,Geese Howard,Zarina,Chin Gentsai,Kyo Kusanagi,Athena Asamiya
+41,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Kula Diamond,Goro Daimon,Whip,Nakoruru,Athena Asamiya,Verse
+42,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Billy Kane,Xanadu,Hein,Verse,Sylvie Paula,Choi Bounge
+43,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Luong,Chin Gentsai,Whip,Xanadu,Leona Heidern,Robert Garcia
+44,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,K',Chin Gentsai,Ramon,Nakoruru,Alice,Love Heart
+45,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Leona Heidern,Zarina,Nelson,Maxima,Rock Howard,Whip
+46,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Ramon,Geese Howard,Ryo Sakazaki,Ryo Sakazaki,Meitenkun,Iori Yagami
+47,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Ryuji Yamazaki,Ralf Jones,Maxima,King of Dino,Luong,Billy Kane
+48,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Billy Kane,Benimaru Nikai,K',Gang-il,Robert Garcia,Benimaru Nikai
+49,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Mai Shiranui,Mui Mui,Alice,K',Billy Kane,Whip
+50,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Love Heart,Sie Kensou,Geese Howard,Xanadu,Billy Kane,Angel
+51,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Joe Higashi,Mature,Verse,King of Dino,Gang-il,Zarina
+52,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Alice,Verse,Xanadu,Billy Kane,Tung Fu Rue,Iori Yagami
+53,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Shun'ei,Kim Kaphwan,Yuri Sakazaki,Chin Gentsai,Zarina,Yuri Sakazaki
+54,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Verse,Chang Koehan,Terry Bogard,K',Gang-il,Zarina
+55,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Meitenkun,Whip,Hein,Ralf Jones,Benimaru Nikai,Billy Kane
+56,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Robert Garcia,Meitenkun,Nelson,Benimaru Nikai,Gang-il,Ralf Jones
+57,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Nakoruru,Bandeiras Hatto,Mai Shiranui,Athena Asamiya,Mature,Yuri Sakazaki
+58,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Terry Bogard,Goro Daimon,Choi Bounge,Sylvie Paula,Kim Kaphwan,Shun'ei
+59,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Bandeiras Hatto,Whip,Kula Diamond,Maxima,Chang Koehan,Shun'ei
+60,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Joe Higashi,Alice,Meitenkun,K',Iori Yagami,Nakoruru
+61,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Kim Kaphwan,Love Heart,Xanadu,Mai Shiranui,Rock Howard,Robert Garcia
+62,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Kukri,Kyo Kusanagi,Ryo Sakazaki,King of Dino,Angel,Luong
+63,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Athena Asamiya,Andy Bogard,Benimaru Nikai,Nelson,Joe Higashi,Terry Bogard
+64,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Choi Bounge,Kyo Kusanagi,Robert Garcia,Love Heart,Ramon,Verse
+65,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Robert Garcia,Clark Still,Gang-il,Iori Yagami,Verse,Vanessa
+66,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Mui Mui,Antonov,Meitenkun,Robert Garcia,Mature,Yuri Sakazaki
+67,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Clark Still,Mui Mui,Gang-il,Meitenkun,K',Goro Daimon
+68,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Sie Kensou,Xanadu,Bandeiras Hatto,Love Heart,Antonov,Vanessa
+69,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Vice,Leona Heidern,Ryo Sakazaki,King,Leona Heidern,Joe Higashi
+70,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Ryo Sakazaki,Tung Fu Rue,Kim Kaphwan,Antonov,Gang-il,Maxima
+71,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Hein,K',Vice,Terry Bogard,Chin Gentsai,Benimaru Nikai
+72,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Hein,Clark Still,Billy Kane,Kim Kaphwan,Chin Gentsai,Whip
+73,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Maxima,Rock Howard,Nakoruru,Kim Kaphwan,Chang Koehan,Terry Bogard
+74,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Alice,Whip,Kula Diamond,Andy Bogard,Leona Heidern,Mai Shiranui
+75,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Sylvie Paula,Whip,Ramon,Gang-il,Xanadu,Nelson
+76,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Tung Fu Rue,Joe Higashi,Shun'ei,Love Heart,Billy Kane,Hein
+77,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Zarina,Sie Kensou,Athena Asamiya,Billy Kane,Mature,Hein
+78,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Luong,Kukri,Chang Koehan,Nakoruru,Ryo Sakazaki,Alice
+79,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Nelson,Nakoruru,Vanessa,Geese Howard,Ralf Jones,Kyo Kusanagi
+80,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Vanessa,Yuri Sakazaki,Gang-il,Yuri Sakazaki,Alice,Meitenkun
+81,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Kyo Kusanagi,Tung Fu Rue,Rock Howard,Whip,Chin Gentsai,Shun'ei
+82,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Goro Daimon,Nelson,Alice,Chin Gentsai,Alice,Meitenkun
+83,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Sylvie Paula,Ralf Jones,Robert Garcia,Athena Asamiya,Ramon,Andy Bogard
+84,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Alice,Antonov,Mui Mui,King of Dino,Mian,Chang Koehan
+85,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Love Heart,Mature,Yuri Sakazaki,Leona Heidern,Sie Kensou,Goro Daimon
+86,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Xanadu,Athena Asamiya,Ralf Jones,Robert Garcia,Mai Shiranui,Terry Bogard
+87,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Mian,Kim Kaphwan,Angel,King of Dino,Xanadu,Benimaru Nikai
+88,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Joe Higashi,Billy Kane,Sie Kensou,Luong,Kim Kaphwan,Gang-il
+89,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Andy Bogard,Love Heart,Kyo Kusanagi,Ryo Sakazaki,Luong,Leona Heidern
+90,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Nakoruru,Bandeiras Hatto,Vice,Bandeiras Hatto,Clark Still,Choi Bounge
+91,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Mature,Terry Bogard,Hein,Terry Bogard,Goro Daimon,Mian
+92,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Meitenkun,Choi Bounge,Sylvie Paula,King of Dino,Alice,Iori Yagami
+93,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Billy Kane,Terry Bogard,Rock Howard,Whip,Athena Asamiya,Zarina
+94,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Kula Diamond,Maxima,Leona Heidern,Chin Gentsai,Clark Still,Rock Howard
+95,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Gang-il,Verse,Sie Kensou,Zarina,Mai Shiranui,Verse
+96,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Chang Koehan,Alice,Shun'ei,Goro Daimon,Leona Heidern,Antonov
+97,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Ramon,Benimaru Nikai,Iori Yagami,Choi Bounge,Ryo Sakazaki,Alice
+98,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Ralf Jones,Benimaru Nikai,Ramon,Mature,Mature,Gang-il
+99,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Chin Gentsai,Joe Higashi,Vice,Sylvie Paula,Zarina,Robert Garcia
+100,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Antonov,Andy Bogard,Zarina,K',Meitenkun,Billy Kane
