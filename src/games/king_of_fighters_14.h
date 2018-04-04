@@ -20,7 +20,7 @@ Villains Team
     Chang Koehan
     Choi Bounge    
 Official Invitation Team
-    Sylvie Paula Paula
+    Sylvie Paula
     Kukri
     Mian
 South America Team
@@ -30,7 +30,7 @@ South America Team
 Mexico Team
     Ramon
     Angel
-    King of Dinosaurs
+    King of Dino
 South Town Team
     Geese Howard
     Billy Kane
@@ -64,9 +64,9 @@ Another World Team
     Mui Mui
     Love Heart
 Antonov Team
-    Ryuji Yamazaki+
-    Whip+
-    Antonov+
+    Ryuji Yamazaki
+    Whip
+    Antonov
 Verse Team
     Verse
     Vanessa
