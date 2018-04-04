@@ -1,0 +1,11 @@
+Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,FirstFighter2,FirstFighter3,SecondFighter,SecondFighter2,SecondFighter3
+1,FallenGameR,Pobeditel,Tekken 7,Pobeditel,true,Nina Williams,,,Lars,,
+2,FallenGameR,Pobeditel,Tekken 7,Draw,true,Miguel,,,Miguel,,
+3,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Marie Rose,Leifang,,Sarah Bryant,Kasumi,
+4,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,false,Akira Yuki,Rig,,Momiji,Hayate,
+5,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Momiji,Honoka,,Rachel,Bass Armstrong,
+6,FallenGameR,Pobeditel,Dead or Alive 5,Pobeditel,true,Hitomi,Leifang,,Christie,Jacky Bryant,
+7,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Eliot,Mila,,Bayman,Naotora Ii,
+8,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Ryu Hayabusa,Tina Armstrong,,Nyotengu,Ein,
+9,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Alpha-152,Bayman,,Ryu Hayabusa,Leon,
+10,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Momiji,Marie Rose,,Mai Shiranui,Brad Wong,

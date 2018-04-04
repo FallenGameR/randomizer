@@ -168,10 +168,22 @@ function Show-FighterStats( $history )
         Write-Host "  $player" -fore DarkYellow
         Write-Host "     win    lost   draw  total" -fore DarkCyan
 
-        $fighters = $history | foreach{
-            if( ($_.FirstPlayer -eq $player) ) {$_.FirstFighter}
-            if( ($_.SecondPlayer -eq $player) ) {$_.SecondFighter} } |
-            group | sort Count -desc
+        $fightersRaw = foreach( $item in $history )
+        {
+            if( $item.FirstPlayer -eq $player )
+            {
+                $item.FirstFighter
+                $item.FirstFighter2
+                $item.FirstFighter3
+            }
+            if( $item.SecondPlayer -eq $player )
+            {
+                $item.SecondFighter
+                $item.SecondFighter2
+                $item.SecondFighter3
+            }
+        }
+        $fighters = $fightersRaw | where{ $_ } | group | sort Count -desc
 
         foreach( $fighter in $fighters.Name )
         {
@@ -233,7 +245,7 @@ function Show-ChairsStats( $history )
     }
 }
 
-function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\data\sample.csv" )
+function Show-Stats( $path = "f:\OneDrive\Projects\Hobbies\Hardware\randomizer\data\tag_sample.csv" )
 {
     function Show-Output( $name, $scope )
     {
