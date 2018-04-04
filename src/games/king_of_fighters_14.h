@@ -11,10 +11,6 @@ Fatal Fury Team
     Terry Bogard
     Andy Bogard
     Joe Higashi
-Art of Fighting Team
-    Ryo Sakazaki
-    Robert Garcia
-    Yuri Sakazaki
 Kim Team
     Kim Kaphwan
     Gang-il
@@ -22,7 +18,7 @@ Kim Team
 Villains Team
     Xanadu
     Chang Koehan
-    Choi Bounge
+    Choi Bounge    
 Official Invitation Team
     Sylvie Paula Paula
     Kukri
@@ -43,18 +39,10 @@ China Team
     Shun'ei
     Tung Fu Rue
     Meitenkun
-Psycho Soldier Team
-    Athena Asamiya
-    Sie Kensou
-    Chin Gentsai
 Ikari Warriors Team
-    Leona Heidern
     Ralf Jones
     Clark Still
-Another World Team
-    Nakoruru
-    Mui Mui
-    Love Heart
+    Leona Heidern
 K' Team
     K'
     Kula Diamond
@@ -63,18 +51,25 @@ Women Fighters Team
     King
     Mai Shiranui
     Alice
-Bosses
-    Antonov
+Psycho Soldier Team
+    Athena Asamiya
+    Sie Kensou
+    Chin Gentsai
+Art of Fighting Team
+    Ryo Sakazaki
+    Robert Garcia
+    Yuri Sakazaki
+Another World Team
+    Nakoruru
+    Mui Mui
+    Love Heart
+Antonov Team
+    Ryuji Yamazaki+
+    Whip+
+    Antonov+
+Verse Team
     Verse
-DLCEdit
-Wave 1Edit
-    Whip
-    Ryuji Yamazaki
     Vanessa
     Rock Howard
-Wave 2Edit
-    Oswald
-    Heidern
-    Najd
 
 /**/
