@@ -188,15 +188,15 @@ function Show-FighterStats( $history )
         foreach( $fighter in $fighters.Name )
         {
             $relevantMatches = $history | where{
-                (($_.FirstPlayer -eq $player) -and ($_.FirstFighter -eq $fighter)) -or
-                (($_.SecondPlayer -eq $player) -and ($_.SecondFighter -eq $fighter)) }
+                (($_.FirstPlayer -eq $player) -and ($fighter -in $_.FirstFighter, $_.FirstFighter2, $_.FirstFighter3)) -or
+                (($_.SecondPlayer -eq $player) -and ($fighter -in $_.SecondFighter, $_.SecondFighter2, $_.SecondFighter3)) }
 
             $relevantMatches | Draw-ResultRow `
-                {(($fighter -eq $_.FirstFighter)  -and ($_.Winner -eq $_.FirstPlayer)) -or
-                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.SecondPlayer))} `
-                {(($fighter -eq $_.FirstFighter) -and ($_.Winner -eq $_.SecondPlayer)) -or
-                 (($fighter -eq $_.SecondFighter) -and ($_.Winner -eq $_.FirstPlayer))} `
-                {(($fighter -eq $_.FirstFighter) -or (($fighter -eq $_.SecondFighter))) -and
+                {(($fighter -in $_.FirstFighter, $_.FirstFighter2, $_.FirstFighter3)    -and ($_.Winner -eq $_.FirstPlayer)) -or
+                 (($fighter -in $_.SecondFighter, $_.SecondFighter2, $_.SecondFighter3) -and ($_.Winner -eq $_.SecondPlayer))} `
+                {(($fighter -in $_.FirstFighter, $_.FirstFighter2, $_.FirstFighter3)    -and ($_.Winner -eq $_.SecondPlayer)) -or
+                 (($fighter -in $_.SecondFighter, $_.SecondFighter2, $_.SecondFighter3) -and ($_.Winner -eq $_.FirstPlayer))} `
+                {(($fighter -in $_.FirstFighter, $_.FirstFighter2, $_.FirstFighter3) -or (($fighter -in $_.SecondFighter, $_.SecondFighter2, $_.SecondFighter3))) -and
                  (($_.Winner -eq "draw"))} `
                 $fighter
         }
