@@ -8,77 +8,77 @@
 const char doa5_AkiraYuki[] PROGMEM = "Akira Yuki";
 
 // Japan Team
-    Kyo Kusanagi
-    Benimaru Nikaido
-    Goro Daimon
+const char kof14_KyoKusanagi [] PROGMEM = "Kyo Kusanagi";
+const char kof14_BenimaruNikaido [] PROGMEM = "Benimaru Nikaido";
+const char kof14_GoroDaimon [] PROGMEM = "Goro Daimon";
 // Yagami Team
-    Iori Yagami
-    Mature
-    Vice
+const char kof14_IoriYagami [] PROGMEM = "Iori Yagami";
+const char kof14_Mature [] PROGMEM = "Mature";
+const char kof14_Vice [] PROGMEM = "Vice";
 // Fatal Fury Team
-    Terry Bogard
-    Andy Bogard
-    Joe Higashi
+const char kof14_TerryBogard [] PROGMEM = "Terry Bogard";
+const char kof14_AndyBogard [] PROGMEM = "Andy Bogard";
+const char kof14_JoeHigashi [] PROGMEM = "Joe Higashi";
 // Kim Team
-    Kim Kaphwan
-    Gang-il
-    Luong
+const char kof14_KimKaphwan [] PROGMEM = "Kim Kaphwan";
+const char kof14_GangIl [] PROGMEM = "Gang-il";
+const char kof14_Luong [] PROGMEM = "Luong";
 // Villains Team
-    Xanadu
-    Chang Koehan
-    Choi Bounge    
+const char kof14_Xanadu [] PROGMEM = "Xanadu";
+const char kof14_ChangKoehan [] PROGMEM = "Chang Koehan";
+const char kof14_ChoiBounge     [] PROGMEM = "Choi Bounge    ";
 // Official Invitation Team
-    Sylvie Paula
-    Kukri
-    Mian
+const char kof14_SylviePaula [] PROGMEM = "Sylvie Paula";
+const char kof14_Kukri [] PROGMEM = "Kukri";
+const char kof14_Mian [] PROGMEM = "Mian";
 // South America Team
-    Nelson
-    Zarina
-    Bandeiras Hattori
+const char kof14_Nelson [] PROGMEM = "Nelson";
+const char kof14_Zarina [] PROGMEM = "Zarina";
+const char kof14_BandeirasHattori [] PROGMEM = "Bandeiras Hattori";
 // Mexico Team
-    Ramon
-    Angel
-    King of Dino
+const char kof14_Ramon [] PROGMEM = "Ramon";
+const char kof14_Angel [] PROGMEM = "Angel";
+const char kof14_KingOfDino [] PROGMEM = "King of Dino";
 // South Town Team
-    Geese Howard
-    Billy Kane
-    Hein
+const char kof14_GeeseHoward [] PROGMEM = "Geese Howard";
+const char kof14_BillyKane [] PROGMEM = "Billy Kane";
+const char kof14_Hein [] PROGMEM = "Hein";
 // China Team
-    Shun'ei
-    Tung Fu Rue
-    Meitenkun
+const char kof14_ShunEi [] PROGMEM = "Shun'ei";
+const char kof14_TungFuRue [] PROGMEM = "Tung Fu Rue";
+const char kof14_Meitenkun [] PROGMEM = "Meitenkun";
 // Ikari Warriors Team
-    Ralf Jones
-    Clark Still
-    Leona Heidern
+const char kof14_RalfJones [] PROGMEM = "Ralf Jones";
+const char kof14_ClarkStill [] PROGMEM = "Clark Still";
+const char kof14_LeonaHeidern [] PROGMEM = "Leona Heidern";
 // K' Team
-    K'
-    Kula Diamond
-    Maxima
+const char kof14_K [] PROGMEM = "K'";
+const char kof14_KulaDiamond [] PROGMEM = "Kula Diamond";
+const char kof14_Maxima [] PROGMEM = "Maxima";
 // Women Fighters Team
-    King
-    Mai Shiranui
-    Alice
+const char kof14_King [] PROGMEM = "King";
+const char kof14_MaiShiranui [] PROGMEM = "Mai Shiranui";
+const char kof14_Alice [] PROGMEM = "Alice";
 // Psycho Soldier Team
-    Athena Asamiya
-    Sie Kensou
-    Chin Gentsai
+const char kof14_AthenaAsamiya [] PROGMEM = "Athena Asamiya";
+const char kof14_SieKensou [] PROGMEM = "Sie Kensou";
+const char kof14_ChinGentsai [] PROGMEM = "Chin Gentsai";
 // Art of Fighting Team
-    Ryo Sakazaki
-    Robert Garcia
-    Yuri Sakazaki
+const char kof14_RyoSakazaki [] PROGMEM = "Ryo Sakazaki";
+const char kof14_RobertGarcia [] PROGMEM = "Robert Garcia";
+const char kof14_YuriSakazaki [] PROGMEM = "Yuri Sakazaki";
 // Another World Team
-    Nakoruru
-    Mui Mui
-    Love Heart
+const char kof14_Nakoruru [] PROGMEM = "Nakoruru";
+const char kof14_MuiMui [] PROGMEM = "Mui Mui";
+const char kof14_LoveHeart [] PROGMEM = "Love Heart";
 // Antonov Team
-    Ryuji Yamazaki
-    Whip
-    Antonov
+const char kof14_RyujiYamazaki [] PROGMEM = "Ryuji Yamazaki";
+const char kof14_Whip [] PROGMEM = "Whip";
+const char kof14_Antonov [] PROGMEM = "Antonov";
 // Verse Team
-    Verse
-    Vanessa
-    Rock Howard
+const char kof14_Verse [] PROGMEM = "Verse";
+const char kof14_Vanessa [] PROGMEM = "Vanessa";
+const char kof14_RockHoward [] PROGMEM = "Rock Howard";
 
 const char *const kof14[] PROGMEM = {
     doa5_AkiraYuki,
