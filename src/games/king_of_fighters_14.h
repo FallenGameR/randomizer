@@ -1,4 +1,12 @@
+#ifndef KING_OF_FIGHTERS_14_H
+#define KING_OF_FIGHTERS_14_H
+
+// Using PROGMEM here to save some space for variables
+
 /*
+
+const char doa5_AkiraYuki[] PROGMEM = "Akira Yuki";
+
 Japan Team
     Kyo Kusanagi
     Benimaru Nikaido
@@ -72,4 +80,12 @@ Verse Team
     Vanessa
     Rock Howard
 
+const char *const kof14[] PROGMEM = {
+    doa5_AkiraYuki,
+};
+
 /**/
+
+#define n_kof14 (sizeof(kof14) / sizeof(const char *))
+
+#endif // KING_OF_FIGHTERS_14_H
