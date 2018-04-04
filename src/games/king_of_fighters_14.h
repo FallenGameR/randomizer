@@ -5,7 +5,7 @@
 
 // Japan Team
 const char kof14_KyoKusanagi[] PROGMEM = "Kyo Kusanagi";
-const char kof14_BenimaruNikaido[] PROGMEM = "Benimaru Nikaido";
+const char kof14_BenimaruNikaido[] PROGMEM = "Benimaru Nikai";
 const char kof14_GoroDaimon[] PROGMEM = "Goro Daimon";
 // Yagami Team
 const char kof14_IoriYagami[] PROGMEM = "Iori Yagami";
@@ -22,7 +22,7 @@ const char kof14_Luong[] PROGMEM = "Luong";
 // Villains Team
 const char kof14_Xanadu[] PROGMEM = "Xanadu";
 const char kof14_ChangKoehan[] PROGMEM = "Chang Koehan";
-const char kof14_ChoiBounge[] PROGMEM = "Choi Bounge    ";
+const char kof14_ChoiBounge[] PROGMEM = "Choi Bounge";
 // Official Invitation Team
 const char kof14_SylviePaula[] PROGMEM = "Sylvie Paula";
 const char kof14_Kukri[] PROGMEM = "Kukri";
@@ -30,7 +30,7 @@ const char kof14_Mian[] PROGMEM = "Mian";
 // South America Team
 const char kof14_Nelson[] PROGMEM = "Nelson";
 const char kof14_Zarina[] PROGMEM = "Zarina";
-const char kof14_BandeirasHattori[] PROGMEM = "Bandeiras Hattori";
+const char kof14_BandeirasHattori[] PROGMEM = "Bandeiras Hatto";
 // Mexico Team
 const char kof14_Ramon[] PROGMEM = "Ramon";
 const char kof14_Angel[] PROGMEM = "Angel";
