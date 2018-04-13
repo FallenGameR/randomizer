@@ -1,0 +1,29 @@
+Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,FirstFighter2,FirstFighter3,SecondFighter,SecondFighter2,SecondFighter3
+1,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Gang-il,Mai Shiranui,Rock Howard,Maxima,Geese Howard,Ryuji Yamazaki
+2,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Leona Heidern,Zarina,Goro Daimon,Kula Diamond,Benimaru Nikai,Leona Heidern
+3,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Alice,Sie Kensou,Yuri Sakazaki,Nakoruru,Chang Koehan,Yuri Sakazaki
+4,FallenGameR,Pobeditel,King of Fighters,FallenGameR,false,King,Athena Asamiya,Robert Garcia,Andy Bogard,Love Heart,Hein
+5,FallenGameR,Pobeditel,King of Fighters,FallenGameR,true,Meitenkun,Choi Bounge,Andy Bogard,Hein,Terry Bogard,Mian
+6,FallenGameR,Pobeditel,King of Fighters,Pobeditel,false,Ryo Sakazaki,Vanessa,Andy Bogard,Choi Bounge,Mian,Athena Asamiya
+7,FallenGameR,Pobeditel,King of Fighters,FallenGameR,false,Kukri,Ramon,Tung Fu Rue,Geese Howard,Nakoruru,Gang-il
+8,FallenGameR,Pobeditel,King of Fighters,Pobeditel,false,Bandeiras Hatto,Alice,K',Alice,Mian,Chang Koehan
+9,FallenGameR,Pobeditel,King of Fighters,Pobeditel,false,Antonov,Kukri,Chang Koehan,Yuri Sakazaki,Ryo Sakazaki,Athena Asamiya
+10,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Meitenkun,Joe Higashi,Goro Daimon,Tung Fu Rue,Vice,Athena Asamiya
+11,FallenGameR,Pobeditel,King of Fighters,Pobeditel,false,Benimaru Nikai,King,Robert Garcia,King of Dino,Andy Bogard,Hein
+12,FallenGameR,Pobeditel,King of Fighters,Pobeditel,false,Goro Daimon,Chang Koehan,Robert Garcia,Ryo Sakazaki,Gang-il,Love Heart
+13,FallenGameR,Pobeditel,King of Fighters,Pobeditel,true,Benimaru Nikai,Antonov,Nakoruru,Chang Koehan,Chin Gentsai,Sie Kensou
+14,FallenGameR,Pobeditel,Dead or Alive 5,Pobeditel,false,Lisa Hamilton,Tina Armstrong,,Lisa Hamilton,Bass Armstrong,
+15,FallenGameR,Pobeditel,Dead or Alive 5,Pobeditel,false,Marie Rose,Brad Wong,,Hitomi,Ein,
+16,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,false,Sarah Bryant,Momiji,,Mai Shiranui,Momiji,
+17,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Kokoro,Eliot,,Gen Fu,Nyotengu,
+18,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Mai Shiranui,Jann Lee,,Honoka,Mila,
+19,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Lisa Hamilton,Raidou,,Nyotengu,Phase 4,
+20,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,false,Zack,Jacky Bryant,,Akira Yuki,Mai Shiranui,
+21,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Alpha-152,Marie Rose,,Jann Lee,Ayane,
+22,FallenGameR,Pobeditel,Dead or Alive 5,Pobeditel,false,Hayate,Honoka,,Momiji,Rig,
+23,FallenGameR,Pobeditel,Dead or Alive 5,Pobeditel,true,Bass Armstrong,Rig,,Raidou,Lisa Hamilton,
+24,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Ryu Hayabusa,Leon,,Leifang,Jacky Bryant,
+25,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Ayane,Zack,,Jacky Bryant,Gen Fu,
+26,FallenGameR,Pobeditel,Dead or Alive 5,Pobeditel,false,Honoka,Mai Shiranui,,Mai Shiranui,Naotora Ii,
+27,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,true,Mai Shiranui,Bayman,,Helena Douglas,Helena Douglas,
+28,FallenGameR,Pobeditel,Dead or Alive 5,FallenGameR,false,Alpha-152,Raidou,,Lisa Hamilton,Rig,
