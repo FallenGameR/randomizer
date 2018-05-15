@@ -40,7 +40,7 @@ void FighterSelectionScreen()
             if (t_fighter_map_selected >= 2)
             {
                 RANDOM_EX1(n_fighter_map_selected, fighter_index_first2, fighter_index_first);
-                RANDOM_EX1(n_fighter_map_selected, fighter_index_second2, fighter_index_first);
+                RANDOM_EX1(n_fighter_map_selected, fighter_index_second2, fighter_index_second);
             }
             if (t_fighter_map_selected >= 3)
             {
