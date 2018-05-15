@@ -11,7 +11,7 @@ const char mk_Ermac[] PROGMEM = "Ermac";
 const char mk_ErronBlack[] PROGMEM = "Erron Black";
 const char mk_FerraTorr[] PROGMEM = "Ferra/Torr";
 const char mk_Goro[] PROGMEM = "Goro";
-const char mk_Jacqui Briggs[] PROGMEM = "Jacqui Briggs";
+const char mk_JacquiBriggs[] PROGMEM = "Jacqui Briggs";
 const char mk_Jason[] PROGMEM = "Jason";
 const char mk_Jax[] PROGMEM = "Jax";
 const char mk_JohnnyCage[] PROGMEM = "Johnny Cage";
@@ -46,7 +46,7 @@ const char *const mortal_kombat[] PROGMEM = {
     mk_ErronBlack,
     mk_FerraTorr,
     mk_Goro,
-    mk_Jacq,
+    mk_JacquiBriggs,
     mk_Jason,
     mk_Jax,
     mk_JohnnyCage,

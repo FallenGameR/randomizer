@@ -6,6 +6,8 @@
 #include "guilty_gear_xrd_rev2.h"
 #include "king_of_fighters_14.h"
 #include "killer_instinct.h"
+#include "mortal_kombat_xl.h"
+#include "street_fighter_5.h"
 #include "dice.h"
 
 // Using PROGMEM here to save some space for variables
@@ -15,6 +17,8 @@ const char games_DeadOrAlive5[] PROGMEM = "Dead or Alive 5";
 const char games_GuiltyGearXrdRev2[] PROGMEM = "Guilty Gear Xrd";
 const char games_KingOfFighters14[] PROGMEM = "King of Fighters";
 const char games_KillerInstinct[] PROGMEM = "Killer Instinct";
+const char games_MortalKombatX[] PROGMEM = "Mortal Kombat X";
+const char games_StreetFighter5[] PROGMEM = "Street Fighter";
 const char games_Dice[] PROGMEM = "Dice";
 
 const char *const games[] PROGMEM = {
@@ -23,6 +27,8 @@ const char *const games[] PROGMEM = {
     games_GuiltyGearXrdRev2,
     games_KingOfFighters14,
     games_KillerInstinct,
+    games_MortalKombatX,
+    games_StreetFighter5,
     games_Dice,
 };
 
@@ -37,6 +43,8 @@ const char *const *fighter_map[] = {
     guilty_gear,
     kof14,
     killer_instinct,
+    mortal_kombat,
+    street_fighter_5,
     dice,
 };
 
@@ -47,6 +55,8 @@ const byte n_fighter_map[] = {
     n_guilty_gear,
     n_kof14,
     n_killer_instinct,
+    n_mortal_kombat,
+    n_street_fighter_5,
     n_dice,
 };
 
@@ -57,6 +67,8 @@ const byte t_fighter_map[] = {
     0, // no tag matches in Guilty Gear
     3, // 3 fighters teams in King of Fighters
     0, // no tag matches in Killer Instinct
+    0, // no tag matches in Mortal Kombat
+    2, // 2 fighter matches in Street Fighter (actually it could be up to 5x5, but 2x2 seem good enough)
     0, // no tag matches in Dice
 };
 
