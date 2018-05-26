@@ -37,7 +37,7 @@
 // CLK(SCK) - this is the SPI clock input pin. On mega 52 or ICSP-3.
 // MISO - this is the SPI Master In Slave Out pin, its used for the SD card mostly, and for debugging the TFT display. It isn't necessary for using the TFT display which is write-only. On mega 50 or ICSP-1.
 // MOSI - this is the SPI Master Out Slave In pin, it is used to send data from the microcontroller to the SD card and/or TFT. On mega 51 or ICSP-4.
-Adafruit_HX8357 tft = Adafruit_HX8357(TFT_CS, TFT_DC);
+Adafruit_HX8357 tft = Adafruit_HX8357(TFT_CS, TFT_DC, TFT_RST);
 
 // These read 16- and 32-bit types from the SD card file.
 // BMP data is stored little-endian, Arduino is little-endian too.
