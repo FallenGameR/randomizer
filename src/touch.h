@@ -5,10 +5,10 @@
 #include <TouchScreen.h>
 
 // These are the four touchscreen analog pins
-#define YP A2 // must be an analog pin, use "An" notation!
-#define XM A3 // must be an analog pin, use "An" notation!
-#define YM 7  // can be a digital pin
-#define XP 8  // can be a digital pin
+#define XP 43  // can be a digital pin
+#define XM A14 // must be an analog pin, use "An" notation!
+#define YP A15 // must be an analog pin, use "An" notation!
+#define YM 42  // can be a digital pin
 
 // This is calibration data for the raw touch data to the screen coordinates
 #define TS_MINX 110
@@ -22,13 +22,11 @@
 // For better pressure precision, we need to know the resistance
 // between X+ and X- Use any multimeter to read it
 // For the one we're using, its 300 ohms across the X plate
-TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
+TouchScreen ts = TouchScreen(XP, YP, XM, YM, 277);
 
 // Size of the color selection boxes and the paintbrush size
 #define BOXSIZE 40
 #define PENRADIUS 3
 int oldcolor, currentcolor;
-
-
 
 #endif // TOUCH_H
