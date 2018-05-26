@@ -12,9 +12,9 @@
 // cannot be remapped to alternate pins.  For Arduino Uno,
 // Duemilanove, etc., pin 11 = MOSI, pin 12 = MISO, pin 13 = SCK.
 
-#define TFT_DC 9
-#define TFT_CS 10
-#define SD_CS 4
+#define TFT_DC 48
+#define TFT_CS 49
+#define SD_CS 46
 
 // Use hardware SPI (on Uno, #13, #12, #11) and the above for CS/DC
 Adafruit_HX8357 tft = Adafruit_HX8357(TFT_CS, TFT_DC);
