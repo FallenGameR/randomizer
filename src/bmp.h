@@ -204,6 +204,10 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
                 Serial.print(F("Loaded in "));
                 Serial.print(millis() - startTime);
                 Serial.println(" ms");
+
+                tft.print(F("Loaded in "));
+                tft.print(millis() - startTime);
+                tft.println(" ms");
             } // end goodBmp
         }
     }
