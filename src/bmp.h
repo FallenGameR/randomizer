@@ -7,16 +7,36 @@
 #include <SPI.h>
 #include <SD.h>
 
+// https://learn.adafruit.com/adafruit-3-5-color-320x480-tft-touchscreen-breakout/pinouts
+
 // TFT display and SD card will share the hardware SPI interface.
 // Hardware SPI pins are specific to the Arduino board type and
-// cannot be remapped to alternate pins.  For Arduino Uno,
-// Duemilanove, etc., pin 11 = MOSI, pin 12 = MISO, pin 13 = SCK.
+// cannot be remapped to alternate pins.
 
+// this is the TFT SPI data or command selector pin
 #define TFT_DC 48
-#define TFT_CS 49
-#define SD_CS 46
 
-// Use hardware SPI (on Uno, #13, #12, #11) and the above for CS/DC
+// this is the TFT SPI chip select pin
+#define TFT_CS 49
+
+// this is the SD card chip select, used if you want to read from the SD card.
+#define SD_CCS 47
+
+// this is the SD card detect pin, it floats when a card is inserted, and tied to ground when the card is not inserted. We don't use this in our code but you can use this as a switch to detect if an SD card is in place without trying to electrically query it. Don't forget to use a pullup on this pin if so!
+#define SD_CD 46
+
+// this is the PWM input for the backlight control. It is by default pulled high (backlight on) you can PWM at any frequency or pull down to turn the backlight off
+#define TFT_LITE 44
+
+// this is the TFT reset pin. There's auto-reset circuitry on the breakout so this pin is not required but it can be helpful sometimes to reset the TFT if your setup is not always resetting cleanly. Connect to ground to reset the
+#define TFT_RST 45
+
+// Y+ X+ Y- X- these are the 4 resistive touch screen pads, which can be read with analog pins to determine touch points. They are completely separated from the TFT electrically (the overlay is glued on top)
+
+// Uses hardware SPI
+// CLK(SCK) - this is the SPI clock input pin. On mega 52 or ICSP-3.
+// MISO - this is the SPI Master In Slave Out pin, its used for the SD card mostly, and for debugging the TFT display. It isn't necessary for using the TFT display which is write-only. On mega 50 or ICSP-1.
+// MOSI - this is the SPI Master Out Slave In pin, it is used to send data from the microcontroller to the SD card and/or TFT. On mega 51 or ICSP-4.
 Adafruit_HX8357 tft = Adafruit_HX8357(TFT_CS, TFT_DC);
 
 // These read 16- and 32-bit types from the SD card file.
@@ -40,6 +60,16 @@ uint32_t read32(File &f)
     ((uint8_t *)&result)[3] = f.read(); // MSB
     return result;
 }
+
+/*
+
+To make new bitmaps, make sure they are less than 320 by 480 pixels and save them in 24-bit BMP format! They must be in 24-bit format, even if they are not 24-bit color as that is the easiest format for the Arduino. You can rotate images using the setRotation() procedure
+
+?
+You can draw as many images as you want - dont forget the names must be less than 8 characters long. Just copy the BMP drawing routines below loop() and call
+?
+
+/**/
 
 // This function opens a Windows Bitmap (BMP) file and
 // displays it at the given coordinates.  It's sped up
