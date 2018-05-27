@@ -10,13 +10,13 @@
 
 void setup()
 {
-  //setupBmp();
-  setupTouch();
+  setupBmp();
+  //setupTouch();
 }
 
 void loop()
 {
-  loopTouch();
+  //loopTouch();
 }
 
 /*
