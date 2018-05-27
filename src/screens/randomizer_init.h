@@ -54,20 +54,6 @@ void RandomizerInitScreen()
 
     if (input_allowed)
     {
-        if (Y_UP)
-        {
-            random_fairness = random_fairness + n_players;
-            input_allowed = false;
-            screen_redraw = true;
-        }
-
-        if (Y_DOWN)
-        {
-            random_fairness = random_fairness - n_players;
-            input_allowed = false;
-            screen_redraw = true;
-        }
-
         if (BUTTON_BLACK)
         {
             Serial.println(F("-> Game"));
@@ -89,6 +75,20 @@ void RandomizerInitScreen()
     if (X_LEFT)
     {
         random_seed--;
+        input_allowed = false;
+        partial_redraw = true;
+    }
+
+    if (Y_UP)
+    {
+        random_fairness = random_fairness + n_players;
+        input_allowed = false;
+        partial_redraw = true;
+    }
+
+    if (Y_DOWN)
+    {
+        random_fairness = random_fairness - n_players;
         input_allowed = false;
         partial_redraw = true;
     }

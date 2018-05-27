@@ -24,6 +24,7 @@ void setup()
   tft.setRotation(3);
   tft.fillScreen(HX8357_BLACK);
   tft.setTextSize(1);
+  tft.setTextColor(HX8357_WHITE, HX8357_BLACK);
   tft.println(F("Initializing"));
   tft.println(F("Entropy"));
 
@@ -38,18 +39,6 @@ void setup()
 
 void loop()
 {
-  //loopTouch();
-}
-
-/*
-
-void setup()
-{
-
-}
-
-void loop()
-{
   readInput();
 
   switch (screen_selected)
@@ -57,7 +46,7 @@ void loop()
   case Screen::RandomizerInit:
     RandomizerInitScreen();
     break;
-
+    /*
   case Screen::GameSelection:
     GameSelectionScreen();
     break;
@@ -69,6 +58,6 @@ void loop()
   case Screen::FighterSelection:
     FighterSelectionScreen();
     break;
+    /**/
   }
 }
-/**/
