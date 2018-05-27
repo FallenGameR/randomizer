@@ -1,8 +1,7 @@
 #include "screens\randomizer_init.h"
 #include "screens\game_selection.h"
 #include "screens\player_selection.h"
-//#include "screens\fighter_selection.h"
-//#include "stats.h"
+#include "screens\fighter_selection.h"
 
 #include "tft.h"
 #include "touch.h"
@@ -54,10 +53,10 @@ void loop()
   case Screen::PlayerSelection:
     PlayerSelectionScreen();
     break;
-    /*
+
   case Screen::FighterSelection:
     FighterSelectionScreen();
     break;
-    /**/
   }
+  /**/
 }

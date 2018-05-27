@@ -7,7 +7,7 @@
 #include "..\memory.h"
 #include "..\random.h"
 
-#define LCD_FIGHTERS(first, second)         \
+#define TFT_FIGHTERS(first, second)         \
     tft.fillScreen(HX8357_BLACK);           \
     tft.setCursor(0, 0);                    \
     TFT_PRINT(fighter_map_selected, first); \
@@ -49,8 +49,8 @@ void FighterSelectionScreen()
             }
         }
 
-        // LCD output
-        LCD_FIGHTERS(fighter_index_first, fighter_index_second);
+        // TFT output
+        TFT_FIGHTERS(fighter_index_first, fighter_index_second);
 
         // Serial output
         SERIAL_PRINT(fighter_map_selected, fighter_index_first);
@@ -91,15 +91,15 @@ void FighterSelectionScreen()
         switch (fighter_pair_shown)
         {
         case 0:
-            LCD_FIGHTERS(fighter_index_first, fighter_index_second);
+            TFT_FIGHTERS(fighter_index_first, fighter_index_second);
             break;
 
         case 1:
-            LCD_FIGHTERS(fighter_index_first2, fighter_index_second2);
+            TFT_FIGHTERS(fighter_index_first2, fighter_index_second2);
             break;
 
         case 2:
-            LCD_FIGHTERS(fighter_index_first3, fighter_index_second3);
+            TFT_FIGHTERS(fighter_index_first3, fighter_index_second3);
             break;
         }
 
@@ -122,8 +122,8 @@ void FighterSelectionScreen()
         if (BUTTON_JOYSTICK)
         {
             // Reset screen since sometimes on a loose connection it gets into weird state
-            tft.begin(16, 2);
-            LCD_FIGHTERS(fighter_index_first, fighter_index_second);
+            //tft. (16, 2);
+            TFT_FIGHTERS(fighter_index_first, fighter_index_second);
             time_of_last_redraw = now;
             fighter_pair_shown = 0;
 
