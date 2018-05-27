@@ -13,27 +13,29 @@ const byte pin_y_joystick = PIN_A12;
 // Stand alone button
 const byte pin_button_black = 38;
 
-// TFT display and SD card will share the hardware SPI interface.
-// Hardware SPI pins are specific to the Arduino board type and
-// cannot be remapped to alternate pins.
+// TFT SPI data or command selector pin
+const byte pin_tft_dc = 48;
 
-// this is the TFT SPI data or command selector pin
-#define TFT_DC 48
+// TFT SPI chip select pin
+const byte pin_tft_cs = 49;
 
-// this is the TFT SPI chip select pin
-#define TFT_CS 49
+// PWM input for the backlight control. It is by default pulled high (backlight on)
+// you can PWM at any frequency or pull down to turn the backlight off
+const byte pin_tft_lite = 44;
 
-// this is the SD card chip select, used if you want to read from the SD card.
-#define SD_CCS 47
+// TFT reset pin. There's auto-reset circuitry on the breakout so this pin is not
+// required but it can be helpful sometimes to reset the TFT if your setup is not
+// always resetting cleanly. Connect to ground to the reset.
+const byte pin_tft_rst = 45;
 
-// this is the SD card detect pin, it floats when a card is inserted, and tied to ground when the card is not inserted. We don't use this in our code but you can use this as a switch to detect if an SD card is in place without trying to electrically query it. Don't forget to use a pullup on this pin if so!
-#define SD_CD 46
+// SD card chip select, used if you want to read from the SD card.
+const byte pin_sd_ccs = 47;
 
-// this is the PWM input for the backlight control. It is by default pulled high (backlight on) you can PWM at any frequency or pull down to turn the backlight off
-#define TFT_LITE 44
-
-// this is the TFT reset pin. There's auto-reset circuitry on the breakout so this pin is not required but it can be helpful sometimes to reset the TFT if your setup is not always resetting cleanly. Connect to ground to reset the
-#define TFT_RST 45
+// SD card detect pin, it floats when a card is inserted, and tied to ground when the
+// card is not inserted. We don't use this in our code but you can use this as a switch
+// to detect if an SD card is in place without trying to electrically query it.
+// Don't forget to use a pullup on this pin if so!
+const byte pin_sd_cd = 46;
 
 // These are the four touchscreen analog pins
 // Y+ X+ Y- X- these are the 4 resistive touch screen pads,
