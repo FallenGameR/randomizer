@@ -3,7 +3,7 @@
 
 void setup()
 {
-  //*
+  /*
   Serial.begin(9600);
 
   Serial.print("Initializing SD card...");
@@ -18,7 +18,7 @@ void setup()
 
   bmpDraw("jumpers.bmp", 0, 0);
   /**/
-  /*
+  //*
   Serial.begin(115200);
   Serial.println(F("Touch Paint!"));
 
