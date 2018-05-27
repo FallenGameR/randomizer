@@ -1,5 +1,5 @@
-#ifndef SCREEN_H
-#define SCREEN_H
+#ifndef TFT_H
+#define TFT_H
 
 #include <Arduino.h>
 #include <Adafruit_GFX.h>
@@ -210,4 +210,4 @@ void setupBmp()
     bmpDraw("jumpers.bmp", 0, 0);
 }
 
-#endif // SCREEN_H
+#endif // TFT_H
