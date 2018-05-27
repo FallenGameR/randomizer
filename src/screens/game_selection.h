@@ -14,7 +14,7 @@ void GameSelectionScreen()
         tft.fillScreen(HX8357_BLACK);
         tft.setCursor(0, 0);
 
-        LCD_PRINT(games, games_index);
+        TFT_PRINT(games, games_index);
         SERIAL_PRINT_LN(games, games_index);
 
         if (t_fighter_map_selected == 0)

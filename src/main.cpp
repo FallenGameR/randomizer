@@ -46,11 +46,11 @@ void loop()
   case Screen::RandomizerInit:
     RandomizerInitScreen();
     break;
-    /*
+
   case Screen::GameSelection:
     GameSelectionScreen();
     break;
-
+    /*
   case Screen::PlayerSelection:
     PlayerSelectionScreen();
     break;

@@ -9,11 +9,11 @@ char buffer[17];
 // free up very limited 2k of space used for variables and stats table
 // https://www.arduino.cc/reference/en/language/variables/utilities/progmem/
 
-#define LCD_PRINT(table, index)                               \
+#define TFT_PRINT(table, index)                               \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
     tft.print(buffer);
 
-#define LCD_PRINT_LN(table, index)                            \
+#define TFT_PRINT_LN(table, index)                            \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
     tft.println(buffer);
 

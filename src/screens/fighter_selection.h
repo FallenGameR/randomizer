@@ -10,9 +10,9 @@
 #define LCD_FIGHTERS(first, second)         \
     tft.fillScreen(HX8357_BLACK);           \
     tft.setCursor(0, 0);                    \
-    LCD_PRINT(fighter_map_selected, first); \
+    TFT_PRINT(fighter_map_selected, first); \
     tft.println();                          \
-    LCD_PRINT(fighter_map_selected, second);
+    TFT_PRINT(fighter_map_selected, second);
 
 #define SERIAL_OPTIONAL_FIGHTER(index)             \
     if (index != NO_FIGHTER)                       \
