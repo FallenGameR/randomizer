@@ -12,6 +12,8 @@ void RandomizerInitScreen()
 {
     if (screen_redraw)
     {
+        tft.fillScreen(HX8357_BLACK);
+
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print(F("Randomizer "));

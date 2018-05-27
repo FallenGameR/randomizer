@@ -10,8 +10,32 @@
 
 void setup()
 {
-  setupBmp();
+  //setupBmp();
   //setupTouch();
+
+  Serial.begin(9600);
+
+  pinMode(pin_led_green, OUTPUT);
+  pinMode(pin_led_blue, OUTPUT);
+  pinMode(pin_button_black, INPUT_PULLUP);
+  pinMode(pin_button_joystick, INPUT_PULLUP);
+
+  tft.begin(HX8357D);
+  tft.setRotation(3);
+  tft.fillScreen(HX8357_BLACK);
+  tft.setTextSize(1);
+  tft.println(F("Initializing"));
+  tft.println(F("Entropy"));
+
+  /*
+  initRandom();
+
+  Serial.println(F("-> Init"));
+  screen_selected = Screen::RandomizerInit;
+
+  // For testing
+  //screen_selected = Screen::PlayerSelection;
+  /**/
 }
 
 void loop()
@@ -23,26 +47,7 @@ void loop()
 
 void setup()
 {
-  Serial.begin(9600);
 
-  pinMode(pin_led_green, OUTPUT);
-  pinMode(pin_led_blue, OUTPUT);
-  pinMode(pin_button_black, INPUT_PULLUP);
-  pinMode(pin_button_joystick, INPUT_PULLUP);
-
-  lcd.begin(16, 2);
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(F("Initializing"));
-  lcd.setCursor(0, 1);
-  lcd.print(F("Entropy"));
-  initRandom();
-
-  Serial.println(F("-> Init"));
-  screen_selected = Screen::RandomizerInit;
-
-  // For testing
-  //screen_selected = Screen::PlayerSelection;
 }
 
 void loop()
