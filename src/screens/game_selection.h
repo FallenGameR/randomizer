@@ -11,8 +11,8 @@ void GameSelectionScreen()
 {
     if (screen_redraw)
     {
-        lcd.clear();
-        lcd.setCursor(0, 0);
+        tft.fillScreen(HX8357_BLACK);
+        tft.setCursor(0, 0);
 
         LCD_PRINT(games, games_index);
         SERIAL_PRINT_LN(games, games_index);
@@ -24,8 +24,8 @@ void GameSelectionScreen()
 
         if (isTagGame)
         {
-            lcd.setCursor(0, 1);
-            lcd.print(F("Tag"));
+            tft.setCursor(0, 1);
+            tft.print(F("Tag"));
             Serial.println(F("Tag"));
         }
 

@@ -11,11 +11,11 @@ char buffer[17];
 
 #define LCD_PRINT(table, index)                               \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
-    lcd.print(buffer);
+    tft.print(buffer);
 
 #define LCD_PRINT_LN(table, index)                            \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
-    lcd.println(buffer);
+    tft.println(buffer);
 
 #define SERIAL_PRINT(table, index)                            \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \

@@ -8,10 +8,10 @@
 #include "..\random.h"
 
 #define LCD_FIGHTERS(first, second)         \
-    lcd.clear();                            \
-    lcd.setCursor(0, 0);                    \
+    tft.fillScreen(HX8357_BLACK);           \
+    tft.setCursor(0, 0);                    \
     LCD_PRINT(fighter_map_selected, first); \
-    lcd.setCursor(0, 1);                    \
+    tft.setCursor(0, 1);                    \
     LCD_PRINT(fighter_map_selected, second);
 
 #define SERIAL_OPTIONAL_FIGHTER(index)             \
@@ -86,7 +86,7 @@ void FighterSelectionScreen()
     {
         fighter_pair_shown += 1;
         fighter_pair_shown %= t_fighter_map_selected;
-        lcd.clear();
+        tft.fillScreen(HX8357_BLACK);
 
         switch (fighter_pair_shown)
         {
@@ -122,7 +122,7 @@ void FighterSelectionScreen()
         if (BUTTON_JOYSTICK)
         {
             // Reset screen since sometimes on a loose connection it gets into weird state
-            lcd.begin(16, 2);
+            tft.begin(16, 2);
             LCD_FIGHTERS(fighter_index_first, fighter_index_second);
             time_of_last_redraw = now;
             fighter_pair_shown = 0;

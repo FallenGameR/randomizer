@@ -5,23 +5,25 @@
 #include "..\random.h"
 #include "..\input.h"
 #include "..\players.h"
+#include "..\tft.h"
 
 bool partial_redraw = false;
+int16_t redrawn_line_x = 0;
+int16_t redrawn_line_y = 0;
 
 void RandomizerInitScreen()
 {
     if (screen_redraw)
     {
         tft.fillScreen(HX8357_BLACK);
+        tft.println(F("Randomizer "));
+        redrawn_line_x = tft.getCursorX();
+        redrawn_line_y = tft.getCursorY();
 
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(F("Randomizer "));
-        lcd.setCursor(0, 1);
-        lcd.print(F("S "));
-        lcd.print(random_seed);
-        lcd.print(F(" F "));
-        lcd.print(random_fairness);
+        tft.print(F("S "));
+        tft.print(random_seed);
+        tft.print(F(" F "));
+        tft.println(random_fairness);
 
         Serial.print(F("Seed = "));
         Serial.println(random_seed);
@@ -33,14 +35,14 @@ void RandomizerInitScreen()
 
     if (partial_redraw)
     {
-        lcd.setCursor(0, 1);
-        lcd.print(F("                "));
+        tft.setCursor(redrawn_line_x, redrawn_line_y);
+        tft.print(F("                "));
 
-        lcd.setCursor(0, 1);
-        lcd.print(F("S "));
-        lcd.print(random_seed);
-        lcd.print(F(" F "));
-        lcd.print(random_fairness);
+        tft.setCursor(redrawn_line_x, redrawn_line_y);
+        tft.print(F("S "));
+        tft.print(random_seed);
+        tft.print(F(" F "));
+        tft.println(random_fairness);
 
         Serial.print(F("Seed = "));
         Serial.println(random_seed);

@@ -1,4 +1,4 @@
-//#include "screens\randomizer_init.h"
+#include "screens\randomizer_init.h"
 
 //#include "screens\game_selection.h"
 //#include "screens\player_selection.h"
@@ -27,7 +27,6 @@ void setup()
   tft.println(F("Initializing"));
   tft.println(F("Entropy"));
 
-  /*
   initRandom();
 
   Serial.println(F("-> Init"));
@@ -35,7 +34,6 @@ void setup()
 
   // For testing
   //screen_selected = Screen::PlayerSelection;
-  /**/
 }
 
 void loop()
