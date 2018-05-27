@@ -1,4 +1,11 @@
-#include "bmp.h"
+#include "screens\randomizer_init.h"
+
+//#include "screens\game_selection.h"
+//#include "screens\player_selection.h"
+//#include "screens\fighter_selection.h"
+//#include "stats.h"
+
+#include "screen.h"
 #include "touch.h"
 
 void setup()
@@ -13,11 +20,6 @@ void loop()
 }
 
 /*
-#include "screens\randomizer_init.h"
-#include "screens\game_selection.h"
-#include "screens\player_selection.h"
-#include "screens\fighter_selection.h"
-#include "stats.h"
 
 void setup()
 {
