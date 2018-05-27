@@ -1,6 +1,5 @@
 #include "screens\randomizer_init.h"
-
-//#include "screens\game_selection.h"
+#include "screens\game_selection.h"
 //#include "screens\player_selection.h"
 //#include "screens\fighter_selection.h"
 //#include "stats.h"
@@ -23,6 +22,7 @@ void setup()
   tft.begin(HX8357D);
   tft.setRotation(3);
   tft.fillScreen(HX8357_BLACK);
+  tft.setCursor(0, 0);
   tft.setTextSize(1);
   tft.setTextColor(HX8357_WHITE, HX8357_BLACK);
   tft.println(F("Initializing"));

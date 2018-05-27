@@ -11,7 +11,7 @@
     tft.fillScreen(HX8357_BLACK);           \
     tft.setCursor(0, 0);                    \
     LCD_PRINT(fighter_map_selected, first); \
-    tft.setCursor(0, 1);                    \
+    tft.println();                          \
     LCD_PRINT(fighter_map_selected, second);
 
 #define SERIAL_OPTIONAL_FIGHTER(index)             \

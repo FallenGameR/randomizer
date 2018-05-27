@@ -24,7 +24,7 @@ void GameSelectionScreen()
 
         if (isTagGame)
         {
-            tft.setCursor(0, 1);
+            tft.println();
             tft.print(F("Tag"));
             Serial.println(F("Tag"));
         }
