@@ -6,33 +6,9 @@
 #include <Adafruit_HX8357.h>
 #include <SPI.h>
 #include <SD.h>
+#include "pins.h"
 
 // https://learn.adafruit.com/adafruit-3-5-color-320x480-tft-touchscreen-breakout/pinouts
-
-// TFT display and SD card will share the hardware SPI interface.
-// Hardware SPI pins are specific to the Arduino board type and
-// cannot be remapped to alternate pins.
-
-// this is the TFT SPI data or command selector pin
-#define TFT_DC 48
-
-// this is the TFT SPI chip select pin
-#define TFT_CS 49
-
-// this is the SD card chip select, used if you want to read from the SD card.
-#define SD_CCS 47
-
-// this is the SD card detect pin, it floats when a card is inserted, and tied to ground when the card is not inserted. We don't use this in our code but you can use this as a switch to detect if an SD card is in place without trying to electrically query it. Don't forget to use a pullup on this pin if so!
-#define SD_CD 46
-
-// this is the PWM input for the backlight control. It is by default pulled high (backlight on) you can PWM at any frequency or pull down to turn the backlight off
-#define TFT_LITE 44
-
-// this is the TFT reset pin. There's auto-reset circuitry on the breakout so this pin is not required but it can be helpful sometimes to reset the TFT if your setup is not always resetting cleanly. Connect to ground to reset the
-#define TFT_RST 45
-
-// Y+ X+ Y- X- these are the 4 resistive touch screen pads, which can be read with analog pins to determine touch points. They are completely separated from the TFT electrically (the overlay is glued on top)
-
 // Uses hardware SPI
 // CLK(SCK) - this is the SPI clock input pin. On mega 52 or ICSP-3.
 // MISO - this is the SPI Master In Slave Out pin, its used for the SD card mostly, and for debugging the TFT display. It isn't necessary for using the TFT display which is write-only. On mega 50 or ICSP-1.
@@ -215,6 +191,23 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
     bmpFile.close();
     if (!goodBmp)
         Serial.println(F("BMP format not recognized."));
+}
+
+void setupBmp()
+{
+    Serial.begin(9600);
+
+    Serial.print("Initializing SD card...");
+    while (SD.begin(SD_CCS))
+    {
+        Serial.println("failed!");
+    }
+    Serial.println("OK!");
+
+    tft.begin(HX8357D);
+    //tft.fillScreen(HX8357_BLACK);
+
+    bmpDraw("jumpers.bmp", 0, 0);
 }
 
 #endif // BMP_H
