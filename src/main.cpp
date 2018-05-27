@@ -1,4 +1,4 @@
-#include "screens\randomizer_init.h"
+//#include "screens\randomizer_init.h"
 
 //#include "screens\game_selection.h"
 //#include "screens\player_selection.h"
@@ -10,13 +10,13 @@
 
 void setup()
 {
-  setupBmp();
-  //setupTouch();
+  //setupBmp();
+  setupTouch();
 }
 
 void loop()
 {
-  //loopTouch();
+  loopTouch();
 }
 
 /*

@@ -1,22 +1,17 @@
 #ifndef PINS_H
 #define PINS_H
 
+// LEDs
 const byte pin_led_green = 41;
 const byte pin_led_blue = 40;
 
-const byte pin_button_black = 38;
+// Joystick
 const byte pin_button_joystick = 39;
-
 const byte pin_x_joystick = PIN_A13;
 const byte pin_y_joystick = PIN_A12;
 
-// These are the four touchscreen analog pins
-// Y+ X+ Y- X- these are the 4 resistive touch screen pads, which can be read with analog pins to determine touch points. They are completely separated from the TFT electrically (the overlay is glued on top)
-
-#define XP 43  // can be a digital pin
-#define XM A14 // must be an analog pin, use "An" notation!
-#define YP A15 // must be an analog pin, use "An" notation!
-#define YM 42  // can be a digital pin
+// Stand alone button
+const byte pin_button_black = 38;
 
 // TFT display and SD card will share the hardware SPI interface.
 // Hardware SPI pins are specific to the Arduino board type and
@@ -39,5 +34,14 @@ const byte pin_y_joystick = PIN_A12;
 
 // this is the TFT reset pin. There's auto-reset circuitry on the breakout so this pin is not required but it can be helpful sometimes to reset the TFT if your setup is not always resetting cleanly. Connect to ground to reset the
 #define TFT_RST 45
+
+// These are the four touchscreen analog pins
+// Y+ X+ Y- X- these are the 4 resistive touch screen pads,
+// which can be read with analog pins to determine touch points.
+// They are completely separated from the TFT electrically (the overlay is glued on top)
+const byte pin_tft_xp = 43;      // can be a digital pin
+const byte pin_tft_xm = PIN_A14; // must be an analog pin, use "An" notation!
+const byte pin_tft_yp = PIN_A15; // must be an analog pin, use "An" notation!
+const byte pin_tft_ym = 42;      // can be a digital pin
 
 #endif // PINS_H
