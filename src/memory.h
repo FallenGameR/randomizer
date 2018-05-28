@@ -9,13 +9,20 @@ char buffer[17];
 // free up very limited 2k of space used for variables and stats table
 // https://www.arduino.cc/reference/en/language/variables/utilities/progmem/
 
-#define LCD_PRINT(table, index)                               \
+#define TFT_PRINT(table, index)                               \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
-    lcd.print(buffer);
+    tft.print(buffer);
 
-#define LCD_PRINT_LN(table, index)                            \
+#define TFT_PRINT_LN(table, index)                            \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
-    lcd.println(buffer);
+    tft.println(buffer);
+
+#define TFT_OPTIONAL_FIGHTER(index)             \
+    if (index != NO_FIGHTER)                    \
+    {                                           \
+        tft.print(F(", "));                     \
+        TFT_PRINT(fighter_map_selected, index); \
+    }
 
 #define SERIAL_PRINT(table, index)                            \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
@@ -24,5 +31,12 @@ char buffer[17];
 #define SERIAL_PRINT_LN(table, index)                         \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
     Serial.println(buffer);
+
+#define SERIAL_OPTIONAL_FIGHTER(index)             \
+    if (index != NO_FIGHTER)                       \
+    {                                              \
+        Serial.print(F(", "));                     \
+        SERIAL_PRINT(fighter_map_selected, index); \
+    }
 
 #endif // MEMORY_H

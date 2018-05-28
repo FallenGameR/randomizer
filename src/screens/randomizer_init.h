@@ -5,21 +5,23 @@
 #include "..\random.h"
 #include "..\input.h"
 #include "..\players.h"
+#include "..\tft.h"
 
-bool partial_redraw = false;
+bool partial_redraw_seed = false;
+bool partial_redraw_fairness = false;
 
 void RandomizerInitScreen()
 {
     if (screen_redraw)
     {
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(F("Randomizer "));
-        lcd.setCursor(0, 1);
-        lcd.print(F("S "));
-        lcd.print(random_seed);
-        lcd.print(F(" F "));
-        lcd.print(random_fairness);
+        tft.fillScreen(HX8357_BLACK);
+        tft.setCursor(0, 0);
+        tft.println(F("Randomizer "));
+
+        tft.print(F("S "));
+        tft.println(random_seed);
+        tft.print(F("F "));
+        tft.println(random_fairness);
 
         Serial.print(F("Seed = "));
         Serial.println(random_seed);
@@ -29,41 +31,34 @@ void RandomizerInitScreen()
         screen_redraw = false;
     }
 
-    if (partial_redraw)
+    if (partial_redraw_seed)
     {
-        lcd.setCursor(0, 1);
-        lcd.print(F("                "));
-
-        lcd.setCursor(0, 1);
-        lcd.print(F("S "));
-        lcd.print(random_seed);
-        lcd.print(F(" F "));
-        lcd.print(random_fairness);
+        tft.setCursor(6 * 2, 8 * 1);
+        tft.print(F("                "));
+        tft.setCursor(6 * 2, 8 * 1);
+        tft.print(random_seed);
 
         Serial.print(F("Seed = "));
         Serial.println(random_seed);
+
+        partial_redraw_seed = false;
+    }
+
+    if (partial_redraw_fairness)
+    {
+        tft.setCursor(6 * 2, 8 * 2);
+        tft.print(F("                "));
+        tft.setCursor(6 * 2, 8 * 2);
+        tft.print(random_fairness);
+
         Serial.print(F("Fairness = "));
         Serial.println(random_fairness);
 
-        partial_redraw = false;
+        partial_redraw_fairness = false;
     }
 
     if (input_allowed)
     {
-        if (Y_UP)
-        {
-            random_fairness = random_fairness + n_players;
-            input_allowed = false;
-            screen_redraw = true;
-        }
-
-        if (Y_DOWN)
-        {
-            random_fairness = random_fairness - n_players;
-            input_allowed = false;
-            screen_redraw = true;
-        }
-
         if (BUTTON_BLACK)
         {
             Serial.println(F("-> Game"));
@@ -79,14 +74,28 @@ void RandomizerInitScreen()
     {
         random_seed++;
         input_allowed = false;
-        partial_redraw = true;
+        partial_redraw_seed = true;
     }
 
     if (X_LEFT)
     {
         random_seed--;
         input_allowed = false;
-        partial_redraw = true;
+        partial_redraw_seed = true;
+    }
+
+    if (Y_UP)
+    {
+        random_fairness = random_fairness + n_players;
+        input_allowed = false;
+        partial_redraw_fairness = true;
+    }
+
+    if (Y_DOWN)
+    {
+        random_fairness = random_fairness - n_players;
+        input_allowed = false;
+        partial_redraw_fairness = true;
     }
 }
 

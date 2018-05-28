@@ -2,10 +2,15 @@
 #include "screens\game_selection.h"
 #include "screens\player_selection.h"
 #include "screens\fighter_selection.h"
-#include "stats.h"
+
+#include "tft.h"
+#include "touch.h"
 
 void setup()
 {
+  //setupBmp();
+  //setupTouch();
+
   Serial.begin(9600);
 
   pinMode(pin_led_green, OUTPUT);
@@ -13,12 +18,14 @@ void setup()
   pinMode(pin_button_black, INPUT_PULLUP);
   pinMode(pin_button_joystick, INPUT_PULLUP);
 
-  lcd.begin(16, 2);
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print(F("Initializing"));
-  lcd.setCursor(0, 1);
-  lcd.print(F("Entropy"));
+  tft.begin(HX8357D);
+  tft.setRotation(3);
+  tft.fillScreen(HX8357_BLACK);
+  tft.setCursor(0, 0);
+  tft.setTextSize(1);
+  tft.setTextColor(HX8357_WHITE, HX8357_BLACK);
+  tft.print(F("Initializing "));
+  tft.println(F("Entropy"));
   initRandom();
 
   Serial.println(F("-> Init"));
@@ -50,4 +57,5 @@ void loop()
     FighterSelectionScreen();
     break;
   }
+  /**/
 }
