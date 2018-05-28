@@ -7,9 +7,8 @@
 #include "..\players.h"
 #include "..\tft.h"
 
-bool partial_redraw = false;
-int16_t redrawn_line_x = 0;
-int16_t redrawn_line_y = 0;
+bool partial_redraw_seed = false;
+bool partial_redraw_fairness = false;
 
 void RandomizerInitScreen()
 {
@@ -18,12 +17,10 @@ void RandomizerInitScreen()
         tft.fillScreen(HX8357_BLACK);
         tft.setCursor(0, 0);
         tft.println(F("Randomizer "));
-        redrawn_line_x = tft.getCursorX();
-        redrawn_line_y = tft.getCursorY();
 
         tft.print(F("S "));
-        tft.print(random_seed);
-        tft.print(F(" F "));
+        tft.println(random_seed);
+        tft.print(F("F "));
         tft.println(random_fairness);
 
         Serial.print(F("Seed = "));
@@ -34,23 +31,30 @@ void RandomizerInitScreen()
         screen_redraw = false;
     }
 
-    if (partial_redraw)
+    if (partial_redraw_seed)
     {
-        tft.setCursor(redrawn_line_x, redrawn_line_y);
+        tft.setCursor(6 * 2, 8 * 1);
         tft.print(F("                "));
-
-        tft.setCursor(redrawn_line_x, redrawn_line_y);
-        tft.print(F("S "));
+        tft.setCursor(6 * 2, 8 * 1);
         tft.print(random_seed);
-        tft.print(F(" F "));
-        tft.println(random_fairness);
 
         Serial.print(F("Seed = "));
         Serial.println(random_seed);
+
+        partial_redraw_seed = false;
+    }
+
+    if (partial_redraw_fairness)
+    {
+        tft.setCursor(6 * 2, 8 * 2);
+        tft.print(F("                "));
+        tft.setCursor(6 * 2, 8 * 2);
+        tft.print(random_fairness);
+
         Serial.print(F("Fairness = "));
         Serial.println(random_fairness);
 
-        partial_redraw = false;
+        partial_redraw_fairness = false;
     }
 
     if (input_allowed)
@@ -70,28 +74,28 @@ void RandomizerInitScreen()
     {
         random_seed++;
         input_allowed = false;
-        partial_redraw = true;
+        partial_redraw_seed = true;
     }
 
     if (X_LEFT)
     {
         random_seed--;
         input_allowed = false;
-        partial_redraw = true;
+        partial_redraw_seed = true;
     }
 
     if (Y_UP)
     {
         random_fairness = random_fairness + n_players;
         input_allowed = false;
-        partial_redraw = true;
+        partial_redraw_fairness = true;
     }
 
     if (Y_DOWN)
     {
         random_fairness = random_fairness - n_players;
         input_allowed = false;
-        partial_redraw = true;
+        partial_redraw_fairness = true;
     }
 }
 

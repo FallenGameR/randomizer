@@ -24,9 +24,8 @@ void setup()
   tft.setCursor(0, 0);
   tft.setTextSize(1);
   tft.setTextColor(HX8357_WHITE, HX8357_BLACK);
-  tft.println(F("Initializing"));
+  tft.print(F("Initializing "));
   tft.println(F("Entropy"));
-
   initRandom();
 
   Serial.println(F("-> Init"));
