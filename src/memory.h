@@ -17,6 +17,13 @@ char buffer[17];
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
     tft.println(buffer);
 
+#define TFT_OPTIONAL_FIGHTER(index)             \
+    if (index != NO_FIGHTER)                    \
+    {                                           \
+        tft.print(F(", "));                     \
+        TFT_PRINT(fighter_map_selected, index); \
+    }
+
 #define SERIAL_PRINT(table, index)                            \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
     Serial.print(buffer);
@@ -24,5 +31,12 @@ char buffer[17];
 #define SERIAL_PRINT_LN(table, index)                         \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
     Serial.println(buffer);
+
+#define SERIAL_OPTIONAL_FIGHTER(index)             \
+    if (index != NO_FIGHTER)                       \
+    {                                              \
+        Serial.print(F(", "));                     \
+        SERIAL_PRINT(fighter_map_selected, index); \
+    }
 
 #endif // MEMORY_H

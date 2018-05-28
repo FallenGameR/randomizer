@@ -7,23 +7,6 @@
 #include "..\memory.h"
 #include "..\random.h"
 
-#define TFT_FIGHTERS(first, second)         \
-    tft.fillScreen(HX8357_BLACK);           \
-    tft.setCursor(0, 0);                    \
-    TFT_PRINT(fighter_map_selected, first); \
-    tft.println();                          \
-    TFT_PRINT(fighter_map_selected, second);
-
-#define SERIAL_OPTIONAL_FIGHTER(index)             \
-    if (index != NO_FIGHTER)                       \
-    {                                              \
-        Serial.print(F(", "));                     \
-        SERIAL_PRINT(fighter_map_selected, index); \
-    }
-
-unsigned long time_of_last_redraw;
-byte fighter_pair_shown;
-
 void FighterSelectionScreen()
 {
     if (screen_redraw)
@@ -49,8 +32,20 @@ void FighterSelectionScreen()
             }
         }
 
+        // TFT setup
+        tft.fillScreen(HX8357_BLACK);
+        tft.setCursor(0, 0);
+
         // TFT output
-        TFT_FIGHTERS(fighter_index_first, fighter_index_second);
+        TFT_PRINT(fighter_map_selected, fighter_index_first);
+        TFT_OPTIONAL_FIGHTER(fighter_index_first2);
+        TFT_OPTIONAL_FIGHTER(fighter_index_first3);
+        tft.println();
+        tft.println(F(" vs "));
+        TFT_PRINT(fighter_map_selected, fighter_index_second);
+        TFT_OPTIONAL_FIGHTER(fighter_index_second2);
+        TFT_OPTIONAL_FIGHTER(fighter_index_second3);
+        tft.println();
 
         // Serial output
         SERIAL_PRINT(fighter_map_selected, fighter_index_first);
@@ -76,34 +71,6 @@ void FighterSelectionScreen()
         winner_selected = Winner::None;
         not_fair_win = false;
         screen_redraw = false;
-        time_of_last_redraw = now;
-        fighter_pair_shown = 0;
-    }
-
-    // tag fighters cycling
-    unsigned long elapsed = now - time_of_last_redraw;
-    if (isTagGame && (elapsed > 500))
-    {
-        fighter_pair_shown += 1;
-        fighter_pair_shown %= t_fighter_map_selected;
-        tft.fillScreen(HX8357_BLACK);
-
-        switch (fighter_pair_shown)
-        {
-        case 0:
-            TFT_FIGHTERS(fighter_index_first, fighter_index_second);
-            break;
-
-        case 1:
-            TFT_FIGHTERS(fighter_index_first2, fighter_index_second2);
-            break;
-
-        case 2:
-            TFT_FIGHTERS(fighter_index_first3, fighter_index_second3);
-            break;
-        }
-
-        time_of_last_redraw = now;
     }
 
     // input_allowed means we just were in neutral state and now test for new input that is tested in nested ifs
@@ -121,11 +88,13 @@ void FighterSelectionScreen()
         // Joystick button prints the current stats and resets screen
         if (BUTTON_JOYSTICK)
         {
+            /*
             // Reset screen since sometimes on a loose connection it gets into weird state
             //tft. (16, 2);
             TFT_FIGHTERS(fighter_index_first, fighter_index_second);
             time_of_last_redraw = now;
             fighter_pair_shown = 0;
+            /**/
 
             // Print stats to console
             Serial.println(F("-> Stats"));
