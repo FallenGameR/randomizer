@@ -33,9 +33,9 @@ void RandomizerInitScreen()
 
     if (partial_redraw_seed)
     {
-        tft.setCursor(6 * 2, 8 * 1);
+        tft.setCursor(6 * 2 * FONT_SIZE, 8 * 1 * FONT_SIZE);
         tft.print(F("                "));
-        tft.setCursor(6 * 2, 8 * 1);
+        tft.setCursor(6 * 2 * FONT_SIZE, 8 * 1 * FONT_SIZE);
         tft.print(random_seed);
 
         Serial.print(F("Seed = "));
@@ -46,9 +46,9 @@ void RandomizerInitScreen()
 
     if (partial_redraw_fairness)
     {
-        tft.setCursor(6 * 2, 8 * 2);
+        tft.setCursor(6 * 2 * FONT_SIZE, 8 * 2 * FONT_SIZE);
         tft.print(F("                "));
-        tft.setCursor(6 * 2, 8 * 2);
+        tft.setCursor(6 * 2 * FONT_SIZE, 8 * 2 * FONT_SIZE);
         tft.print(random_fairness);
 
         Serial.print(F("Fairness = "));

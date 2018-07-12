@@ -7,6 +7,8 @@
 #include <SD.h>
 #include "pins.h"
 
+#define FONT_SIZE 2
+
 // Assign human-readable names to some common 16-bit color values:
 #define BLACK 0x0000
 #define BLUE 0x001F

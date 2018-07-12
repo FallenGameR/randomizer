@@ -23,10 +23,10 @@ void setup()
   uint16_t identifier = tft.readID();
   tft.begin(identifier);
 
-  tft.setRotation(3);
+  tft.setRotation(1);
   tft.fillScreen(BLACK);
   tft.setCursor(0, 0);
-  tft.setTextSize(1);
+  tft.setTextSize(FONT_SIZE);
   tft.setTextColor(WHITE, BLACK);
   tft.print(F("Initializing "));
   tft.println(F("Entropy"));
