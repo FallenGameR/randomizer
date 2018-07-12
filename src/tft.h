@@ -179,7 +179,7 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
                         b = sdbuffer[buffidx++];
                         g = sdbuffer[buffidx++];
                         r = sdbuffer[buffidx++];
-                        tft.writePixel(tft.color565(r, g, b));
+                        tft.writePixel(col, row, tft.color565(r, g, b));
                     }           // end pixel
                 }               // end scanline
                 tft.endWrite(); // End last TFT transaction
