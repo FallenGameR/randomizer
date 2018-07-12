@@ -19,8 +19,8 @@
 int oldcolor, currentcolor;
 
 // For better pressure precision, we need to know the resistance between X+ and X-
-// Multimeter measurement showed 277 ohms for our display.
-TouchScreen ts = TouchScreen(pin_tft_xp, pin_tft_yp, pin_tft_xm, pin_tft_ym, 277);
+// Multimeter measurement showed 279 ohms for our display.
+TouchScreen ts = TouchScreen(pin_tft_xp, pin_tft_yp, pin_tft_xm, pin_tft_ym, 279);
 
 void setupTouch()
 {
