@@ -2,18 +2,24 @@
 #define TFT_H
 
 #include <Arduino.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_HX8357.h>
-#include <SPI.h>
+#include <Adafruit_GFX.h>    // Core graphics library
+#include <Adafruit_TFTLCD.h> // Hardware-specific library
 #include <SD.h>
 #include "pins.h"
 
+// Assign human-readable names to some common 16-bit color values:
+#define BLACK 0x0000
+#define BLUE 0x001F
+#define RED 0xF800
+#define GREEN 0x07E0
+#define CYAN 0x07FF
+#define MAGENTA 0xF81F
+#define YELLOW 0xFFE0
+#define WHITE 0xFFFF
+
 // https://learn.adafruit.com/adafruit-3-5-color-320x480-tft-touchscreen-breakout/pinouts
-// Uses hardware SPI
-// CLK(SCK) - this is the SPI clock input pin. On mega 52 or ICSP-3.
-// MISO - this is the SPI Master In Slave Out pin, its used for the SD card mostly, and for debugging the TFT display. It isn't necessary for using the TFT display which is write-only. On mega 50 or ICSP-1.
-// MOSI - this is the SPI Master Out Slave In pin, it is used to send data from the microcontroller to the SD card and/or TFT. On mega 51 or ICSP-4.
-Adafruit_HX8357 tft = Adafruit_HX8357(pin_tft_cs, pin_tft_dc, pin_tft_rst);
+// Uses 8-Bit Mode
+Adafruit_TFTLCD tft = Adafruit_TFTLCD(pin_tft_cs, pin_tft_dc, pin_tft_wr, pin_tft_rd, pin_tft_rst);
 
 // These read 16- and 32-bit types from the SD card file.
 // BMP data is stored little-endian, Arduino is little-endian too.
@@ -205,7 +211,7 @@ void setupBmp()
     Serial.println("OK!");
 
     tft.begin(HX8357D);
-    //tft.fillScreen(HX8357_BLACK);
+    //tft.fillScreen(BLACK);
 
     bmpDraw("jumpers.bmp", 0, 0);
 }

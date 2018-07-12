@@ -33,7 +33,7 @@ void FighterSelectionScreen()
         }
 
         // TFT setup
-        tft.fillScreen(HX8357_BLACK);
+        tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
 
         // TFT output

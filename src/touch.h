@@ -2,6 +2,7 @@
 #define TOUCH_H
 
 #include "pins.h"
+#include "tft.h"
 #include <TouchScreen.h>
 
 // Calibration data for the raw touch data to the screen coordinates
@@ -28,21 +29,21 @@ void setupTouch()
     Serial.println(F("Touch Paint!"));
 
     tft.begin(HX8357D);
-    tft.fillScreen(HX8357_BLACK);
+    tft.fillScreen(BLACK);
 
     // make the color selection boxes
-    tft.fillRect(0, 0, BOXSIZE, BOXSIZE, HX8357_RED);
-    tft.fillRect(BOXSIZE, 0, BOXSIZE, BOXSIZE, HX8357_YELLOW);
-    tft.fillRect(BOXSIZE * 2, 0, BOXSIZE, BOXSIZE, HX8357_GREEN);
-    tft.fillRect(BOXSIZE * 3, 0, BOXSIZE, BOXSIZE, HX8357_CYAN);
-    tft.fillRect(BOXSIZE * 4, 0, BOXSIZE, BOXSIZE, HX8357_BLUE);
-    tft.fillRect(BOXSIZE * 5, 0, BOXSIZE, BOXSIZE, HX8357_MAGENTA);
-    tft.fillRect(BOXSIZE * 6, 0, BOXSIZE, BOXSIZE, HX8357_BLACK);
-    tft.fillRect(BOXSIZE * 6, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
+    tft.fillRect(0, 0, BOXSIZE, BOXSIZE, RED);
+    tft.fillRect(BOXSIZE, 0, BOXSIZE, BOXSIZE, YELLOW);
+    tft.fillRect(BOXSIZE * 2, 0, BOXSIZE, BOXSIZE, GREEN);
+    tft.fillRect(BOXSIZE * 3, 0, BOXSIZE, BOXSIZE, CYAN);
+    tft.fillRect(BOXSIZE * 4, 0, BOXSIZE, BOXSIZE, BLUE);
+    tft.fillRect(BOXSIZE * 5, 0, BOXSIZE, BOXSIZE, MAGENTA);
+    tft.fillRect(BOXSIZE * 6, 0, BOXSIZE, BOXSIZE, BLACK);
+    tft.fillRect(BOXSIZE * 6, 0, BOXSIZE, BOXSIZE, WHITE);
 
     // select the current color 'red'
-    tft.drawRect(0, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
-    currentcolor = HX8357_RED;
+    tft.drawRect(0, 0, BOXSIZE, BOXSIZE, WHITE);
+    currentcolor = RED;
 }
 
 void loopTouch()
@@ -80,63 +81,63 @@ void loopTouch()
 
         if (p.x < BOXSIZE)
         {
-            currentcolor = HX8357_RED;
-            tft.drawRect(0, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
+            currentcolor = RED;
+            tft.drawRect(0, 0, BOXSIZE, BOXSIZE, WHITE);
         }
         else if (p.x < BOXSIZE * 2)
         {
-            currentcolor = HX8357_YELLOW;
-            tft.drawRect(BOXSIZE, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
+            currentcolor = YELLOW;
+            tft.drawRect(BOXSIZE, 0, BOXSIZE, BOXSIZE, WHITE);
         }
         else if (p.x < BOXSIZE * 3)
         {
-            currentcolor = HX8357_GREEN;
-            tft.drawRect(BOXSIZE * 2, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
+            currentcolor = GREEN;
+            tft.drawRect(BOXSIZE * 2, 0, BOXSIZE, BOXSIZE, WHITE);
         }
         else if (p.x < BOXSIZE * 4)
         {
-            currentcolor = HX8357_CYAN;
-            tft.drawRect(BOXSIZE * 3, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
+            currentcolor = CYAN;
+            tft.drawRect(BOXSIZE * 3, 0, BOXSIZE, BOXSIZE, WHITE);
         }
         else if (p.x < BOXSIZE * 5)
         {
-            currentcolor = HX8357_BLUE;
-            tft.drawRect(BOXSIZE * 4, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
+            currentcolor = BLUE;
+            tft.drawRect(BOXSIZE * 4, 0, BOXSIZE, BOXSIZE, WHITE);
         }
         else if (p.x < BOXSIZE * 6)
         {
-            currentcolor = HX8357_MAGENTA;
-            tft.drawRect(BOXSIZE * 5, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
+            currentcolor = MAGENTA;
+            tft.drawRect(BOXSIZE * 5, 0, BOXSIZE, BOXSIZE, WHITE);
         }
         else if (p.x < BOXSIZE * 7)
         {
-            currentcolor = HX8357_WHITE;
-            tft.drawRect(BOXSIZE * 6, 0, BOXSIZE, BOXSIZE, HX8357_RED);
+            currentcolor = WHITE;
+            tft.drawRect(BOXSIZE * 6, 0, BOXSIZE, BOXSIZE, RED);
         }
         else if (p.x < BOXSIZE * 8)
         {
-            currentcolor = HX8357_BLACK;
-            tft.drawRect(BOXSIZE * 7, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
+            currentcolor = BLACK;
+            tft.drawRect(BOXSIZE * 7, 0, BOXSIZE, BOXSIZE, WHITE);
         }
 
         if (oldcolor != currentcolor)
         {
-            if (oldcolor == HX8357_RED)
-                tft.fillRect(0, 0, BOXSIZE, BOXSIZE, HX8357_RED);
-            if (oldcolor == HX8357_YELLOW)
-                tft.fillRect(BOXSIZE, 0, BOXSIZE, BOXSIZE, HX8357_YELLOW);
-            if (oldcolor == HX8357_GREEN)
-                tft.fillRect(BOXSIZE * 2, 0, BOXSIZE, BOXSIZE, HX8357_GREEN);
-            if (oldcolor == HX8357_CYAN)
-                tft.fillRect(BOXSIZE * 3, 0, BOXSIZE, BOXSIZE, HX8357_CYAN);
-            if (oldcolor == HX8357_BLUE)
-                tft.fillRect(BOXSIZE * 4, 0, BOXSIZE, BOXSIZE, HX8357_BLUE);
-            if (oldcolor == HX8357_MAGENTA)
-                tft.fillRect(BOXSIZE * 5, 0, BOXSIZE, BOXSIZE, HX8357_MAGENTA);
-            if (oldcolor == HX8357_WHITE)
-                tft.fillRect(BOXSIZE * 6, 0, BOXSIZE, BOXSIZE, HX8357_WHITE);
-            if (oldcolor == HX8357_BLACK)
-                tft.fillRect(BOXSIZE * 7, 0, BOXSIZE, BOXSIZE, HX8357_BLACK);
+            if (oldcolor == RED)
+                tft.fillRect(0, 0, BOXSIZE, BOXSIZE, RED);
+            if (oldcolor == YELLOW)
+                tft.fillRect(BOXSIZE, 0, BOXSIZE, BOXSIZE, YELLOW);
+            if (oldcolor == GREEN)
+                tft.fillRect(BOXSIZE * 2, 0, BOXSIZE, BOXSIZE, GREEN);
+            if (oldcolor == CYAN)
+                tft.fillRect(BOXSIZE * 3, 0, BOXSIZE, BOXSIZE, CYAN);
+            if (oldcolor == BLUE)
+                tft.fillRect(BOXSIZE * 4, 0, BOXSIZE, BOXSIZE, BLUE);
+            if (oldcolor == MAGENTA)
+                tft.fillRect(BOXSIZE * 5, 0, BOXSIZE, BOXSIZE, MAGENTA);
+            if (oldcolor == WHITE)
+                tft.fillRect(BOXSIZE * 6, 0, BOXSIZE, BOXSIZE, WHITE);
+            if (oldcolor == BLACK)
+                tft.fillRect(BOXSIZE * 7, 0, BOXSIZE, BOXSIZE, BLACK);
         }
     }
     if (((p.y - PENRADIUS) > BOXSIZE) && ((p.y + PENRADIUS) < tft.height()))

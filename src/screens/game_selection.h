@@ -12,7 +12,7 @@ void GameSelectionScreen()
     if (screen_redraw)
     {
         // 480x320
-        tft.fillScreen(HX8357_BLACK);
+        tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
 
         TFT_PRINT(games, games_index);

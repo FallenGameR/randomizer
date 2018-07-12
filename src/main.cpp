@@ -21,10 +21,10 @@ void setup()
 
   tft.begin(HX8357D);
   tft.setRotation(3);
-  tft.fillScreen(HX8357_BLACK);
+  tft.fillScreen(BLACK);
   tft.setCursor(0, 0);
   tft.setTextSize(1);
-  tft.setTextColor(HX8357_WHITE, HX8357_BLACK);
+  tft.setTextColor(WHITE, BLACK);
   tft.print(F("Initializing "));
   tft.println(F("Entropy"));
   initRandom();
