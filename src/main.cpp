@@ -19,7 +19,10 @@ void setup()
   pinMode(pin_button_black, INPUT_PULLUP);
   pinMode(pin_button_joystick, INPUT_PULLUP);
 
-  tft.begin(HX8357D);
+  tft.reset();
+  uint16_t identifier = tft.readID();
+  tft.begin(identifier);
+
   tft.setRotation(3);
   tft.fillScreen(BLACK);
   tft.setCursor(0, 0);

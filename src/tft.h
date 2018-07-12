@@ -179,7 +179,7 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
                         b = sdbuffer[buffidx++];
                         g = sdbuffer[buffidx++];
                         r = sdbuffer[buffidx++];
-                        tft.pushColor(tft.color565(r, g, b));
+                        tft.writePixel(tft.color565(r, g, b));
                     }           // end pixel
                 }               // end scanline
                 tft.endWrite(); // End last TFT transaction
@@ -210,7 +210,9 @@ void setupBmp()
     }
     Serial.println("OK!");
 
-    tft.begin(HX8357D);
+    tft.reset();
+    uint16_t identifier = tft.readID();
+    tft.begin(identifier);
     //tft.fillScreen(BLACK);
 
     bmpDraw("jumpers.bmp", 0, 0);
