@@ -2,6 +2,7 @@
 #include "screens\game_selection.h"
 #include "screens\player_selection.h"
 #include "screens\fighter_selection.h"
+#include "screens\game_icon_selection.h"
 
 #include "tft.h"
 #include "touch.h"
@@ -32,7 +33,7 @@ void setup()
   screen_selected = Screen::RandomizerInit;
 
   // For testing
-  //screen_selected = Screen::PlayerSelection;
+  //screen_selected = Screen::GameSelection;
 }
 
 void loop()
