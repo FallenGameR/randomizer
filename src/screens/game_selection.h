@@ -11,6 +11,12 @@ void GameSelectionScreen()
 {
     if (screen_redraw)
     {
+        games_index = random(n_games);
+        isTagGame = random(2);
+        fighter_map_selected = fighter_map[games_index];
+        n_fighter_map_selected = n_fighter_map[games_index];
+        t_fighter_map_selected = t_fighter_map[games_index];
+
         // 480x320
         tft.fillScreen(BLACK);
         tft.setCursor(0, 0);

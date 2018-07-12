@@ -29,7 +29,7 @@ const char *const games[] PROGMEM = {
     games_KillerInstinct,
     games_MortalKombatX,
     games_StreetFighter5,
-    games_Dice,
+    //games_Dice,
 };
 
 #define n_games (sizeof(games) / sizeof(const char *))
@@ -45,7 +45,7 @@ const char *const *fighter_map[] = {
     killer_instinct,
     mortal_kombat,
     street_fighter_5,
-    dice,
+    //dice,
 };
 
 // Table of fighter name count by game
@@ -57,7 +57,7 @@ const byte n_fighter_map[] = {
     n_killer_instinct,
     n_mortal_kombat,
     n_street_fighter_5,
-    n_dice,
+    //n_dice,
 };
 
 // Number of fighters in tag matches by game
@@ -69,7 +69,7 @@ const byte t_fighter_map[] = {
     0, // no tag matches in Killer Instinct
     0, // no tag matches in Mortal Kombat
     2, // 2 fighter matches in Street Fighter (actually it could be up to 5x5, but 2x2 seem good enough)
-    0, // no tag matches in Dice
+    //0, // no tag matches in Dice
 };
 
 // Selected variables for the firts  game in the list
