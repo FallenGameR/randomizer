@@ -11,6 +11,7 @@ SdFile root;
 
 void GameIconSelectionScreen()
 {
+    /*
     tft.println("Initializing SD card...");
 
     // we'll use the initialization code from the utility libraries
@@ -35,7 +36,8 @@ void GameIconSelectionScreen()
     // list all files in the card with date and size
     root.openRoot(volume);
     root.ls(LS_R | LS_DATE | LS_SIZE);
-
+/**/
+    setupBmp();
     delay(100000);
 }
 

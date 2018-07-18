@@ -94,6 +94,8 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
         return;
     }
 
+    long pixelsWritten = 0;
+
     // Parse BMP header
     if (read16(bmpFile) == 0x4D42)
     { // BMP signature
@@ -108,6 +110,7 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
         Serial.println(read32(bmpFile));
         bmpWidth = read32(bmpFile);
         bmpHeight = read32(bmpFile);
+
         if (read16(bmpFile) == 1)
         {                               // # planes -- must be '1'
             bmpDepth = read16(bmpFile); // bits per pixel
@@ -182,9 +185,13 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
                         g = sdbuffer[buffidx++];
                         r = sdbuffer[buffidx++];
                         tft.writePixel(col, row, tft.color565(r, g, b));
+                        pixelsWritten += 1;
+
                     }           // end pixel
                 }               // end scanline
                 tft.endWrite(); // End last TFT transaction
+                Serial.print(F("Pixels written: "));
+                Serial.println(pixelsWritten);
                 Serial.print(F("Loaded in "));
                 Serial.print(millis() - startTime);
                 Serial.println(" ms");
@@ -203,7 +210,7 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
 
 void setupBmp()
 {
-    Serial.begin(9600);
+    //Serial.begin(9600);
 
     Serial.print("Initializing SD card...");
     while (SD.begin(pin_sd_ccs))
@@ -212,10 +219,12 @@ void setupBmp()
     }
     Serial.println("OK!");
 
+    /*
     tft.reset();
     uint16_t identifier = tft.readID();
     tft.begin(identifier);
     //tft.fillScreen(BLACK);
+    /**/
 
     bmpDraw("jumpers.bmp", 0, 0);
 }
