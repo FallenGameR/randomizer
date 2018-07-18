@@ -64,7 +64,7 @@ You can draw as many images as you want - dont forget the names must be less tha
 // good balance.
 #define BUFFPIXEL 20
 
-void bmpDraw(char *filename, uint8_t x, uint16_t y)
+void bmpDraw(char *filename, uint16_t x, uint16_t y)
 {
     File bmpFile;
     int bmpWidth, bmpHeight;            // W+H in pixels
@@ -139,14 +139,15 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
                 // Crop area to be loaded
                 w = bmpWidth;
                 h = bmpHeight;
+                //*
                 if ((x + w - 1) >= tft.width())
                     w = tft.width() - x;
                 if ((y + h - 1) >= tft.height())
                     h = tft.height() - y;
-
+                /**/
                 // Set TFT address window to clipped image bounds
                 tft.startWrite(); // Start TFT transaction
-                tft.setAddrWindow(x, y, w, h);
+                //tft.setAddrWindow(x, y, w, h);
 
                 for (row = 0; row < h; row++)
                 { // For each scanline...
@@ -184,7 +185,7 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
                         b = sdbuffer[buffidx++];
                         g = sdbuffer[buffidx++];
                         r = sdbuffer[buffidx++];
-                        tft.writePixel(col, row, tft.color565(r, g, b));
+                        tft.writePixel(col + x, row + y, tft.color565(r, g, b));
                         pixelsWritten += 1;
 
                     }           // end pixel
@@ -196,9 +197,11 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y)
                 Serial.print(millis() - startTime);
                 Serial.println(" ms");
 
+                /*
                 tft.print(F("Loaded in "));
                 tft.print(millis() - startTime);
                 tft.println(" ms");
+                /**/
             } // end goodBmp
         }
     }
@@ -223,10 +226,19 @@ void setupBmp()
     tft.reset();
     uint16_t identifier = tft.readID();
     tft.begin(identifier);
-    //tft.fillScreen(BLACK);
     /**/
 
-    bmpDraw("jumpers.bmp", 0, 0);
+    // 120
+    tft.fillScreen(WHITE);
+
+    bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 30);
+    bmpDraw("GAMES/GGX_Rev/ICON.BMP", 120, 30);
+    bmpDraw("GAMES/KI/ICON.BMP", 240, 30);
+    bmpDraw("GAMES/KoF_14/ICON.BMP", 360, 30);
+
+    bmpDraw("GAMES/MK_XL/ICON.BMP", 0, 180);
+    bmpDraw("GAMES/SF_5/ICON.BMP", 120, 180);
+    bmpDraw("GAMES/Tek_7/ICON.BMP", 240, 180);
 }
 
 #endif // TFT_H
