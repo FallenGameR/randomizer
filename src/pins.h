@@ -53,12 +53,7 @@ const byte pin_tft_xm = PIN_A10; // must be an analog pin, use "An" notation!
 const byte pin_tft_ym = PIN_A11; // can be a digital pin
 
 // SD card chip select, used if you want to read from the SD card.
-const byte pin_sd_ccs = 36;
-
-// SD card detect pin, it floats when a card is inserted, and tied to ground when the
-// card is not inserted. We don't use this in our code but you can use this as a switch
-// to detect if an SD card is in place without trying to electrically query it.
-// Don't forget to use a pullup on this pin if so!
-const byte pin_sd_cd = 37;
+// All other pins are connected via hardware SPI pin layout
+const byte pin_sd_ccs = 53;
 
 #endif // PINS_H
