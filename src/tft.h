@@ -64,9 +64,12 @@ You can draw as many images as you want - dont forget the names must be less tha
 // good balance.
 #define BUFFPIXEL 20
 
+void drawImage(File bmpFile, int16_t x, int16_t y)
+{
+}
+
 void bmpDraw(char *filename, int16_t x, int16_t y)
 {
-    File bmpFile;
     int bmpWidth, bmpHeight;            // W+H in pixels
     uint8_t bmpDepth;                   // Bit depth (currently must be 24)
     uint32_t bmpImageoffset;            // Start of image data in file
@@ -77,24 +80,27 @@ void bmpDraw(char *filename, int16_t x, int16_t y)
     boolean flip = true;                // BMP is stored bottom-to-top
     int w, h, row, col;
     uint8_t r, g, b;
-    uint32_t pos = 0, startTime = millis();
+    uint32_t pos = 0;
+    uint32_t startTime = millis();
+    long pixelsWritten = 0;
 
+    Serial.print(F("Drawing image: "));
+    Serial.println(filename);
+
+    // Sanity check
     if ((x >= tft.width()) || (y >= tft.height()))
-        return;
-
-    Serial.println();
-    Serial.print(F("Loading image '"));
-    Serial.print(filename);
-    Serial.println('\'');
-
-    // Open requested file on SD card
-    if ((bmpFile = SD.open(filename)) == NULL)
     {
-        Serial.println(F("File not found"));
+        Serial.println("Image doesn't fit the screen");
         return;
     }
 
-    long pixelsWritten = 0;
+    // Open image file on SD card
+    File bmpFile = SD.open(filename);
+    if (bmpFile == 0)
+    {
+        Serial.println(F("Image file was not found on SD card"));
+        return;
+    }
 
     // Parse BMP header
     if (read16(bmpFile) == 0x4D42)
