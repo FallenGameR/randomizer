@@ -45,16 +45,6 @@ uint32_t read32(File &f)
     return result;
 }
 
-/*
-
-To make new bitmaps, make sure they are less than 320 by 480 pixels and save them in 24-bit BMP format! They must be in 24-bit format, even if they are not 24-bit color as that is the easiest format for the Arduino. You can rotate images using the setRotation() procedure
-
-?
-You can draw as many images as you want - dont forget the names must be less than 8 characters long. Just copy the BMP drawing routines below loop() and call
-?
-
-/**/
-
 // This function opens a Windows Bitmap (BMP) file and
 // displays it at the given coordinates.  It's sped up
 // by reading many pixels worth of data at a time
@@ -113,83 +103,79 @@ void drawImage(File bmpFile, int16_t startX, int16_t startY)
         return;
     }
 
-    // BMP rows are padded (if needed) to 4-byte boundary
+    // Crop rendered image if it doesn't fit the screen
+    int width = bmpWidth;
+    int height = bmpHeight;
+    if ((startX + width) > tft.width())
+    {
+        width = tft.width() - startX;
+    }
+    if ((startY + height) > tft.height())
+    {
+        height = tft.height() - startY;
+    }
+
+    // BMP rows are padded to 4-byte boundary
     uint32_t rowSize = (bmpWidth * 3 + 3) & ~3;
 
-    // If bmpHeight is negative, image is in top-down order.
-    // This is not canon but has been observed in the wild.
-    boolean flip = true; // BMP is stored bottom-to-top
+    // BMP is usually stored bottom-to-top.
+    // But if bmpHeight is negative, image is in top-down order.
+    boolean flip = true;
     if (bmpHeight < 0)
     {
         bmpHeight = -bmpHeight;
         flip = false;
     }
 
-    uint8_t sdbuffer[3 * BUFFPIXEL];    // pixel buffer (R+G+B per pixel)
-    uint8_t buffidx = sizeof(sdbuffer); // Current position in sdbuffer
-    int row, col;
+    uint8_t rgbBuffer[3 * BUFFPIXEL];
+    uint8_t rgbBufferIndex = sizeof(rgbBuffer);
     uint8_t r, g, b;
     uint32_t pos = 0;
     long pixelsWritten = 0;
 
-    // Crop area to be loaded
-    int width = bmpWidth;
-    int height = bmpHeight;
-    if ((startX + width - 1) >= tft.width())
-    {
-        width = tft.width() - startX;
-    }
-    if ((startY + height - 1) >= tft.height())
-    {
-        height = tft.height() - startY;
-    }
-
-    // Start TFT transaction
-    // Set TFT address window to clipped image bounds
-    tft.startWrite();
+    // setAddrWindow looks like noop for some displays/wiring options
     tft.setAddrWindow(startX, startY, width, height);
 
-    for (row = 0; row < height; row++)
+    // Start TFT transaction
+    tft.startWrite();
+
+    for (int y = 0; y < height; y++)
     {
-        // Seek to start of scan line.  It might seem labor-
-        // intensive to be doing this on every line, but this
-        // method covers a lot of gritty details like cropping
-        // and scanline padding.  Also, the seek only takes
-        // place if the file position actually needs to change
-        // (avoids a lot of cluster math in SD library).
-        if (flip) // Bitmap is stored bottom-to-top order (normal BMP)
+        // Find position of BMP row that we render on line y
+        if (flip)
         {
-            pos = bmpImageOffset + (bmpHeight - 1 - row) * rowSize;
+            pos = bmpImageOffset + (bmpHeight - 1 - y) * rowSize;
         }
-        else // Bitmap is stored top-to-bottom
+        else
         {
-            pos = bmpImageOffset + row * rowSize;
+            pos = bmpImageOffset + y * rowSize;
         }
 
+        // If seek needed, do it and force buffer reload
         if (bmpFile.position() != pos)
-        {                   // Need seek?
-            tft.endWrite(); // End TFT transaction
+        {
+            tft.endWrite();
             bmpFile.seek(pos);
-            buffidx = sizeof(sdbuffer); // Force buffer reload
-            tft.startWrite();           // Start new TFT transaction
+            rgbBufferIndex = sizeof(rgbBuffer);
+            tft.startWrite();
         }
 
-        for (col = 0; col < width; col++)
+        for (int x = 0; x < width; x++)
         {
-            // Time to read more pixel data?
-            if (buffidx >= sizeof(sdbuffer))
-            {                   // Indeed
-                tft.endWrite(); // End TFT transaction
-                bmpFile.read(sdbuffer, sizeof(sdbuffer));
-                buffidx = 0;      // Set index to beginning
-                tft.startWrite(); // Start new TFT transaction
+            // Read pixels from SD into buffer if needed
+            if (rgbBufferIndex >= sizeof(rgbBuffer))
+            {
+                tft.endWrite();
+                bmpFile.read(rgbBuffer, sizeof(rgbBuffer));
+                rgbBufferIndex = 0;
+                tft.startWrite();
             }
 
             // Convert pixel from BMP to TFT format, push to display
-            b = sdbuffer[buffidx++];
-            g = sdbuffer[buffidx++];
-            r = sdbuffer[buffidx++];
-            tft.writePixel(col + startX, row + startY, tft.color565(r, g, b));
+            b = rgbBuffer[rgbBufferIndex++];
+            g = rgbBuffer[rgbBufferIndex++];
+            r = rgbBuffer[rgbBufferIndex++];
+            tft.writePixel(x + startX, y + startY, tft.color565(r, g, b));
             pixelsWritten += 1;
         }
     }
@@ -198,9 +184,9 @@ void drawImage(File bmpFile, int16_t startX, int16_t startY)
     tft.endWrite();
     Serial.print(F("Pixels written: "));
     Serial.println(pixelsWritten);
-    Serial.print(F("Loaded in "));
+    Serial.print(F("Rendered in: "));
     Serial.print(millis() - startTime);
-    Serial.println(" ms");
+    Serial.println("ms");
 }
 
 void bmpDraw(char *filename, int16_t startX, int16_t startY)
@@ -211,7 +197,7 @@ void bmpDraw(char *filename, int16_t startX, int16_t startY)
     // Sanity check
     if ((startX >= tft.width()) || (startY >= tft.height()))
     {
-        Serial.println("Image doesn't fit the screen");
+        Serial.println("Image render position is outside the screen");
         return;
     }
 
