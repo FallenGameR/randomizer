@@ -225,12 +225,21 @@ void initSd()
     Serial.println("SD card initialized");
 }
 
+#include <Fonts/FreeSerif24pt7b.h>
+
 void setupBmp()
 {
     initSd();
     tft.fillScreen(WHITE);
 
     bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 0);
+
+    tft.setFont(&FreeSerif24pt7b);
+    tft.setCursor(340, 180);
+    tft.setTextColor(BLACK);
+    tft.println(F("tag"));
+    tft.setFont();
+
     //bmpDraw("GAMES/GGX_Rev/ICON.BMP", 0, 0);
     //bmpDraw("GAMES/KI/ICON.BMP", 0, 0);
     //bmpDraw("GAMES/KoF_14/ICON.BMP", 0, 0);
