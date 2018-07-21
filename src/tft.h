@@ -189,7 +189,7 @@ void drawImage(File bmpFile, int16_t startX, int16_t startY)
     Serial.println("ms");
 }
 
-void bmpDraw(char *filename, int16_t startX, int16_t startY)
+void bmpDraw(const char *filename, int16_t startX, int16_t startY)
 {
     Serial.print(F("Drawing image: "));
     Serial.println(filename);

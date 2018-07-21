@@ -94,7 +94,7 @@ void FighterSelectionScreen()
             TFT_FIGHTERS(fighter_index_first, fighter_index_second);
             time_of_last_redraw = now;
             fighter_pair_shown = 0;
-            /**/
+            */
 
             // Print stats to console
             Serial.println(F("-> Stats"));

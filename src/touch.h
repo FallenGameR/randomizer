@@ -17,7 +17,7 @@
 // Size of the color selection boxes and the paintbrush size
 #define BOXSIZE 40
 #define PENRADIUS 3
-int oldcolor, currentcolor;
+unsigned int oldcolor, currentcolor;
 
 // For better pressure precision, we need to know the resistance between X+ and X-
 // Multimeter measurement showed 279 ohms for our display.
