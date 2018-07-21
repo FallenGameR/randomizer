@@ -64,7 +64,7 @@ You can draw as many images as you want - dont forget the names must be less tha
 // good balance.
 #define BUFFPIXEL 20
 
-void bmpDraw(char *filename, uint16_t x, uint16_t y)
+void bmpDraw(char *filename, int16_t x, int16_t y)
 {
     File bmpFile;
     int bmpWidth, bmpHeight;            // W+H in pixels
@@ -90,7 +90,7 @@ void bmpDraw(char *filename, uint16_t x, uint16_t y)
     // Open requested file on SD card
     if ((bmpFile = SD.open(filename)) == NULL)
     {
-        Serial.print(F("File not found"));
+        Serial.println(F("File not found"));
         return;
     }
 
@@ -211,19 +211,22 @@ void bmpDraw(char *filename, uint16_t x, uint16_t y)
         Serial.println(F("BMP format not recognized."));
 }
 
-void setupBmp()
+void initSd()
 {
-    Serial.print("Initializing SD card...");
     while (SD.begin(pin_sd_ccs))
     {
-        Serial.println("failed!");
+        Serial.println("Initializing SD card...");
     }
-    Serial.println("OK!");
+    Serial.println("SD card initialized");
+}
 
+void setupBmp()
+{
+    initSd();
     tft.fillScreen(WHITE);
 
-    //bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 0);
-    bmpDraw("GAMES/GGX_Rev/ICON.BMP", 0, 0);
+    bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 0);
+    //bmpDraw("GAMES/GGX_Rev/ICON.BMP", 0, 0);
     //bmpDraw("GAMES/KI/ICON.BMP", 0, 0);
     //bmpDraw("GAMES/KoF_14/ICON.BMP", 0, 0);
 
