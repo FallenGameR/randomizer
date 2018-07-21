@@ -66,10 +66,6 @@ You can draw as many images as you want - dont forget the names must be less tha
 
 void drawImage(File bmpFile, int16_t x, int16_t y)
 {
-}
-
-void bmpDraw(char *filename, int16_t x, int16_t y)
-{
     int bmpWidth, bmpHeight;            // W+H in pixels
     uint8_t bmpDepth;                   // Bit depth (currently must be 24)
     uint32_t bmpImageoffset;            // Start of image data in file
@@ -83,24 +79,6 @@ void bmpDraw(char *filename, int16_t x, int16_t y)
     uint32_t pos = 0;
     uint32_t startTime = millis();
     long pixelsWritten = 0;
-
-    Serial.print(F("Drawing image: "));
-    Serial.println(filename);
-
-    // Sanity check
-    if ((x >= tft.width()) || (y >= tft.height()))
-    {
-        Serial.println("Image doesn't fit the screen");
-        return;
-    }
-
-    // Open image file on SD card
-    File bmpFile = SD.open(filename);
-    if (bmpFile == 0)
-    {
-        Serial.println(F("Image file was not found on SD card"));
-        return;
-    }
 
     // Parse BMP header
     if (read16(bmpFile) == 0x4D42)
@@ -209,12 +187,39 @@ void bmpDraw(char *filename, int16_t x, int16_t y)
                 tft.println(" ms");
                 /**/
             } // end goodBmp
+            else
+            {
+                Serial.println(F("BMP format not recognized."));
+            }
         }
     }
+}
 
+void bmpDraw(char *filename, int16_t x, int16_t y)
+{
+    Serial.print(F("Drawing image: "));
+    Serial.println(filename);
+
+    // Sanity check
+    if ((x >= tft.width()) || (y >= tft.height()))
+    {
+        Serial.println("Image doesn't fit the screen");
+        return;
+    }
+
+    // Open image file on SD card
+    File bmpFile = SD.open(filename);
+    if (bmpFile == 0)
+    {
+        Serial.println(F("Image file was not found on SD card"));
+        return;
+    }
+
+    // Draw image
+    drawImage(bmpFile, x, y);
+
+    // Close file
     bmpFile.close();
-    if (!goodBmp)
-        Serial.println(F("BMP format not recognized."));
 }
 
 void initSd()
