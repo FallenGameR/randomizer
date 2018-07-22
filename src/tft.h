@@ -285,6 +285,19 @@ byte getNumberOfGames()
     return result;
 }
 
+// The longest path should be 33 chars long: \games\12345678\12345678\name.txt plus trailing zero
+#define BUFFER_PATH_MAX_LENGTH 34
+char bufferPath[BUFFER_PATH_MAX_LENGTH];
+
+// 16 is max LCD text length +1 trailing zero
+#define BUFFER_NAME_MAX_LENGTH 17
+char bufferName[BUFFER_NAME_MAX_LENGTH];
+
+const char path_games[] PROGMEM = "/GAMES/";
+const char path_name[] PROGMEM = "/name.txt";
+const char path_tag[] PROGMEM = "/tag.txt";
+
+// Returns unclosed <index> subfolder from /GAMES/ folder on SD card
 File openGameFolder(byte gameIndex)
 {
     File dir = SD.open(F("/GAMES/"));
@@ -308,19 +321,8 @@ File openGameFolder(byte gameIndex)
     }
 }
 
-// The longest path should be 33 chars long: \games\12345678\12345678\name.txt plus trailing zero
-#define BUFFER_PATH_MAX_LENGTH 34
-char bufferPath[BUFFER_PATH_MAX_LENGTH];
-
-// 16 is max LCD text length +1 trailing zero
-#define BUFFER_NAME_MAX_LENGTH 17
-char bufferName[BUFFER_NAME_MAX_LENGTH];
-
-const char path_games[] PROGMEM = "/GAMES/";
-const char path_name[] PROGMEM = "/name.txt";
-
-// Reads it into bufferName
-void readGameName(byte gameIndex)
+// Sets bufferPath to something like /GAMES/<name_from_index>/<path>
+void setGamePath(byte gameIndex, const char *path)
 {
     File dir = openGameFolder(gameIndex);
     if (!dir)
@@ -328,16 +330,23 @@ void readGameName(byte gameIndex)
         return;
     }
 
-    Serial.print(F("Reading game name from: "));
+    Serial.print(F("Path is set to: "));
     strcpy_P(bufferPath, path_games);
     strcpy(bufferPath + strlen_P(path_games), dir.name());
-    strcpy_P(bufferPath + strlen(bufferPath), path_name);
+    strcpy_P(bufferPath + strlen(bufferPath), path);
     Serial.println(bufferPath);
+
+    dir.close();
+}
+
+// Reads game name into bufferName
+void readGameName(byte gameIndex)
+{
+    setGamePath(gameIndex, path_name);
 
     File file = SD.open(bufferPath);
     if (!file)
     {
-        dir.close();
         return;
     }
 
@@ -345,7 +354,7 @@ void readGameName(byte gameIndex)
     while (file.available() && index < BUFFER_NAME_MAX_LENGTH - 1)
     {
         int c = file.read();
-        if ((c == 10) || (c == 13))
+        if ((c == '\r') || (c == '\n'))
         {
             break;
         }
@@ -356,12 +365,29 @@ void readGameName(byte gameIndex)
     Serial.print(F("Game name is: "));
     Serial.println(bufferName);
     file.close();
-    dir.close();
+}
+
+byte readGameTag(byte gameIndex)
+{
+    setGamePath(gameIndex, path_tag);
+
+    File file = SD.open(bufferPath);
+    if (!file)
+    {
+        return 0;
+    }
+
+    int tag = file.parseInt(SKIP_WHITESPACE);
+    Serial.print(F("Game tag is: "));
+    Serial.println(tag);
+    file.close();
+    return (byte)tag;
 }
 
 void setupBmp()
 {
-    readGameName(3);
+    readGameName(6);
+    readGameTag(6);
 
     tft.fillScreen(WHITE);
 
