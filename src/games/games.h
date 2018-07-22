@@ -9,7 +9,7 @@
 #include "mortal_kombat_xl.h"
 #include "street_fighter_5.h"
 
-byte games_index = 0;
+byte game_index = 0;
 byte game_tag = 0;
 byte n_games = 0;
 bool isTagGame = false;

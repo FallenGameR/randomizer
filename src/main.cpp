@@ -16,7 +16,10 @@ void setup()
   Serial.begin(9600);
 
   initSd();
+
   n_games = readNumberOfGames();
+  Serial.print("Number of games: ");
+  Serial.println(n_games);
 
   pinMode(pin_led_green, OUTPUT);
   pinMode(pin_led_blue, OUTPUT);

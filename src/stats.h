@@ -124,7 +124,7 @@ void RecordMatchOutcome()
     {
         matches[match_current][Stats::FirstPlayer] = player_index_first;
         matches[match_current][Stats::SecondPlayer] = player_index_second;
-        matches[match_current][Stats::Game] = games_index;
+        matches[match_current][Stats::Game] = game_index;
         matches[match_current][Stats::FirstFighter] = fighter_index_first;
         matches[match_current][Stats::SecondFighter] = fighter_index_second;
         matches[match_current][Stats::FirstFighter2] = fighter_index_first2;
