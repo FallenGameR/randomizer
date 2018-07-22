@@ -309,37 +309,59 @@ File openGameFolder(byte gameIndex)
 }
 
 // The longest path should be 33 chars long: \games\12345678\12345678\name.txt plus trailing zero
-#define BUFFER_PATHMAX_LENGTH 34
-char bufferPath[BUFFER_PATHMAX_LENGTH];
-
-void getGameName(byte gameIndex, char *buffer, byte bufferLength)
-{
-    File dir = openGameFolder(gameIndex);
-    if (dir)
-    {
-        String path = "/GAMES/";
-        path += dir.name();
-        path += "/name.txt";
-
-        File file = SD.open(path);
-        if (file)
-        {
-            String name = file.readString();
-            Serial.println(name);
-            file.close();
-        }
-
-        dir.close();
-    }
-}
+#define BUFFER_PATH_MAX_LENGTH 34
+char bufferPath[BUFFER_PATH_MAX_LENGTH];
 
 // 16 is max LCD text length +1 trailing zero
-#define GAME_NAME_BUFFER_LENGTH 17
-char gameNameBuffer[GAME_NAME_BUFFER_LENGTH];
+#define BUFFER_NAME_MAX_LENGTH 17
+char bufferName[BUFFER_NAME_MAX_LENGTH];
+
+const char path_games[] PROGMEM = "/GAMES/";
+const char path_name[] PROGMEM = "/name.txt";
+
+// Reads it into bufferName
+void readGameName(byte gameIndex)
+{
+    File dir = openGameFolder(gameIndex);
+    if (!dir)
+    {
+        return;
+    }
+
+    Serial.print(F("Reading game name from: "));
+    strcpy_P(bufferPath, path_games);
+    strcpy(bufferPath + strlen_P(path_games), dir.name());
+    strcpy_P(bufferPath + strlen(bufferPath), path_name);
+    Serial.println(bufferPath);
+
+    File file = SD.open(bufferPath);
+    if (!file)
+    {
+        dir.close();
+        return;
+    }
+
+    byte index = 0;
+    while (file.available() && index < BUFFER_NAME_MAX_LENGTH - 1)
+    {
+        int c = file.read();
+        if ((c == 10) || (c == 13))
+        {
+            break;
+        }
+        bufferName[index++] = c;
+    }
+    bufferName[index++] = 0;
+
+    Serial.print(F("Game name is: "));
+    Serial.println(bufferName);
+    file.close();
+    dir.close();
+}
 
 void setupBmp()
 {
-    getGameName(3, gameNameBuffer, GAME_NAME_BUFFER_LENGTH);
+    readGameName(3);
 
     tft.fillScreen(WHITE);
 
