@@ -1,0 +1,29 @@
+12
+21
+
+N(N-1)
+
+12
+13
+
+21
+23
+
+31
+32
+
+number of players|fairness divider
+2 - 2
+3 - 6
+4 - 12
+
+Fairness = fairness divider * fairness multiplier
+
+allocate array of player pairs, fairness in size
+
+shuffle it in a random way
+
+keep track on the current index
+
+when index reached the end of the array reshuffle
+
