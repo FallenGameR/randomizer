@@ -48,7 +48,7 @@ byte readNumberOfGames()
     }
 
     Serial.print("Number of games: ");
-    Ser.println(result);
+    Serial.println(result);
     return result;
 }
 
@@ -68,12 +68,17 @@ File openGameFolder(byte gameIndex)
             }
             else
             {
+                dir.close();
                 return entry;
             }
         }
 
         entry.close();
     }
+
+    dir.close();
+    File empty;
+    return empty;
 }
 
 // Sets bufferPath to something like "/GAMES/<name_from_index>/<path>"

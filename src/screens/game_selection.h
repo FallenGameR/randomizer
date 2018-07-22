@@ -22,9 +22,9 @@ void GameSelectionScreen()
         tft.setCursor(0, 0);
 
         TFT_PRINT_GAME(games_index);
-        SERIAL_PRINT_GAME_LN(games_index);
+        SERIAL_PRINT_LN_GAME(games_index);
 
-        if (t_fighter_map_selected == 0)
+        if (game_tag == 0)
         {
             isTagGame = false;
         }
@@ -63,7 +63,7 @@ void GameSelectionScreen()
 
         if (Y_UP || Y_DOWN)
         {
-            if (t_fighter_map_selected > 0)
+            if (game_tag > 0)
             {
                 isTagGame = !isTagGame;
             }

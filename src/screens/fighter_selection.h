@@ -20,12 +20,12 @@ void FighterSelectionScreen()
         fighter_index_second3 = NO_FIGHTER;
         if (isTagGame)
         {
-            if (t_fighter_map_selected >= 2)
+            if (game_tag >= 2)
             {
                 RANDOM_EX1(n_fighter_map_selected, fighter_index_first2, fighter_index_first);
                 RANDOM_EX1(n_fighter_map_selected, fighter_index_second2, fighter_index_second);
             }
-            if (t_fighter_map_selected >= 3)
+            if (game_tag >= 3)
             {
                 RANDOM_EX2(n_fighter_map_selected, fighter_index_first3, fighter_index_first, fighter_index_first2);
                 RANDOM_EX2(n_fighter_map_selected, fighter_index_second3, fighter_index_second, fighter_index_second2);
