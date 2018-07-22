@@ -47,8 +47,10 @@ byte readNumberOfGames()
         entry.close();
     }
 
+#ifdef DEBUG
     Serial.print("Number of games: ");
     Serial.println(result);
+#endif
     return result;
 }
 
@@ -90,13 +92,16 @@ void setGamePath(byte gameIndex, const char *path)
         return;
     }
 
-    Serial.print(F("Path set to: "));
     strcpy_P(bufferPath, path_games);
     strcpy(bufferPath + strlen_P(path_games), dir.name());
     strcpy_P(bufferPath + strlen(bufferPath), path);
-    Serial.println(bufferPath);
 
     dir.close();
+
+#ifdef DEBUG
+    Serial.print(F("Path set to: "));
+    Serial.println(bufferPath);
+#endif
 }
 
 // Sets bufferName to something like "Tekken 7"
@@ -122,10 +127,12 @@ void setGameName(byte gameIndex)
     }
     bufferName[index++] = 0;
 
+    file.close();
+
+#ifdef DEBUG
     Serial.print(F("Game name is: "));
     Serial.println(bufferName);
-
-    file.close();
+#endif
 }
 
 byte readGameTag(byte gameIndex)
@@ -139,10 +146,12 @@ byte readGameTag(byte gameIndex)
     }
 
     int tag = file.parseInt(SKIP_WHITESPACE);
+    file.close();
+
+#ifdef DEBUG
     Serial.print(F("Game tag is: "));
     Serial.println(tag);
-
-    file.close();
+#endif
 
     return (byte)tag;
 }
