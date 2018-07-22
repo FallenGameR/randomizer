@@ -11,12 +11,6 @@
 
 // Using PROGMEM here to save some space for variables
 
-/*
-KI
-KoF_14
-MK_XL
-SF_5
-*/
 const char games_DeadOrAlive5[] PROGMEM = "Dead or Alive 5";
 const char games_GuiltyGearXrdRev2[] PROGMEM = "Guilty Gear Xrd";
 const char games_KillerInstinct[] PROGMEM = "Killer Instinct";
