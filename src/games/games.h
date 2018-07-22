@@ -12,17 +12,15 @@
 // Using PROGMEM here to save some space for variables
 
 /*
-GGX_Rev
 KI
 KoF_14
 MK_XL
 SF_5
-Tek_7
 */
 const char games_DeadOrAlive5[] PROGMEM = "Dead or Alive 5";
 const char games_GuiltyGearXrdRev2[] PROGMEM = "Guilty Gear Xrd";
-const char games_KingOfFighters14[] PROGMEM = "King of Fighters";
 const char games_KillerInstinct[] PROGMEM = "Killer Instinct";
+const char games_KingOfFighters14[] PROGMEM = "King of Fighters";
 const char games_MortalKombatX[] PROGMEM = "Mortal Kombat X";
 const char games_StreetFighter5[] PROGMEM = "Street Fighter";
 const char games_Tekken7[] PROGMEM = "Tekken 7";
@@ -30,8 +28,8 @@ const char games_Tekken7[] PROGMEM = "Tekken 7";
 const char *const games[] PROGMEM = {
     games_DeadOrAlive5,
     games_GuiltyGearXrdRev2,
-    games_KingOfFighters14,
     games_KillerInstinct,
+    games_KingOfFighters14,
     games_MortalKombatX,
     games_StreetFighter5,
     games_Tekken7,
@@ -45,8 +43,8 @@ int games_index = 0;
 const char *const *fighter_map[] = {
     doa5,
     guilty_gear,
-    kof14,
     killer_instinct,
+    kof14,
     mortal_kombat,
     street_fighter_5,
     tekken7,
@@ -56,8 +54,8 @@ const char *const *fighter_map[] = {
 const byte n_fighter_map[] = {
     n_doa5,
     n_guilty_gear,
-    n_kof14,
     n_killer_instinct,
+    n_kof14,
     n_mortal_kombat,
     n_street_fighter_5,
     n_tekken7,
@@ -67,8 +65,8 @@ const byte n_fighter_map[] = {
 const byte t_fighter_map[] = {
     2, // 2 fighters in tag match in Dead or Alive
     0, // no tag matches in Guilty Gear
-    3, // 3 fighters teams in King of Fighters
     0, // no tag matches in Killer Instinct
+    3, // 3 fighters teams in King of Fighters
     0, // no tag matches in Mortal Kombat
     2, // 2 fighter matches in Street Fighter (actually it could be up to 5x5, but 2x2 seem good enough)
     0, // no tag matches in Tekken
