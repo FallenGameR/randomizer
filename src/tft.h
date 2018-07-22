@@ -285,7 +285,7 @@ byte getNumberOfGames()
     return result;
 }
 
-void getGameName(byte gameIndex, char *buffer, byte bufferLength)
+File openGameFolder(byte gameIndex)
 {
     File dir = SD.open(F("/GAMES/"));
     byte skip = gameIndex;
@@ -300,13 +300,21 @@ void getGameName(byte gameIndex, char *buffer, byte bufferLength)
             }
             else
             {
-                // TODO: Read name from info.txt file
-                Serial.println(entry.name());
-                entry.close();
-                return;
+                return entry;
             }
         }
 
+        entry.close();
+    }
+}
+
+void getGameName(byte gameIndex, char *buffer, byte bufferLength)
+{
+    File entry = openGameFolder(gameIndex);
+    if (entry)
+    {
+        // TODO: Read name from info.txt file
+        Serial.println(entry.name());
         entry.close();
     }
 }
@@ -317,7 +325,7 @@ char gameNameBuffer[GAME_NAME_BUFFER_LENGTH];
 
 void setupBmp()
 {
-    getGameName(6, gameNameBuffer, GAME_NAME_BUFFER_LENGTH);
+    getGameName(3, gameNameBuffer, GAME_NAME_BUFFER_LENGTH);
 
     tft.fillScreen(WHITE);
 
