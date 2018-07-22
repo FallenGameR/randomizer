@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_TFTLCD.h> // Hardware-specific library
+#include <Fonts/FreeSerif24pt7b.h>
 #include <SD.h>
 #include "pins.h"
 
@@ -216,178 +217,12 @@ void bmpDraw(const char *filename, int16_t startX, int16_t startY)
     bmpFile.close();
 }
 
-void initSd()
-{
-    while (SD.begin(pin_sd_ccs))
-    {
-        Serial.println("Initializing SD card...");
-    }
-    Serial.println("SD card initialized");
-}
-
-#include <Fonts/FreeSerif24pt7b.h>
-
-//File root = SD.open(F("/GAMES/"));
-//printDirectory(root, 0);
-void printDirectory(File dir, int numTabs)
-{
-    while (true)
-    {
-        File entry = dir.openNextFile();
-        if (!entry)
-        {
-            // no more files
-            break;
-        }
-
-        if (entry.isDirectory())
-        {
-            Serial.println(entry.name());
-            //printDirectory(entry, numTabs + 1);
-        }
-        else
-        {
-            // files have sizes, directories do not
-            //Serial.print(F("____"));
-            //Serial.println(entry.size());
-        }
-
-        entry.close();
-    }
-}
-
-// Takes ~88ms to finish
-/*
-    Serial.println(F("____________________"));
-    Serial.print(F("Games count: "));
-    unsigned long start = millis();
-    Serial.println(getNumberOfGames());
-    unsigned long elapsed = millis() - start;
-    Serial.print(F("Read time in ms: "));
-    Serial.println(elapsed);
-    */
-
-byte getNumberOfGames()
-{
-    File dir = SD.open(F("/GAMES/"));
-    byte result = 0;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (entry.isDirectory())
-        {
-            result += 1;
-        }
-
-        entry.close();
-    }
-
-    return result;
-}
-
-// The longest path should be 33 chars long: \games\12345678\12345678\name.txt plus trailing zero
-#define BUFFER_PATH_MAX_LENGTH 34
-char bufferPath[BUFFER_PATH_MAX_LENGTH];
-
-// 16 is max LCD text length +1 trailing zero
-#define BUFFER_NAME_MAX_LENGTH 17
-char bufferName[BUFFER_NAME_MAX_LENGTH];
-
-const char path_games[] PROGMEM = "/GAMES/";
-const char path_name[] PROGMEM = "/name.txt";
-const char path_tag[] PROGMEM = "/tag.txt";
-
-// Returns unclosed <index> subfolder from /GAMES/ folder on SD card
-File openGameFolder(byte gameIndex)
-{
-    File dir = SD.open(F("/GAMES/"));
-    byte skip = gameIndex;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (entry.isDirectory())
-        {
-            if (skip)
-            {
-                skip -= 1;
-            }
-            else
-            {
-                return entry;
-            }
-        }
-
-        entry.close();
-    }
-}
-
-// Sets bufferPath to something like /GAMES/<name_from_index>/<path>
-void setGamePath(byte gameIndex, const char *path)
-{
-    File dir = openGameFolder(gameIndex);
-    if (!dir)
-    {
-        return;
-    }
-
-    Serial.print(F("Path is set to: "));
-    strcpy_P(bufferPath, path_games);
-    strcpy(bufferPath + strlen_P(path_games), dir.name());
-    strcpy_P(bufferPath + strlen(bufferPath), path);
-    Serial.println(bufferPath);
-
-    dir.close();
-}
-
-// Reads game name into bufferName
-void readGameName(byte gameIndex)
-{
-    setGamePath(gameIndex, path_name);
-
-    File file = SD.open(bufferPath);
-    if (!file)
-    {
-        return;
-    }
-
-    byte index = 0;
-    while (file.available() && index < BUFFER_NAME_MAX_LENGTH - 1)
-    {
-        int c = file.read();
-        if ((c == '\r') || (c == '\n'))
-        {
-            break;
-        }
-        bufferName[index++] = c;
-    }
-    bufferName[index++] = 0;
-
-    Serial.print(F("Game name is: "));
-    Serial.println(bufferName);
-    file.close();
-}
-
-byte readGameTag(byte gameIndex)
-{
-    setGamePath(gameIndex, path_tag);
-
-    File file = SD.open(bufferPath);
-    if (!file)
-    {
-        return 0;
-    }
-
-    int tag = file.parseInt(SKIP_WHITESPACE);
-    Serial.print(F("Game tag is: "));
-    Serial.println(tag);
-    file.close();
-    return (byte)tag;
-}
+#include "files.h"
 
 void setupBmp()
 {
-    readGameName(6);
-    readGameTag(6);
+    setGameName(0);
+    readGameTag(0);
 
     tft.fillScreen(WHITE);
 
