@@ -227,12 +227,46 @@ void initSd()
 
 #include <Fonts/FreeSerif24pt7b.h>
 
+void printDirectory(File dir, int numTabs)
+{
+    while (true)
+    {
+        File entry = dir.openNextFile();
+        if (!entry)
+        {
+            // no more files
+            break;
+        }
+        for (uint8_t i = 0; i < numTabs; i++)
+        {
+            Serial.print(F("__"));
+        }
+        Serial.print(entry.name());
+        if (entry.isDirectory())
+        {
+            Serial.println(F("/"));
+            printDirectory(entry, numTabs + 1);
+        }
+        else
+        {
+            // files have sizes, directories do not
+            Serial.print(F("____"));
+            Serial.println(entry.size());
+        }
+        entry.close();
+    }
+}
+
 void setupBmp()
 {
     initSd();
     tft.fillScreen(WHITE);
 
-    bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 0);
+    Serial.println(F("____________________"));
+    File root = SD.open(F("/"));
+    printDirectory(root, 0);
+
+    //bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 0);
 
     tft.setFont(&FreeSerif24pt7b);
     tft.setCursor(340, 180);
