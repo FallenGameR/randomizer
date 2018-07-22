@@ -9,6 +9,7 @@
 #include "mortal_kombat_xl.h"
 #include "street_fighter_5.h"
 
+// Game variables
 byte game_index = 0;
 byte game_tag = 0;
 byte n_games = 0;
@@ -36,7 +37,7 @@ const byte n_fighter_map[] = {
     n_tekken7,
 };
 
-// Selected variables for the firts  game in the list
+// Selected fighter map
 const char *const *fighter_map_selected = doa5;
 byte n_fighter_map_selected = n_doa5;
 
