@@ -308,14 +308,28 @@ File openGameFolder(byte gameIndex)
     }
 }
 
+// The longest path should be 33 chars long: \games\12345678\12345678\name.txt plus trailing zero
+#define BUFFER_PATHMAX_LENGTH 34
+char bufferPath[BUFFER_PATHMAX_LENGTH];
+
 void getGameName(byte gameIndex, char *buffer, byte bufferLength)
 {
-    File entry = openGameFolder(gameIndex);
-    if (entry)
+    File dir = openGameFolder(gameIndex);
+    if (dir)
     {
-        // TODO: Read name from info.txt file
-        Serial.println(entry.name());
-        entry.close();
+        String path = "/GAMES/";
+        path += dir.name();
+        path += "/name.txt";
+
+        File file = SD.open(path);
+        if (file)
+        {
+            String name = file.readString();
+            Serial.println(name);
+            file.close();
+        }
+
+        dir.close();
     }
 }
 
