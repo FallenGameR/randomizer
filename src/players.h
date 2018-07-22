@@ -12,6 +12,7 @@ const char *const players[] PROGMEM = {
 };
 
 #define n_players (sizeof(players) / sizeof(const char *))
+//n_players = readNumberOfPlayers();
 
 byte player_index_first = -1;
 byte player_index_second = -1;

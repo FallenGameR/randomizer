@@ -30,7 +30,23 @@ void initSd()
     Serial.println("SD card initialized");
 }
 
-// Returns number of known games
+// Set bufferName to content of the file, with new line chars trimmed
+void setBufferName(File file)
+{
+    byte index = 0;
+    while (file.available() && index < BUFFER_NAME_MAX_LENGTH - 1)
+    {
+        int c = file.read();
+        if ((c == '\r') || (c == '\n'))
+        {
+            break;
+        }
+        bufferName[index++] = c;
+    }
+    bufferName[index++] = 0;
+}
+
+// Reads number of known games
 // Takes ~88ms to finish
 byte readNumberOfGames()
 {
@@ -49,6 +65,30 @@ byte readNumberOfGames()
 
 #ifdef DEBUG
     Serial.print("Number of games: ");
+    Serial.println(result);
+#endif
+    return result;
+}
+
+// Reads number of players
+// Takes ~88ms to finish
+byte readNumberOfPlayers()
+{
+    File dir = SD.open(F("/PLAYERS/"));
+    byte result = 0;
+
+    while (File entry = dir.openNextFile())
+    {
+        if (!entry.isDirectory())
+        {
+            result += 1;
+        }
+
+        entry.close();
+    }
+
+#ifdef DEBUG
+    Serial.print("Number of players: ");
     Serial.println(result);
 #endif
     return result;
@@ -83,7 +123,36 @@ File openGameFolder(byte gameIndex)
     return empty;
 }
 
-// Sets bufferPath to something like "/GAMES/<name_from_index>/<path>"
+// Returns unclosed <index> file  from /PLAYERS/ folder on SD card
+File openPlayerFile(byte playerIndex)
+{
+    File dir = SD.open(F("/PLAYERS/"));
+    byte skip = playerIndex;
+
+    while (File entry = dir.openNextFile())
+    {
+        if (!entry.isDirectory())
+        {
+            if (skip)
+            {
+                skip -= 1;
+            }
+            else
+            {
+                dir.close();
+                return entry;
+            }
+        }
+
+        entry.close();
+    }
+
+    dir.close();
+    File empty;
+    return empty;
+}
+
+// Set bufferPath to something like "/GAMES/<name_from_index>/<path>"
 void setGamePath(byte gameIndex, const char *path)
 {
     File dir = openGameFolder(gameIndex);
@@ -115,18 +184,7 @@ void setGameName(byte gameIndex)
         return;
     }
 
-    byte index = 0;
-    while (file.available() && index < BUFFER_NAME_MAX_LENGTH - 1)
-    {
-        int c = file.read();
-        if ((c == '\r') || (c == '\n'))
-        {
-            break;
-        }
-        bufferName[index++] = c;
-    }
-    bufferName[index++] = 0;
-
+    setBufferName(file);
     file.close();
 
 #ifdef DEBUG
@@ -154,6 +212,24 @@ byte readGameTag(byte gameIndex)
 #endif
 
     return (byte)tag;
+}
+
+// Set bufferName to something like "FallenGameR"
+void setPlayerName(byte playerIndex)
+{
+    File file = openPlayerFile(playerIndex);
+    if (!file)
+    {
+        return;
+    }
+
+    setBufferName(file);
+    file.close();
+
+#ifdef DEBUG
+    Serial.print(F("Player name is: "));
+    Serial.println(bufferName);
+#endif
 }
 
 #endif // FILES_H
