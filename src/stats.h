@@ -6,6 +6,7 @@
 #include "players.h"
 #include "fighters.h"
 #include "memory.h"
+#include "files.h"
 
 enum Winner
 {
@@ -54,7 +55,7 @@ void DumpMatch(int i)
     Serial.print(F(","));
     SERIAL_PRINT(players, matches[i][Stats::SecondPlayer]);
     Serial.print(F(","));
-    SERIAL_PRINT(games, matches[i][Stats::Game]);
+    SERIAL_PRINT_GAME(matches[i][Stats::Game]);
     Serial.print(F(","));
 
     switch (matches[i][Stats::Won])
@@ -184,7 +185,7 @@ void RecordMatchOutcome()
     Serial.println();
 
     // Just in case of failure dump csv form as well
-    DumpMatch(match_current -1);
+    DumpMatch(match_current - 1);
 }
 
 void DumpStats()

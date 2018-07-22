@@ -4,6 +4,7 @@
 #include "screens\fighter_selection.h"
 #include "screens\game_icon_selection.h"
 
+#include "files.h"
 #include "tft.h"
 #include "touch.h"
 
@@ -15,6 +16,7 @@ void setup()
   Serial.begin(9600);
 
   initSd();
+  n_games = readNumberOfGames();
 
   pinMode(pin_led_green, OUTPUT);
   pinMode(pin_led_blue, OUTPUT);

@@ -24,6 +24,10 @@ char buffer[17];
         TFT_PRINT(fighter_map_selected, index); \
     }
 
+#define TFT_PRINT_GAME(index) \
+    setGameName(index);       \
+    tft.print(bufferName);
+
 #define SERIAL_PRINT(table, index)                            \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
     Serial.print(buffer);
@@ -38,5 +42,13 @@ char buffer[17];
         Serial.print(F(", "));                     \
         SERIAL_PRINT(fighter_map_selected, index); \
     }
+
+#define SERIAL_PRINT_GAME(index) \
+    setGameName(index);          \
+    Serial.print(bufferName);
+
+#define SERIAL_PRINT_LN_GAME(index) \
+    setGameName(index);             \
+    Serial.println(bufferName);
 
 #endif // MEMORY_H

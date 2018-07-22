@@ -5,6 +5,7 @@
 #include "..\input.h"
 #include "..\memory.h"
 #include "..\stats.h"
+#include "..\files.h"
 #include "..\games\games.h"
 
 void GameSelectionScreen()
@@ -15,13 +16,13 @@ void GameSelectionScreen()
         //isTagGame = random(2);
         fighter_map_selected = fighter_map[games_index];
         n_fighter_map_selected = n_fighter_map[games_index];
-        t_fighter_map_selected = t_fighter_map[games_index];
+        game_tag = readGameTag(games_index);
 
         tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
 
-        TFT_PRINT(games, games_index);
-        SERIAL_PRINT_LN(games, games_index);
+        TFT_PRINT_GAME(games_index);
+        SERIAL_PRINT_GAME_LN(games_index);
 
         if (t_fighter_map_selected == 0)
         {
@@ -45,7 +46,7 @@ void GameSelectionScreen()
             games_index = (games_index + n_games + 1) % n_games;
             fighter_map_selected = fighter_map[games_index];
             n_fighter_map_selected = n_fighter_map[games_index];
-            t_fighter_map_selected = t_fighter_map[games_index];
+            game_tag = readGameTag(games_index);
             input_allowed = false;
             screen_redraw = true;
         }
@@ -55,7 +56,7 @@ void GameSelectionScreen()
             games_index = (games_index + n_games - 1) % n_games;
             fighter_map_selected = fighter_map[games_index];
             n_fighter_map_selected = n_fighter_map[games_index];
-            t_fighter_map_selected = t_fighter_map[games_index];
+            game_tag = readGameTag(games_index);
             input_allowed = false;
             screen_redraw = true;
         }

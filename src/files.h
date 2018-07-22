@@ -32,7 +32,7 @@ void initSd()
 
 // Returns number of known games
 // Takes ~88ms to finish
-byte getNumberOfGames()
+byte readNumberOfGames()
 {
     File dir = SD.open(F("/GAMES/"));
     byte result = 0;
@@ -47,6 +47,8 @@ byte getNumberOfGames()
         entry.close();
     }
 
+    Serial.print("Number of games: ");
+    Ser.println(result);
     return result;
 }
 
