@@ -227,6 +227,8 @@ void initSd()
 
 #include <Fonts/FreeSerif24pt7b.h>
 
+//File root = SD.open(F("/GAMES/"));
+//printDirectory(root, 0);
 void printDirectory(File dir, int numTabs)
 {
     while (true)
@@ -237,42 +239,95 @@ void printDirectory(File dir, int numTabs)
             // no more files
             break;
         }
-        for (uint8_t i = 0; i < numTabs; i++)
-        {
-            Serial.print(F("__"));
-        }
-        Serial.print(entry.name());
+
         if (entry.isDirectory())
         {
-            Serial.println(F("/"));
-            printDirectory(entry, numTabs + 1);
+            Serial.println(entry.name());
+            //printDirectory(entry, numTabs + 1);
         }
         else
         {
             // files have sizes, directories do not
-            Serial.print(F("____"));
-            Serial.println(entry.size());
+            //Serial.print(F("____"));
+            //Serial.println(entry.size());
         }
+
         entry.close();
     }
 }
 
+// Takes ~88ms to finish
+/*
+    Serial.println(F("____________________"));
+    Serial.print(F("Games count: "));
+    unsigned long start = millis();
+    Serial.println(getNumberOfGames());
+    unsigned long elapsed = millis() - start;
+    Serial.print(F("Read time in ms: "));
+    Serial.println(elapsed);
+    */
+
+byte getNumberOfGames()
+{
+    File dir = SD.open(F("/GAMES/"));
+    byte result = 0;
+
+    while (File entry = dir.openNextFile())
+    {
+        if (entry.isDirectory())
+        {
+            result += 1;
+        }
+
+        entry.close();
+    }
+
+    return result;
+}
+
+void getGameName(byte gameIndex, char *buffer, byte bufferLength)
+{
+    File dir = SD.open(F("/GAMES/"));
+    byte skip = gameIndex;
+
+    while (File entry = dir.openNextFile())
+    {
+        if (entry.isDirectory())
+        {
+            if (skip)
+            {
+                skip -= 1;
+            }
+            else
+            {
+                // TODO: Read name from info.txt file
+                Serial.println(entry.name());
+                entry.close();
+                return;
+            }
+        }
+
+        entry.close();
+    }
+}
+
+// 16 is max LCD text length +1 trailing zero
+#define GAME_NAME_BUFFER_LENGTH 17
+char gameNameBuffer[GAME_NAME_BUFFER_LENGTH];
+
 void setupBmp()
 {
-    initSd();
+    getGameName(6, gameNameBuffer, GAME_NAME_BUFFER_LENGTH);
+
     tft.fillScreen(WHITE);
-
-    Serial.println(F("____________________"));
-    File root = SD.open(F("/"));
-    printDirectory(root, 0);
-
-    //bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 0);
 
     tft.setFont(&FreeSerif24pt7b);
     tft.setCursor(340, 180);
     tft.setTextColor(BLACK);
     tft.println(F("tag"));
     tft.setFont();
+
+    //bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 0);
 
     //bmpDraw("GAMES/GGX_Rev/ICON.BMP", 0, 0);
     //bmpDraw("GAMES/KI/ICON.BMP", 0, 0);
