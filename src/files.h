@@ -117,6 +117,7 @@ void setGameName(byte gameIndex)
 
     Serial.print(F("Game name is: "));
     Serial.println(bufferName);
+
     file.close();
 }
 
@@ -133,7 +134,9 @@ byte readGameTag(byte gameIndex)
     int tag = file.parseInt(SKIP_WHITESPACE);
     Serial.print(F("Game tag is: "));
     Serial.println(tag);
+
     file.close();
+
     return (byte)tag;
 }
 

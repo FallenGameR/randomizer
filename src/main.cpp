@@ -38,7 +38,7 @@ void setup()
   screen_selected = Screen::RandomizerInit;
 
   // For testing
-  screen_selected = Screen::GameSelection;
+  //screen_selected = Screen::GameSelection;
 }
 
 void loop()
@@ -52,8 +52,8 @@ void loop()
     break;
 
   case Screen::GameSelection:
-    //GameSelectionScreen();
-    GameIconSelectionScreen();
+    GameSelectionScreen();
+    //GameIconSelectionScreen();
     break;
 
   case Screen::PlayerSelection:
@@ -64,5 +64,4 @@ void loop()
     FighterSelectionScreen();
     break;
   }
-  /**/
 }
