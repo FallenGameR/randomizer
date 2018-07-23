@@ -64,7 +64,7 @@ void RandomizerInitScreen()
             InitPlayerPairs();
 
             Serial.println(F("-> Game"));
-            screen_selected = Screen::GameSelection;
+            screen_selected = Screen::GameIconSelection;
             input_allowed = false;
             screen_redraw = true;
         }

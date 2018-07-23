@@ -2,6 +2,7 @@
 #define GAME_ICON_SELECTION_H
 
 #include "..\tft.h"
+#include "..\files.h"
 
 void GameIconSelectionScreen()
 {
@@ -13,9 +14,10 @@ void GameIconSelectionScreen()
         n_fighter_map_selected = n_fighter_map[game_index];
         game_tag = readGameTag(game_index);
 
-        tft.fillScreen(BLACK);
+        tft.fillScreen(WHITE);
 
-        //setupBmp();
+        setGamePath(game_index, path_icon);
+        bmpDraw(bufferPath, 0, 0);
         SERIAL_PRINT_LN_GAME(game_index);
 
         if (game_tag == 0)
@@ -25,10 +27,13 @@ void GameIconSelectionScreen()
 
         if (isTagGame)
         {
-            /*
-            tft.println();
-            tft.print(F("Tag"));
-            */
+            tft.setFont(&FreeSerif24pt7b);
+            tft.setCursor(340, 180);
+            tft.setTextColor(BLACK);
+            tft.println(F("tag"));
+            tft.setFont();
+            tft.setTextColor(WHITE);
+
             Serial.println(F("Tag"));
         }
 

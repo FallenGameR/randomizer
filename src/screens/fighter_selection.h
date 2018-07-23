@@ -96,7 +96,7 @@ void FighterSelectionScreen()
         if (BUTTON_BLACK)
         {
             Serial.println(F("-> Game"));
-            screen_selected = Screen::GameSelection;
+            screen_selected = Screen::GameIconSelection;
             input_allowed = false;
             screen_redraw = true;
         }

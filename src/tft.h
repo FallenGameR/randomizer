@@ -218,22 +218,13 @@ void bmpDraw(const char *filename, int16_t startX, int16_t startY)
     bmpFile.close();
 }
 
-#include "files.h"
-
+/*
 void setupBmp()
 {
     setGameName(0);
     readGameTag(0);
 
-    tft.fillScreen(WHITE);
-
-    tft.setFont(&FreeSerif24pt7b);
-    tft.setCursor(340, 180);
-    tft.setTextColor(BLACK);
-    tft.println(F("tag"));
-    tft.setFont();
-
-    //bmpDraw("GAMES/DoA_5/ICON.BMP", 0, 0);
+    
 
     //bmpDraw("GAMES/GGX_Rev/ICON.BMP", 0, 0);
     //bmpDraw("GAMES/KI/ICON.BMP", 0, 0);
@@ -243,5 +234,6 @@ void setupBmp()
     //bmpDraw("GAMES/SF_5/ICON.BMP", 0, 0);
     //bmpDraw("GAMES/Tek_7/ICON.BMP", 0, 0);
 }
+*/
 
 #endif // TFT_H

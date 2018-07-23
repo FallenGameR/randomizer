@@ -9,6 +9,7 @@
 const char path_games[] PROGMEM = "/GAMES/";
 const char path_name[] PROGMEM = "/name.txt";
 const char path_tag[] PROGMEM = "/tag.txt";
+const char path_icon[] PROGMEM = "/icon.bmp";
 
 // The longest path should be 33 chars long
 // \games\12345678\12345678\name.txt
