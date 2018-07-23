@@ -228,22 +228,4 @@ void bmpDraw(const char *filename, int16_t startX, int16_t startY)
     bmpFile.close();
 }
 
-/*
-void setupBmp()
-{
-    setGameName(0);
-    readGameTag(0);
-
-    
-
-    //bmpDraw("GAMES/GGX_Rev/ICON.BMP", 0, 0);
-    //bmpDraw("GAMES/KI/ICON.BMP", 0, 0);
-    //bmpDraw("GAMES/KoF_14/ICON.BMP", 0, 0);
-
-    //bmpDraw("GAMES/MK_XL/ICON.BMP", 0, 0);
-    //bmpDraw("GAMES/SF_5/ICON.BMP", 0, 0);
-    //bmpDraw("GAMES/Tek_7/ICON.BMP", 0, 0);
-}
-*/
-
 #endif // TFT_H
