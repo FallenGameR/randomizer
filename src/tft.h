@@ -9,6 +9,8 @@
 #include "pins.h"
 
 #define FONT_SIZE 2
+#define CHAR_WIDTH (6 * FONT_SIZE)
+#define CHAR_HEIGHT (8 * FONT_SIZE)
 
 // Assign human-readable names to some common 16-bit color values:
 #define BLACK 0x0000

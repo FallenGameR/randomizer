@@ -18,9 +18,9 @@ void RandomizerInitScreen()
         tft.setCursor(0, 0);
         tft.println(F("Randomizer "));
 
-        tft.print(F("S "));
+        tft.print(F("Seed ")); // 5 chars, row 1
         tft.println(random_seed);
-        tft.print(F("F "));
+        tft.print(F("Fair ")); // 5 chars, row 2
         tft.println(random_fairness);
 
         Serial.print(F("Seed = "));
@@ -33,9 +33,9 @@ void RandomizerInitScreen()
 
     if (partial_redraw_seed)
     {
-        tft.setCursor(6 * 2 * FONT_SIZE, 8 * 1 * FONT_SIZE);
+        tft.setCursor(5 * CHAR_WIDTH, 1 * CHAR_HEIGHT);
         tft.print(F("                "));
-        tft.setCursor(6 * 2 * FONT_SIZE, 8 * 1 * FONT_SIZE);
+        tft.setCursor(5 * CHAR_WIDTH, 1 * CHAR_HEIGHT);
         tft.print(random_seed);
 
         Serial.print(F("Seed = "));
@@ -46,9 +46,9 @@ void RandomizerInitScreen()
 
     if (partial_redraw_fairness)
     {
-        tft.setCursor(6 * 2 * FONT_SIZE, 8 * 2 * FONT_SIZE);
+        tft.setCursor(5 * CHAR_WIDTH, 2 * CHAR_HEIGHT);
         tft.print(F("                "));
-        tft.setCursor(6 * 2 * FONT_SIZE, 8 * 2 * FONT_SIZE);
+        tft.setCursor(5 * CHAR_WIDTH, 2 * CHAR_HEIGHT);
         tft.print(random_fairness);
 
         Serial.print(F("Fairness = "));
@@ -66,6 +66,29 @@ void RandomizerInitScreen()
             input_allowed = false;
             screen_redraw = true;
         }
+
+        if (Y_UP)
+        {
+            int multiplier = random_fairness_multiplier;
+            if ((multiplier + 1) * random_fairness_divider <= 255)
+            {
+                random_fairness_multiplier += 1;
+            }
+            random_fairness = random_fairness_divider * random_fairness_multiplier;
+            input_allowed = false;
+            partial_redraw_fairness = true;
+        }
+
+        if (Y_DOWN)
+        {
+            if (random_fairness_multiplier > 1)
+            {
+                random_fairness_multiplier -= 1;
+            }
+            random_fairness = random_fairness_divider * random_fairness_multiplier;
+            input_allowed = false;
+            partial_redraw_fairness = true;
+        }
     }
 
     // Seed should be possible to change quickly thus we
@@ -82,20 +105,6 @@ void RandomizerInitScreen()
         random_seed--;
         input_allowed = false;
         partial_redraw_seed = true;
-    }
-
-    if (Y_UP)
-    {
-        random_fairness = random_fairness + n_players;
-        input_allowed = false;
-        partial_redraw_fairness = true;
-    }
-
-    if (Y_DOWN)
-    {
-        random_fairness = random_fairness - n_players;
-        input_allowed = false;
-        partial_redraw_fairness = true;
     }
 }
 
