@@ -8,15 +8,17 @@
 
 void PlayerSelectionScreen()
 {
-    /*
-    keep track on the current index
+    byte pair_index = match_current % random_fairness;
 
-    when index reached the end of the array reshuffle
-    */
-    //
+    // Shuffle all the pairs at the start and
+    // each time the whole list is traversed
+    if (pair_index == 0)
+    {
+        ShufflePlayerPairs();
+    }
 
-    player_index_first = 0;
-    player_index_second = 1;
+    player_index_first = player_pairs[pair_index * 2 + 0];
+    player_index_second = player_pairs[pair_index * 2 + 1];
 
     SERIAL_PRINT_PLAYER(player_index_first);
     Serial.print(F(" and "));

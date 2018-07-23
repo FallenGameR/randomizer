@@ -42,6 +42,12 @@ void ShufflePlayerPairs()
         player_pairs[moved_pair * 2 + 1] = player_pairs[new_place * 2 + 1];
         player_pairs[new_place * 2 + 1] = swap;
     }
+
+    Serial.println("Reshuffled players");
+
+#ifdef DEBUG
+    PrintPairs();
+#endif
 }
 
 void InitPlayerPairs()
@@ -67,9 +73,6 @@ void InitPlayerPairs()
             }
         }
     }
-
-    // Shuffle all the pairs
-    ShufflePlayerPairs();
 }
 
 #endif // PLAYERS_H
