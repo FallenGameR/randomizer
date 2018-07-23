@@ -60,9 +60,12 @@ void loop()
     RandomizerInitScreen();
     break;
 
+  case Screen::GameIconSelection:
+    GameIconSelectionScreen();
+    break;
+
   case Screen::GameSelection:
     GameSelectionScreen();
-    //GameIconSelectionScreen();
     break;
 
   case Screen::PlayerSelection:

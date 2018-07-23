@@ -12,8 +12,6 @@ void GameSelectionScreen()
 {
     if (screen_redraw)
     {
-        //game_index = random(n_games);
-        //isTagGame = random(2);
         fighter_map_selected = fighter_map[game_index];
         n_fighter_map_selected = n_fighter_map[game_index];
         game_tag = readGameTag(game_index);

@@ -6,9 +6,10 @@
 enum Screen
 {
     RandomizerInit = 0,
-    GameSelection = 1,
-    PlayerSelection = 2,
-    FighterSelection = 3,
+    GameIconSelection,
+    GameSelection,
+    PlayerSelection,
+    FighterSelection,
 };
 
 byte screen_selected = Screen::RandomizerInit;
