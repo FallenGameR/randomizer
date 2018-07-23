@@ -180,6 +180,16 @@ void drawImage(File bmpFile, int16_t startX, int16_t startY)
             tft.writePixel(x + startX, y + startY, tft.color565(r, g, b));
             pixelsWritten += 1;
         }
+
+        // User cancel if needed
+        readInput();
+
+        if (input_allowed && BUTTON_BLACK)
+        {
+            Serial.println(F("User cancelled image render"));
+            input_allowed = false;
+            break;
+        }
     }
 
     // End last TFT transaction
