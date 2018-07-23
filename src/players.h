@@ -15,6 +15,17 @@ byte random_fairness = 0;
 byte random_fairness_divider = 0;
 byte random_fairness_multiplier = 0;
 
+void PrintPairs()
+{
+    for (byte pair = 0; pair < random_fairness; pair++)
+    {
+        Serial.print(player_pairs[pair * 2 + 0]);
+        Serial.print(" vs ");
+        Serial.print(player_pairs[pair * 2 + 1]);
+        Serial.println();
+    }
+}
+
 void ShufflePlayerPairs()
 {
     byte swap;
@@ -40,17 +51,20 @@ void InitPlayerPairs()
 
     // Populate the pairs
     byte index = 0;
-    for (byte first = 0; first < n_players; first++)
+    for (byte stage = 0; stage < random_fairness_multiplier; stage++)
     {
-        for (byte second = 0; second < n_players; second++)
+        for (byte first = 0; first < n_players; first++)
         {
-            if (first == second)
+            for (byte second = 0; second < n_players; second++)
             {
-                continue;
-            }
+                if (first == second)
+                {
+                    continue;
+                }
 
-            player_pairs[index++] = first;
-            player_pairs[index++] = second;
+                player_pairs[index++] = first;
+                player_pairs[index++] = second;
+            }
         }
     }
 
