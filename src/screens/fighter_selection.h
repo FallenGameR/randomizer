@@ -42,12 +42,23 @@ void FighterSelectionScreen()
         TFT_PRINT_PLAYER(player_index_second);
 
         // TFT output
-        tft.setCursor(0, tft.height() - CHAR_HEIGHT * 2);
+        tft.setCursor(0, tft.height() - CHAR_HEIGHT * 2 - 2);
         TFT_PRINT(fighter_map_selected, fighter_index_first);
         TFT_OPTIONAL_FIGHTER(fighter_index_first2);
         TFT_OPTIONAL_FIGHTER(fighter_index_first3);
 
-        tft.setCursor(0, tft.height() - CHAR_HEIGHT * 1);
+        int string_length = 0;
+        string_length += strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second])));
+        if (fighter_index_second2 != NO_FIGHTER)
+        {
+            string_length += strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second2])));
+        }
+        if (fighter_index_second3 != NO_FIGHTER)
+        {
+            string_length += strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second3])));
+        }
+
+        tft.setCursor(tft.width() - string_length * CHAR_WIDTH, tft.height() - CHAR_HEIGHT * 1);
         TFT_PRINT(fighter_map_selected, fighter_index_second);
         TFT_OPTIONAL_FIGHTER(fighter_index_second2);
         TFT_OPTIONAL_FIGHTER(fighter_index_second3);
