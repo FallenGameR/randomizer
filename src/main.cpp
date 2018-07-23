@@ -21,6 +21,10 @@ void setup()
   Serial.print("Number of games: ");
   Serial.println(n_games);
 
+  n_players = readNumberOfPlayers();
+  Serial.print("Number of players: ");
+  Serial.println(n_players);
+
   pinMode(pin_led_green, OUTPUT);
   pinMode(pin_led_blue, OUTPUT);
   pinMode(pin_button_black, INPUT_PULLUP);

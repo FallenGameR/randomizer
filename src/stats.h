@@ -51,9 +51,9 @@ void DumpMatch(int i)
 
     Serial.print(i + 1);
     Serial.print(F(","));
-    SERIAL_PRINT(players, matches[i][Stats::FirstPlayer]);
+    SERIAL_PRINT_PLAYER(matches[i][Stats::FirstPlayer]);
     Serial.print(F(","));
-    SERIAL_PRINT(players, matches[i][Stats::SecondPlayer]);
+    SERIAL_PRINT_PLAYER(matches[i][Stats::SecondPlayer]);
     Serial.print(F(","));
     SERIAL_PRINT_GAME(matches[i][Stats::Game]);
     Serial.print(F(","));
@@ -65,11 +65,11 @@ void DumpMatch(int i)
         break;
 
     case Winner::First:
-        SERIAL_PRINT(players, matches[i][Stats::FirstPlayer]);
+        SERIAL_PRINT_PLAYER(matches[i][Stats::FirstPlayer]);
         break;
 
     case Winner::Second:
-        SERIAL_PRINT(players, matches[i][Stats::SecondPlayer]);
+        SERIAL_PRINT_PLAYER(matches[i][Stats::SecondPlayer]);
         break;
 
     case Winner::Draw:
@@ -144,7 +144,7 @@ void RecordMatchOutcome()
         break;
 
     case Winner::First:
-        SERIAL_PRINT(players, player_index_first);
+        SERIAL_PRINT_PLAYER(player_index_first);
         Serial.print(F(" won ("));
         SERIAL_PRINT(fighter_map_selected, fighter_index_first);
         if (fighter_index_first2 != NO_FIGHTER)
@@ -161,7 +161,7 @@ void RecordMatchOutcome()
         break;
 
     case Winner::Second:
-        SERIAL_PRINT(players, player_index_second);
+        SERIAL_PRINT_PLAYER(player_index_second);
         Serial.print(F(" won ("));
         SERIAL_PRINT(fighter_map_selected, fighter_index_second);
         if (fighter_index_second2 != NO_FIGHTER)

@@ -51,4 +51,8 @@ char buffer[17];
     setGameName(index);             \
     Serial.println(bufferName);
 
+#define SERIAL_PRINT_PLAYER(index) \
+    setPlayerName(index);          \
+    Serial.print(bufferName);
+
 #endif // MEMORY_H
