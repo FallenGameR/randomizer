@@ -19,9 +19,6 @@
 
 // Entropy library actually returns uint32_t, but negative values have something to them when correcting the seed
 int random_seed = 0;
-byte random_fairness = 0;
-byte random_fairness_divider = 0;
-byte random_fairness_multiplier = 0;
 
 void initRandom()
 {

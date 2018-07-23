@@ -42,7 +42,6 @@ bool not_fair_win;
 //      Data:       1451 bytes (74.5% Full)
 
 const int match_limit = 100;
-int match_current = 0;
 byte matches[match_limit][Stats::Size];
 
 void DumpMatch(int i)

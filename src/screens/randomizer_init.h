@@ -61,6 +61,8 @@ void RandomizerInitScreen()
     {
         if (BUTTON_BLACK)
         {
+            InitPlayerPairs();
+
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameSelection;
             input_allowed = false;

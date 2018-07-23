@@ -8,6 +8,21 @@
 
 void PlayerSelectionScreen()
 {
+    /*
+    keep track on the current index
+
+    when index reached the end of the array reshuffle
+    */
+    //
+
+    for (byte pair = 0; pair < random_fairness; pair++)
+    {
+        Serial.print(player_pairs[pair * 2 + 0]);
+        Serial.print(" vs ");
+        Serial.print(player_pairs[pair * 2 + 1]);
+        Serial.println();
+    }
+
     player_index_first = 0;
     player_index_second = 1;
 
