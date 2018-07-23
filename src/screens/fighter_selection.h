@@ -32,20 +32,25 @@ void FighterSelectionScreen()
             }
         }
 
-        // TFT setup
+        // TFT init
         tft.fillScreen(BLACK);
+
+        // TFT players
         tft.setCursor(0, 0);
+        TFT_PRINT_PLAYER(player_index_first);
+        tft.setCursor(tft.width() / 2, 0);
+        TFT_PRINT_PLAYER(player_index_second);
 
         // TFT output
+        tft.setCursor(0, tft.height() - CHAR_HEIGHT * 2);
         TFT_PRINT(fighter_map_selected, fighter_index_first);
         TFT_OPTIONAL_FIGHTER(fighter_index_first2);
         TFT_OPTIONAL_FIGHTER(fighter_index_first3);
-        tft.println();
-        tft.println(F(" vs "));
+
+        tft.setCursor(0, tft.height() - CHAR_HEIGHT * 1);
         TFT_PRINT(fighter_map_selected, fighter_index_second);
         TFT_OPTIONAL_FIGHTER(fighter_index_second2);
         TFT_OPTIONAL_FIGHTER(fighter_index_second3);
-        tft.println();
 
         // Serial output
         SERIAL_PRINT(fighter_map_selected, fighter_index_first);

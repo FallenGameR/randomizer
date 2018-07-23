@@ -28,6 +28,10 @@ char buffer[17];
     setGameName(index);       \
     tft.print(bufferName);
 
+#define TFT_PRINT_PLAYER(index) \
+    setPlayerName(index);       \
+    tft.print(bufferName);
+
 #define SERIAL_PRINT(table, index)                            \
     strcpy_P(buffer, (char *)pgm_read_word(&(table[index]))); \
     Serial.print(buffer);
