@@ -26,6 +26,7 @@ void PrintPairs()
     }
 }
 
+// Shuffle the pairs in a random unbiased way
 void ShufflePlayerPairs()
 {
     byte swap;
