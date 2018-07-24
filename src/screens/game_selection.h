@@ -15,8 +15,8 @@ void GameSelectionScreen()
         tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
 
-        TFT_PRINT_GAME(game_index);
-        SERIAL_PRINT_LN_GAME(game_index);
+        PRINT2_B(setGameName(game_index), tft, Serial);
+        Serial.println();
 
         if (isTagGame)
         {

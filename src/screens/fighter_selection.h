@@ -8,8 +8,34 @@
 #include "..\random.h"
 #include "..\fighters.h"
 
+// Screen is 480px and min font is 6 pixels wide (by default we actually use font that is twise as big)
+// For safety there should also be logic for making sure we don't reach the end of buffer
+// But we can add it later on, for now we just have large buffer
+char bufferLine[480 / 6];
+
+void FightersToBufferLine(byte a, byte b, byte c)
+{
+    setFighterName(game_index, a);
+    strcpy(bufferLine, bufferName);
+
+    if (b != NO_FIGHTER)
+    {
+        strcat(bufferLine, F(", "));
+        setFighterName(game_index, b);
+        strcat(bufferLine, bufferName);
+    }
+
+    if (c != NO_FIGHTER)
+    {
+        strcat(bufferLine, F(", "));
+        setFighterName(game_index, c);
+        strcat(bufferLine, bufferName);
+    }
+}
+
 void FighterSelectionScreen()
 {
+
     if (screen_redraw)
     {
         // Fighter init
@@ -33,7 +59,7 @@ void FighterSelectionScreen()
             }
         }
 
-        // TFT init
+        // TFT clear
         tft.fillScreen(BLACK);
 
         // TFT players
@@ -43,36 +69,17 @@ void FighterSelectionScreen()
         tft.setCursor(tft.width() / 2, 0);
         PRINT_BT(setPlayerName(player_index_second));
 
-        // TFT output
+        // TFT and serial fighters
+        FightersToBufferLine(fighter_index_first, fighter_index_first2, fighter_index_first3);
         tft.setCursor(0, tft.height() - CHAR_HEIGHT * 2 - 2);
-        TFT_PRINT(fighter_map_selected, fighter_index_first);
-        TFT_OPTIONAL_FIGHTER(fighter_index_first2);
-        TFT_OPTIONAL_FIGHTER(fighter_index_first3);
+        PRINT2(bufferLine, tft, Serial);
 
-        int string_length = 0;
-        string_length += strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second])));
-        if (fighter_index_second2 != NO_FIGHTER)
-        {
-            string_length += 2 + strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second2])));
-        }
-        if (fighter_index_second3 != NO_FIGHTER)
-        {
-            string_length += 2 + strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second3])));
-        }
+        PRINT(F(" vs "), Serial);
 
-        tft.setCursor(tft.width() - string_length * CHAR_WIDTH, tft.height() - CHAR_HEIGHT * 1);
-        TFT_PRINT(fighter_map_selected, fighter_index_second);
-        TFT_OPTIONAL_FIGHTER(fighter_index_second2);
-        TFT_OPTIONAL_FIGHTER(fighter_index_second3);
+        FightersToBufferLine(fighter_index_second, fighter_index_second2, fighter_index_second3);
+        tft.setCursor(tft.width() - strlen(bufferLine) * CHAR_WIDTH, tft.height() - CHAR_HEIGHT * 1);
+        PRINT2(bufferLine, tft, Serial);
 
-        // Serial output
-        SERIAL_PRINT(fighter_map_selected, fighter_index_first);
-        SERIAL_OPTIONAL_FIGHTER(fighter_index_first2);
-        SERIAL_OPTIONAL_FIGHTER(fighter_index_first3);
-        Serial.print(F(" vs "));
-        SERIAL_PRINT(fighter_map_selected, fighter_index_second);
-        SERIAL_OPTIONAL_FIGHTER(fighter_index_second2);
-        SERIAL_OPTIONAL_FIGHTER(fighter_index_second3);
         Serial.println();
 
         // LEDs blink to signal start of new match
