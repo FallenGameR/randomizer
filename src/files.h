@@ -13,6 +13,7 @@ const char path_name[] PROGMEM = "/name.txt";
 const char path_tag[] PROGMEM = "/tag.txt";
 const char path_icon[] PROGMEM = "/icon.bmp";
 const char path_csv[] PROGMEM = ".csv";
+const char path_separator[] PROGMEM = "/";
 
 // The longest path should be 33 chars long
 // \games\12345678\12345678\name.txt
@@ -23,6 +24,8 @@ char bufferPath[BUFFER_PATH_MAX_LENGTH];
 // 16 is max LCD text length plus trailing zero
 #define BUFFER_NAME_MAX_LENGTH 17
 char bufferName[BUFFER_NAME_MAX_LENGTH];
+
+File empty;
 
 // SD card initialization
 void initSd()
@@ -123,7 +126,6 @@ File openGameFolder(byte gameIndex)
     }
 
     dir.close();
-    File empty;
     return empty;
 }
 
@@ -152,7 +154,6 @@ File openPlayerFile(byte playerIndex)
     }
 
     dir.close();
-    File empty;
     return empty;
 }
 
@@ -206,6 +207,118 @@ void setStatsPath()
 
 #ifdef DEBUG
     Serial.print(F("Stats file: "));
+    Serial.println(bufferName);
+#endif
+}
+
+// Reads number of fighters
+byte readNumberOfFighters(byte gameIndex)
+{
+    File dir = openGameFolder(gameIndex);
+    if (!dir)
+    {
+        return 0;
+    }
+
+    byte result = 0;
+    while (File entry = dir.openNextFile())
+    {
+        if (entry.isDirectory())
+        {
+            result += 1;
+        }
+
+        entry.close();
+    }
+
+#ifdef DEBUG
+    Serial.print("Number of fighters: ");
+    Serial.println(result);
+#endif
+    return result;
+}
+
+// Returns unclosed <index> subfolder from /GAMES/<game index> folder on SD card
+File openFighterFolder(byte gameIndex, byte fighterIndex)
+{
+    File dir = openGameFolder(gameIndex);
+    if (!dir)
+    {
+        return empty;
+    }
+
+    byte skip = fighterIndex;
+
+    while (File entry = dir.openNextFile())
+    {
+        if (entry.isDirectory())
+        {
+            if (skip)
+            {
+                skip -= 1;
+            }
+            else
+            {
+                dir.close();
+                return entry;
+            }
+        }
+
+        entry.close();
+    }
+
+    dir.close();
+    return empty;
+}
+
+// Set bufferPath to something like "/GAMES/<game index>/<fighter index>/<path>"
+void setFighterPath(byte gameIndex, byte fighterIndex, const char *path)
+{
+    File game = openGameFolder(gameIndex);
+    if (!game)
+    {
+        return;
+    }
+
+    File fighter = openFighterFolder(gameIndex, fighterIndex);
+    if (!fighter)
+    {
+        game.close();
+        return;
+    }
+
+    strcpy_P(bufferPath, path_games);
+    strcpy(bufferPath + strlen(bufferPath), game.name());
+    strcpy_P(bufferPath + strlen(bufferPath), path_separator);
+    strcpy(bufferPath + strlen(bufferPath), fighter.name());
+    strcpy_P(bufferPath + strlen(bufferPath), path_separator);
+    strcpy_P(bufferPath + strlen(bufferPath), path);
+
+    game.close();
+    fighter.close();
+
+#ifdef DEBUG
+    Serial.print(F("Path set to: "));
+    Serial.println(bufferPath);
+#endif
+}
+
+// Sets bufferName to something like "Kasumi"
+void setFighterName(byte gameIndex, byte fighterIndex)
+{
+    setFighterPath(gameIndex, fighterIndex, path_name);
+
+    File file = SD.open(bufferPath);
+    if (!file)
+    {
+        return;
+    }
+
+    setBufferName(file);
+    file.close();
+
+#ifdef DEBUG
+    Serial.print(F("Fighter name is: "));
     Serial.println(bufferName);
 #endif
 }
