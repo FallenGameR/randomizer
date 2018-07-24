@@ -35,7 +35,7 @@ char buffer[17];
     PRINT_B(buffer_setup, tft);
 
 // Print buffer on serial
-#define PRINT_BT(buffer_setup) \
+#define PRINT_BS(buffer_setup) \
     PRINT_B(buffer_setup, Serial);
 
 // print to serial, file
