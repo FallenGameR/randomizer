@@ -15,7 +15,9 @@ void GameIconSelectionScreen()
         tft.fillScreen(WHITE);
         setGamePath(game_index, path_icon);
         bmpDraw(bufferPath, 0, 0);
-        SERIAL_PRINT_LN_GAME(game_index);
+
+        PRINT_BS(setGameName(game_index));
+        Serial.println();
 
         if (isTagGame)
         {
