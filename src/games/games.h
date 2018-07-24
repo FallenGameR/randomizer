@@ -41,4 +41,9 @@ const byte n_fighter_map[] = {
 const char *const *fighter_map_selected = doa5;
 byte n_fighter_map_selected = n_doa5;
 
+// Select current game
+void SelectGame(byte gameIndex)
+{
+}
+
 #endif // GAMES_H

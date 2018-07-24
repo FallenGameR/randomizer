@@ -3,6 +3,7 @@
 
 #include "..\tft.h"
 #include "..\files.h"
+#include "..\games\games.h"
 
 void GameIconSelectionScreen()
 {
@@ -10,20 +11,12 @@ void GameIconSelectionScreen()
     {
         game_index = random(n_games);
         isTagGame = random(2);
-        fighter_map_selected = fighter_map[game_index];
-        n_fighter_map_selected = n_fighter_map[game_index];
-        game_tag = readGameTag(game_index);
+        SelectGame(game_index);
 
         tft.fillScreen(WHITE);
-
         setGamePath(game_index, path_icon);
         bmpDraw(bufferPath, 0, 0);
         SERIAL_PRINT_LN_GAME(game_index);
-
-        if (game_tag == 0)
-        {
-            isTagGame = false;
-        }
 
         if (isTagGame)
         {

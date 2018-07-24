@@ -12,20 +12,12 @@ void GameSelectionScreen()
 {
     if (screen_redraw)
     {
-        fighter_map_selected = fighter_map[game_index];
-        n_fighter_map_selected = n_fighter_map[game_index];
-        game_tag = readGameTag(game_index);
-
+        SelectGame(game_index);
         tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
 
         TFT_PRINT_GAME(game_index);
         SERIAL_PRINT_LN_GAME(game_index);
-
-        if (game_tag == 0)
-        {
-            isTagGame = false;
-        }
 
         if (isTagGame)
         {
@@ -42,9 +34,7 @@ void GameSelectionScreen()
         if (X_RIGHT)
         {
             game_index = (game_index + n_games + 1) % n_games;
-            fighter_map_selected = fighter_map[game_index];
-            n_fighter_map_selected = n_fighter_map[game_index];
-            game_tag = readGameTag(game_index);
+            SelectGame(game_index);
             input_allowed = false;
             screen_redraw = true;
         }
@@ -52,9 +42,7 @@ void GameSelectionScreen()
         if (X_LEFT)
         {
             game_index = (game_index + n_games - 1) % n_games;
-            fighter_map_selected = fighter_map[game_index];
-            n_fighter_map_selected = n_fighter_map[game_index];
-            game_tag = readGameTag(game_index);
+            SelectGame(game_index);
             input_allowed = false;
             screen_redraw = true;
         }
