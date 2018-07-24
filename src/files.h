@@ -4,12 +4,15 @@
 #include <Arduino.h>
 #include <SD.h>
 #include "pins.h"
+#include "random.h"
 
 // Path constants
 const char path_games[] PROGMEM = "/GAMES/";
+const char path_score[] PROGMEM = "/SCORE/";
 const char path_name[] PROGMEM = "/name.txt";
 const char path_tag[] PROGMEM = "/tag.txt";
 const char path_icon[] PROGMEM = "/icon.bmp";
+const char path_csv[] PROGMEM = ".csv";
 
 // The longest path should be 33 chars long
 // \games\12345678\12345678\name.txt
@@ -190,6 +193,19 @@ void setGameName(byte gameIndex)
 
 #ifdef DEBUG
     Serial.print(F("Game name is: "));
+    Serial.println(bufferName);
+#endif
+}
+
+// Sets bufferName to something like "/SCORE/<random seed>.csv"
+void setStatsPath()
+{
+    strcpy_P(bufferPath, path_score);
+    itoa(random_seed, bufferPath + strlen_P(path_score), 10);
+    strcpy_P(bufferPath + strlen(bufferPath), path_csv);
+
+#ifdef DEBUG
+    Serial.print(F("Stats file: "));
     Serial.println(bufferName);
 #endif
 }

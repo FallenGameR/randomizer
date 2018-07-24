@@ -59,4 +59,20 @@ char buffer[17];
     setPlayerName(index);          \
     Serial.print(bufferName);
 
+#define PRINT(printable, stream) \
+    stream.print(printable);
+
+#define PRINT2(printable, stream1, stream2) \
+    PRINT(printable, stream1);              \
+    PRINT(printable, stream2);
+
+#define PRINT_P(tableElement, stream)                             \
+    strcpy_P(bufferName, (char *)pgm_read_word(&(tableElement))); \
+    PRINT(bufferName, stream);
+
+#define PRINT2_P(tableElement, stream1, stream2)                  \
+    strcpy_P(bufferName, (char *)pgm_read_word(&(tableElement))); \
+    PRINT(bufferName, stream1);                                   \
+    PRINT(bufferName, stream2);
+
 #endif // MEMORY_H
