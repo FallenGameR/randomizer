@@ -8,6 +8,7 @@
 #include "killer_instinct.h"
 #include "mortal_kombat_xl.h"
 #include "street_fighter_5.h"
+#include "..\files.h"
 
 // Game variables
 byte game_index = 0;
@@ -44,6 +45,14 @@ byte n_fighter_map_selected = n_doa5;
 // Select current game
 void SelectGame(byte gameIndex)
 {
+    fighter_map_selected = fighter_map[game_index];
+    n_fighter_map_selected = n_fighter_map[game_index];
+    game_tag = readGameTag(game_index);
+
+    if (game_tag == 0)
+    {
+        isTagGame = false;
+    }
 }
 
 #endif // GAMES_H
