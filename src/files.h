@@ -9,16 +9,17 @@
 // Path constants
 const char path_games[] PROGMEM = "/GAMES/";
 const char path_score[] PROGMEM = "/SCORE/";
+const char path_fighters[] PROGMEM = "/FIGHTERS/";
 const char path_name[] PROGMEM = "/name.txt";
 const char path_tag[] PROGMEM = "/tag.txt";
 const char path_icon[] PROGMEM = "/icon.bmp";
 const char path_csv[] PROGMEM = ".csv";
 const char path_separator[] PROGMEM = "/";
 
-// The longest path should be 33 chars long
-// \games\12345678\12345678\name.txt
+// The longest path should be 42 chars long
+// \games\12345678\FIGHTERS\12345678\name.txt
 // plus trailing zero
-#define BUFFER_PATH_MAX_LENGTH 34
+#define BUFFER_PATH_MAX_LENGTH 43
 char bufferPath[BUFFER_PATH_MAX_LENGTH];
 
 // 16 is max LCD text length plus trailing zero
