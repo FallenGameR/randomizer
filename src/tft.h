@@ -56,7 +56,7 @@ uint32_t read32(File &f)
 // good balance.
 #define BUFFPIXEL 20
 
-void drawImage(File bmpFile, int16_t startX, int16_t startY)
+void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY)
 {
     uint32_t startTime = millis();
 
@@ -201,7 +201,7 @@ void drawImage(File bmpFile, int16_t startX, int16_t startY)
     Serial.println("ms");
 }
 
-void bmpDraw(const char *filename, int16_t startX, int16_t startY)
+void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY)
 {
     Serial.print(F("Drawing image: "));
     Serial.println(filename);
@@ -222,7 +222,7 @@ void bmpDraw(const char *filename, int16_t startX, int16_t startY)
     }
 
     // Draw image
-    drawImage(bmpFile, startX, startY);
+    drawImage(bmpFile, mirror, startX, startY);
 
     // Close file
     bmpFile.close();
