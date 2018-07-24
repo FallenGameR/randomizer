@@ -145,6 +145,7 @@ void DumpMatch(int i)
 
     Serial.println();
     statsFile.println();
+    statsFile.flush();
 }
 
 void RecordMatchOutcome()

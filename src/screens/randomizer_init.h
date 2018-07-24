@@ -6,6 +6,7 @@
 #include "..\input.h"
 #include "..\players.h"
 #include "..\tft.h"
+#include "..\stats.h"
 
 bool partial_redraw_seed = false;
 bool partial_redraw_fairness = false;
@@ -62,6 +63,7 @@ void RandomizerInitScreen()
         if (BUTTON_BLACK)
         {
             InitPlayerPairs();
+            InitStatsFile();
 
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;
