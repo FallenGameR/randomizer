@@ -8,6 +8,7 @@
 #include "killer_instinct.h"
 #include "mortal_kombat_xl.h"
 #include "street_fighter_5.h"
+#include "..\fighters.h"
 #include "..\files.h"
 
 // Game variables
@@ -16,38 +17,11 @@ byte game_tag = 0;
 byte n_games = 0;
 bool isTagGame = false;
 
-// Table of fighter names by game
-const char *const *fighter_map[] = {
-    doa5,
-    guilty_gear,
-    killer_instinct,
-    kof14,
-    mortal_kombat,
-    street_fighter_5,
-    tekken7,
-};
-
-// Table of fighter name count by game
-const byte n_fighter_map[] = {
-    n_doa5,
-    n_guilty_gear,
-    n_killer_instinct,
-    n_kof14,
-    n_mortal_kombat,
-    n_street_fighter_5,
-    n_tekken7,
-};
-
-// Selected fighter map
-const char *const *fighter_map_selected = doa5;
-byte n_fighter_map_selected = n_doa5;
-
 // Select current game
 void SelectGame(byte gameIndex)
 {
-    fighter_map_selected = fighter_map[game_index];
-    n_fighter_map_selected = n_fighter_map[game_index];
-    game_tag = readGameTag(game_index);
+    n_fighters = readNumberOfFighters(gameIndex);
+    game_tag = readGameTag(gameIndex);
 
     if (game_tag == 0)
     {

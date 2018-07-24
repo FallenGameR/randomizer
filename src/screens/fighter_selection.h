@@ -6,14 +6,15 @@
 #include "..\stats.h"
 #include "..\memory.h"
 #include "..\random.h"
+#include "..\fighters.h"
 
 void FighterSelectionScreen()
 {
     if (screen_redraw)
     {
         // Fighter init
-        fighter_index_first = random(n_fighter_map_selected);
-        fighter_index_second = random(n_fighter_map_selected);
+        fighter_index_first = random(n_fighters);
+        fighter_index_second = random(n_fighters);
         fighter_index_first2 = NO_FIGHTER;
         fighter_index_second2 = NO_FIGHTER;
         fighter_index_first3 = NO_FIGHTER;
@@ -22,13 +23,13 @@ void FighterSelectionScreen()
         {
             if (game_tag >= 2)
             {
-                RANDOM_EX1(n_fighter_map_selected, fighter_index_first2, fighter_index_first);
-                RANDOM_EX1(n_fighter_map_selected, fighter_index_second2, fighter_index_second);
+                RANDOM_EX1(n_fighters, fighter_index_first2, fighter_index_first);
+                RANDOM_EX1(n_fighters, fighter_index_second2, fighter_index_second);
             }
             if (game_tag >= 3)
             {
-                RANDOM_EX2(n_fighter_map_selected, fighter_index_first3, fighter_index_first, fighter_index_first2);
-                RANDOM_EX2(n_fighter_map_selected, fighter_index_second3, fighter_index_second, fighter_index_second2);
+                RANDOM_EX2(n_fighters, fighter_index_first3, fighter_index_first, fighter_index_first2);
+                RANDOM_EX2(n_fighters, fighter_index_second3, fighter_index_second, fighter_index_second2);
             }
         }
 
@@ -104,14 +105,6 @@ void FighterSelectionScreen()
         // Joystick button prints the current stats and resets screen
         if (BUTTON_JOYSTICK)
         {
-            /*
-            // Reset screen since sometimes on a loose connection it gets into weird state
-            //tft. (16, 2);
-            TFT_FIGHTERS(fighter_index_first, fighter_index_second);
-            time_of_last_redraw = now;
-            fighter_pair_shown = 0;
-            */
-
             // Print stats to console
             Serial.println(F("-> Stats"));
             DumpStats();
