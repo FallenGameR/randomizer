@@ -215,7 +215,8 @@ void setStatsPath()
 // Reads number of fighters
 byte readNumberOfFighters(byte gameIndex)
 {
-    File dir = openGameFolder(gameIndex);
+    setGamePath(gameIndex, path_fighters);
+    File dir = SD.open(bufferPath);
     if (!dir)
     {
         return 0;
@@ -242,7 +243,8 @@ byte readNumberOfFighters(byte gameIndex)
 // Returns unclosed <index> subfolder from /GAMES/<game index> folder on SD card
 File openFighterFolder(byte gameIndex, byte fighterIndex)
 {
-    File dir = openGameFolder(gameIndex);
+    setGamePath(gameIndex, path_fighters);
+    File dir = SD.open(bufferPath);
     if (!dir)
     {
         return empty;
@@ -272,7 +274,7 @@ File openFighterFolder(byte gameIndex, byte fighterIndex)
     return empty;
 }
 
-// Set bufferPath to something like "/GAMES/<game index>/<fighter index>/<path>"
+// Set bufferPath to something like "/GAMES/<game index>/FIGHTERS/<fighter index>/<path>"
 void setFighterPath(byte gameIndex, byte fighterIndex, const char *path)
 {
     File game = openGameFolder(gameIndex);
@@ -290,7 +292,7 @@ void setFighterPath(byte gameIndex, byte fighterIndex, const char *path)
 
     strcpy_P(bufferPath, path_games);
     strcpy(bufferPath + strlen(bufferPath), game.name());
-    strcpy_P(bufferPath + strlen(bufferPath), path_separator);
+    strcpy_P(bufferPath + strlen(bufferPath), path_fighters);
     strcpy(bufferPath + strlen(bufferPath), fighter.name());
     strcpy_P(bufferPath + strlen(bufferPath), path_separator);
     strcpy_P(bufferPath + strlen(bufferPath), path);
