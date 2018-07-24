@@ -46,19 +46,6 @@ byte matches[match_limit][Stats::Size];
 
 File statsFile;
 
-// print to serial, file
-#define PRINT_SF(printable) \
-    PRINT2(printable, Serial, statsFile)
-
-// print bufferName to serial, file
-#define PRINT_BSF(buffer_name_setup) \
-    buffer_name_setup;               \
-    PRINT_SF(bufferName)
-
-// print program memory to serial, file
-#define PRINT_PSF(tableElement) \
-    PRINT2_P(tableElement, Serial, statsFile)
-
 void InitStatsFile()
 {
     setStatsPath();
@@ -70,77 +57,77 @@ void DumpMatch(int i)
 {
     const char *const *fighterMap = fighter_map[matches[i][Stats::Game]];
 
-    PRINT_SF(i + 1);
-    PRINT_SF(F(","));
+    PRINT2_SF(i + 1);
+    PRINT2_SF(F(","));
 
-    PRINT_BSF(setPlayerName(matches[i][Stats::FirstPlayer]));
-    PRINT_SF(F(","));
+    PRINT2_BSF(setPlayerName(matches[i][Stats::FirstPlayer]));
+    PRINT2_SF(F(","));
 
-    PRINT_BSF(setPlayerName(matches[i][Stats::SecondPlayer]));
-    PRINT_SF(F(","));
+    PRINT2_BSF(setPlayerName(matches[i][Stats::SecondPlayer]));
+    PRINT2_SF(F(","));
 
-    PRINT_BSF(setGameName(matches[i][Stats::Game]));
-    PRINT_SF(F(","));
+    PRINT2_BSF(setGameName(matches[i][Stats::Game]));
+    PRINT2_SF(F(","));
 
     switch (matches[i][Stats::Won])
     {
     case Winner::None:
-        PRINT_SF(F("None"));
+        PRINT2_SF(F("None"));
         break;
 
     case Winner::First:
-        PRINT_BSF(setPlayerName(matches[i][Stats::FirstPlayer]));
+        PRINT2_BSF(setPlayerName(matches[i][Stats::FirstPlayer]));
         break;
 
     case Winner::Second:
-        PRINT_BSF(setPlayerName(matches[i][Stats::SecondPlayer]));
+        PRINT2_BSF(setPlayerName(matches[i][Stats::SecondPlayer]));
         break;
 
     case Winner::Draw:
-        PRINT_SF(F("Draw"));
+        PRINT2_SF(F("Draw"));
         break;
     }
-    PRINT_SF(F(","));
+    PRINT2_SF(F(","));
 
     if (matches[i][Stats::NotFair])
     {
-        PRINT_SF(F("false"));
+        PRINT2_SF(F("false"));
     }
     else
     {
-        PRINT_SF(F("true"));
+        PRINT2_SF(F("true"));
     }
-    PRINT_SF(F(","));
+    PRINT2_SF(F(","));
 
     // First player fighters
-    PRINT_PSF(fighterMap[matches[i][Stats::FirstFighter]]);
-    PRINT_SF(F(","));
+    PRINT2_PSF(fighterMap[matches[i][Stats::FirstFighter]]);
+    PRINT2_SF(F(","));
 
     if (matches[i][Stats::FirstFighter2] != NO_FIGHTER)
     {
-        PRINT_PSF(fighterMap[matches[i][Stats::FirstFighter2]]);
+        PRINT2_PSF(fighterMap[matches[i][Stats::FirstFighter2]]);
     }
-    PRINT_SF(F(","));
+    PRINT2_SF(F(","));
 
     if (matches[i][Stats::FirstFighter3] != NO_FIGHTER)
     {
-        PRINT_PSF(fighterMap[matches[i][Stats::FirstFighter3]]);
+        PRINT2_PSF(fighterMap[matches[i][Stats::FirstFighter3]]);
     }
-    PRINT_SF(F(","));
+    PRINT2_SF(F(","));
 
     // Second player fighters
-    PRINT_PSF(fighterMap[matches[i][Stats::SecondFighter]]);
-    PRINT_SF(F(","));
+    PRINT2_PSF(fighterMap[matches[i][Stats::SecondFighter]]);
+    PRINT2_SF(F(","));
 
     if (matches[i][Stats::SecondFighter2] != NO_FIGHTER)
     {
-        PRINT_PSF(fighterMap[matches[i][Stats::SecondFighter2]]);
+        PRINT2_PSF(fighterMap[matches[i][Stats::SecondFighter2]]);
     }
-    PRINT_SF(F(","));
+    PRINT2_SF(F(","));
 
     if (matches[i][Stats::SecondFighter3] != NO_FIGHTER)
     {
-        PRINT_PSF(fighterMap[matches[i][Stats::SecondFighter3]]);
+        PRINT2_PSF(fighterMap[matches[i][Stats::SecondFighter3]]);
     }
 
     Serial.println();

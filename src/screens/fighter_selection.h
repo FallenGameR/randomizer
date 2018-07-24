@@ -38,9 +38,10 @@ void FighterSelectionScreen()
 
         // TFT players
         tft.setCursor(0, 0);
-        TFT_PRINT_PLAYER(player_index_first);
+        PRINT_BT(setPlayerName(player_index_first));
+
         tft.setCursor(tft.width() / 2, 0);
-        TFT_PRINT_PLAYER(player_index_second);
+        PRINT_BT(setPlayerName(player_index_second));
 
         // TFT output
         tft.setCursor(0, tft.height() - CHAR_HEIGHT * 2 - 2);
