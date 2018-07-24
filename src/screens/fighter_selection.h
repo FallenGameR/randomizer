@@ -51,11 +51,11 @@ void FighterSelectionScreen()
         string_length += strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second])));
         if (fighter_index_second2 != NO_FIGHTER)
         {
-            string_length += strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second2])));
+            string_length += 2 + strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second2])));
         }
         if (fighter_index_second3 != NO_FIGHTER)
         {
-            string_length += strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second3])));
+            string_length += 2 + strlen_P((char *)pgm_read_word(&(fighter_map_selected[fighter_index_second3])));
         }
 
         tft.setCursor(tft.width() - string_length * CHAR_WIDTH, tft.height() - CHAR_HEIGHT * 1);
