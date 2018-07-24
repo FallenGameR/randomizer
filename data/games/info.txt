@@ -1,7 +1,0 @@
-DoA_5,Dead or Alive 5,2
-GGX_Rev,Guilty Gear Xrd,0
-KI,Killer Instinct,0
-KoF_14,King of Fighters,3
-MK_XL,Mortal Kombat X,0
-SF_5,Street Fighter,2
-Tek_7,Tekken 7,0 
