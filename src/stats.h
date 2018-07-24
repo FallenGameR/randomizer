@@ -46,6 +46,15 @@ byte matches[match_limit][Stats::Size];
 
 File statsFile;
 
+#define PRINT2_BSF_F(fighter_index) \
+    PRINT2_BSF(setFighterName(matches[i][Stats::Game], matches[i][Stats::fighter_index]));
+
+#define PRINT2_BSF_F_OPT(fighter_index)                 \
+    if (matches[i][Stats::fighter_index] != NO_FIGHTER) \
+    {                                                   \
+        PRINT2_BSF_EX(fighter_index);                   \
+    }
+
 void InitStatsFile()
 {
     setStatsPath();
@@ -55,8 +64,6 @@ void InitStatsFile()
 
 void DumpMatch(int i)
 {
-    const char *const *fighterMap = fighter_map[matches[i][Stats::Game]];
-
     PRINT2_SF(i + 1);
     PRINT2_SF(F(","));
 
@@ -100,35 +107,24 @@ void DumpMatch(int i)
     PRINT2_SF(F(","));
 
     // First player fighters
-    PRINT2_PSF(fighterMap[matches[i][Stats::FirstFighter]]);
+    PRINT2_BSF_F(FirstFighter);
     PRINT2_SF(F(","));
 
-    if (matches[i][Stats::FirstFighter2] != NO_FIGHTER)
-    {
-        PRINT2_PSF(fighterMap[matches[i][Stats::FirstFighter2]]);
-    }
+    PRINT2_BSF_F_OPT(FirstFighter2);
     PRINT2_SF(F(","));
 
-    if (matches[i][Stats::FirstFighter3] != NO_FIGHTER)
-    {
-        PRINT2_PSF(fighterMap[matches[i][Stats::FirstFighter3]]);
-    }
+    PRINT2_BSF_F_OPT(FirstFighter3);
     PRINT2_SF(F(","));
 
     // Second player fighters
-    PRINT2_PSF(fighterMap[matches[i][Stats::SecondFighter]]);
+    PRINT2_BSF_F(SecondFighter);
     PRINT2_SF(F(","));
 
-    if (matches[i][Stats::SecondFighter2] != NO_FIGHTER)
-    {
-        PRINT2_PSF(fighterMap[matches[i][Stats::SecondFighter2]]);
-    }
+    PRINT2_BSF_F_OPT(SecondFighter2);
     PRINT2_SF(F(","));
 
-    if (matches[i][Stats::SecondFighter3] != NO_FIGHTER)
-    {
-        PRINT2_PSF(fighterMap[matches[i][Stats::SecondFighter3]]);
-    }
+    PRINT2_BSF_F_OPT(SecondFighter3);
+    PRINT2_SF(F(","));
 
     Serial.println();
     statsFile.println();

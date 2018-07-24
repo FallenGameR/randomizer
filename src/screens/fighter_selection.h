@@ -13,6 +13,8 @@
 // But we can add it later on, for now we just have large buffer
 char bufferLine[480 / 6];
 
+const char str_comma[] PROGMEM = ", ";
+
 void FightersToBufferLine(byte a, byte b, byte c)
 {
     setFighterName(game_index, a);
@@ -20,14 +22,14 @@ void FightersToBufferLine(byte a, byte b, byte c)
 
     if (b != NO_FIGHTER)
     {
-        strcat(bufferLine, F(", "));
+        strcat_P(bufferLine, str_comma);
         setFighterName(game_index, b);
         strcat(bufferLine, bufferName);
     }
 
     if (c != NO_FIGHTER)
     {
-        strcat(bufferLine, F(", "));
+        strcat_P(bufferLine, str_comma);
         setFighterName(game_index, c);
         strcat(bufferLine, bufferName);
     }
