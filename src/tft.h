@@ -177,7 +177,16 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY)
             b = rgbBuffer[rgbBufferIndex++];
             g = rgbBuffer[rgbBufferIndex++];
             r = rgbBuffer[rgbBufferIndex++];
-            tft.writePixel(x + startX, y + startY, tft.color565(r, g, b));
+
+            if (mirror)
+            {
+                tft.writePixel(startX + bmpWidth - x, startY + y, tft.color565(r, g, b));
+            }
+            else
+            {
+                tft.writePixel(startX + x, startY + y, tft.color565(r, g, b));
+            }
+
             pixelsWritten += 1;
         }
 
