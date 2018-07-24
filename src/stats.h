@@ -52,7 +52,7 @@ File statsFile;
 #define PRINT2_BSF_F_OPT(fighter_index)                 \
     if (matches[i][Stats::fighter_index] != NO_FIGHTER) \
     {                                                   \
-        PRINT2_BSF_EX(fighter_index);                   \
+        PRINT2_BSF_F(fighter_index);                    \
     }
 
 void InitStatsFile()
@@ -158,47 +158,30 @@ void RecordMatchOutcome()
         break;
 
     case Winner::First:
-        SERIAL_PRINT_PLAYER(player_index_first);
-        Serial.print(F(" won ("));
-        SERIAL_PRINT(fighter_map_selected, fighter_index_first);
-        if (fighter_index_first2 != NO_FIGHTER)
-        {
-            Serial.print(F(", "));
-            SERIAL_PRINT(fighter_map_selected, fighter_index_first2);
-        }
-        if (fighter_index_first3 != NO_FIGHTER)
-        {
-            Serial.print(F(", "));
-            SERIAL_PRINT(fighter_map_selected, fighter_index_first3);
-        }
+        PRINT_BS(setPlayerName(player_index_first));
+        PRINT(F(" won ("), Serial);
+        FightersToBufferLine(fighter_index_first, fighter_index_first2, fighter_index_first3);
+        PRINT(bufferLine, Serial);
         Serial.print(F(")"));
         break;
 
     case Winner::Second:
-        SERIAL_PRINT_PLAYER(player_index_second);
-        Serial.print(F(" won ("));
-        SERIAL_PRINT(fighter_map_selected, fighter_index_second);
-        if (fighter_index_second2 != NO_FIGHTER)
-        {
-            Serial.print(F(", "));
-            SERIAL_PRINT(fighter_map_selected, fighter_index_second2);
-        }
-        if (fighter_index_second3 != NO_FIGHTER)
-        {
-            Serial.print(F(", "));
-            SERIAL_PRINT(fighter_map_selected, fighter_index_second3);
-        }
+        PRINT_BS(setPlayerName(player_index_second));
+        PRINT(F(" won ("), Serial);
+        FightersToBufferLine(fighter_index_second, fighter_index_second2, fighter_index_second3);
+        PRINT(bufferLine, Serial);
         Serial.print(F(")"));
         break;
     }
 
     if (not_fair_win)
     {
-        Serial.print(F(" (opponent says not fair)"));
+        PRINT(F(" (opponent says not fair)"), Serial);
     }
+
     Serial.println();
 
-    // Just in case of failure dump csv form as well
+    // Just in case of failure, to be able to recover stats we dump csv line as well
     DumpMatch(match_current - 1);
 }
 

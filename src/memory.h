@@ -34,17 +34,9 @@ char buffer[17];
 #define PRINT_BT(buffer_setup) \
     PRINT_B(buffer_setup, tft);
 
-// Print buffer on tft for optional fighter
-#define PRINT_BT_OPTIONAL_FIGHTER(buffer_setup, fighter_index) \
-    if (fighter_index == NO_FIGHTER)                           \
-    {                                                          \
-        bufferName[0] = 0;                                     \
-    }                                                          \
-    else                                                       \
-    {                                                          \
-        PRINT(F(", "), tft);                                   \
-        PRINT_BT(buffer_setup);                                \
-    }
+// Print buffer on serial
+#define PRINT_BT(buffer_setup) \
+    PRINT_B(buffer_setup, Serial);
 
 // print to serial, file
 #define PRINT2_SF(printable) \

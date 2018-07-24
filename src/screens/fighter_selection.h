@@ -8,33 +8,6 @@
 #include "..\random.h"
 #include "..\fighters.h"
 
-// Screen is 480px and min font is 6 pixels wide (by default we actually use font that is twise as big)
-// For safety there should also be logic for making sure we don't reach the end of buffer
-// But we can add it later on, for now we just have large buffer
-char bufferLine[480 / 6];
-
-const char str_comma[] PROGMEM = ", ";
-
-void FightersToBufferLine(byte a, byte b, byte c)
-{
-    setFighterName(game_index, a);
-    strcpy(bufferLine, bufferName);
-
-    if (b != NO_FIGHTER)
-    {
-        strcat_P(bufferLine, str_comma);
-        setFighterName(game_index, b);
-        strcat(bufferLine, bufferName);
-    }
-
-    if (c != NO_FIGHTER)
-    {
-        strcat_P(bufferLine, str_comma);
-        setFighterName(game_index, c);
-        strcat(bufferLine, bufferName);
-    }
-}
-
 void FighterSelectionScreen()
 {
 
