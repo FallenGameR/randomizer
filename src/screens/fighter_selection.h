@@ -4,7 +4,7 @@
 #include "screens.h"
 #include "..\input.h"
 #include "..\stats.h"
-#include "..\memory.h"
+#include "..\print.h"
 #include "..\random.h"
 #include "..\fighters.h"
 

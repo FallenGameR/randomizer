@@ -15,9 +15,6 @@ bool isTagGame = false;
 // But we can add it later on, for now we just have large buffer
 char bufferLine[480 / 6];
 
-// Constant string for comma
-const char str_comma[] PROGMEM = ", ";
-
 void FightersToBufferLine(byte a, byte b, byte c)
 {
     setFighterName(game_index, a);

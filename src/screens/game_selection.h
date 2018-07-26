@@ -3,7 +3,7 @@
 
 #include "screens.h"
 #include "..\input.h"
-#include "..\memory.h"
+#include "..\print.h"
 #include "..\stats.h"
 #include "..\games.h"
 

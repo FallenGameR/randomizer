@@ -1,9 +1,5 @@
-#ifndef MEMORY_H
-#define MEMORY_H
-
-// We move as much constant strings to program memory as possible to
-// free up very limited 2k of space used for variables and stats table
-// https://www.arduino.cc/reference/en/language/variables/utilities/progmem/
+#ifndef PRINT_H
+#define PRINT_H
 
 #define PRINT(printable, stream) \
     stream.print(printable);
@@ -37,4 +33,4 @@
     buffer_name_setup;                \
     PRINT2_SF(bufferName)
 
-#endif // MEMORY_H
+#endif // PRINT_H

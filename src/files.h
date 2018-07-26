@@ -6,6 +6,10 @@
 #include "pins.h"
 #include "random.h"
 
+// We move as much constant strings to program memory as possible to
+// free up very limited 2k of space used for variables and stats table
+// https://www.arduino.cc/reference/en/language/variables/utilities/progmem/
+
 // Path constants
 const char path_games[] PROGMEM = "/GAMES/";
 const char path_score[] PROGMEM = "/SCORE/";
@@ -15,6 +19,9 @@ const char path_tag[] PROGMEM = "/tag.txt";
 const char path_icon[] PROGMEM = "/icon.bmp";
 const char path_csv[] PROGMEM = ".csv";
 const char path_separator[] PROGMEM = "/";
+
+// Constant string for comma
+const char str_comma[] PROGMEM = ", ";
 
 // The longest path should be 42 chars long
 // \games\12345678\FIGHTERS\12345678\name.txt
