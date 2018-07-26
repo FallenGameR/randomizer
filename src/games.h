@@ -1,15 +1,8 @@
 #ifndef GAMES_H
 #define GAMES_H
 
-#include "tekken7.h"
-#include "doa5.h"
-#include "guilty_gear_xrd_rev2.h"
-#include "king_of_fighters_14.h"
-#include "killer_instinct.h"
-#include "mortal_kombat_xl.h"
-#include "street_fighter_5.h"
-#include "..\fighters.h"
-#include "..\files.h"
+#include "fighters.h"
+#include "files.h"
 
 // Game variables
 byte game_index = 0;

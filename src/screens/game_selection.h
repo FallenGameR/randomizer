@@ -5,7 +5,7 @@
 #include "..\input.h"
 #include "..\memory.h"
 #include "..\stats.h"
-#include "..\games\games.h"
+#include "..\games.h"
 
 void GameSelectionScreen()
 {

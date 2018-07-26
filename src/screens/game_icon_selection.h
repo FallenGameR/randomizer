@@ -2,7 +2,7 @@
 #define GAME_ICON_SELECTION_H
 
 #include "..\tft.h"
-#include "..\games\games.h"
+#include "..\games.h"
 
 void GameIconSelectionScreen()
 {

@@ -2,7 +2,7 @@
 #define STATS_H
 
 #include <Arduino.h>
-#include "games\games.h"
+#include "games.h"
 #include "players.h"
 #include "fighters.h"
 #include "memory.h"
