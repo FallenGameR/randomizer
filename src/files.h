@@ -335,6 +335,9 @@ void setFighterName(byte gameIndex, byte fighterIndex)
 
 byte readGameTag(byte gameIndex)
 {
+    // Temporal for gathering
+    return 0;
+
     setGamePath(gameIndex, path_tag);
 
     File file = SD.open(bufferPath);
