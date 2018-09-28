@@ -54,6 +54,9 @@ const byte pin_tft_ym = PIN_A11; // can be a digital pin
 
 // SD card chip select, used if you want to read from the SD card.
 // All other pins are connected via hardware SPI pin layout
+const byte pin_sd_do = 50; // miso
+const byte pin_sd_di = 51; // mosi
+const byte pin_sd_clk = 52;
 const byte pin_sd_ccs = 53;
 
 #endif // PINS_H
