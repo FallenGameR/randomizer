@@ -111,7 +111,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
     }
 
     // Crop rendered image if it doesn't fit the screen
-    int width = bmpWidth;
+    int width = bmpWidth / part;
     int height = bmpHeight;
     if ((startX + width) > tft.width())
     {
@@ -156,6 +156,14 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
         else
         {
             pos = bmpImageOffset + y * rowSize;
+        }
+
+        // Offset for part drawings if needed
+        int trim = bmpWidth - width;
+        int rowOffset = trim / 2;
+        if (rowOffset > 0)
+        {
+            pos += rowOffset * 3;
         }
 
         // If seek needed, do it and force buffer reload

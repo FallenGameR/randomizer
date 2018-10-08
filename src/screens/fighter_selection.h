@@ -69,11 +69,11 @@ void FighterSelectionScreen()
 
         // Portrait draw
         setFighterPath(game_index, fighter_index_first, path_icon);
-        bmpDraw(bufferPath, false, 0, CHAR_HEIGHT, 1);
+        bmpDraw(bufferPath, false, 0, CHAR_HEIGHT, 2);
         tft.drawRect(0, CHAR_HEIGHT, tft.width() / 2, tft.height() - 2 - CHAR_HEIGHT * 3, BLACK);
 
         setFighterPath(game_index, fighter_index_second, path_icon);
-        bmpDraw(bufferPath, true, tft.width() / 2, CHAR_HEIGHT, 1);
+        bmpDraw(bufferPath, true, tft.width() / 2, CHAR_HEIGHT, 3);
         tft.drawRect(tft.width() / 2, CHAR_HEIGHT, tft.width() / 2, tft.height() - 2 - CHAR_HEIGHT * 3, BLACK);
 
         // Internal state init
