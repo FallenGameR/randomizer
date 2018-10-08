@@ -5,6 +5,7 @@
 #include <SD.h>
 #include "pins.h"
 #include "random.h"
+#include "players.h"
 
 // We move as much constant strings to program memory as possible to
 // free up very limited 2k of space used for variables and stats table
@@ -335,8 +336,11 @@ void setFighterName(byte gameIndex, byte fighterIndex)
 
 byte readGameTag(byte gameIndex)
 {
-    // Temporal for gathering
-    return 0;
+    // No tag matches in mutiplyer - too long wait time
+    if (n_players >= 3)
+    {
+        return 0;
+    }
 
     setGamePath(gameIndex, path_tag);
 
