@@ -56,7 +56,12 @@ uint32_t read32(File &f)
 // good balance.
 #define BUFFPIXEL 20
 
-void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY)
+// bmpFile - bmp file to draw
+// mirror - false to display picture as is, true to mirror the image left to right
+// startX - screen position X where to draw the picture
+// startY - screen position Y where to draw the picture
+// part - what part of the picture to wraw: 1 - whole, 2 - half (centred), 3 - third (centered)
+void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int16_t part)
 {
     uint32_t startTime = millis();
 
@@ -210,7 +215,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY)
     Serial.println("ms");
 }
 
-void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY)
+void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY, int16_t part)
 {
     Serial.print(F("Drawing image: "));
     Serial.println(filename);
@@ -231,7 +236,7 @@ void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t start
     }
 
     // Draw image
-    drawImage(bmpFile, mirror, startX, startY);
+    drawImage(bmpFile, mirror, startX, startY, part);
 
     // Close file
     bmpFile.close();
