@@ -38,7 +38,8 @@ void FighterSelectionScreen()
         }
 
         // TFT clear
-        int16_t partIncrement = tft.width() / (2 * part);
+        int16_t halfScreen = tft.width() / 2;
+        int16_t partIncrement = halfScreen / part;
         int16_t position = 0;
         tft.fillScreen(BLACK);
 
@@ -75,34 +76,31 @@ void FighterSelectionScreen()
         // Portrait draw
         setFighterPath(game_index, fighter_index_first, path_icon);
         bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
-        position += partIncrement;
-        if (part >= 2)
-        {
-            setFighterPath(game_index, fighter_index_first2, path_icon);
-            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
-            position += partIncrement;
-        }
-        if (part >= 3)
-        {
-            setFighterPath(game_index, fighter_index_first3, path_icon);
-            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
-            position += partIncrement;
-        }
-
+        position += halfScreen;
         setFighterPath(game_index, fighter_index_second, path_icon);
         bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
-        position += partIncrement;
+        position -= halfScreen;
+
         if (part >= 2)
         {
+            position += partIncrement;
+            setFighterPath(game_index, fighter_index_first2, path_icon);
+            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            position += halfScreen;
             setFighterPath(game_index, fighter_index_second2, path_icon);
             bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
-            position += partIncrement;
+            position -= halfScreen;
         }
+
         if (part >= 3)
         {
+            position += partIncrement;
+            setFighterPath(game_index, fighter_index_first3, path_icon);
+            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            position += halfScreen;
             setFighterPath(game_index, fighter_index_second3, path_icon);
             bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
-            position += partIncrement;
+            position -= halfScreen;
         }
 
         // Player differentiator boxes
