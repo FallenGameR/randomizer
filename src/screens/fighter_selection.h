@@ -10,7 +10,6 @@
 
 void FighterSelectionScreen()
 {
-
     if (screen_redraw)
     {
         // Fighter init
@@ -20,21 +19,27 @@ void FighterSelectionScreen()
         fighter_index_second2 = NO_FIGHTER;
         fighter_index_first3 = NO_FIGHTER;
         fighter_index_second3 = NO_FIGHTER;
+        byte part = 1;
+
         if (isTagGame)
         {
             if (game_tag >= 2)
             {
                 RANDOM_EX1(n_fighters, fighter_index_first2, fighter_index_first);
                 RANDOM_EX1(n_fighters, fighter_index_second2, fighter_index_second);
+                part = 2;
             }
             if (game_tag >= 3)
             {
                 RANDOM_EX2(n_fighters, fighter_index_first3, fighter_index_first, fighter_index_first2);
                 RANDOM_EX2(n_fighters, fighter_index_second3, fighter_index_second, fighter_index_second2);
+                part = 3;
             }
         }
 
         // TFT clear
+        int16_t partIncrement = tft.width() / (2 * part);
+        int16_t position = 0;
         tft.fillScreen(BLACK);
 
         // TFT players
@@ -69,11 +74,37 @@ void FighterSelectionScreen()
 
         // Portrait draw
         setFighterPath(game_index, fighter_index_first, path_icon);
-        bmpDraw(bufferPath, false, 0, CHAR_HEIGHT, 2);
+        bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+        position += partIncrement;
+        if (part >= 2)
+        {
+            setFighterPath(game_index, fighter_index_first2, path_icon);
+            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            position += partIncrement;
+        }
+        if (part >= 3)
+        {
+            setFighterPath(game_index, fighter_index_first3, path_icon);
+            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            position += partIncrement;
+        }
         tft.drawRect(0, CHAR_HEIGHT, tft.width() / 2, tft.height() - 2 - CHAR_HEIGHT * 3, BLACK);
 
         setFighterPath(game_index, fighter_index_second, path_icon);
-        bmpDraw(bufferPath, true, tft.width() / 2, CHAR_HEIGHT, 3);
+        bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
+        position += partIncrement;
+        if (part >= 2)
+        {
+            setFighterPath(game_index, fighter_index_second2, path_icon);
+            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            position += partIncrement;
+        }
+        if (part >= 3)
+        {
+            setFighterPath(game_index, fighter_index_second3, path_icon);
+            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            position += partIncrement;
+        }
         tft.drawRect(tft.width() / 2, CHAR_HEIGHT, tft.width() / 2, tft.height() - 2 - CHAR_HEIGHT * 3, BLACK);
 
         // Internal state init
