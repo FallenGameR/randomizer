@@ -88,7 +88,6 @@ void FighterSelectionScreen()
             bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
             position += partIncrement;
         }
-        tft.drawRect(0, CHAR_HEIGHT, tft.width() / 2, tft.height() - 2 - CHAR_HEIGHT * 3, BLACK);
 
         setFighterPath(game_index, fighter_index_second, path_icon);
         bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
@@ -96,15 +95,18 @@ void FighterSelectionScreen()
         if (part >= 2)
         {
             setFighterPath(game_index, fighter_index_second2, path_icon);
-            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
             position += partIncrement;
         }
         if (part >= 3)
         {
             setFighterPath(game_index, fighter_index_second3, path_icon);
-            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
             position += partIncrement;
         }
+
+        // Player differentiator boxes
+        tft.drawRect(0, CHAR_HEIGHT, tft.width() / 2, tft.height() - 2 - CHAR_HEIGHT * 3, BLACK);
         tft.drawRect(tft.width() / 2, CHAR_HEIGHT, tft.width() / 2, tft.height() - 2 - CHAR_HEIGHT * 3, BLACK);
 
         // Internal state init
