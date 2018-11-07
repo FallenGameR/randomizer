@@ -21,19 +21,28 @@ void MockRecordMatchOutcome()
         matches[match_current][Stats::SecondFighter2] = 0;
         matches[match_current][Stats::FirstFighter3] = 0;
         matches[match_current][Stats::SecondFighter3] = 0;
-        matches[match_current][Stats::Won] = random(1) ? matches[match_current][Stats::FirstPlayer] : matches[match_current][Stats::SecondPlayer];
+        matches[match_current][Stats::Won] = random(1) ? Winner::First : Winner::Second;
         matches[match_current][Stats::NotFair] = false;
         match_current++;
     }
+}
+
+byte GetMatchCount()
+{
+    return match_current;
+}
+
+byte playerWins[MAX_PLAYERS];
+
+byte GetMaxWins()
+{
+    return 0;
 }
 
 void TesterScreen()
 {
     MockRecordMatchOutcome();
     tft.fillScreen(BLACK);
-
-    double x = 0;
-    double y = random(10);
 
     box screen;
     screen.xlo = 0;
@@ -44,10 +53,12 @@ void TesterScreen()
     box plot;
     plot.xlo = 0;
     plot.xhi = 60;
-    plot.ylo = 0;  //(int)y - 5;
+    plot.ylo = 0;
     plot.yhi = 10; //(int)y + 5;
 
     box line;
+    double x = 0;
+    double y = random(10);
     line.xlo = MAP_X(x, plot, screen);
     line.ylo = MAP_Y(y, plot, screen);
 
