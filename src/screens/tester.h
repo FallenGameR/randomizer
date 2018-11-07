@@ -109,11 +109,34 @@ box InitLine(box &screen, box &plot)
     line.ylo = MAP_Y(y, plot, screen);
 }
 
+unsigned int playerColors[MAX_PLAYERS];
+
+void InitPlayerColors()
+{
+    playerColors[0] = BLUE;
+    playerColors[1] = TEAL;
+    playerColors[2] = GREEN;
+    playerColors[3] = CYAN;
+    playerColors[4] = RED;
+    playerColors[5] = MAGENTA;
+    playerColors[6] = YELLOW;
+    playerColors[7] = ORANGE;
+    playerColors[8] = PINK;
+    playerColors[9] = PURPLE;
+    playerColors[10] = GREY;
+    playerColors[11] = WHITE;
+    playerColors[12] = LTBLUE;
+    playerColors[13] = LTTEAL;
+    playerColors[14] = LTGREEN;
+    playerColors[15] = LTCYAN;
+}
+
 void TesterScreen()
 {
     // Init
     MockRecordMatchOutcome();
     GroupPlayerWins();
+    InitPlayerColors();
     tft.fillScreen(BLACK);
 
     // Draw grid
@@ -158,7 +181,7 @@ void TesterScreen()
 
             line.xhi = i + 1;
             line.yhi = playerWins;
-            Graph(screen, plot, line, GREEN);
+            Graph(screen, plot, line, playerColors[player]);
             delay(100);
         }
     }
