@@ -1,11 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <Adafruit_ILI9341.h>
-#include "colors.h"
-#include "pins.h"
-
-Adafruit_ILI9341 tft = Adafruit_ILI9341(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_MOSI, PIN_TFT_CLK, PIN_TFT_RST, PIN_TFT_MISO);
+#include <tft.h>
 
 #define TITLE_PADDING_HORIZONTAL 0
 #define TITLE_PADDING_VERTICAL 2
@@ -71,7 +67,6 @@ struct box
 };
 
 void InitializeGrid(
-    Adafruit_ILI9341 &d, // display object
     box &screen,
     box &plot,
     double xinc,         // increments on x axis
@@ -85,27 +80,26 @@ void InitializeGrid(
     for (double y = plot.ylo + yinc; y <= plot.yhi; y += yinc)
     {
         double temp = MAP_Y(y, plot, screen);
-        d.drawLine(screen.xlo, temp, screen.xhi, temp, gcolor);
-        d.setTextSize(1);
-        d.setTextColor(tcolor, bcolor);
-        d.setCursor(screen.xlo + LEGEND_PADDING_Y_HORIZONTAL, temp + LEGEND_PADDING_Y_VERTICAL);
-        d.print((int)y);
+        tft.drawLine(screen.xlo, temp, screen.xhi, temp, gcolor);
+        tft.setTextSize(1);
+        tft.setTextColor(tcolor, bcolor);
+        tft.setCursor(screen.xlo + LEGEND_PADDING_Y_HORIZONTAL, temp + LEGEND_PADDING_Y_VERTICAL);
+        tft.print((int)y);
     }
 
     // Axis x
     for (double x = plot.xlo + xinc; x <= plot.xhi; x += xinc)
     {
         double temp = MAP_X(x, plot, screen);
-        d.drawLine(temp, screen.ylo, temp, screen.yhi, gcolor);
-        d.setTextSize(1);
-        d.setTextColor(tcolor, bcolor);
-        d.setCursor(temp + LEGEND_PADDING_X_HORIZONTAL, screen.yhi + LEGEND_PADDING_X_VERTICAL);
-        d.print((int)x);
+        tft.drawLine(temp, screen.ylo, temp, screen.yhi, gcolor);
+        tft.setTextSize(1);
+        tft.setTextColor(tcolor, bcolor);
+        tft.setCursor(temp + LEGEND_PADDING_X_HORIZONTAL, screen.yhi + LEGEND_PADDING_X_VERTICAL);
+        tft.print((int)x);
     }
 }
 
 void InitializeAxes(
-    Adafruit_ILI9341 &d, // display object
     box &screen,
     box &plot,
     String title,        // title of graph
@@ -117,33 +111,33 @@ void InitializeAxes(
 )
 {
     // Draw title
-    d.setTextSize(2);
-    d.setTextColor(tcolor, bcolor);
-    d.setCursor(screen.xhi - title.length() * 6 * 2 + TITLE_PADDING_HORIZONTAL, screen.ylo + TITLE_PADDING_VERTICAL);
-    d.print(title);
+    tft.setTextSize(2);
+    tft.setTextColor(tcolor, bcolor);
+    tft.setCursor(screen.xhi - title.length() * 6 * 2 + TITLE_PADDING_HORIZONTAL, screen.ylo + TITLE_PADDING_VERTICAL);
+    tft.print(title);
 
     // Draw y axes
-    d.drawLine(screen.xlo, screen.ylo, screen.xlo, screen.yhi, acolor);
-    d.setTextSize(1);
-    d.setTextColor(acolor, bcolor);
-    d.setCursor(screen.xlo + AXES_NAME_PADDING_Y_HORIZONTAL, screen.ylo + AXES_NAME_PADDING_Y_VERTICAL);
-    d.print(ylabel);
+    tft.drawLine(screen.xlo, screen.ylo, screen.xlo, screen.yhi, acolor);
+    tft.setTextSize(1);
+    tft.setTextColor(acolor, bcolor);
+    tft.setCursor(screen.xlo + AXES_NAME_PADDING_Y_HORIZONTAL, screen.ylo + AXES_NAME_PADDING_Y_VERTICAL);
+    tft.print(ylabel);
 
     // Draw x axes
-    d.drawLine(screen.xlo, screen.yhi, screen.xhi, screen.yhi, acolor);
-    d.setTextSize(1);
-    d.setTextColor(acolor, bcolor);
-    d.setCursor(screen.xhi - xlabel.length() * 6 + AXES_NAME_PADDING_X_HORIZONTAL, screen.yhi + AXES_NAME_PADDING_X_VERTICAL);
-    d.print(xlabel);
+    tft.drawLine(screen.xlo, screen.yhi, screen.xhi, screen.yhi, acolor);
+    tft.setTextSize(1);
+    tft.setTextColor(acolor, bcolor);
+    tft.setCursor(screen.xhi - xlabel.length() * 6 + AXES_NAME_PADDING_X_HORIZONTAL, screen.yhi + AXES_NAME_PADDING_X_VERTICAL);
+    tft.print(xlabel);
 }
 
-void Graph(Adafruit_ILI9341 &d, box &screen, box &plot, box &line, unsigned int color)
+void Graph(box &screen, box &plot, box &line, unsigned int color)
 {
     double x = MAP_X(line.xhi, plot, screen);
     double y = MAP_Y(line.yhi, plot, screen);
-    d.drawLine(line.xlo, line.ylo - 1, x, y - 1, color);
-    d.drawLine(line.xlo, line.ylo + 0, x, y + 0, color);
-    d.drawLine(line.xlo, line.ylo + 1, x, y + 1, color);
+    tft.drawLine(line.xlo, line.ylo - 1, x, y - 1, color);
+    tft.drawLine(line.xlo, line.ylo + 0, x, y + 0, color);
+    tft.drawLine(line.xlo, line.ylo + 1, x, y + 1, color);
     line.xlo = x;
     line.ylo = y;
 }

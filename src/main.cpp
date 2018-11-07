@@ -9,10 +9,11 @@
 #include "files.h"
 #include "tft.h"
 #include "touch.h"
+#include "graph.h"
 
 void setup()
 {
-  //setupBmp();
+  //setupBmp();>
   //setupTouch();
 
   Serial.begin(9600);
