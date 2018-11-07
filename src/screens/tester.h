@@ -48,10 +48,10 @@ void GroupPlayerWins()
 
     for (byte i = 0; i < GetMatchCount(); i++)
     {
-        byte firstPlayer = match[i][Stats::FirstPlayer];
-        byte secondPlayer = match[i][Stats::SecondPlayer];
+        byte firstPlayer = matches[i][Stats::FirstPlayer];
+        byte secondPlayer = matches[i][Stats::SecondPlayer];
 
-        switch (match[i][Stats::Won])
+        switch (matches[i][Stats::Won])
         {
         case Winner::Draw:
             playerWins[firstPlayer] += 1;
@@ -68,7 +68,7 @@ void GroupPlayerWins()
     }
 }
 
-void GetMaxWins()
+byte GetMaxWins()
 {
     byte maxWins = 0;
 
@@ -94,7 +94,7 @@ box InitPlot()
 {
     box plot;
     plot.xlo = 0;
-    plot.xhi = 60;
+    plot.xhi = GetMatchCount();
     plot.ylo = 0;
     plot.yhi = GetMaxWins();
     return plot;
@@ -116,21 +116,51 @@ void TesterScreen()
     GroupPlayerWins();
     tft.fillScreen(BLACK);
 
+    // Draw grid
     box screen = InitScreen();
     box plot = InitPlot();
-    box line = InitLine(screen, plot);
-
-    // Draw grid
-    InitializeGrid(screen, plot, 10, 1, DKBLUE, WHITE, BLACK);
+    InitializeGrid(screen, plot, 5, 1, DKBLUE, WHITE, BLACK);
     InitializeAxes(screen, plot, "Totals", "matches", "wins", RED, WHITE, BLACK);
 
-    // Draw graph
-    for (double x = 1; x <= 60; x += 1)
+    // Graw win graph for each player
+    for (byte player = 0; player < n_players; player += 1)
     {
-        line.xhi = x;
-        line.yhi = random(10);
-        Graph(screen, plot, line, GREEN);
-        delay(100);
+        box line = InitLine(screen, plot);
+        byte playerWins = 0;
+
+        for (byte i = 0; i < GetMatchCount(); i += 1)
+        {
+            byte firstPlayer = matches[i][Stats::FirstPlayer];
+            byte secondPlayer = matches[i][Stats::SecondPlayer];
+
+            switch (matches[i][Stats::Won])
+            {
+            case Winner::Draw:
+                if ((player == firstPlayer) || (player == secondPlayer))
+                {
+                    playerWins += 1;
+                }
+                break;
+
+            case Winner::First:
+                if (player == firstPlayer)
+                {
+                    playerWins += 1;
+                }
+                break;
+
+            case Winner::Second:
+                if (player == secondPlayer)
+                {
+                    playerWins += 1;
+                }
+            }
+
+            line.xhi = i + 1;
+            line.yhi = playerWins;
+            Graph(screen, plot, line, GREEN);
+            delay(100);
+        }
     }
 }
 
