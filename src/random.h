@@ -25,7 +25,6 @@ void initRandom()
     Entropy.Initialize();
 
     random_seed = Entropy.random();
-    random_seed = -15868;
     randomSeed(random_seed);
 
     random_fairness_divider = n_players * (n_players - 1);

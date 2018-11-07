@@ -29,7 +29,7 @@ void MockRecordMatchOutcome()
 void TesterScreen()
 {
     MockRecordMatchOutcome();
-    RenderTotal();
+    RenderTotals();
     delay(5000);
 }
 
