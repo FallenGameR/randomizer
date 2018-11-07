@@ -3,34 +3,34 @@
 
 #include "screens.h"
 #include "..\graph.h"
+#include "..\stats.h"
 #include "..\random.h"
+
+void MockRecordMatchOutcome()
+{
+    match_current = 0;
+
+    for (int match = 0; match < 42; match += 1)
+    {
+        matches[match_current][Stats::FirstPlayer] = random(3);
+        matches[match_current][Stats::SecondPlayer] = random(3);
+        matches[match_current][Stats::Game] = 0;
+        matches[match_current][Stats::FirstFighter] = 0;
+        matches[match_current][Stats::SecondFighter] = 0;
+        matches[match_current][Stats::FirstFighter2] = 0;
+        matches[match_current][Stats::SecondFighter2] = 0;
+        matches[match_current][Stats::FirstFighter3] = 0;
+        matches[match_current][Stats::SecondFighter3] = 0;
+        matches[match_current][Stats::Won] = random(1) ? matches[match_current][Stats::FirstPlayer] : matches[match_current][Stats::SecondPlayer];
+        matches[match_current][Stats::NotFair] = false;
+        match_current++;
+    }
+}
 
 void TesterScreen()
 {
+    MockRecordMatchOutcome();
     tft.fillScreen(BLACK);
-
-    /*
-      ind1 = readString.indexOf(',');  //finds location of first ,
-      angle = readString.substring(0, ind1);   //captures first data String
-      ind2 = readString.indexOf(',', ind1+1 );   //finds location of second ,
-      fuel = readString.substring(ind1+1, ind2+1);   //captures second data String
-      ind3 = readString.indexOf(',', ind2+1 );
-      speed1 = readString.substring(ind2+1, ind3+1);
-      ind4 = readString.indexOf(',', ind3+1 );
-      altidude = readString.substring(ind3+1); //captures remain part of data after last ,
-
-int commaIndex = myString.indexOf(',');
-//  Search for the next comma just after the first
-int secondCommaIndex = myString.indexOf(',', commaIndex + 1);
-
-String firstValue = myString.substring(0, commaIndex);
-String secondValue = myString.substring(commaIndex + 1, secondCommaIndex);
-String thirdValue = myString.substring(secondCommaIndex + 1); // To the end of the string
-
-int r = firstValue.toInt();
-int g = secondValue.toInt();
-int b = thirdValue.toInt();
-    */
 
     double x = 0;
     double y = random(10);
