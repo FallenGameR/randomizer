@@ -125,13 +125,13 @@ void FighterSelectionScreen()
             screen_redraw = true;
         }
 
-        // Joystick button prints the current stats and resets screen
+        // Joystick button goes to the current stats screen
         if (BUTTON_JOYSTICK)
         {
-            // Print stats to console
             Serial.println(F("-> Stats"));
-            DumpStats();
+            screen_selected = Screen::TotalsShow;
             input_allowed = false;
+            screen_redraw = true;
         }
 
         // After fairness modifier switch disable the input so that we don't keep flipping the modifier
@@ -184,4 +184,4 @@ void FighterSelectionScreen()
     digitalWrite(pin_led_blue, not_fair_win);
 }
 
-#endif // PLAYER_SELECTION_H
+#endif // FIGHTER_SELECTION_H

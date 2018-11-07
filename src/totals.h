@@ -88,7 +88,7 @@ box InitLine(box &screen, box &plot)
     return line;
 }
 
-void RenderTotal()
+void RenderTotals()
 {
     // Init
     GroupPlayerWins();
