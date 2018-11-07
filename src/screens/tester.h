@@ -7,6 +7,31 @@
 
 void TesterScreen()
 {
+    tft.fillScreen(BLACK);
+
+    /*
+      ind1 = readString.indexOf(',');  //finds location of first ,
+      angle = readString.substring(0, ind1);   //captures first data String
+      ind2 = readString.indexOf(',', ind1+1 );   //finds location of second ,
+      fuel = readString.substring(ind1+1, ind2+1);   //captures second data String
+      ind3 = readString.indexOf(',', ind2+1 );
+      speed1 = readString.substring(ind2+1, ind3+1);
+      ind4 = readString.indexOf(',', ind3+1 );
+      altidude = readString.substring(ind3+1); //captures remain part of data after last ,
+
+int commaIndex = myString.indexOf(',');
+//  Search for the next comma just after the first
+int secondCommaIndex = myString.indexOf(',', commaIndex + 1);
+
+String firstValue = myString.substring(0, commaIndex);
+String secondValue = myString.substring(commaIndex + 1, secondCommaIndex);
+String thirdValue = myString.substring(secondCommaIndex + 1); // To the end of the string
+
+int r = firstValue.toInt();
+int g = secondValue.toInt();
+int b = thirdValue.toInt();
+    */
+
     double x = 0;
     double y = random(10);
 
@@ -28,7 +53,7 @@ void TesterScreen()
 
     // Draw grid
     InitializeGrid(screen, plot, 10, 1, DKBLUE, WHITE, BLACK);
-    InitializeAxes(screen, plot, "Temparature", "sec", "C", RED, WHITE, BLACK);
+    InitializeAxes(screen, plot, "Totals", "matches", "wins", RED, WHITE, BLACK);
 
     // Draw graph
     for (double x = 1; x <= 60; x += 1)
