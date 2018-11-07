@@ -136,10 +136,9 @@ void InitPlayerColors()
     playerColors[15] = LTRED;
 }
 
-void TesterScreen()
+void RenderTotal()
 {
     // Init
-    MockRecordMatchOutcome();
     GroupPlayerWins();
     InitPlayerColors();
     tft.fillScreen(BLACK);
@@ -200,10 +199,14 @@ void TesterScreen()
             line.xhi = i + 1;
             line.yhi = playerWins;
             Graph(screen, plot, line, playerColors[player]);
-            delay(100);
         }
     }
+}
 
+void TesterScreen()
+{
+    MockRecordMatchOutcome();
+    RenderTotal();
     delay(5000);
 }
 
