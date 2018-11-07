@@ -107,28 +107,33 @@ box InitLine(box &screen, box &plot)
     double y = 0;
     line.xlo = MAP_X(x, plot, screen);
     line.ylo = MAP_Y(y, plot, screen);
+    return line;
 }
 
 unsigned int playerColors[MAX_PLAYERS];
 
 void InitPlayerColors()
 {
-    playerColors[0] = BLUE;
-    playerColors[1] = TEAL;
-    playerColors[2] = GREEN;
-    playerColors[3] = CYAN;
-    playerColors[4] = RED;
+    playerColors[0] = CYAN;
+    playerColors[1] = YELLOW;
+    playerColors[2] = LTPURPLE;
+
+    playerColors[3] = BLUE;
+    playerColors[4] = ORANGE;
     playerColors[5] = MAGENTA;
-    playerColors[6] = YELLOW;
-    playerColors[7] = ORANGE;
-    playerColors[8] = PINK;
-    playerColors[9] = PURPLE;
-    playerColors[10] = GREY;
-    playerColors[11] = WHITE;
-    playerColors[12] = LTBLUE;
-    playerColors[13] = LTTEAL;
+
+    playerColors[6] = DKBLUE;
+    playerColors[7] = DKYELLOW;
+    playerColors[8] = PURPLE;
+
+    playerColors[9] = DKCYAN;
+    playerColors[10] = DKORANGE;
+    playerColors[11] = DKMAGENTA;
+
+    playerColors[12] = GREEN;
+    playerColors[13] = RED;
     playerColors[14] = LTGREEN;
-    playerColors[15] = LTCYAN;
+    playerColors[15] = LTRED;
 }
 
 void TesterScreen()
@@ -144,6 +149,19 @@ void TesterScreen()
     box plot = InitPlot();
     InitializeGrid(screen, plot, 5, 1, DKBLUE, WHITE, BLACK);
     InitializeAxes(screen, plot, "Totals", "matches", "wins", RED, WHITE, BLACK);
+
+    // Draw legend
+    for (byte player = 0; player < n_players; player += 1)
+    {
+        tft.setTextSize(1);
+        tft.setTextColor(playerColors[player], BLACK);
+        tft.setCursor(
+            screen.xlo + 40,
+            screen.ylo + 10 + player * 10);
+
+        setPlayerName(player);
+        tft.print(bufferName);
+    }
 
     // Graw win graph for each player
     for (byte player = 0; player < n_players; player += 1)
@@ -185,6 +203,8 @@ void TesterScreen()
             delay(100);
         }
     }
+
+    delay(5000);
 }
 
 #endif // TESTER_H
