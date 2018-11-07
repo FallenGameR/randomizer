@@ -34,33 +34,91 @@ byte GetMatchCount()
 
 byte playerWins[MAX_PLAYERS];
 
-byte GetMaxWins()
+void ClearPlayerWinsArray()
 {
-    return 0;
+    for (byte i = 0; i < MAX_PLAYERS; i++)
+    {
+        playerWins[i] = 0;
+    }
 }
 
-void TesterScreen()
+void GroupPlayerWins()
 {
-    MockRecordMatchOutcome();
-    tft.fillScreen(BLACK);
+    ClearPlayerWinsArray();
 
+    for (byte i = 0; i < GetMatchCount(); i++)
+    {
+        byte firstPlayer = match[i][Stats::FirstPlayer];
+        byte secondPlayer = match[i][Stats::SecondPlayer];
+
+        switch (match[i][Stats::Won])
+        {
+        case Winner::Draw:
+            playerWins[firstPlayer] += 1;
+            playerWins[secondPlayer] += 1;
+            break;
+
+        case Winner::First:
+            playerWins[firstPlayer] += 1;
+            break;
+
+        case Winner::Second:
+            playerWins[secondPlayer] += 1;
+        }
+    }
+}
+
+void GetMaxWins()
+{
+    byte maxWins = 0;
+
+    for (byte i = 0; i < MAX_PLAYERS; i++)
+    {
+        maxWins = playerWins[i] > maxWins ? playerWins[i] : maxWins;
+    }
+
+    return maxWins;
+}
+
+box InitScreen()
+{
     box screen;
     screen.xlo = 0;
     screen.ylo = 0;
     screen.xhi = tft.width() - 1;
     screen.yhi = tft.height() - 1;
+    return screen;
+}
 
+box InitPlot()
+{
     box plot;
     plot.xlo = 0;
     plot.xhi = 60;
     plot.ylo = 0;
-    plot.yhi = 10; //(int)y + 5;
+    plot.yhi = GetMaxWins();
+    return plot;
+}
 
+box InitLine(box &screen, box &plot)
+{
     box line;
     double x = 0;
-    double y = random(10);
+    double y = 0;
     line.xlo = MAP_X(x, plot, screen);
     line.ylo = MAP_Y(y, plot, screen);
+}
+
+void TesterScreen()
+{
+    // Init
+    MockRecordMatchOutcome();
+    GroupPlayerWins();
+    tft.fillScreen(BLACK);
+
+    box screen = InitScreen();
+    box plot = InitPlot();
+    box line = InitLine(screen, plot);
 
     // Draw grid
     InitializeGrid(screen, plot, 10, 1, DKBLUE, WHITE, BLACK);
