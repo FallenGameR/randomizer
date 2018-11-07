@@ -5,6 +5,7 @@
 #include "screens\player_selection.h"
 #include "screens\fighter_selection.h"
 #include "screens\game_icon_selection.h"
+#include "screens\totals_show.h"
 #include "screens\tester.h"
 
 #include "files.h"
@@ -49,7 +50,7 @@ void setup()
   screen_selected = Screen::RandomizerInit;
 
   // For testing
-  screen_selected = Screen::Tester;
+  //screen_selected = Screen::Tester;
 }
 
 void loop()
@@ -76,6 +77,10 @@ void loop()
 
   case Screen::FighterSelection:
     FighterSelectionScreen();
+    break;
+
+  case Screen::TotalsShow:
+    TotalShowScreen();
     break;
 
   case Screen::Tester:

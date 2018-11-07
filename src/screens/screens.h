@@ -10,6 +10,7 @@ enum Screen
     GameSelection,
     PlayerSelection,
     FighterSelection,
+    TotalsShow,
     Tester,
 };
 
