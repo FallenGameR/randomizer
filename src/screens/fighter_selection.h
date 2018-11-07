@@ -42,6 +42,8 @@ void FighterSelectionScreen()
         int16_t partIncrement = halfScreen / part;
         int16_t position = 0;
         tft.fillScreen(BLACK);
+        tft.setTextSize(FONT_SIZE);
+        tft.setTextColor(WHITE, BLACK);
 
         // TFT players
         tft.setCursor(0, 0);
