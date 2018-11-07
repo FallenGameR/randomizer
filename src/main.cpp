@@ -5,17 +5,14 @@
 #include "screens\player_selection.h"
 #include "screens\fighter_selection.h"
 #include "screens\game_icon_selection.h"
+#include "screens\tester.h"
 
 #include "files.h"
 #include "tft.h"
 #include "touch.h"
-#include "graph.h"
 
 void setup()
 {
-  //setupBmp();>
-  //setupTouch();
-
   Serial.begin(9600);
 
   initSd();
@@ -50,7 +47,7 @@ void setup()
   screen_selected = Screen::RandomizerInit;
 
   // For testing
-  //screen_selected = Screen::GameSelection;
+  screen_selected = Screen::Tester;
 }
 
 void loop()
@@ -77,6 +74,10 @@ void loop()
 
   case Screen::FighterSelection:
     FighterSelectionScreen();
+    break;
+
+  case Screen::Tester:
+    TesterScreen();
     break;
   }
 }

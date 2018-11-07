@@ -10,6 +10,7 @@ enum Screen
     GameSelection,
     PlayerSelection,
     FighterSelection,
+    Tester,
 };
 
 byte screen_selected = Screen::RandomizerInit;
