@@ -1,6 +1,8 @@
 #ifndef COLORS_H
 #define COLORS_H
 
+#include "players.h"
+
 #define LTBLUE 0xB6DF
 #define LTTEAL 0xBF5F
 #define LTGREEN 0xBFF7
@@ -38,5 +40,31 @@
 #define DKPINK 0x9009
 #define DKPURPLE 0x4010
 #define DKGREY 0x4A49
+
+unsigned int playerColors[MAX_PLAYERS];
+
+void InitPlayerColors()
+{
+    playerColors[0] = CYAN;
+    playerColors[1] = YELLOW;
+    playerColors[2] = LTPURPLE;
+
+    playerColors[3] = BLUE;
+    playerColors[4] = ORANGE;
+    playerColors[5] = MAGENTA;
+
+    playerColors[6] = DKBLUE;
+    playerColors[7] = DKYELLOW;
+    playerColors[8] = PURPLE;
+
+    playerColors[9] = DKCYAN;
+    playerColors[10] = DKORANGE;
+    playerColors[11] = DKMAGENTA;
+
+    playerColors[12] = GREEN;
+    playerColors[13] = RED;
+    playerColors[14] = LTGREEN;
+    playerColors[15] = LTRED;
+}
 
 #endif // COLORS_H

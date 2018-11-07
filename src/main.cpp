@@ -16,6 +16,7 @@ void setup()
   Serial.begin(9600);
 
   initSd();
+  InitPlayerColors();
 
   n_games = readNumberOfGames();
   Serial.print("Number of games: ");
@@ -41,6 +42,7 @@ void setup()
   tft.setTextColor(WHITE, BLACK);
   tft.print(F("Initializing "));
   tft.println(F("Entropy"));
+
   initRandom();
 
   Serial.println(F("-> Init"));
