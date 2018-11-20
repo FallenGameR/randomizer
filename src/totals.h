@@ -116,8 +116,11 @@ void RenderTotals()
     // Graw win graph for each player
     for (byte player = 0; player < n_players; player += 1)
     {
-        box line = InitLine(screen, plot);
         byte playerWins = 0;
+        box line;
+
+        // Draw winnins streak line
+        line = InitLine(screen, plot);
 
         for (byte i = 0; i < GetMatchCount(); i += 1)
         {
@@ -151,6 +154,50 @@ void RenderTotals()
             line.yhi = playerWins;
             Graph(screen, plot, line, playerColors[player]);
         }
+
+        /* Need to know playerWins for each point...
+
+        // Draw whom did the player lost to
+        line = InitLine(screen, plot);
+
+        for (byte i = 0; i < GetMatchCount(); i += 1)
+        {
+            byte firstPlayer = matches[i][Stats::FirstPlayer];
+            byte secondPlayer = matches[i][Stats::SecondPlayer];
+            byte winner = matches[i][Stats::Won];
+
+            bool didReallyWin = true;
+            byte otherPlayer;
+
+            if ((player == firstPlayer) && (winner == Winner::Second))
+            {
+                didReallyWin = false;
+                otherPlayer = secondPlayer;
+            }
+
+            if ((player == secondPlayer) && (winner == Winner::First))
+            {
+                didReallyWin = false;
+                otherPlayer = firstPlayer;
+            }
+
+            line.xhi = i + 1;
+            line.yhi = playerWins;
+            double x = MAP_X(line.xhi, plot, screen);
+            double y = MAP_Y(line.yhi, plot, screen);
+
+            if (!didReallyWin)
+            {
+                unsigned int dotColor = didReallyWin ? playerColors[player] : playerColors[otherPlayer];
+                tft.fillRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, dotColor);
+                tft.drawRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, BLACK);
+            }
+
+            line.xlo = x;
+            line.ylo = y;
+
+        }
+        /**/
     }
 }
 
