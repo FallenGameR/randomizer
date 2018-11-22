@@ -163,6 +163,7 @@ void RenderTotals()
     // Draw grid
     box screen = InitScreen();
     box plot = InitPlot();
+    box line;
     InitializeGrid(screen, plot, 5, 1, DKBLUE, WHITE, BLACK);
     InitializeAxes(screen, plot, "Totals", "matches", "wins", RED, WHITE, BLACK);
 
@@ -179,8 +180,22 @@ void RenderTotals()
         tft.print(bufferName);
     }
 
+    // Draw game separators
+    byte maxWins = GetMaxWins();
+    for (byte i = 1; i < GetMatchCount(); i += 1)
+    {
+        bool gameChanged = matches[i][Stats::Game] != matches[i - 1][Stats::Game];
+        if (gameChanged)
+        {
+            line.xlo = MAP_X(i, plot, screen);
+            line.ylo = MAP_Y(0, plot, screen);
+            line.xhi = line.xlo;
+            line.yhi = MAP_Y(maxWins, plot, screen);
+            tft.drawLine(line.xlo, line.ylo, line.xhi, line.yhi, GREY);
+        }
+    }
+
     // Graw win graph for each player
-    box line;
     byte graph[match_limit + 1];
 
     for (byte player = 0; player < n_players; player += 1)
@@ -188,7 +203,7 @@ void RenderTotals()
         // Find plot points
         FillPlayerPlot(player, graph);
 
-        // Draw winnins streak line
+        // Draw win streak line
         line = InitLine(screen, plot);
         for (byte i = 0; i < GetMatchCount(); i += 1)
         {
