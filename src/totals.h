@@ -131,15 +131,7 @@ byte GetOtherPlayer(byte player, byte match)
         return firstPlayer;
     }
 
-    Serial.println("First:");
-    Serial.println(firstPlayer);
-    Serial.println("Second");
-    Serial.println(secondPlayer);
-    Serial.println("Player");
-    Serial.println(player);
-    Serial.println("Match");
-    Serial.println(match);
-    return -1;
+    return NO_FIGHTER;
 }
 
 // Function assumes that plot is allocated and has length of match_limit + 1
@@ -217,15 +209,17 @@ void RenderTotals()
             if (!IsPlayerWon(player, i))
             {
                 byte otherPlayer = GetOtherPlayer(player, i);
-                tft.fillRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, playerColors[otherPlayer]);
-                tft.drawRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, BLACK);
+                bool playedThisMatch = otherPlayer != NO_FIGHTER;
+                if (playedThisMatch)
+                {
+                    tft.fillRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, playerColors[otherPlayer]);
+                    tft.drawRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, BLACK);
+                }
             }
 
             line.xlo = x;
             line.ylo = y;
         }
-
-        delay(10000);
     }
 }
 
