@@ -104,6 +104,4 @@ void Graph(box &screen, box &plot, box &line, unsigned int color)
     line.ylo = y;
 }
 
-#define DOT_OFFSET 2
-#define DOT_WIDTH (DOT_OFFSET * 2)
 #endif // GRAPH_H

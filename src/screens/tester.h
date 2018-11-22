@@ -30,7 +30,7 @@ void TesterScreen()
 {
     MockRecordMatchOutcome();
     RenderTotals();
-    delay(5000);
+    delay(60000);
 }
 
 #endif // TESTER_H

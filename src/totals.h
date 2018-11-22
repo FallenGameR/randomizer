@@ -88,6 +88,80 @@ box InitLine(box &screen, box &plot)
     return line;
 }
 
+bool IsPlayerWon(byte player, byte match)
+{
+    byte firstPlayer = matches[match][Stats::FirstPlayer];
+    byte secondPlayer = matches[match][Stats::SecondPlayer];
+    byte winner = matches[match][Stats::Won];
+
+    if ((winner == Winner::First) && (player == firstPlayer))
+    {
+        return true;
+    }
+
+    if ((winner == Winner::Second) && (player == secondPlayer))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool IsPlayerDraw(byte player, byte match)
+{
+    byte firstPlayer = matches[match][Stats::FirstPlayer];
+    byte secondPlayer = matches[match][Stats::SecondPlayer];
+    byte winner = matches[match][Stats::Won];
+
+    return (winner == Winner::Draw) && ((player == firstPlayer) || (player == secondPlayer));
+}
+
+byte GetOtherPlayer(byte player, byte match)
+{
+    byte firstPlayer = matches[match][Stats::FirstPlayer];
+    byte secondPlayer = matches[match][Stats::SecondPlayer];
+
+    if (player == firstPlayer)
+    {
+        return secondPlayer;
+    }
+
+    if (player == secondPlayer)
+    {
+        return firstPlayer;
+    }
+
+    Serial.println("First:");
+    Serial.println(firstPlayer);
+    Serial.println("Second");
+    Serial.println(secondPlayer);
+    Serial.println("Player");
+    Serial.println(player);
+    Serial.println("Match");
+    Serial.println(match);
+    return -1;
+}
+
+// Function assumes that plot is allocated and has length of match_limit + 1
+// First element is always 0
+// Elements until GetMatchCount are filled, the remainder left as is
+void FillPlayerPlot(byte player, byte *graph)
+{
+    graph[0] = 0;
+
+    for (byte i = 0; i < GetMatchCount(); i += 1)
+    {
+        graph[i + 1] = graph[i];
+        if (IsPlayerWon(player, i) || IsPlayerDraw(player, i))
+        {
+            graph[i + 1] += 1;
+        }
+    }
+}
+
+#define DOT_OFFSET 3
+#define DOT_WIDTH (DOT_OFFSET * 2 + 1)
+
 void RenderTotals()
 {
     // Init
@@ -114,90 +188,44 @@ void RenderTotals()
     }
 
     // Graw win graph for each player
+    box line;
+    byte graph[match_limit + 1];
+
     for (byte player = 0; player < n_players; player += 1)
     {
-        byte playerWins = 0;
-        box line;
+        // Find plot points
+        FillPlayerPlot(player, graph);
 
         // Draw winnins streak line
         line = InitLine(screen, plot);
-
         for (byte i = 0; i < GetMatchCount(); i += 1)
         {
-            byte firstPlayer = matches[i][Stats::FirstPlayer];
-            byte secondPlayer = matches[i][Stats::SecondPlayer];
-
-            switch (matches[i][Stats::Won])
-            {
-            case Winner::Draw:
-                if ((player == firstPlayer) || (player == secondPlayer))
-                {
-                    playerWins += 1;
-                }
-                break;
-
-            case Winner::First:
-                if (player == firstPlayer)
-                {
-                    playerWins += 1;
-                }
-                break;
-
-            case Winner::Second:
-                if (player == secondPlayer)
-                {
-                    playerWins += 1;
-                }
-            }
-
             line.xhi = i + 1;
-            line.yhi = playerWins;
+            line.yhi = graph[i + 1];
             Graph(screen, plot, line, playerColors[player]);
         }
 
-        /* Need to know playerWins for each point...
-
         // Draw whom did the player lost to
         line = InitLine(screen, plot);
-
         for (byte i = 0; i < GetMatchCount(); i += 1)
         {
-            byte firstPlayer = matches[i][Stats::FirstPlayer];
-            byte secondPlayer = matches[i][Stats::SecondPlayer];
-            byte winner = matches[i][Stats::Won];
-
-            bool didReallyWin = true;
-            byte otherPlayer;
-
-            if ((player == firstPlayer) && (winner == Winner::Second))
-            {
-                didReallyWin = false;
-                otherPlayer = secondPlayer;
-            }
-
-            if ((player == secondPlayer) && (winner == Winner::First))
-            {
-                didReallyWin = false;
-                otherPlayer = firstPlayer;
-            }
-
             line.xhi = i + 1;
-            line.yhi = playerWins;
+            line.yhi = graph[i + 1];
             double x = MAP_X(line.xhi, plot, screen);
             double y = MAP_Y(line.yhi, plot, screen);
 
-            if (!didReallyWin)
+            if (!IsPlayerWon(player, i))
             {
-                unsigned int dotColor = didReallyWin ? playerColors[player] : playerColors[otherPlayer];
-                tft.fillRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, dotColor);
+                byte otherPlayer = GetOtherPlayer(player, i);
+                tft.fillRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, playerColors[otherPlayer]);
                 tft.drawRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, BLACK);
             }
 
             line.xlo = x;
             line.ylo = y;
-
         }
-        /**/
+
+        delay(10000);
     }
 }
 
