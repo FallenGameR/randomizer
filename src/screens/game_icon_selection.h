@@ -52,7 +52,13 @@ void GameIconSelectionScreen()
             screen_redraw = true;
         }
 
-        if (Y_UP || Y_DOWN)
+        if (Y_UP)
+        {
+            input_allowed = false;
+            screen_redraw = true;
+        }
+
+        if (Y_DOWN)
         {
             if (game_tag > 0)
             {
