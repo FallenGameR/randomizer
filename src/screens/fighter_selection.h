@@ -80,7 +80,7 @@ void FighterSelectionScreen()
         bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
         position += halfScreen;
         setFighterPath(game_index, fighter_index_second, path_icon);
-        bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+        bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
         position -= halfScreen;
 
         if (part >= 2)
@@ -90,7 +90,7 @@ void FighterSelectionScreen()
             bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
             position += halfScreen;
             setFighterPath(game_index, fighter_index_second2, path_icon);
-            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
             position -= halfScreen;
         }
 
@@ -101,7 +101,7 @@ void FighterSelectionScreen()
             bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
             position += halfScreen;
             setFighterPath(game_index, fighter_index_second3, path_icon);
-            bmpDraw(bufferPath, false, position, CHAR_HEIGHT, part);
+            bmpDraw(bufferPath, true, position, CHAR_HEIGHT, part);
             position -= halfScreen;
         }
 
