@@ -336,7 +336,7 @@ void setFighterName(byte gameIndex, byte fighterIndex)
 
 byte readGameTag(byte gameIndex)
 {
-    // No tag matches in mutiplyer - too long wait time
+    // No tag matches in multiplayer - too long wait time
     if (n_players >= 3)
     {
         return 0;
