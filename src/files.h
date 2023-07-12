@@ -172,6 +172,10 @@ void setGamePath(byte gameIndex, const char *path)
     File dir = openGameFolder(gameIndex);
     if (!dir)
     {
+#ifdef DEBUG
+        Serial.print(F("Can't open dir with index: "));
+        Serial.println(gameIndex);
+#endif
         return;
     }
 
