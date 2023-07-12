@@ -14,7 +14,7 @@ foreach( $game in ls $dataPath\games -Directory )
 
     if( -not (Test-Path $nameFile) )
     {
-        Write-Error "Missing name.txt for game $game"
+        Write-Error "Missing name.txt for game $($game.Name)"
         continue
     }
 
@@ -33,6 +33,28 @@ foreach( $game in ls $dataPath\games -Directory )
     }
 }
 
-# Every folder has name.txt that is not empty (and ends with EOL - although not sure it matters)
-$folders = ls $dataPath\games
-$names = ls $dataPath\games -Recurse | % Name | where { $_ -eq $null }
+# Every fighter has a proper name
+foreach( $fighter in ls $dataPath\games\*\Fighters\* -Directory )
+{
+    $nameFile = Join-Path $fighter name.txt
+
+    if( -not (Test-Path $nameFile) )
+    {
+        Write-Error "Missing name.txt for fighter $($fighter.Name)"
+        continue
+    }
+
+    $nameContent = @(Get-Content $nameFile)
+
+    if( $nameContent.Length -ne 1 )
+    {
+        Write-Error "name.txt for fighter $($fighter.Name) should have exactly one line, but has $($nameContent.Length)"
+        continue
+    }
+
+    if( $nameContent[0].Length -le 1 )
+    {
+        Write-Error "name.txt for fighter $($fighter.Name) is very short, it is just: $($nameContent[0])"
+        continue
+    }
+}
