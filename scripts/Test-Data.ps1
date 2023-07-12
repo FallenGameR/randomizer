@@ -10,6 +10,14 @@ if( $maxPathPartViolations )
 # Every game has a proper name
 foreach( $game in ls $dataPath\games -Directory )
 {
+    $iconFile = Join-Path $game icon.bmp
+
+    if( -not (Test-Path $iconFile) )
+    {
+        Write-Error "Missing icon.bmp for game $($game.Name)"
+        continue
+    }
+
     $nameFile = Join-Path $game name.txt
 
     if( -not (Test-Path $nameFile) )
