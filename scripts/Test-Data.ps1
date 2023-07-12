@@ -33,9 +33,17 @@ foreach( $game in ls $dataPath\games -Directory )
     }
 }
 
-# Every fighter has a proper name
+# Every fighter has a proper name and icon
 foreach( $fighter in ls $dataPath\games\*\Fighters\* -Directory )
 {
+    $iconFile = Join-Path $fighter icon.bmp
+
+    if( -not (Test-Path $iconFile) )
+    {
+        Write-Error "Missing icon.bmp for fighter $($fighter.Name)"
+        continue
+    }
+
     $nameFile = Join-Path $fighter name.txt
 
     if( -not (Test-Path $nameFile) )
