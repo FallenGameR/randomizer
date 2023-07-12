@@ -4,6 +4,7 @@
         "PLATFORMIO_CALLER": "vscode"
     },
     "cSpell.words": [
+        "mosi",
         "PROGMEM"
     ]
 }
