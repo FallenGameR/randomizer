@@ -79,10 +79,6 @@ byte readNumberOfGames()
         entry.close();
     }
 
-#ifdef DEBUG
-    Serial.print("Number of games: ");
-    Serial.println(result);
-#endif
     return result;
 }
 
@@ -103,10 +99,6 @@ byte readNumberOfPlayers()
         entry.close();
     }
 
-#ifdef DEBUG
-    Serial.print("Number of players: ");
-    Serial.println(result);
-#endif
     return result;
 }
 
