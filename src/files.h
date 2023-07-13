@@ -13,7 +13,6 @@
 
 // Path constants
 const char path_games[] PROGMEM = "/games/";
-const char path_players[] PROGMEM = "/players/";
 const char path_score[] PROGMEM = "/score/";
 const char path_fighters[] PROGMEM = "/Fighters/";
 const char path_name[] PROGMEM = "/name.txt";
@@ -67,7 +66,7 @@ void setBufferName(File file)
 // Takes ~88ms to finish
 byte readNumberOfGames()
 {
-    File dir = SD.open(path_games);
+    File dir = SD.open(F("/games/"));
     byte result = 0;
 
     while (File entry = dir.openNextFile())
@@ -91,7 +90,7 @@ byte readNumberOfGames()
 // Takes ~88ms to finish
 byte readNumberOfPlayers()
 {
-    File dir = SD.open(path_players);
+    File dir = SD.open(F("/players/"));
     byte result = 0;
 
     while (File entry = dir.openNextFile())
@@ -114,7 +113,7 @@ byte readNumberOfPlayers()
 // Returns unclosed <index> subfolder from /GAMES/ folder on SD card
 File openGameFolder(byte gameIndex)
 {
-    File dir = SD.open(path_games);
+    File dir = SD.open(F("/games/"));
     byte skip = gameIndex;
 
     while (File entry = dir.openNextFile())
@@ -142,7 +141,7 @@ File openGameFolder(byte gameIndex)
 // Returns unclosed <index> file  from /PLAYERS/ folder on SD card
 File openPlayerFile(byte playerIndex)
 {
-    File dir = SD.open(path_players);
+    File dir = SD.open(F("/players/"));
     byte skip = playerIndex;
 
     while (File entry = dir.openNextFile())
