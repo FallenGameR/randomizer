@@ -1,9 +1,8 @@
 [Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 
 $dataPath = Join-Path $PsScriptRoot "..\data"
-$icons = ls $dataPath -Recurse -Include *.bmp
 
-foreach( $icon in $icons )
+foreach( $icon in ls $dataPath -Recurse -Include *.bmp )
 {
     $convertFile = New-Object System.Drawing.Bitmap($iconFile)
     $newFile = $convertFile.Clone(
