@@ -2,7 +2,7 @@
 
 $dataPath = Join-Path $PsScriptRoot "..\data"
 
-foreach( $icon in ls $dataPath -Recurse -Include *.bmp )
+foreach( $iconFile in ls $dataPath -Recurse -Include *.bmp )
 {
     $convertFile = New-Object System.Drawing.Bitmap($iconFile)
     $newFile = $convertFile.Clone(
