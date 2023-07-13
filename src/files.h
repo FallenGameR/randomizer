@@ -12,9 +12,10 @@
 // https://www.arduino.cc/reference/en/language/variables/utilities/progmem/
 
 // Path constants
-const char path_games[] PROGMEM = "/GAMES/";
-const char path_score[] PROGMEM = "/SCORE/";
-const char path_fighters[] PROGMEM = "/FIGHTERS/";
+const char path_games[] PROGMEM = "/games/";
+const char path_players[] PROGMEM = "/players/";
+const char path_score[] PROGMEM = "/score/";
+const char path_fighters[] PROGMEM = "/Fighters/";
 const char path_name[] PROGMEM = "/name.txt";
 const char path_tag[] PROGMEM = "/tag.txt";
 const char path_icon[] PROGMEM = "/icon.bmp";
@@ -66,7 +67,7 @@ void setBufferName(File file)
 // Takes ~88ms to finish
 byte readNumberOfGames()
 {
-    File dir = SD.open(F("/GAMES/"));
+    File dir = SD.open(path_games);
     byte result = 0;
 
     while (File entry = dir.openNextFile())
@@ -90,7 +91,7 @@ byte readNumberOfGames()
 // Takes ~88ms to finish
 byte readNumberOfPlayers()
 {
-    File dir = SD.open(F("/PLAYERS/"));
+    File dir = SD.open(path_players);
     byte result = 0;
 
     while (File entry = dir.openNextFile())
@@ -113,7 +114,7 @@ byte readNumberOfPlayers()
 // Returns unclosed <index> subfolder from /GAMES/ folder on SD card
 File openGameFolder(byte gameIndex)
 {
-    File dir = SD.open(F("/GAMES/"));
+    File dir = SD.open(path_games);
     byte skip = gameIndex;
 
     while (File entry = dir.openNextFile())
@@ -141,7 +142,7 @@ File openGameFolder(byte gameIndex)
 // Returns unclosed <index> file  from /PLAYERS/ folder on SD card
 File openPlayerFile(byte playerIndex)
 {
-    File dir = SD.open(F("/PLAYERS/"));
+    File dir = SD.open(path_players);
     byte skip = playerIndex;
 
     while (File entry = dir.openNextFile())
