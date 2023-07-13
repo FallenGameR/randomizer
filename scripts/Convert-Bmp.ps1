@@ -13,5 +13,5 @@ foreach( $icon in $icons )
     $newFile.Dispose()
     $convertFile.Dispose()
     Remove-Item $iconFile
-    Rename-Item "$iconFile.tmp" "$iconFile" -Verbose
+    Rename-Item "$iconFile.tmp" "$iconFile"
 }
