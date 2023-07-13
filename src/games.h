@@ -39,8 +39,10 @@ void FightersToBufferLine(byte a, byte b, byte c)
 void SelectGame(byte gameIndex)
 {
     n_fighters = readNumberOfFighters(gameIndex);
-    game_tag = readGameTag(gameIndex);
+    fighters_left_position = 0;
+    fighters_right_position = 0;
 
+    game_tag = readGameTag(gameIndex);
     if (game_tag == 0)
     {
         isTagGame = false;

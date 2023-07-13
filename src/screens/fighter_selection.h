@@ -13,8 +13,8 @@ void FighterSelectionScreen()
     if (screen_redraw)
     {
         // Fighter init
-        fighter_index_first = random(n_fighters);
-        fighter_index_second = random(n_fighters);
+        fighter_index_first = nextRandom(fighters_left, n_fighters, &fighters_left_position);
+        fighter_index_second = nextRandom(fighters_right, n_fighters, &fighters_right_position);
         fighter_index_first2 = NO_FIGHTER;
         fighter_index_second2 = NO_FIGHTER;
         fighter_index_first3 = NO_FIGHTER;
@@ -25,14 +25,14 @@ void FighterSelectionScreen()
         {
             if (game_tag >= 2)
             {
-                RANDOM_EX1(n_fighters, fighter_index_first2, fighter_index_first);
-                RANDOM_EX1(n_fighters, fighter_index_second2, fighter_index_second);
+                fighter_index_first2 = nextRandom(fighters_left, n_fighters, &fighters_left_position);
+                fighter_index_second2 = nextRandom(fighters_right, n_fighters, &fighters_right_position);
                 part = 2;
             }
             if (game_tag >= 3)
             {
-                RANDOM_EX2(n_fighters, fighter_index_first3, fighter_index_first, fighter_index_first2);
-                RANDOM_EX2(n_fighters, fighter_index_second3, fighter_index_second, fighter_index_second2);
+                fighter_index_first3 = nextRandom(fighters_left, n_fighters, &fighters_left_position);
+                fighter_index_second3 = nextRandom(fighters_right, n_fighters, &fighters_right_position);
                 part = 3;
             }
         }
@@ -118,7 +118,7 @@ void FighterSelectionScreen()
     // input_allowed means we just were in neutral state and now test for new input that is tested in nested ifs
     if (input_allowed)
     {
-        // Black button returns to games selection without chosing of winner
+        // Black button returns to games selection without choosing of winner
         if (BUTTON_BLACK)
         {
             Serial.println(F("-> Game"));
@@ -160,7 +160,7 @@ void FighterSelectionScreen()
     }
 
     // Note that win selection don't reset input_allowed to allow
-    // for choise change without resetting joystick postion to neutral
+    // for choice change without resetting joystick postion to neutral
     if (Y_DOWN)
     {
         winner_selected = Winner::None;

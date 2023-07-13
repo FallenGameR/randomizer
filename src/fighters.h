@@ -30,4 +30,10 @@ byte fighters_left[MAX_FIGHTERS_IN_GAME];
 // Randomized fighters for the right seat
 byte fighters_right[MAX_FIGHTERS_IN_GAME];
 
+// Current position in the fighters on the left seat array
+size_t fighters_left_position = 0;
+
+// Current position in the fighters on the right seat array
+size_t fighters_right_position = 0;
+
 #endif // FIGHTERS_H
