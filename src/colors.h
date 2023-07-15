@@ -23,7 +23,7 @@
 #define MAGENTA 0xF81F
 #define YELLOW 0xFFE0
 #define ORANGE 0xFC00
-#define PINK 0xF81F
+//#define PINK 0xF81F would be a redefinition
 #define PURPLE 0x8010
 #define GREY 0xC618
 #define WHITE 0xFFFF

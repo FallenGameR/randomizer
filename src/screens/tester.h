@@ -60,9 +60,9 @@ void MockRecordMatchOutcome()
 
 void TesterScreen()
 {
-    MockRecordMatchOutcome();
-    RenderTotals();
-    delay(60000);
+    // MockRecordMatchOutcome();
+    // RenderTotals();
+    // delay(60000);
 }
 
 #endif // TESTER_H

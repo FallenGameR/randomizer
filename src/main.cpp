@@ -50,7 +50,7 @@ void setup()
     screen_selected = Screen::RandomizerInit;
 
     // For testing
-    // screen_selected = Screen::Tester;
+    screen_selected = Screen::Tester;
 }
 
 void loop()
