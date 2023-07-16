@@ -11,7 +11,11 @@ byte match_current = 0;
 byte player_index_first = -1;
 byte player_index_second = -1;
 
-// These have to be declared here to ensure there is no cyclic dependency
+// Fairness shows how many games will pass until the player pairs would be recalculated
+// If it is minimum all get a chance to play as soon as possible
+// But as it grows the pair distribution can become more and more strange but fair on the larger scale
+// It could be that some players would not change seats for several games in a row but after the
+// full cycle would be completed all players will play equal amount of games.
 byte random_fairness = 0;
 byte random_fairness_divider = 0;
 byte random_fairness_multiplier = 0;

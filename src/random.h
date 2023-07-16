@@ -8,16 +8,19 @@
 // Entropy library actually returns uint32_t, but negative values have something to them when correcting the seed
 int random_seed = 0;
 
-void initRandom()
+void initFairness()
 {
-    Entropy.Initialize();
-
-    random_seed = Entropy.random();
-    randomSeed(random_seed);
-
     random_fairness_divider = n_players * (n_players - 1);
     random_fairness_multiplier = 1;
     random_fairness = random_fairness_divider * random_fairness_multiplier;
+}
+
+void initRandom()
+{
+    Entropy.Initialize();
+    random_seed = Entropy.random();
+    randomSeed(random_seed);
+    initFairness();
 }
 
 byte nextRandom(byte* array, const size_t size, size_t* position)
