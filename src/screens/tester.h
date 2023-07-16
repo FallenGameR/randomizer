@@ -66,7 +66,10 @@ void TesterScreen()
 
     if (screen_redraw)
     {
+        //game_index = 1;
         SelectGame(game_index);
+        //isTagGame = true;
+
         tft.fillScreen(GREEN);
         tft.setCursor(0, 0);
         tft.setTextSize(FONT_SIZE);
