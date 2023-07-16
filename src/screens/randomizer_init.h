@@ -131,10 +131,9 @@ void RandomizerInitScreen()
 
     if (screen_redraw)
     {
+        // init players here
+
         tft.fillScreen(BLACK);
-
-        // init players here as well
-
         tft.setCursor(0, 0);
 
         tft.println(F("Randomizer"));
@@ -155,7 +154,7 @@ void RandomizerInitScreen()
         tft.println(F("-------"));
         tft.println();
 
-        for (int i = 0; i < n_players; i++)
+        for( int i = 0; i < n_players; i++ )
         {
             tft.print(F("  # "));
             PRINT_BT(setPlayerName(i));
