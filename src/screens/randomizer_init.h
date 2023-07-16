@@ -8,14 +8,6 @@
 #include "..\tft.h"
 #include "..\stats.h"
 
-bool partial_redraw_seed = false;
-bool partial_redraw_fairness = false;
-int previous_seed = 0;
-int previous_fair = 0;
-
-#define SET_POSITION_SEED_VALUE tft.setCursor(9 * CHAR_WIDTH, 4 * CHAR_HEIGHT);
-#define SET_POSITION_FAIR_VALUE tft.setCursor(9 * CHAR_WIDTH, 5 * CHAR_HEIGHT);
-
 // Structure that describes entry that can be edited on the screen
 struct init_entry
 {
@@ -36,33 +28,35 @@ struct init_entry
     int value;
 };
 
-// Indexes of various entries in the table below
+// Table of editable entries on the screen
+struct init_entry init_entries[] = {
+    // r  c  selectable redraw value
+    {  3, 9, false,     true,  0 }, // Games
+    {  4, 9, true,      true,  0 }, // Seed
+    {  5, 9, true,      true,  0 }, // Fair
+    { 10, 0, false,     false, 0 }, // Player 0
+    { 11, 0, false,     false, 0 }, // Player 1
+    { 12, 0, false,     false, 0 }, // Player 2
+    { 13, 0, false,     false, 0 }, // Player 3
+    { 14, 0, false,     false, 0 }, // Player 4
+    { 15, 0, false,     false, 0 }, // Player 5
+    { 16, 0, false,     false, 0 }, // Player 6
+    { 17, 0, false,     false, 0 }, // Player 7
+    { 18, 0, false,     false, 0 }, // Player 8
+    { 19, 0, false,     false, 0 }, // Player 9
+};
+
+// Indexes of various entries in the table
 #define IE_GAMES_IDX 0
 #define IE_SEED_IDX 1
 #define IE_FAIR_IDX 2
 #define IE_PLAY_IDX 3
 #define IE_PLAY_MAX 10
+
+// Table length
 #define IE_LENGTH 13
 
-// Editable entries on the screen
-struct init_entry init_entries[] = {
-    { 3, 9, false, true, 0},  // Games
-    { 4, 9, true,  true, 0},  // Seed
-    { 5, 9, true,  true, 0},  // Fair
-    {10, 0, false, false, 0}, // Player 0
-    {11, 0, false, false, 0}, // Player 1
-    {12, 0, false, false, 0}, // Player 2
-    {13, 0, false, false, 0}, // Player 3
-    {14, 0, false, false, 0}, // Player 4
-    {15, 0, false, false, 0}, // Player 5
-    {16, 0, false, false, 0}, // Player 6
-    {17, 0, false, false, 0}, // Player 7
-    {18, 0, false, false, 0}, // Player 8
-    {19, 0, false, false, 0}, // Player 9
-};
-
-const char err_sd_read_failed[] PROGMEM = "SD card error";
-
+// Draw games value or error when games could not be read from SD card
 void InitDrawGamesValue(int new_value)
 {
     init_entry* entry = &init_entries[IE_GAMES_IDX];
@@ -105,7 +99,8 @@ void InitDrawGamesValue(int new_value)
     entry->is_redraw_needed = false;
 }
 
-void InitDrawIntValue(size_t index, int new_value, const __FlashStringHelper *info)
+// Draw an integer value
+void InitDrawIntValue(size_t index, int new_value, const __FlashStringHelper *serial_title)
 {
     init_entry* entry = &init_entries[index];
     if( entry->value != new_value ) { entry->is_redraw_needed = true; }
@@ -122,7 +117,7 @@ void InitDrawIntValue(size_t index, int new_value, const __FlashStringHelper *in
     tft.println(new_value);
 
     // Dump to serial
-    Serial.print(info);
+    Serial.print(serial_title);
     Serial.println(new_value);
 
     // Update internal state
@@ -132,12 +127,12 @@ void InitDrawIntValue(size_t index, int new_value, const __FlashStringHelper *in
 
 void RandomizerInitScreen()
 {
+    init_entry* entry = nullptr;
+
     if (screen_redraw)
     {
         tft.fillScreen(BLACK);
 
-        init_entries[IE_SEED_IDX].value = random_seed;
-        init_entries[IE_FAIR_IDX].value = random_fairness;
         // init players here as well
 
         tft.setCursor(0, 0);
@@ -153,9 +148,7 @@ void RandomizerInitScreen()
         InitDrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
 
         tft.print(F("  Fair:  "));
-        tft.println(random_fairness);
-        previous_fair = random_fairness;
-        tft.println();
+        InitDrawIntValue(IE_FAIR_IDX, random_fairness, F("Fair: "));
 
         tft.println(F("Players"));
         tft.println(F("-------"));
@@ -168,37 +161,21 @@ void RandomizerInitScreen()
             tft.println();
         }
 
-        for (int i = 0; i < 10; i++)
-        {
-            tft.println(i);
-        }
-
-        Serial.print(F("Seed = "));
-        Serial.println(random_seed);
-        Serial.print(F("Fairness = "));
-        Serial.println(random_fairness);
-
         screen_redraw = false;
     }
 
-    if (partial_redraw_seed)
+    entry = &init_entries[IE_SEED_IDX];
+    if( entry->is_redraw_needed )
     {
         InitDrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
-        partial_redraw_seed = false;
+        entry->is_redraw_needed = false;
     }
 
-    if (partial_redraw_fairness)
+    entry = &init_entries[IE_FAIR_IDX];
+    if( entry->is_redraw_needed )
     {
-        SET_POSITION_FAIR_VALUE;
-        tft.print(F("                "));
-        SET_POSITION_FAIR_VALUE;
-        tft.print(random_fairness);
-
-        Serial.print(F("Fairness = "));
-        Serial.println(random_fairness);
-
-        previous_fair = random_fairness;
-        partial_redraw_fairness = false;
+        InitDrawIntValue(IE_FAIR_IDX, random_fairness, F("Fair: "));
+        entry->is_redraw_needed = false;
     }
 
     if (input_allowed)
@@ -214,6 +191,8 @@ void RandomizerInitScreen()
             screen_redraw = true;
         }
 
+        entry = &init_entries[IE_FAIR_IDX];
+
         if (Y_UP)
         {
             int multiplier = random_fairness_multiplier;
@@ -223,7 +202,7 @@ void RandomizerInitScreen()
             }
             random_fairness = random_fairness_divider * random_fairness_multiplier;
             input_allowed = false;
-            partial_redraw_fairness = true;
+            entry->is_redraw_needed = true;
         }
 
         if (Y_DOWN)
@@ -234,24 +213,28 @@ void RandomizerInitScreen()
             }
             random_fairness = random_fairness_divider * random_fairness_multiplier;
             input_allowed = false;
-            partial_redraw_fairness = true;
+            entry->is_redraw_needed = true;
         }
     }
 
     // Seed should be possible to change quickly thus we
-    // don't need for joystick to return to the neutral position
+    // don't need for joystick to return to the neutral
+    // position and thus don't wait for the input_allowed
+
+    entry = &init_entries[IE_SEED_IDX];
+
     if (X_RIGHT)
     {
         random_seed++;
         input_allowed = false;
-        partial_redraw_seed = true;
+        entry->is_redraw_needed = true;
     }
 
     if (X_LEFT)
     {
         random_seed--;
         input_allowed = false;
-        partial_redraw_seed = true;
+        entry->is_redraw_needed = true;
     }
 }
 
