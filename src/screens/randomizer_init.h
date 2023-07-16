@@ -56,7 +56,7 @@ struct init_entry init_entries[] = {
 // Table length
 #define IE_LENGTH 13
 
-// Draw games value or error when games could not be read from SD card
+// Redraw games value or error when games could not be read from SD card
 void InitDrawGamesValue(int new_value)
 {
     init_entry* entry = &init_entries[IE_GAMES_IDX];
@@ -99,10 +99,10 @@ void InitDrawGamesValue(int new_value)
     entry->is_redraw_needed = false;
 }
 
-// Draw an integer value
-void InitDrawIntValue(size_t index, int new_value, const __FlashStringHelper *serial_title)
+// Redraw an integer value
+void InitRedrawIntValue(init_entry* entry, int new_value, const __FlashStringHelper *serial_title)
 {
-    init_entry* entry = &init_entries[index];
+    // Check if redraw is needed
     if( entry->value != new_value ) { entry->is_redraw_needed = true; }
     if( !entry->is_redraw_needed ) { return; }
 
@@ -145,11 +145,12 @@ void RandomizerInitScreen()
         InitDrawGamesValue(n_games);
 
         tft.print(F("> Seed:  "));
-        InitDrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
+        InitRedrawIntValue(&init_entries[IE_SEED_IDX], random_seed, F("Seed: "));
 
         tft.print(F("  Fair:  "));
-        InitDrawIntValue(IE_FAIR_IDX, random_fairness, F("Fair: "));
+        InitRedrawIntValue(&init_entries[IE_FAIR_IDX], random_fairness, F("Fair: "));
 
+        tft.println();
         tft.println(F("Players"));
         tft.println(F("-------"));
         tft.println();
@@ -167,14 +168,14 @@ void RandomizerInitScreen()
     entry = &init_entries[IE_SEED_IDX];
     if( entry->is_redraw_needed )
     {
-        InitDrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
+        InitRedrawIntValue(entry, random_seed, F("Seed: "));
         entry->is_redraw_needed = false;
     }
 
     entry = &init_entries[IE_FAIR_IDX];
     if( entry->is_redraw_needed )
     {
-        InitDrawIntValue(IE_FAIR_IDX, random_fairness, F("Fair: "));
+        InitRedrawIntValue(entry, random_fairness, F("Fair: "));
         entry->is_redraw_needed = false;
     }
 
