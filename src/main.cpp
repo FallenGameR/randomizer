@@ -20,12 +20,7 @@ void setup()
     InitPlayerColors();
 
     n_games = readNumberOfGames();
-    Serial.print("Number of games: ");
-    Serial.println(n_games);
-
     n_players = readNumberOfPlayers();
-    Serial.print("Number of players: ");
-    Serial.println(n_players);
 
     pinMode(pin_led_green, OUTPUT);
     pinMode(pin_led_blue, OUTPUT);
@@ -41,8 +36,7 @@ void setup()
     tft.setCursor(0, 0);
     tft.setTextSize(FONT_SIZE);
     tft.setTextColor(WHITE, BLACK);
-    tft.print(F("Initializing "));
-    tft.println(F("Entropy"));
+    tft.println(F("Initializing Entropy"));
 
     initRandom();
 

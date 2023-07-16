@@ -46,9 +46,9 @@ struct init_entry
 
 // Editable entries on the screen
 struct init_entry init_entries[] = {
-    { 3, 9, false, false, 0}, // Games
-    { 4, 9, true,  false, 0}, // Seed
-    { 5, 9, true,  false, 0}, // Fair
+    { 3, 9, false, true, 0},  // Games
+    { 4, 9, true,  true, 0},  // Seed
+    { 5, 9, true,  true, 0},  // Fair
     {10, 0, false, false, 0}, // Player 0
     {11, 0, false, false, 0}, // Player 1
     {12, 0, false, false, 0}, // Player 2
@@ -61,35 +61,85 @@ struct init_entry init_entries[] = {
     {19, 0, false, false, 0}, // Player 9
 };
 
-void InitDrawGames()
+const char err_sd_read_failed[] PROGMEM = "SD card error";
+
+void InitDrawGamesValue(int new_value)
 {
-    SET_POSITION_SEED_VALUE;
+    init_entry* entry = &init_entries[IE_GAMES_IDX];
+    if( entry->value != new_value ) { entry->is_redraw_needed = true; }
+    if( !entry->is_redraw_needed ) { return; }
+
+    // Clear previous value
+    tft.setCursor(entry->col * CHAR_WIDTH, entry->row * CHAR_HEIGHT);
     tft.setTextColor(BLACK, BLACK);
-    tft.print(previous_seed);
+    if( entry->value != 0 )
+    {
+        tft.print(entry->value);
+    }
+    else
+    {
+        // Erasing "SD card error" that is hard to place into PROGMEM
+        for( size_t i = 0; i < 13; i++ )
+        {
+            tft.print(' ');
+        }
+    }
+
+    // Set new value
+    Serial.print(F("Games: "));
+    tft.setCursor(entry->col * CHAR_WIDTH, entry->row * CHAR_HEIGHT);
     tft.setTextColor(WHITE, BLACK);
-    SET_POSITION_SEED_VALUE;
-    tft.print(random_seed);
+    if( new_value != 0 )
+    {
+        tft.println(new_value);
+        Serial.println(new_value);
+    }
+    else
+    {
+        tft.print(F("SD card error"));
+        Serial.println(F("SD card error"));
+    }
 
-    Serial.print(F("Seed = "));
-    Serial.println(random_seed);
+    // Update internal state
+    entry->value = new_value;
+    entry->is_redraw_needed = false;
+}
 
-    previous_seed = random_seed;
-    partial_redraw_seed = false;
+void InitDrawSeedValue(int new_value)
+{
+    init_entry* entry = &init_entries[IE_SEED_IDX];
+    if( entry->value != new_value ) { entry->is_redraw_needed = true; }
+    if( !entry->is_redraw_needed ) { return; }
 
-    tft.setCursor(0, 0);
+    // Clear previous value
+    tft.setCursor(entry->col * CHAR_WIDTH, entry->row * CHAR_HEIGHT);
+    tft.setTextColor(BLACK, BLACK);
+    tft.print(entry->value);
 
-    tft.println(n_games);
+    // Set new value
+    tft.setCursor(entry->col * CHAR_WIDTH, entry->row * CHAR_HEIGHT);
+    tft.setTextColor(WHITE, BLACK);
+    tft.println(new_value);
+
+    // Dump to serial
+    Serial.print(F("Seed: "));
+    Serial.println(new_value);
+
+    // Update internal state
+    entry->value = new_value;
+    entry->is_redraw_needed = false;
 }
 
 void RandomizerInitScreen()
 {
     if (screen_redraw)
     {
-        init_entries[IE_GAMES_IDX].value = n_games;
+        tft.fillScreen(BLACK);
+
         init_entries[IE_SEED_IDX].value = random_seed;
         init_entries[IE_FAIR_IDX].value = random_fairness;
+        // init players here as well
 
-        tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
 
         tft.println(F("Randomizer"));
@@ -97,10 +147,11 @@ void RandomizerInitScreen()
         tft.println();
 
         tft.print(F("  Games: "));
-        tft.println(n_games);
+        InitDrawGamesValue(n_games);
+
         tft.print(F("> Seed:  "));
-        tft.println(random_seed);
-        previous_seed = random_seed;
+        InitDrawSeedValue(random_seed);
+
         tft.print(F("  Fair:  "));
         tft.println(random_fairness);
         previous_fair = random_fairness;
@@ -132,17 +183,7 @@ void RandomizerInitScreen()
 
     if (partial_redraw_seed)
     {
-        SET_POSITION_SEED_VALUE;
-        tft.setTextColor(BLACK, BLACK);
-        tft.print(previous_seed);
-        tft.setTextColor(WHITE, BLACK);
-        SET_POSITION_SEED_VALUE;
-        tft.print(random_seed);
-
-        Serial.print(F("Seed = "));
-        Serial.println(random_seed);
-
-        previous_seed = random_seed;
+        InitDrawSeedValue(random_seed);
         partial_redraw_seed = false;
     }
 
