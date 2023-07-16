@@ -47,7 +47,7 @@ void RandomizerInitScreen()
         PRINT_BT(setPlayerName(player_index_second));
         for (int i = 0; i < n_players; i++)
         {
-            tft.print(F("  * "));
+            tft.print(F("  # "));
             PRINT_BT(setPlayerName(i));
             tft.println();
         }
