@@ -10,6 +10,11 @@
 
 bool partial_redraw_seed = false;
 bool partial_redraw_fairness = false;
+int previous_seed = 0;
+int previous_fair = 0;
+
+#define SET_POSITION_SEED_VALUE tft.setCursor(9 * CHAR_WIDTH, 4 * CHAR_HEIGHT);
+#define SET_POSITION_FAIR_VALUE tft.setCursor(9 * CHAR_WIDTH, 5 * CHAR_HEIGHT);
 
 void RandomizerInitScreen()
 {
@@ -17,12 +22,35 @@ void RandomizerInitScreen()
     {
         tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
-        tft.println(F("Randomizer "));
 
-        tft.print(F("Seed ")); // 5 chars, row 1
+        tft.println(F("Randomizer"));
+        tft.println(F("=========="));
+        tft.println();
+
+        tft.print(F("  Games: "));
+        tft.println(n_games);
+        tft.print(F("> Seed:  "));
         tft.println(random_seed);
-        tft.print(F("Fair ")); // 5 chars, row 2
+        previous_seed = random_seed;
+        tft.print(F("  Fair:  "));
         tft.println(random_fairness);
+        previous_fair = random_fairness;
+        tft.println();
+
+        tft.println(F("Players"));
+        tft.println(F("-------"));
+        tft.println();
+
+        //tft.setTextSize(FONT_SIZE);
+        //tft.setTextColor(WHITE, BLACK);
+
+        PRINT_BT(setPlayerName(player_index_second));
+        for (int i = 0; i < n_players; i++)
+        {
+            tft.print(F("  * "));
+            PRINT_BT(setPlayerName(i));
+            tft.println();
+        }
 
         Serial.print(F("Seed = "));
         Serial.println(random_seed);
@@ -34,27 +62,31 @@ void RandomizerInitScreen()
 
     if (partial_redraw_seed)
     {
-        tft.setCursor(5 * CHAR_WIDTH, 1 * CHAR_HEIGHT);
-        tft.print(F("                "));
-        tft.setCursor(5 * CHAR_WIDTH, 1 * CHAR_HEIGHT);
+        SET_POSITION_SEED_VALUE;
+        tft.setTextColor(BLACK, BLACK);
+        tft.print(previous_seed);
+        tft.setTextColor(WHITE, BLACK);
+        SET_POSITION_SEED_VALUE;
         tft.print(random_seed);
 
         Serial.print(F("Seed = "));
         Serial.println(random_seed);
 
+        previous_seed = random_seed;
         partial_redraw_seed = false;
     }
 
     if (partial_redraw_fairness)
     {
-        tft.setCursor(5 * CHAR_WIDTH, 2 * CHAR_HEIGHT);
+        SET_POSITION_FAIR_VALUE;
         tft.print(F("                "));
-        tft.setCursor(5 * CHAR_WIDTH, 2 * CHAR_HEIGHT);
+        SET_POSITION_FAIR_VALUE;
         tft.print(random_fairness);
 
         Serial.print(F("Fairness = "));
         Serial.println(random_fairness);
 
+        previous_fair = random_fairness;
         partial_redraw_fairness = false;
     }
 
@@ -96,7 +128,7 @@ void RandomizerInitScreen()
     }
 
     // Seed should be possible to change quickly thus we
-    // don't needfor joystick to return to the neutral position
+    // don't need for joystick to return to the neutral position
     if (X_RIGHT)
     {
         random_seed++;
