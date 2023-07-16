@@ -105,9 +105,9 @@ void InitDrawGamesValue(int new_value)
     entry->is_redraw_needed = false;
 }
 
-void InitDrawSeedValue(int new_value)
+void InitDrawIntValue(size_t index, int new_value, const __FlashStringHelper *info)
 {
-    init_entry* entry = &init_entries[IE_SEED_IDX];
+    init_entry* entry = &init_entries[index];
     if( entry->value != new_value ) { entry->is_redraw_needed = true; }
     if( !entry->is_redraw_needed ) { return; }
 
@@ -122,7 +122,7 @@ void InitDrawSeedValue(int new_value)
     tft.println(new_value);
 
     // Dump to serial
-    Serial.print(F("Seed: "));
+    Serial.print(info);
     Serial.println(new_value);
 
     // Update internal state
@@ -150,7 +150,7 @@ void RandomizerInitScreen()
         InitDrawGamesValue(n_games);
 
         tft.print(F("> Seed:  "));
-        InitDrawSeedValue(random_seed);
+        InitDrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
 
         tft.print(F("  Fair:  "));
         tft.println(random_fairness);
@@ -183,7 +183,7 @@ void RandomizerInitScreen()
 
     if (partial_redraw_seed)
     {
-        InitDrawSeedValue(random_seed);
+        InitDrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
         partial_redraw_seed = false;
     }
 
