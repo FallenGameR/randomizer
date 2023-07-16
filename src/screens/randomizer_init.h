@@ -28,9 +28,12 @@ struct init_entry
     // Can this row be selected for edit
     bool is_selectable;
 
-    // Currently displayed content, how exactly to
-    // render it depends on the data it really stores
-    int content;
+    // Should this entry be redrawn
+    bool is_redraw_needed;
+
+    // Currently displayed value, how exactly to
+    // render it depends on the data it represents
+    int value;
 };
 
 // Indexes of various entries in the table below
@@ -39,28 +42,53 @@ struct init_entry
 #define IE_FAIR_IDX 2
 #define IE_PLAY_IDX 3
 #define IE_PLAY_MAX 10
+#define IE_LENGTH 13
 
 // Editable entries on the screen
 struct init_entry init_entries[] = {
-    { 3, 9, false, 0}, // Games
-    { 4, 9, true,  0}, // Seed
-    { 5, 9, true,  0}, // Fair
-    {10, 0, false, 0}, // Player 0
-    {11, 0, false, 0}, // Player 1
-    {12, 0, false, 0}, // Player 2
-    {13, 0, false, 0}, // Player 3
-    {14, 0, false, 0}, // Player 4
-    {15, 0, false, 0}, // Player 5
-    {16, 0, false, 0}, // Player 6
-    {17, 0, false, 0}, // Player 7
-    {18, 0, false, 0}, // Player 8
-    {19, 0, false, 0}, // Player 9
+    { 3, 9, false, false, 0}, // Games
+    { 4, 9, true,  false, 0}, // Seed
+    { 5, 9, true,  false, 0}, // Fair
+    {10, 0, false, false, 0}, // Player 0
+    {11, 0, false, false, 0}, // Player 1
+    {12, 0, false, false, 0}, // Player 2
+    {13, 0, false, false, 0}, // Player 3
+    {14, 0, false, false, 0}, // Player 4
+    {15, 0, false, false, 0}, // Player 5
+    {16, 0, false, false, 0}, // Player 6
+    {17, 0, false, false, 0}, // Player 7
+    {18, 0, false, false, 0}, // Player 8
+    {19, 0, false, false, 0}, // Player 9
 };
+
+void InitDrawGames()
+{
+    SET_POSITION_SEED_VALUE;
+    tft.setTextColor(BLACK, BLACK);
+    tft.print(previous_seed);
+    tft.setTextColor(WHITE, BLACK);
+    SET_POSITION_SEED_VALUE;
+    tft.print(random_seed);
+
+    Serial.print(F("Seed = "));
+    Serial.println(random_seed);
+
+    previous_seed = random_seed;
+    partial_redraw_seed = false;
+
+    tft.setCursor(0, 0);
+
+    tft.println(n_games);
+}
 
 void RandomizerInitScreen()
 {
     if (screen_redraw)
     {
+        init_entries[IE_GAMES_IDX].value = n_games;
+        init_entries[IE_SEED_IDX].value = random_seed;
+        init_entries[IE_FAIR_IDX].value = random_fairness;
+
         tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
 

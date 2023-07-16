@@ -10,7 +10,7 @@ byte game_tag = 0;
 byte n_games = 0;
 bool isTagGame = false;
 
-// Screen is 480px and min font is 6 pixels wide (by default we actually use font that is twise as big)
+// Screen is 480px and min font is 6 pixels wide (by default we actually use font that is twice as big)
 // For safety there should also be logic for making sure we don't reach the end of buffer
 // But we can add it later on, for now we just have large buffer
 char bufferLine[480 / 6];
