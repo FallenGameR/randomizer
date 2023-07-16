@@ -16,6 +16,7 @@ byte player_index_second = -1;
 // But as it grows the pair distribution can become more and more strange but fair on the larger scale
 // It could be that some players would not change seats for several games in a row but after the
 // full cycle would be completed all players will play equal amount of games.
+// Makes sense only if there are >2 players
 byte random_fairness = 0;
 byte random_fairness_divider = 0;
 byte random_fairness_multiplier = 0;

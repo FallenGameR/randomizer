@@ -16,6 +16,47 @@ int previous_fair = 0;
 #define SET_POSITION_SEED_VALUE tft.setCursor(9 * CHAR_WIDTH, 4 * CHAR_HEIGHT);
 #define SET_POSITION_FAIR_VALUE tft.setCursor(9 * CHAR_WIDTH, 5 * CHAR_HEIGHT);
 
+// Structure that describes entry that can be edited on the screen
+struct init_entry
+{
+    // Row on screen, starts with 0 from top
+    int16_t row;
+
+    // Column on screen, starts with 0 from left
+    int16_t col;
+
+    // Can this row be selected for edit
+    bool is_selectable;
+
+    // Currently displayed content, how exactly to
+    // render it depends on the data it really stores
+    int content;
+};
+
+// Indexes of various entries in the table below
+#define IE_GAMES_IDX 0
+#define IE_SEED_IDX 1
+#define IE_FAIR_IDX 2
+#define IE_PLAY_IDX 3
+#define IE_PLAY_MAX 10
+
+// Editable entries on the screen
+struct init_entry init_entries[] = {
+    { 3, 9, false, 0}, // Games
+    { 4, 9, true,  0}, // Seed
+    { 5, 9, true,  0}, // Fair
+    {10, 0, false, 0}, // Player 0
+    {11, 0, false, 0}, // Player 1
+    {12, 0, false, 0}, // Player 2
+    {13, 0, false, 0}, // Player 3
+    {14, 0, false, 0}, // Player 4
+    {15, 0, false, 0}, // Player 5
+    {16, 0, false, 0}, // Player 6
+    {17, 0, false, 0}, // Player 7
+    {18, 0, false, 0}, // Player 8
+    {19, 0, false, 0}, // Player 9
+};
+
 void RandomizerInitScreen()
 {
     if (screen_redraw)
@@ -41,15 +82,16 @@ void RandomizerInitScreen()
         tft.println(F("-------"));
         tft.println();
 
-        //tft.setTextSize(FONT_SIZE);
-        //tft.setTextColor(WHITE, BLACK);
-
-        PRINT_BT(setPlayerName(player_index_second));
         for (int i = 0; i < n_players; i++)
         {
             tft.print(F("  # "));
             PRINT_BT(setPlayerName(i));
             tft.println();
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            tft.println(i);
         }
 
         Serial.print(F("Seed = "));
