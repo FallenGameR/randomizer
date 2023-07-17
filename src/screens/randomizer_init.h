@@ -227,8 +227,8 @@ void RandomizerInitScreen()
             InitRedrawCursor(-1);
 
             int old_fairness = init_entries[IE_FAIR_IDX].value;
-            int new_fairness = old_fairness + random_fairness_divider;
-            if( new_fairness > 255 ) { new_fairness -= random_fairness_divider; }
+            int new_fairness = old_fairness + random_fairness_increment;
+            if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
             InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
 
             input_allowed = false;
@@ -239,8 +239,8 @@ void RandomizerInitScreen()
             InitRedrawCursor(+1);
 
             int old_fairness = init_entries[IE_FAIR_IDX].value;
-            int new_fairness = old_fairness - random_fairness_divider;
-            if( new_fairness <= 0 ) { new_fairness += random_fairness_divider; }
+            int new_fairness = old_fairness - random_fairness_increment;
+            if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
             InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
 
             input_allowed = false;

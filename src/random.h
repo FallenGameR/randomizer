@@ -10,9 +10,8 @@ int random_seed = 0;
 
 void initFairness()
 {
-    random_fairness_divider = n_players * (n_players - 1);
-    random_fairness_multiplier = 1;
-    random_fairness = random_fairness_divider * random_fairness_multiplier;
+    random_fairness_increment = n_players * (n_players - 1);
+    random_fairness = random_fairness_increment;
 }
 
 void initRandom()

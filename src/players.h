@@ -11,15 +11,14 @@ byte match_current = 0;
 byte player_index_first = -1;
 byte player_index_second = -1;
 
-// Fairness shows how many games will pass until the player pairs would be recalculated
-// If it is minimum all get a chance to play as soon as possible
-// But as it grows the pair distribution can become more and more strange but fair on the larger scale
-// It could be that some players would not change seats for several games in a row but after the
-// full cycle would be completed all players will play equal amount of games.
-// Makes sense only if there are >2 players
+// `Fairness` is how many games needs to be played out for everybody to play equal amount of times in all configurations.
+// Minimal fairness value get a chance for everybody to play as soon as possible.
+// But as it `fairness` value grows the pair distribution can become more and more strange but fair
+// on the larger scale. It could be that some players would not change seats for several games in a row
+// but after the `fairness` number of games all players will play equal amount of games regardless.
+// `Fairness` makes sense only if there are >2 players.
 byte random_fairness = 0;
-byte random_fairness_divider = 0;
-byte random_fairness_multiplier = 0;
+byte random_fairness_increment = 0;
 
 void PrintPairs()
 {
@@ -64,7 +63,7 @@ void InitPlayerPairs()
 
     // Populate the pairs
     byte index = 0;
-    for (byte stage = 0; stage < random_fairness_multiplier; stage++)
+    for (byte stage = 0; stage < random_fairness / random_fairness_increment; stage++)
     {
         for (byte first = 0; first < n_players; first++)
         {
