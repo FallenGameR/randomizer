@@ -167,8 +167,6 @@ void InitRedrawCursor(int direction)
 
 void RandomizerInitScreen()
 {
-    init_entry* entry = nullptr;
-
     if (screen_redraw)
     {
         tft.fillScreen(BLACK);
@@ -217,6 +215,9 @@ void RandomizerInitScreen()
 
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;
+            random_seed = init_entries[IE_SEED_IDX].value;
+            random_fairness = init_entries[IE_FAIR_IDX].value;
+
             input_allowed = false;
             screen_redraw = true;
         }
@@ -224,28 +225,25 @@ void RandomizerInitScreen()
         if (Y_UP)
         {
             InitRedrawCursor(-1);
-            InitRedrawIntValue(IE_FAIR_IDX, -1, F("Fair: "));
-            input_allowed = false;
 
-            //int multiplier = random_fairness_multiplier;
-            //if ((multiplier + 1) * random_fairness_divider <= 255)
-            //{
-            //    random_fairness_multiplier += 1;
-            //}
-            //random_fairness = random_fairness_divider * random_fairness_multiplier;
+            int old_fairness = init_entries[IE_FAIR_IDX].value;
+            int new_fairness = old_fairness + random_fairness_divider;
+            if( new_fairness > 255 ) { new_fairness -= random_fairness_divider; }
+            InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
+
+            input_allowed = false;
         }
 
         if (Y_DOWN)
         {
             InitRedrawCursor(+1);
-            InitRedrawIntValue(IE_FAIR_IDX, +1, F("Fair: "));
-            input_allowed = false;
 
-            //if (random_fairness_multiplier > 1)
-            //{
-            //    random_fairness_multiplier -= 1;
-            //}
-            //random_fairness = random_fairness_divider * random_fairness_multiplier;
+            int old_fairness = init_entries[IE_FAIR_IDX].value;
+            int new_fairness = old_fairness - random_fairness_divider;
+            if( new_fairness <= 0 ) { new_fairness += random_fairness_divider; }
+            InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
+
+            input_allowed = false;
         }
     }
 
