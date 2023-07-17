@@ -90,7 +90,7 @@ void InitDrawGamesValue(int new_value)
     }
     else
     {
-        tft.print(F("SD card error"));
+        tft.println(F("SD card error"));
         Serial.println(F("SD card error"));
     }
 
