@@ -22,9 +22,6 @@ struct init_entry
     // Can this row be selected for edit
     bool is_selectable;
 
-    // Should this entry be redrawn
-    bool is_redraw_needed;
-
     // Currently displayed value, how exactly to
     // render it depends on the data it represents
     int value;
@@ -32,20 +29,20 @@ struct init_entry
 
 // Table of editable entries on the screen
 struct init_entry init_entries[] = {
-    // r  c  selectable redraw value
-    {  3, 9, false,     true,  0 }, // Games
-    {  4, 9, true,      true,  0 }, // Seed
-    {  5, 9, true,      true,  0 }, // Fair
-    { 10, 0, false,     false, 0 }, // Player 0
-    { 11, 0, false,     false, 0 }, // Player 1
-    { 12, 0, false,     false, 0 }, // Player 2
-    { 13, 0, false,     false, 0 }, // Player 3
-    { 14, 0, false,     false, 0 }, // Player 4
-    { 15, 0, false,     false, 0 }, // Player 5
-    { 16, 0, false,     false, 0 }, // Player 6
-    { 17, 0, false,     false, 0 }, // Player 7
-    { 18, 0, false,     false, 0 }, // Player 8
-    { 19, 0, false,     false, 0 }, // Player 9
+    // r, c, sel,   val
+    {  3, 9, false, 0 }, // Games
+    {  4, 9, true,  0 }, // Seed
+    {  5, 9, true,  0 }, // Fair
+    { 10, 0, false, 0 }, // Player 0
+    { 11, 0, false, 0 }, // Player 1
+    { 12, 0, false, 0 }, // Player 2
+    { 13, 0, false, 0 }, // Player 3
+    { 14, 0, false, 0 }, // Player 4
+    { 15, 0, false, 0 }, // Player 5
+    { 16, 0, false, 0 }, // Player 6
+    { 17, 0, false, 0 }, // Player 7
+    { 18, 0, false, 0 }, // Player 8
+    { 19, 0, false, 0 }, // Player 9
 };
 
 // Indexes of various entries in the table
@@ -62,8 +59,6 @@ struct init_entry init_entries[] = {
 void InitDrawGamesValue(int new_value)
 {
     init_entry* entry = &init_entries[IE_GAMES_IDX];
-    if( entry->value != new_value ) { entry->is_redraw_needed = true; }
-    if( !entry->is_redraw_needed ) { return; }
 
     // Clear previous value
     tft.setCursor(entry->col * CHAR_WIDTH, entry->row * CHAR_HEIGHT);
@@ -98,7 +93,6 @@ void InitDrawGamesValue(int new_value)
 
     // Update internal state
     entry->value = new_value;
-    entry->is_redraw_needed = false;
 }
 
 // Redraw an integer value
