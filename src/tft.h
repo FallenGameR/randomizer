@@ -206,10 +206,10 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
         // User cancel if needed
         readInput();
 
-        if (input_allowed && BUTTON_BLACK)
+        if (neutral_input && BUTTON_BLACK)
         {
             Serial.println(F("User cancelled image render"));
-            input_allowed = false;
+            neutral_input = false;
             break;
         }
     }
