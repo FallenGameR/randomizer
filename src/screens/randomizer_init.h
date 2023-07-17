@@ -143,7 +143,7 @@ void RandomizerInitScreen()
         tft.print(F("  Games: "));
         InitDrawGamesValue(n_games);
 
-        tft.print(F("> Seed:  "));
+        tft.print(F("  Seed:  "));
         InitRedrawIntValue(&init_entries[IE_SEED_IDX], random_seed, F("Seed: "));
 
         tft.print(F("  Fair:  "));
