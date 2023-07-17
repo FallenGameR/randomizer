@@ -128,10 +128,20 @@ void InitRedrawIntValue(init_entry* entry, int new_value, const __FlashStringHel
 }
 
 // Redraw cursor
-void InitRedrawCursor(size_t new_index)
+void InitRedrawCursor(int direction)
 {
     // Check if redraw is needed
-    if( cursor_index == new_index ) { return; }
+    if( direction == 0 ) { return; }
+
+    // Find the new index
+    size_t new_index = cursor_index;
+    init_entry* new_entry;
+    do
+    {
+        new_index = (new_index + direction + IE_LENGTH) % IE_LENGTH;
+        new_entry = &init_entries[new_index];
+    }
+    while( !new_entry->is_selectable );
 
     // Clear previous value
     init_entry* old_entry = &init_entries[cursor_index];
@@ -140,7 +150,6 @@ void InitRedrawCursor(size_t new_index)
     tft.print('>');
 
     // Set new value
-    init_entry* new_entry = &init_entries[new_index];
     tft.setCursor(0 * CHAR_WIDTH, new_entry->row * CHAR_HEIGHT);
     tft.setTextColor(WHITE, BLACK);
     tft.print('>');
