@@ -88,13 +88,13 @@ void TesterScreen()
         screen_redraw = false;
     }
 
-    if (neutral_input)
+    if (input_allowed)
     {
         if (X_RIGHT)
         {
             game_index = (game_index + n_games + 1) % n_games;
             SelectGame(game_index);
-            neutral_input = false;
+            input_allowed = false;
             screen_redraw = true;
         }
 
@@ -102,7 +102,7 @@ void TesterScreen()
         {
             game_index = (game_index + n_games - 1) % n_games;
             SelectGame(game_index);
-            neutral_input = false;
+            input_allowed = false;
             screen_redraw = true;
         }
 
@@ -113,7 +113,7 @@ void TesterScreen()
                 isTagGame = !isTagGame;
             }
 
-            neutral_input = false;
+            input_allowed = false;
             screen_redraw = true;
         }
 
@@ -122,7 +122,7 @@ void TesterScreen()
             Serial.print(F("-> Match "));
             Serial.println(match_current + 1);
             screen_selected = Screen::PlayerSelection;
-            neutral_input = false;
+            input_allowed = false;
             screen_redraw = true;
         }
     }

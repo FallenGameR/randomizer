@@ -32,8 +32,9 @@ bool input_ready[Input::size];
 
 const unsigned long input_threshold_ms = 100;
 
-// If joystick is in neutral position and no buttons are being pressed
-bool neutral_input = false;
+// Input becomes allowed if joystick had a chance to get back
+// into it's neutral position while there was no button pressed
+bool input_allowed = false;
 
 unsigned long now;
 
@@ -83,7 +84,7 @@ void readInput()
         // needs to be in this state for at least 100ms
         // otherwise we may have accidental triggering due to electric noise and accidental wire movements
         // thus all input is done via processInput that measures input persistence against time threshold
-        neutral_input = true;
+        input_allowed = true;
     }
 }
 

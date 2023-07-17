@@ -115,15 +115,15 @@ void FighterSelectionScreen()
         screen_redraw = false;
     }
 
-    // neutral_input means we just were in neutral state and now test for new input that is tested in nested ifs
-    if (neutral_input)
+    // input_allowed means we just were in neutral state and now test for new input that is tested in nested ifs
+    if (input_allowed)
     {
         // Black button returns to games selection without choosing of winner
         if (BUTTON_BLACK)
         {
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;
-            neutral_input = false;
+            input_allowed = false;
             screen_redraw = true;
         }
 
@@ -132,7 +132,7 @@ void FighterSelectionScreen()
         {
             Serial.println(F("-> Stats"));
             screen_selected = Screen::TotalsShow;
-            neutral_input = false;
+            input_allowed = false;
             screen_redraw = true;
         }
 
@@ -140,12 +140,12 @@ void FighterSelectionScreen()
         if (Y_DOWN)
         {
             not_fair_win = !not_fair_win;
-            neutral_input = false;
+            input_allowed = false;
         }
 
         // Here is what happens event-wise when we select winner:
         // - joystick selection, this one doesn't specify final win yet (since we may want to cancel this input before completing it)
-        //   and it doesn't reset neutral_input, so we need to explicitly check for neutral joystick position later on
+        //   and it doesn't reset input_allowed, so we need to explicitly check for neutral joystick position later on
         // - neutral joystick position
         if (winner_selected != Winner::None && X_CENTER && Y_CENTER)
         {
@@ -154,12 +154,12 @@ void FighterSelectionScreen()
             Serial.print(F("-> Match "));
             Serial.println(match_current + 1);
             screen_selected = Screen::PlayerSelection;
-            neutral_input = false;
+            input_allowed = false;
             screen_redraw = true;
         }
     }
 
-    // Note that win selection don't reset neutral_input to allow
+    // Note that win selection don't reset input_allowed to allow
     // for choice change without resetting joystick postion to neutral
     if (Y_DOWN)
     {

@@ -200,7 +200,7 @@ void RandomizerInitScreen()
         screen_redraw = false;
     }
 
-    if (neutral_input)
+    if (input_allowed)
     {
         if (BUTTON_BLACK)
         {
@@ -212,7 +212,7 @@ void RandomizerInitScreen()
             random_seed = init_entries[IE_SEED_IDX].value;
             random_fairness = init_entries[IE_FAIR_IDX].value;
 
-            neutral_input = false;
+            input_allowed = false;
             screen_redraw = true;
         }
 
@@ -225,7 +225,7 @@ void RandomizerInitScreen()
             if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
             InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
 
-            neutral_input = false;
+            input_allowed = false;
         }
 
         if (Y_DOWN)
@@ -237,24 +237,24 @@ void RandomizerInitScreen()
             if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
             InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
 
-            neutral_input = false;
+            input_allowed = false;
         }
     }
 
     // Seed should be possible to change quickly thus we
     // don't need for joystick to return to the neutral
-    // position and thus don't wait for the neutral_input
+    // position and thus don't wait for the input_allowed
 
     if (X_RIGHT)
     {
         InitRedrawIntValue(IE_SEED_IDX, +1, F("Seed: "));
-        neutral_input = false;
+        input_allowed = false;
     }
 
     if (X_LEFT)
     {
         InitRedrawIntValue(IE_SEED_IDX, -1, F("Seed: "));
-        neutral_input = false;
+        input_allowed = false;
     }
 }
 
