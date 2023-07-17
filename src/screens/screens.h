@@ -15,6 +15,8 @@ enum Screen
 };
 
 byte screen_selected = Screen::RandomizerInit;
+
+// If full screen redraw is needed
 bool screen_redraw = true;
 
 #endif // SCREENS_H

@@ -102,11 +102,11 @@ void InitDrawGamesValue(int new_value)
 }
 
 // Redraw an integer value
-void InitRedrawIntValue(init_entry* entry, int new_value, const __FlashStringHelper *serial_title)
+void InitRedrawIntValue(size_t index, int direction, const __FlashStringHelper *serial_title)
 {
-    // Check if redraw is needed
-    if( entry->value != new_value ) { entry->is_redraw_needed = true; }
-    if( !entry->is_redraw_needed ) { return; }
+    // Find the new value
+    init_entry* entry = &init_entries[index];
+    int new_value = entry->value + direction;
 
     // Clear previous value
     tft.setCursor(entry->col * CHAR_WIDTH, entry->row * CHAR_HEIGHT);
@@ -124,7 +124,6 @@ void InitRedrawIntValue(init_entry* entry, int new_value, const __FlashStringHel
 
     // Update internal state
     entry->value = new_value;
-    entry->is_redraw_needed = false;
 }
 
 // Redraw cursor
@@ -183,10 +182,10 @@ void RandomizerInitScreen()
         InitDrawGamesValue(n_games);
 
         tft.print(F("  Seed:  "));
-        InitRedrawIntValue(&init_entries[IE_SEED_IDX], random_seed, F("Seed: "));
+        InitRedrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
 
         tft.print(F("  Fair:  "));
-        InitRedrawIntValue(&init_entries[IE_FAIR_IDX], random_fairness, F("Fair: "));
+        InitRedrawIntValue(IE_FAIR_IDX, random_fairness, F("Fair: "));
 
         tft.println();
         tft.println(F("Players"));
@@ -209,20 +208,6 @@ void RandomizerInitScreen()
         screen_redraw = false;
     }
 
-    entry = &init_entries[IE_SEED_IDX];
-    if( entry->is_redraw_needed )
-    {
-        InitRedrawIntValue(entry, random_seed, F("Seed: "));
-        entry->is_redraw_needed = false;
-    }
-
-    entry = &init_entries[IE_FAIR_IDX];
-    if( entry->is_redraw_needed )
-    {
-        InitRedrawIntValue(entry, random_fairness, F("Fair: "));
-        entry->is_redraw_needed = false;
-    }
-
     if (input_allowed)
     {
         if (BUTTON_BLACK)
@@ -236,11 +221,10 @@ void RandomizerInitScreen()
             screen_redraw = true;
         }
 
-        entry = &init_entries[IE_FAIR_IDX];
-
         if (Y_UP)
         {
             InitRedrawCursor(-1);
+            InitRedrawIntValue(IE_FAIR_IDX, -1, F("Fair: "));
             input_allowed = false;
 
             //int multiplier = random_fairness_multiplier;
@@ -254,6 +238,7 @@ void RandomizerInitScreen()
         if (Y_DOWN)
         {
             InitRedrawCursor(+1);
+            InitRedrawIntValue(IE_FAIR_IDX, +1, F("Fair: "));
             input_allowed = false;
 
             //if (random_fairness_multiplier > 1)
@@ -268,20 +253,16 @@ void RandomizerInitScreen()
     // don't need for joystick to return to the neutral
     // position and thus don't wait for the input_allowed
 
-    entry = &init_entries[IE_SEED_IDX];
-
     if (X_RIGHT)
     {
-        random_seed++;
+        InitRedrawIntValue(IE_SEED_IDX, +1, F("Seed: "));
         input_allowed = false;
-        entry->is_redraw_needed = true;
     }
 
     if (X_LEFT)
     {
-        random_seed--;
+        InitRedrawIntValue(IE_SEED_IDX, -1, F("Seed: "));
         input_allowed = false;
-        entry->is_redraw_needed = true;
     }
 }
 

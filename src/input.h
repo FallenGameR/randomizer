@@ -31,7 +31,10 @@ unsigned long input_started[Input::size];
 bool input_ready[Input::size];
 
 const unsigned long input_threshold_ms = 100;
+
+// If joystick is in neutral position
 bool input_allowed = false;
+
 unsigned long now;
 
 void processInput(int key, bool value)
