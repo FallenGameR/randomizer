@@ -8,6 +8,8 @@
 #include "..\tft.h"
 #include "..\stats.h"
 
+size_t cursor_index = 0;
+
 // Structure that describes entry that can be edited on the screen
 struct init_entry
 {
@@ -125,6 +127,34 @@ void InitRedrawIntValue(init_entry* entry, int new_value, const __FlashStringHel
     entry->is_redraw_needed = false;
 }
 
+// Redraw cursor
+void InitRedrawCursor(size_t new_index)
+{
+    // Check if redraw is needed
+    if( cursor_index == new_index ) { return; }
+
+    // Clear previous value
+    init_entry* old_entry = &init_entries[cursor_index];
+    tft.setCursor(0 * CHAR_WIDTH, old_entry->row * CHAR_HEIGHT);
+    tft.setTextColor(BLACK, BLACK);
+    tft.print('>');
+
+    // Set new value
+    init_entry* new_entry = &init_entries[new_index];
+    tft.setCursor(0 * CHAR_WIDTH, new_entry->row * CHAR_HEIGHT);
+    tft.setTextColor(WHITE, BLACK);
+    tft.print('>');
+
+    // Dump to serial
+    Serial.print(F("Cursor: ["));
+    Serial.print(new_index);
+    Serial.print(F("] line "));
+    Serial.println(new_entry->row);
+
+    // Update internal state
+    cursor_index = new_index;
+}
+
 void RandomizerInitScreen()
 {
     init_entry* entry = nullptr;
@@ -161,6 +191,8 @@ void RandomizerInitScreen()
             tft.println();
         }
 
+        InitRedrawCursor(1);
+
         screen_redraw = false;
     }
 
@@ -195,25 +227,27 @@ void RandomizerInitScreen()
 
         if (Y_UP)
         {
-            int multiplier = random_fairness_multiplier;
-            if ((multiplier + 1) * random_fairness_divider <= 255)
-            {
-                random_fairness_multiplier += 1;
-            }
-            random_fairness = random_fairness_divider * random_fairness_multiplier;
+            InitRedrawCursor( (cursor_index - 1 + IE_LENGTH) % IE_LENGTH );
             input_allowed = false;
-            entry->is_redraw_needed = true;
+
+            //int multiplier = random_fairness_multiplier;
+            //if ((multiplier + 1) * random_fairness_divider <= 255)
+            //{
+            //    random_fairness_multiplier += 1;
+            //}
+            //random_fairness = random_fairness_divider * random_fairness_multiplier;
         }
 
         if (Y_DOWN)
         {
-            if (random_fairness_multiplier > 1)
-            {
-                random_fairness_multiplier -= 1;
-            }
-            random_fairness = random_fairness_divider * random_fairness_multiplier;
+            InitRedrawCursor( (cursor_index + 1) % IE_LENGTH );
             input_allowed = false;
-            entry->is_redraw_needed = true;
+
+            //if (random_fairness_multiplier > 1)
+            //{
+            //    random_fairness_multiplier -= 1;
+            //}
+            //random_fairness = random_fairness_divider * random_fairness_multiplier;
         }
     }
 
