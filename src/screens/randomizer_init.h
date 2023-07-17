@@ -158,7 +158,9 @@ void InitRedrawCursor(int direction)
     Serial.print(F("Cursor: ["));
     Serial.print(new_index);
     Serial.print(F("] line "));
-    Serial.println(new_entry->row);
+    Serial.print(new_entry->row);
+    Serial.print(F(" value "));
+    Serial.println(new_entry->value);
 
     // Update internal state
     cursor_index = new_index;
@@ -170,8 +172,6 @@ void RandomizerInitScreen()
 
     if (screen_redraw)
     {
-        // init players here
-
         tft.fillScreen(BLACK);
         tft.setCursor(0, 0);
 
@@ -195,6 +195,10 @@ void RandomizerInitScreen()
 
         for( int i = 0; i < n_players; i++ )
         {
+            init_entry* player_entry = &init_entries[IE_PLAY_IDX + i];
+            player_entry->value = 1;
+            player_entry->is_selectable = true;
+
             tft.print(F("  # "));
             PRINT_BT(setPlayerName(i));
             tft.println();
@@ -236,7 +240,7 @@ void RandomizerInitScreen()
 
         if (Y_UP)
         {
-            InitRedrawCursor( (cursor_index - 1 + IE_LENGTH) % IE_LENGTH );
+            InitRedrawCursor(-1);
             input_allowed = false;
 
             //int multiplier = random_fairness_multiplier;
@@ -249,7 +253,7 @@ void RandomizerInitScreen()
 
         if (Y_DOWN)
         {
-            InitRedrawCursor( (cursor_index + 1) % IE_LENGTH );
+            InitRedrawCursor(+1);
             input_allowed = false;
 
             //if (random_fairness_multiplier > 1)
