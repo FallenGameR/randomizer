@@ -1,8 +1,9 @@
 #ifndef PLAYERS_H
 #define PLAYERS_H
 
-// There could be max 16 players, otherwise fairness gets too big and don't fit into byte
-#define MAX_PLAYERS 16
+// There could be max 10 players we would not be able to fit more on the screen.
+// Plus if number of players is > 16 the fairness value no longer fits into byte.
+#define MAX_PLAYERS 10
 byte n_players = 0;
 
 byte *player_pairs = 0;

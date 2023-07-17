@@ -50,7 +50,7 @@ struct init_entry init_entries[] = {
 #define IE_SEED_IDX 1
 #define IE_FAIR_IDX 2
 #define IE_PLAY_IDX 3
-#define IE_PLAY_MAX 10
+#define IE_PLAY_MAX MAX_PLAYERS
 
 // Table length
 #define IE_LENGTH 13
@@ -147,6 +147,7 @@ void InitRedrawCursor(int direction)
     tft.setTextColor(WHITE, BLACK);
     tft.print('>');
 
+#ifdef DEBUG
     // Dump to serial
     Serial.print(F("Cursor: ["));
     Serial.print(new_index);
@@ -154,6 +155,7 @@ void InitRedrawCursor(int direction)
     Serial.print(new_entry->row);
     Serial.print(F(" value "));
     Serial.println(new_entry->value);
+#endif
 
     // Update internal state
     cursor_index = new_index;
@@ -204,6 +206,8 @@ void RandomizerInitScreen()
     {
         if (BUTTON_BLACK)
         {
+            input_allowed = false;
+
             InitPlayerPairs();
             InitStatsFile();
 
@@ -212,32 +216,31 @@ void RandomizerInitScreen()
             random_seed = init_entries[IE_SEED_IDX].value;
             random_fairness = init_entries[IE_FAIR_IDX].value;
 
-            input_allowed = false;
             screen_redraw = true;
         }
 
         if (Y_UP)
         {
+            input_allowed = false;
+
             InitRedrawCursor(-1);
 
             int old_fairness = init_entries[IE_FAIR_IDX].value;
             int new_fairness = old_fairness + random_fairness_increment;
             if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
             InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
-
-            input_allowed = false;
         }
 
         if (Y_DOWN)
         {
+            input_allowed = false;
+
             InitRedrawCursor(+1);
 
             int old_fairness = init_entries[IE_FAIR_IDX].value;
             int new_fairness = old_fairness - random_fairness_increment;
             if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
             InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
-
-            input_allowed = false;
         }
     }
 
@@ -247,14 +250,14 @@ void RandomizerInitScreen()
 
     if (X_RIGHT)
     {
-        InitRedrawIntValue(IE_SEED_IDX, +1, F("Seed: "));
         input_allowed = false;
+        InitRedrawIntValue(IE_SEED_IDX, +1, F("Seed: "));
     }
 
     if (X_LEFT)
     {
-        InitRedrawIntValue(IE_SEED_IDX, -1, F("Seed: "));
         input_allowed = false;
+        InitRedrawIntValue(IE_SEED_IDX, -1, F("Seed: "));
     }
 }
 

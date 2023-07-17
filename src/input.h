@@ -33,7 +33,12 @@ bool input_ready[Input::size];
 const unsigned long input_threshold_ms = 100;
 
 // Input becomes allowed if joystick had a chance to get back
-// into it's neutral position while there was no button pressed
+// into it's neutral position while there was no button pressed.
+// Input gets blocked if code start to process some of the command
+// that it got from buttons or from joystick. Until the processing
+// is done normally this flag gets set to false. Unless the code
+// processes a continuously pressed button or joystick left in a
+// particular direction.
 bool input_allowed = false;
 
 unsigned long now;
