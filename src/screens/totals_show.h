@@ -13,10 +13,9 @@ void TotalShowScreen()
         screen_redraw = false;
     }
 
-    // input_allowed means we just were in neutral state and now test for new input that is tested in nested ifs
     if (input_allowed)
     {
-        // Black button returns to games selection without chosing of winner
+        // Black button returns to games selection without choosing of winner
         if (BUTTON_BLACK)
         {
             Serial.println(F("-> Game"));

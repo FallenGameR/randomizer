@@ -48,9 +48,9 @@ struct init_entry init_entries[] = {
 // Indexes of various entries in the table
 #define IE_GAMES_IDX 0
 #define IE_SEED_IDX 1
-#define IE_FAIR_IDX 2
-#define IE_PLAY_IDX 3
-#define IE_PLAY_MAX MAX_PLAYERS
+#define IE_FAIRNESS_IDX 2
+#define IE_PLAYER_FIRST_IDX 3
+#define IE_PLAYER_LAST_IDX (IE_PLAYER_FIRST_IDX + MAX_PLAYERS)
 
 // Table length
 #define IE_LENGTH 13
@@ -198,7 +198,7 @@ void RandomizerInitScreen()
         InitRedrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
 
         tft.print(F("  Fair:  "));
-        InitRedrawIntValue(IE_FAIR_IDX, random_fairness, F("Fair: "));
+        InitRedrawIntValue(IE_FAIRNESS_IDX, random_fairness, F("Fair: "));
 
         tft.println();
         tft.println(F("Players"));
@@ -207,7 +207,7 @@ void RandomizerInitScreen()
 
         for( int i = 0; i < n_players; i++ )
         {
-            init_entry* player_entry = &init_entries[IE_PLAY_IDX + i];
+            init_entry* player_entry = &init_entries[IE_PLAYER_FIRST_IDX + i];
             player_entry->value = 1;
             player_entry->is_selectable = true;
 
@@ -225,54 +225,49 @@ void RandomizerInitScreen()
     {
         if (BUTTON_BLACK)
         {
-            input_allowed = false;
-
             InitPlayerPairs();
             InitStatsFile();
 
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;
             random_seed = init_entries[IE_SEED_IDX].value;
-            random_fairness = init_entries[IE_FAIR_IDX].value;
+            random_fairness = init_entries[IE_FAIRNESS_IDX].value;
 
+            input_allowed = false;
             screen_redraw = true;
         }
 
         if (Y_UP)
         {
-            input_allowed = false;
             InitRedrawCursor(-1);
+            input_allowed = false;
         }
 
         if (Y_DOWN)
         {
-            input_allowed = false;
             InitRedrawCursor(+1);
+            input_allowed = false;
         }
-
-
-        // Seed should be possible to change quickly thus we
-        // don't need for joystick to return to the neutral
-        // position and thus don't wait for the input_allowed
 
         if (X_RIGHT)
         {
             if (cursor_index == IE_SEED_IDX)
             {
                 InitRedrawIntValue(IE_SEED_IDX, +1, F("Seed: "));
+                // Don't block input, seed can be changed quickly
             }
-            else if (cursor_index == IE_FAIR_IDX)
+            else if (cursor_index == IE_FAIRNESS_IDX)
             {
-                input_allowed = false;
-                int old_fairness = init_entries[IE_FAIR_IDX].value;
+                int old_fairness = init_entries[IE_FAIRNESS_IDX].value;
                 int new_fairness = old_fairness + random_fairness_increment;
                 if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
-                InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
+                InitRedrawIntValue(IE_FAIRNESS_IDX, (new_fairness - old_fairness), F("Fair: "));
+                input_allowed = false;
             }
             else
             {
-                input_allowed = false;
                 InitRedrawBoolValue();
+                input_allowed = false;
             }
         }
 
@@ -281,19 +276,20 @@ void RandomizerInitScreen()
             if (cursor_index == IE_SEED_IDX)
             {
                 InitRedrawIntValue(IE_SEED_IDX, -1, F("Seed: "));
+                // Don't block input, seed can be changed quickly
             }
-            else if (cursor_index == IE_FAIR_IDX)
+            else if (cursor_index == IE_FAIRNESS_IDX)
             {
-                input_allowed = false;
-                int old_fairness = init_entries[IE_FAIR_IDX].value;
+                int old_fairness = init_entries[IE_FAIRNESS_IDX].value;
                 int new_fairness = old_fairness - random_fairness_increment;
                 if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
-                InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
+                InitRedrawIntValue(IE_FAIRNESS_IDX, (new_fairness - old_fairness), F("Fair: "));
+                input_allowed = false;
             }
             else
             {
-                input_allowed = false;
                 InitRedrawBoolValue();
+                input_allowed = false;
             }
         }
     }
