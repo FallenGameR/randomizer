@@ -55,6 +55,8 @@ struct init_entry init_entries[] = {
 // Table length
 #define IE_LENGTH 13
 
+bool player_bool[MAX_PLAYERS] = { true, true, false, false, false, false, false, false, false, false };
+
 // Redraw games value or error when games could not be read from SD card
 void InitDrawGamesValue(int new_value)
 {
@@ -161,21 +163,22 @@ void InitRedrawCursor(int direction)
     cursor_index = new_index;
 }
 
-extern bool player_bool[10] = { true, true, false, false, false, false, false, false, false, false };
-
 void InitTogglePlayerStatus()
 {
     Serial.print(F("Player Bool before function: "));
-    Serial.println(player_bool[cursor_index - 3]);
-    player_bool[cursor_index - 3] = !player_bool[cursor_index - 3];
+    Serial.println(player_bool[cursor_index - IE_PLAY_IDX]);
+    player_bool[cursor_index - IE_PLAY_IDX] = !player_bool[cursor_index - 3];
+
     init_entry* entry1 = &init_entries[cursor_index];
-    if (player_bool[cursor_index - 3]) {
+    if( player_bool[cursor_index - IE_PLAY_IDX] )
+    {
         tft.setCursor(2 * CHAR_WIDTH, entry1->row * CHAR_HEIGHT);
         tft.setTextColor(WHITE, BLACK);
         tft.print('#');
         n_players++;
     }
-    else {
+    else
+    {
         init_entry* old_entry = &init_entries[cursor_index];
         tft.setCursor(2 * CHAR_WIDTH, old_entry->row * CHAR_HEIGHT);
         tft.setTextColor(BLACK, BLACK);
