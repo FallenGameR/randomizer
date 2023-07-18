@@ -39,6 +39,8 @@ void setup()
     initSd();
     n_games = readNumberOfGames();
     n_players = readNumberOfPlayers();
+    random_fairness = n_players * (n_players - 1);
+    random_fairness_increment = random_fairness_increment;
 
     Serial.println(F("-> Init"));
     screen_selected = Screen::RandomizerInit;

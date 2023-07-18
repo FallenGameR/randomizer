@@ -3,23 +3,17 @@
 
 #include <Arduino.h>
 #include <Entropy.h>
-#include "players.h"
 
-// Entropy library actually returns uint32_t, but negative values have something to them when correcting the seed
+// Entropy library actually returns uint32_t,
+// but negative values are fun when changing
+// the seed manually
 int random_seed = 0;
-
-void initFairness()
-{
-    random_fairness_increment = n_players * (n_players - 1);
-    random_fairness = random_fairness_increment;
-}
 
 void initRandom()
 {
     Entropy.Initialize();
     random_seed = Entropy.random();
     randomSeed(random_seed);
-    initFairness();
 }
 
 byte nextRandom(byte* array, const size_t size, size_t* position)
@@ -28,7 +22,7 @@ byte nextRandom(byte* array, const size_t size, size_t* position)
     if( *position == 0 )
     {
         // Populate the array with indexes
-        for (size_t i = 0; i < size; i++)
+        for( size_t i = 0; i < size; i++ )
         {
             array[i] = i;
         }
