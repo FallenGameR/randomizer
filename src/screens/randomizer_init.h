@@ -33,16 +33,16 @@ struct init_entry init_entries[] = {
     {  3, 9, false, 0 }, // Games
     {  4, 9, true,  0 }, // Seed
     {  5, 9, true,  0 }, // Fair
-    { 10, 0, false, 0 }, // Player 0
-    { 11, 0, false, 0 }, // Player 1
-    { 12, 0, false, 0 }, // Player 2
-    { 13, 0, false, 0 }, // Player 3
-    { 14, 0, false, 0 }, // Player 4
-    { 15, 0, false, 0 }, // Player 5
-    { 16, 0, false, 0 }, // Player 6
-    { 17, 0, false, 0 }, // Player 7
-    { 18, 0, false, 0 }, // Player 8
-    { 19, 0, false, 0 }, // Player 9
+    { 10, 2, false, 0 }, // Player 0
+    { 11, 2, false, 0 }, // Player 1
+    { 12, 2, false, 0 }, // Player 2
+    { 13, 2, false, 0 }, // Player 3
+    { 14, 2, false, 0 }, // Player 4
+    { 15, 2, false, 0 }, // Player 5
+    { 16, 2, false, 0 }, // Player 6
+    { 17, 2, false, 0 }, // Player 7
+    { 18, 2, false, 0 }, // Player 8
+    { 19, 2, false, 0 }, // Player 9
 };
 
 // Indexes of various entries in the table
@@ -54,8 +54,6 @@ struct init_entry init_entries[] = {
 
 // Table length
 #define IE_LENGTH 13
-
-bool player_bool[MAX_PLAYERS] = { true, true, false, false, false, false, false, false, false, false };
 
 // Redraw games value or error when games could not be read from SD card
 void InitDrawGamesValue(int new_value)
@@ -163,28 +161,23 @@ void InitRedrawCursor(int direction)
     cursor_index = new_index;
 }
 
-void InitTogglePlayerStatus()
+// Toggle a bool value
+void InitRedrawBoolValue()
 {
-    Serial.print(F("Player Bool before function: "));
-    Serial.println(player_bool[cursor_index - IE_PLAY_IDX]);
-    player_bool[cursor_index - IE_PLAY_IDX] = !player_bool[cursor_index - 3];
+    // Toggle the value
+    init_entry* entry = &init_entries[cursor_index];
+    entry->value = !entry->value;
 
-    init_entry* entry1 = &init_entries[cursor_index];
-    if( player_bool[cursor_index - IE_PLAY_IDX] )
-    {
-        tft.setCursor(2 * CHAR_WIDTH, entry1->row * CHAR_HEIGHT);
-        tft.setTextColor(WHITE, BLACK);
-        tft.print('#');
-        n_players++;
-    }
-    else
-    {
-        init_entry* old_entry = &init_entries[cursor_index];
-        tft.setCursor(2 * CHAR_WIDTH, old_entry->row * CHAR_HEIGHT);
-        tft.setTextColor(BLACK, BLACK);
-        tft.print('#');
-        n_players--;
-    }
+    // Render it
+    tft.setCursor(entry->col * CHAR_WIDTH, entry->row * CHAR_HEIGHT);
+    tft.setTextColor(entry->value ? WHITE : BLACK, BLACK);
+    tft.print('#');
+
+    // Dump to serial
+    Serial.print("Toggled [");
+    Serial.print(cursor_index);
+    Serial.print("] = ");
+    Serial.println(entry->value);
 }
 
 void RandomizerInitScreen()
@@ -279,7 +272,7 @@ void RandomizerInitScreen()
             else
             {
                 input_allowed = false;
-                InitTogglePlayerStatus();
+                InitRedrawBoolValue();
             }
         }
 
@@ -300,7 +293,7 @@ void RandomizerInitScreen()
             else
             {
                 input_allowed = false;
-                InitTogglePlayerStatus();
+                InitRedrawBoolValue();
             }
         }
     }
