@@ -24,23 +24,17 @@ void setup()
     pinMode(pin_button_joystick, INPUT_PULLUP);
 
     // Screen init
-    tft.reset();
-    uint16_t identifier = tft.readID();
-    tft.begin(identifier);
+    tft.begin(tft.readID());
     tft.setRotation(1);
-    tft.fillScreen(BLACK);
-    tft.setCursor(0, 0);
     tft.setTextSize(FONT_SIZE);
     tft.setTextColor(WHITE, BLACK);
-    tft.println(F("Initializing Entropy"));
 
     initRandom();
-    InitPlayerColors();
     initSd();
     n_games = readNumberOfGames();
     n_players = readNumberOfPlayers();
     random_fairness = n_players * (n_players - 1);
-    random_fairness_increment = random_fairness_increment;
+    random_fairness_increment = random_fairness;
 
     Serial.println(F("-> Init"));
     screen_selected = Screen::RandomizerInit;

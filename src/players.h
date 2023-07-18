@@ -24,7 +24,18 @@ byte player_index_second = -1;
 byte random_fairness = 0;
 byte random_fairness_increment = 0;
 
-unsigned int playerColors[MAX_PLAYERS];
+unsigned int playerColors[MAX_PLAYERS] = {
+    CYAN,       // Player 0
+    YELLOW,     // Player 1
+    LT_PURPLE,  // Player 2
+    BLUE,       // Player 3
+    ORANGE,     // Player 4
+    MAGENTA,    // Player 5
+    DK_BLUE,    // Player 6
+    DK_YELLOW,  // Player 7
+    PURPLE,     // Player 8
+    DK_CYAN,    // Player 9
+}
 
 void PrintPairs()
 {
@@ -85,30 +96,6 @@ void InitPlayerPairs()
             }
         }
     }
-}
-
-void InitPlayerColors()
-{
-    playerColors[0] = CYAN;
-    playerColors[1] = YELLOW;
-    playerColors[2] = LT_PURPLE;
-
-    playerColors[3] = BLUE;
-    playerColors[4] = ORANGE;
-    playerColors[5] = MAGENTA;
-
-    playerColors[6] = DK_BLUE;
-    playerColors[7] = DK_YELLOW;
-    playerColors[8] = PURPLE;
-
-    playerColors[9] = DK_CYAN;
-    playerColors[10] = DK_ORANGE;
-    playerColors[11] = DK_MAGENTA;
-
-    playerColors[12] = GREEN;
-    playerColors[13] = RED;
-    playerColors[14] = LT_GREEN;
-    playerColors[15] = LT_RED;
 }
 
 #endif // PLAYERS_H
