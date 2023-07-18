@@ -123,9 +123,6 @@ void InitRedrawIntValue(size_t index, int direction, const __FlashStringHelper *
 // Redraw cursor
 void InitRedrawCursor(int direction)
 {
-    // Check if redraw is needed
-    if( direction == 0 ) { return; }
-
     // Find the new index
     size_t new_index = cursor_index;
     init_entry* new_entry;
@@ -184,50 +181,74 @@ void RandomizerInitScreen()
 {
     if (screen_redraw)
     {
-        n_games = readNumberOfGames();
-        n_players = readNumberOfPlayers();
-        random_fairness = n_players * (n_players - 1);
-        random_fairness_increment = random_fairness;
-
         tft.fillScreen(BLACK);
+        tft.setTextColor(WHITE, BLACK);
         tft.setCursor(0, 0);
 
         tft.println(F("Randomizer"));
         tft.println(F("=========="));
         tft.println();
 
-        tft.print(F("  Games: "));
-        InitDrawGamesValue(n_games);
+        initSd();
+        {
+            n_games = readNumberOfGames();
+            n_players = readNumberOfPlayers();
 
-        tft.print(F("  Seed:  "));
-        InitRedrawIntValue(IE_SEED_IDX, random_seed, F("Seed: "));
+            tft.print(F("  Games: "));
+            InitDrawGamesValue(n_games);
+        }
 
-        tft.print(F("  Fair:  "));
-        InitRedrawIntValue(IE_FAIRNESS_IDX, random_fairness, F("Fair: "));
+        initRandom();
+        {
+            tft.print(F("  Seed:  "));
+            (&init_entries[IE_SEED_IDX])->value = random_seed;
+            InitRedrawIntValue(IE_SEED_IDX, 0, F("Seed: "));
+
+            tft.print(F("  Fair:  "));
+            random_fairness = n_players * (n_players - 1);
+            random_fairness_increment = random_fairness;
+            (&init_entries[IE_FAIRNESS_IDX])->value = random_fairness;
+            InitRedrawIntValue(IE_FAIRNESS_IDX, 0, F("Fair: "));
+        }
 
         tft.println();
         tft.println(F("Players"));
         tft.println(F("-------"));
         tft.println();
 
-        for( int i = 0; i < n_players; i++ )
+        for( int i = 0; i < MAX_PLAYERS; i++ )
         {
             init_entry* player_entry = &init_entries[IE_PLAYER_FIRST_IDX + i];
-            player_entry->value = 1;
-            player_entry->is_selectable = true;
 
-            tft.print(F("  # "));
-            PRINT_BT(setPlayerName(i));
+            bool is_present = i < n_players;
+            player_entry->value = is_present;
+            player_entry->is_selectable = is_present;
+
+            if( is_present )
+            {
+                tft.print(F("  # "));
+                PRINT_BT(setPlayerName(i));
+            }
+
             tft.println();
         }
 
-        InitRedrawCursor(1);
+        cursor_index = 1;
+        InitRedrawCursor(0);
 
         screen_redraw = false;
     }
 
     if (input_allowed)
     {
+        // Soft reset to quickly fix SD reader and screen glitches
+        if (BUTTON_JOYSTICK)
+        {
+            input_allowed = false;
+            screen_redraw = true;
+        }
+
+        // Next screen
         if (BUTTON_BLACK)
         {
             InitPlayerPairs();
@@ -242,12 +263,14 @@ void RandomizerInitScreen()
             screen_redraw = true;
         }
 
+        // Cursor up
         if (Y_UP)
         {
             InitRedrawCursor(-1);
             input_allowed = false;
         }
 
+        // Cursor down
         if (Y_DOWN)
         {
             InitRedrawCursor(+1);

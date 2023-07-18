@@ -19,10 +19,6 @@ void setup()
     pinMode(pin_button_black, INPUT_PULLUP);
     pinMode(pin_button_joystick, INPUT_PULLUP);
 
-    // Devices init
-    initRandom();
-    initSd();
-
     // Screen init
     tft.begin(tft.readID());
     tft.setRotation(1);
