@@ -161,6 +161,29 @@ void InitRedrawCursor(int direction)
     cursor_index = new_index;
 }
 
+extern bool player_bool[10] = { true, true, false, false, false, false, false, false, false, false };
+
+void InitTogglePlayerStatus()
+{
+    Serial.print(F("Player Bool before function: "));
+    Serial.println(player_bool[cursor_index - 3]);
+    player_bool[cursor_index - 3] = !player_bool[cursor_index - 3];
+    init_entry* entry1 = &init_entries[cursor_index];
+    if (player_bool[cursor_index - 3]) {
+        tft.setCursor(2 * CHAR_WIDTH, entry1->row * CHAR_HEIGHT);
+        tft.setTextColor(WHITE, BLACK);
+        tft.print('#');
+        n_players++;
+    }
+    else {
+        init_entry* old_entry = &init_entries[cursor_index];
+        tft.setCursor(2 * CHAR_WIDTH, old_entry->row * CHAR_HEIGHT);
+        tft.setTextColor(BLACK, BLACK);
+        tft.print('#');
+        n_players--;
+    }
+}
+
 void RandomizerInitScreen()
 {
     if (screen_redraw)
@@ -222,42 +245,61 @@ void RandomizerInitScreen()
         if (Y_UP)
         {
             input_allowed = false;
-
             InitRedrawCursor(-1);
-
-            int old_fairness = init_entries[IE_FAIR_IDX].value;
-            int new_fairness = old_fairness + random_fairness_increment;
-            if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
-            InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
         }
 
         if (Y_DOWN)
         {
             input_allowed = false;
-
             InitRedrawCursor(+1);
-
-            int old_fairness = init_entries[IE_FAIR_IDX].value;
-            int new_fairness = old_fairness - random_fairness_increment;
-            if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
-            InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
         }
-    }
 
-    // Seed should be possible to change quickly thus we
-    // don't need for joystick to return to the neutral
-    // position and thus don't wait for the input_allowed
 
-    if (X_RIGHT)
-    {
-        input_allowed = false;
-        InitRedrawIntValue(IE_SEED_IDX, +1, F("Seed: "));
-    }
+        // Seed should be possible to change quickly thus we
+        // don't need for joystick to return to the neutral
+        // position and thus don't wait for the input_allowed
 
-    if (X_LEFT)
-    {
-        input_allowed = false;
-        InitRedrawIntValue(IE_SEED_IDX, -1, F("Seed: "));
+        if (X_RIGHT)
+        {
+            if (cursor_index == IE_SEED_IDX)
+            {
+                InitRedrawIntValue(IE_SEED_IDX, +1, F("Seed: "));
+            }
+            else if (cursor_index == IE_FAIR_IDX)
+            {
+                input_allowed = false;
+                int old_fairness = init_entries[IE_FAIR_IDX].value;
+                int new_fairness = old_fairness + random_fairness_increment;
+                if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
+                InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
+            }
+            else
+            {
+                input_allowed = false;
+                InitTogglePlayerStatus();
+            }
+        }
+
+        if (X_LEFT)
+        {
+            if (cursor_index == IE_SEED_IDX)
+            {
+                InitRedrawIntValue(IE_SEED_IDX, -1, F("Seed: "));
+            }
+            else if (cursor_index == IE_FAIR_IDX)
+            {
+                input_allowed = false;
+                int old_fairness = init_entries[IE_FAIR_IDX].value;
+                int new_fairness = old_fairness - random_fairness_increment;
+                if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
+                InitRedrawIntValue(IE_FAIR_IDX, (new_fairness - old_fairness), F("Fair: "));
+            }
+            else
+            {
+                input_allowed = false;
+                InitTogglePlayerStatus();
+            }
+        }
     }
 }
 
