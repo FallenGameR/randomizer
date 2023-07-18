@@ -14,23 +14,19 @@
 
 void setup()
 {
+    // Serial init
     Serial.begin(9600);
 
-    initSd();
-    InitPlayerColors();
-
-    n_games = readNumberOfGames();
-    n_players = readNumberOfPlayers();
-
+    // Pins init
     pinMode(pin_led_green, OUTPUT);
     pinMode(pin_led_blue, OUTPUT);
     pinMode(pin_button_black, INPUT_PULLUP);
     pinMode(pin_button_joystick, INPUT_PULLUP);
 
+    // Screen init
     tft.reset();
     uint16_t identifier = tft.readID();
     tft.begin(identifier);
-
     tft.setRotation(1);
     tft.fillScreen(BLACK);
     tft.setCursor(0, 0);
@@ -39,6 +35,10 @@ void setup()
     tft.println(F("Initializing Entropy"));
 
     initRandom();
+    InitPlayerColors();
+    initSd();
+    n_games = readNumberOfGames();
+    n_players = readNumberOfPlayers();
 
     Serial.println(F("-> Init"));
     screen_selected = Screen::RandomizerInit;

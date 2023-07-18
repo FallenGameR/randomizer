@@ -8,7 +8,7 @@
 
 void PlayerSelectionScreen()
 {
-    // By default for two players choose always firs pair
+    // By default for two players choose always first pair
     byte pair_index = 0;
 
     // If there are more players use the shuffled player pairs
