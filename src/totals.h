@@ -164,7 +164,7 @@ void RenderTotals()
     box screen = InitScreen();
     box plot = InitPlot();
     box line;
-    InitializeGrid(screen, plot, 5, 1, DKBLUE, WHITE, BLACK);
+    InitializeGrid(screen, plot, 5, 1, DK_BLUE, WHITE, BLACK);
     InitializeAxes(screen, plot, "Totals", "matches", "wins", RED, WHITE, BLACK);
 
     // Draw legend

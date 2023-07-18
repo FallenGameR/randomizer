@@ -1,9 +1,12 @@
 #ifndef PLAYERS_H
 #define PLAYERS_H
 
+#include "colors.h"
+
 // There could be max 10 players we would not be able to fit more on the screen.
 // Plus if number of players is > 16 the fairness value no longer fits into byte.
 #define MAX_PLAYERS 10
+
 byte n_players = 0;
 
 byte *player_pairs = 0;
@@ -20,6 +23,8 @@ byte player_index_second = -1;
 // `Fairness` makes sense only if there are >2 players.
 byte random_fairness = 0;
 byte random_fairness_increment = 0;
+
+unsigned int playerColors[MAX_PLAYERS];
 
 void PrintPairs()
 {
@@ -80,6 +85,30 @@ void InitPlayerPairs()
             }
         }
     }
+}
+
+void InitPlayerColors()
+{
+    playerColors[0] = CYAN;
+    playerColors[1] = YELLOW;
+    playerColors[2] = LT_PURPLE;
+
+    playerColors[3] = BLUE;
+    playerColors[4] = ORANGE;
+    playerColors[5] = MAGENTA;
+
+    playerColors[6] = DK_BLUE;
+    playerColors[7] = DK_YELLOW;
+    playerColors[8] = PURPLE;
+
+    playerColors[9] = DK_CYAN;
+    playerColors[10] = DK_ORANGE;
+    playerColors[11] = DK_MAGENTA;
+
+    playerColors[12] = GREEN;
+    playerColors[13] = RED;
+    playerColors[14] = LT_GREEN;
+    playerColors[15] = LT_RED;
 }
 
 #endif // PLAYERS_H
