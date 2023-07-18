@@ -8,10 +8,6 @@
 #include "screens\totals_show.h"
 #include "screens\tester.h"
 
-#include "files.h"
-#include "tft.h"
-#include "touch.h"
-
 void setup()
 {
     // Serial init
@@ -23,23 +19,19 @@ void setup()
     pinMode(pin_button_black, INPUT_PULLUP);
     pinMode(pin_button_joystick, INPUT_PULLUP);
 
+    // Devices init
+    initRandom();
+    initSd();
+
     // Screen init
     tft.begin(tft.readID());
     tft.setRotation(1);
     tft.setTextSize(FONT_SIZE);
     tft.setTextColor(WHITE, BLACK);
 
-    initRandom();
-    initSd();
-    n_games = readNumberOfGames();
-    n_players = readNumberOfPlayers();
-    random_fairness = n_players * (n_players - 1);
-    random_fairness_increment = random_fairness;
-
+    // Begin with randomizer init screen
     Serial.println(F("-> Init"));
     screen_selected = Screen::RandomizerInit;
-
-    // For testing
     //screen_selected = Screen::Tester;
 }
 

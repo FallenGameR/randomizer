@@ -35,7 +35,7 @@ unsigned int playerColors[MAX_PLAYERS] = {
     DK_YELLOW,  // Player 7
     PURPLE,     // Player 8
     DK_CYAN,    // Player 9
-}
+};
 
 void PrintPairs()
 {
