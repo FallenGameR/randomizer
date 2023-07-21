@@ -9,10 +9,6 @@
 #define MAX_PLAYERS 10
 
 byte *player_pairs = 0;
-byte match_current = 0;
-
-byte player_index_first = -1;
-byte player_index_second = -1;
 
 #define MIN_FAIRNESS (n_players * (n_players - 1))
 
