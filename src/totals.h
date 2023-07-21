@@ -1,11 +1,25 @@
 #ifndef TOTALS_H
 #define TOTALS_H
 
+#include "shared.h"
 #include "colors.h"
 #include "graph.h"
 #include "stats.h"
 
 byte playerWins[MAX_PLAYERS];
+
+unsigned int playerColors[MAX_PLAYERS] = {
+    CYAN,       // Player 0
+    YELLOW,     // Player 1
+    LT_PURPLE,  // Player 2
+    BLUE,       // Player 3
+    ORANGE,     // Player 4
+    MAGENTA,    // Player 5
+    DK_BLUE,    // Player 6
+    DK_YELLOW,  // Player 7
+    PURPLE,     // Player 8
+    DK_CYAN,    // Player 9
+};
 
 byte GetMatchCount()
 {

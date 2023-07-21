@@ -17,6 +17,20 @@ Adafruit_TFTLCD tft = Adafruit_TFTLCD(pin_tft_cs, pin_tft_dc, pin_tft_wr, pin_tf
 // `Fairness` makes sense only if there are >2 players.
 byte random_fairness = 0;
 
+// Total number of players available for play
 byte n_players = 0;
+
+// The size is random_fairness * 2
+byte *player_pairs = 0;
+
+// Who is the first player
+// NOTE: Is it index on SD or is it index in the available players array?
+byte player_index_first = -1;
+
+// Who is the second player
+byte player_index_second = -1;
+
+// Number of the current fighting match
+byte match_current = 0;
 
 #endif // SHARED_H

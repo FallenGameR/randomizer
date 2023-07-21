@@ -8,6 +8,7 @@
 #include "..\tft.h"
 #include "..\stats.h"
 
+
 // Index of the currently selected entry in the table
 size_t cursor_index = 0;
 
@@ -270,6 +271,7 @@ void RandomizerInitScreen()
             random_seed = init_settings[SETTING_SEED_IDX].value;
             random_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
             randomSeed(random_seed);
+
 
 
             input_allowed = false;

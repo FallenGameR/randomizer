@@ -8,22 +8,7 @@
 // Plus if number of players is > 16 the fairness value no longer fits into byte.
 #define MAX_PLAYERS 10
 
-byte *player_pairs = 0;
-
 #define MIN_FAIRNESS (n_players * (n_players - 1))
-
-unsigned int playerColors[MAX_PLAYERS] = {
-    CYAN,       // Player 0
-    YELLOW,     // Player 1
-    LT_PURPLE,  // Player 2
-    BLUE,       // Player 3
-    ORANGE,     // Player 4
-    MAGENTA,    // Player 5
-    DK_BLUE,    // Player 6
-    DK_YELLOW,  // Player 7
-    PURPLE,     // Player 8
-    DK_CYAN,    // Player 9
-};
 
 void PrintPairs()
 {

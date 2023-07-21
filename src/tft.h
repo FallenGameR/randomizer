@@ -5,11 +5,20 @@
 #include <Adafruit_GFX.h>
 #include <Fonts/FreeSerif24pt7b.h>
 #include <SD.h>
-#include "pins.h"
+#include "shared.h"
 
 #define FONT_SIZE 2
 #define CHAR_WIDTH (6 * FONT_SIZE)
 #define CHAR_HEIGHT (8 * FONT_SIZE)
+
+// This function opens a Windows Bitmap (BMP) file and
+// displays it at the given coordinates.  It's sped up
+// by reading many pixels worth of data at a time
+// (rather than pixel by pixel).  Increasing the buffer
+// size takes more of the Arduino's precious RAM but
+// makes loading a little faster.  20 pixels seems a
+// good balance.
+#define PIXEL_BUFFER_LENGTH 20
 
 // These read 16- and 32-bit types from the SD card file.
 // BMP data is stored little-endian, Arduino is little-endian too.
@@ -31,15 +40,6 @@ uint32_t read32(File &f)
     ((uint8_t *)&result)[3] = f.read(); // MSB
     return result;
 }
-
-// This function opens a Windows Bitmap (BMP) file and
-// displays it at the given coordinates.  It's sped up
-// by reading many pixels worth of data at a time
-// (rather than pixel by pixel).  Increasing the buffer
-// size takes more of the Arduino's precious RAM but
-// makes loading a little faster.  20 pixels seems a
-// good balance.
-#define BUFFPIXEL 20
 
 // bmpFile - bmp file to draw
 // mirror - false to display picture as is, true to mirror the image left to right
@@ -119,7 +119,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
         flip = false;
     }
 
-    uint8_t rgbBuffer[3 * BUFFPIXEL];
+    uint8_t rgbBuffer[3 * PIXEL_BUFFER_LENGTH];
     uint8_t rgbBufferIndex = sizeof(rgbBuffer);
     uint8_t r, g, b;
     uint32_t pos = 0;
