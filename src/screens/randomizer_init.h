@@ -184,6 +184,11 @@ void UpdateCurrentlySelectedSwitchSetting()
     Serial.print(cursor_index);
     Serial.print("] = ");
     Serial.println(entry->value);
+
+    // Update internal state
+    if( entry->value ) { n_players++; } else { n_players--; }
+    (&init_settings[SETTING_FAIRNESS_IDX])->value = MIN_FAIRNESS;
+    UpdateIntegerSetting(SETTING_FAIRNESS_IDX, 0);
 }
 
 // Entry function of the init screen
