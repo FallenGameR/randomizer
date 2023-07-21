@@ -4,6 +4,9 @@
 #include "colors.h"
 #include "shared.h"
 
+// We need at least 2 players to play =)
+#define MIN_PLAYERS 2
+
 // There could be max 10 players we would not be able to fit more on the screen.
 // Plus if number of players is > 16 the fairness value no longer fits into byte.
 #define MAX_PLAYERS 10

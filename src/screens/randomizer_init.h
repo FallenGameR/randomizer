@@ -266,19 +266,24 @@ void RandomizerInitScreen()
         // Next screen
         if (BUTTON_BLACK)
         {
-            InitPlayerPairs();
-            InitStatsFile();
-
-            Serial.println(F("-> Game"));
-            screen_selected = Screen::GameIconSelection;
+            // If there are not enough players do soft reset
+            if( n_players < MIN_PLAYERS )
+            {
+                input_allowed = false;
+                screen_redraw = true;
+                return;
+            }
 
             // Data preparation for the next screens
             random_seed = init_settings[SETTING_SEED_IDX].value;
             random_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
             randomSeed(random_seed);
 
+            InitPlayerPairs();
+            InitStatsFile();
 
-
+            Serial.println(F("-> Game"));
+            screen_selected = Screen::GameIconSelection;
             input_allowed = false;
             screen_redraw = true;
         }
