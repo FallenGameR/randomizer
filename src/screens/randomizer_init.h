@@ -263,61 +263,39 @@ void RandomizerInitScreen()
             screen_redraw = true;
         }
 
-        // Cursor up
-        if (Y_UP)
+        // Cursor vertical movement
+        if (Y_UP || Y_DOWN)
         {
-            InitRedrawCursor(-1);
+            int direction = Y_UP ? -1 : +1;
+            InitRedrawCursor(direction);
             input_allowed = false;
         }
 
-        // Cursor down
-        if (Y_DOWN)
+        // Cursor modifies selected field
+        if (X_RIGHT || X_LEFT)
         {
-            InitRedrawCursor(+1);
-            input_allowed = false;
-        }
+            int direction = X_RIGHT ? +1 : -1;
 
-        if (X_RIGHT)
-        {
-            if (cursor_index == IE_SEED_IDX)
+            switch (cursor_index)
             {
-                InitRedrawIntValue(IE_SEED_IDX, +1, F("Seed: "));
-                // Don't block input, seed can be changed quickly
-            }
-            else if (cursor_index == IE_FAIRNESS_IDX)
-            {
+            case IE_SEED_IDX:
+                InitRedrawIntValue(IE_SEED_IDX, direction, F("Seed: "));
+                // input_allowed stays the same, seed can be changed quickly
+                break;
+
+            case IE_FAIRNESS_IDX:
                 int old_fairness = init_entries[IE_FAIRNESS_IDX].value;
-                int new_fairness = old_fairness + random_fairness_increment;
+                int new_fairness = old_fairness + random_fairness_increment * direction;
+                if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
                 if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
                 InitRedrawIntValue(IE_FAIRNESS_IDX, (new_fairness - old_fairness), F("Fair: "));
                 input_allowed = false;
-            }
-            else
-            {
-                InitRedrawBoolValue();
-                input_allowed = false;
-            }
-        }
+                break;
 
-        if (X_LEFT)
-        {
-            if (cursor_index == IE_SEED_IDX)
-            {
-                InitRedrawIntValue(IE_SEED_IDX, -1, F("Seed: "));
-                // Don't block input, seed can be changed quickly
-            }
-            else if (cursor_index == IE_FAIRNESS_IDX)
-            {
-                int old_fairness = init_entries[IE_FAIRNESS_IDX].value;
-                int new_fairness = old_fairness - random_fairness_increment;
-                if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
-                InitRedrawIntValue(IE_FAIRNESS_IDX, (new_fairness - old_fairness), F("Fair: "));
-                input_allowed = false;
-            }
-            else
-            {
+            default:
                 InitRedrawBoolValue();
                 input_allowed = false;
+                break;
             }
         }
     }
