@@ -13,7 +13,6 @@ void initRandom()
 {
     Entropy.Initialize();
     random_seed = Entropy.random();
-    randomSeed(random_seed);
 }
 
 byte nextRandom(byte* array, const size_t size, size_t* position)
