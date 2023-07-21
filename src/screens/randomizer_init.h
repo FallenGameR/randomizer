@@ -8,10 +8,11 @@
 #include "..\tft.h"
 #include "..\stats.h"
 
+// Index of the currently selected entry in the table
 size_t cursor_index = 0;
 
-// Structure that describes entry that can be edited on the screen
-struct init_entry
+// Structure that describes setting that can be edited on the init screen
+struct init_setting
 {
     // Row on screen, starts with 0 from top
     int16_t row;
@@ -27,8 +28,8 @@ struct init_entry
     int value;
 };
 
-// Table of editable entries on the screen
-struct init_entry init_entries[] = {
+// Table of editable settings on the init screen
+struct init_setting init_settings[] = {
     // r, c, sel,   val
     {  3, 9, false, 0 }, // Games
     {  4, 9, true,  0 }, // Seed
@@ -45,20 +46,20 @@ struct init_entry init_entries[] = {
     { 19, 2, false, 0 }, // Player 9
 };
 
-// Indexes of various entries in the table
-#define IE_GAMES_IDX 0
-#define IE_SEED_IDX 1
-#define IE_FAIRNESS_IDX 2
-#define IE_PLAYER_FIRST_IDX 3
-#define IE_PLAYER_LAST_IDX (IE_PLAYER_FIRST_IDX + MAX_PLAYERS)
+// Indexes of various settings in the table
+#define SETTING_GAMES_IDX 0
+#define SETTING_SEED_IDX 1
+#define SETTING_FAIRNESS_IDX 2
+#define SETTING_PLAYER_FIRST_IDX 3
+#define SETTING_PLAYER_LAST_IDX (SETTING_PLAYER_FIRST_IDX + MAX_PLAYERS)
 
-// Table length
-#define IE_LENGTH 13
+// Settings table length
+#define SETTINGS_LENGTH 13
 
 // Redraw games value or error when games could not be read from SD card
 void InitDrawGamesValue(int new_value)
 {
-    init_entry* entry = &init_entries[IE_GAMES_IDX];
+    init_setting* entry = &init_settings[SETTING_GAMES_IDX];
 
     // Clear previous value
     tft.setCursor(entry->col * CHAR_WIDTH, entry->row * CHAR_HEIGHT);
@@ -99,7 +100,7 @@ void InitDrawGamesValue(int new_value)
 void InitRedrawIntValue(size_t index, int direction)
 {
     // Find the new value
-    init_entry* entry = &init_entries[index];
+    init_setting* entry = &init_settings[index];
     int new_value = entry->value + direction;
 
     // Clear previous value
@@ -116,8 +117,8 @@ void InitRedrawIntValue(size_t index, int direction)
     const __FlashStringHelper *serial_title = F("");
     switch (index)
     {
-        case IE_SEED_IDX: serial_title = F("Seed: "); break;
-        case IE_FAIRNESS_IDX: serial_title = F("Fair: "); break;
+        case SETTING_SEED_IDX: serial_title = F("Seed: "); break;
+        case SETTING_FAIRNESS_IDX: serial_title = F("Fair: "); break;
     }
     Serial.print(serial_title);
     Serial.println(new_value);
@@ -131,16 +132,16 @@ void InitRedrawCursor(int direction)
 {
     // Find the new index
     size_t new_index = cursor_index;
-    init_entry* new_entry;
+    init_setting* new_entry;
     do
     {
-        new_index = (new_index + direction + IE_LENGTH) % IE_LENGTH;
-        new_entry = &init_entries[new_index];
+        new_index = (new_index + direction + SETTINGS_LENGTH) % SETTINGS_LENGTH;
+        new_entry = &init_settings[new_index];
     }
     while( !new_entry->is_selectable );
 
     // Clear previous value
-    init_entry* old_entry = &init_entries[cursor_index];
+    init_setting* old_entry = &init_settings[cursor_index];
     tft.setCursor(0 * CHAR_WIDTH, old_entry->row * CHAR_HEIGHT);
     tft.setTextColor(BLACK, BLACK);
     tft.print('>');
@@ -168,7 +169,7 @@ void InitRedrawCursor(int direction)
 void InitRedrawBoolValue()
 {
     // Toggle the value
-    init_entry* entry = &init_entries[cursor_index];
+    init_setting* entry = &init_settings[cursor_index];
     entry->value = !entry->value;
 
     // Render it
@@ -207,14 +208,14 @@ void RandomizerInitScreen()
         initRandom();
         {
             tft.print(F("  Seed:  "));
-            (&init_entries[IE_SEED_IDX])->value = random_seed;
-            InitRedrawIntValue(IE_SEED_IDX, 0);
+            (&init_settings[SETTING_SEED_IDX])->value = random_seed;
+            InitRedrawIntValue(SETTING_SEED_IDX, 0);
 
             tft.print(F("  Fair:  "));
             random_fairness = n_players * (n_players - 1);
             random_fairness_increment = random_fairness;
-            (&init_entries[IE_FAIRNESS_IDX])->value = random_fairness;
-            InitRedrawIntValue(IE_FAIRNESS_IDX, 0);
+            (&init_settings[SETTING_FAIRNESS_IDX])->value = random_fairness;
+            InitRedrawIntValue(SETTING_FAIRNESS_IDX, 0);
         }
 
         tft.println();
@@ -224,7 +225,7 @@ void RandomizerInitScreen()
 
         for( int i = 0; i < MAX_PLAYERS; i++ )
         {
-            init_entry* player_entry = &init_entries[IE_PLAYER_FIRST_IDX + i];
+            init_setting* player_entry = &init_settings[SETTING_PLAYER_FIRST_IDX + i];
 
             bool is_present = i < n_players;
             player_entry->value = is_present;
@@ -262,8 +263,8 @@ void RandomizerInitScreen()
 
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;
-            random_seed = init_entries[IE_SEED_IDX].value;
-            random_fairness = init_entries[IE_FAIRNESS_IDX].value;
+            random_seed = init_settings[SETTING_SEED_IDX].value;
+            random_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
 
             input_allowed = false;
             screen_redraw = true;
@@ -284,19 +285,19 @@ void RandomizerInitScreen()
 
             switch (cursor_index)
             {
-                case IE_SEED_IDX:
+                case SETTING_SEED_IDX:
                 {
-                    InitRedrawIntValue(IE_SEED_IDX, direction);
+                    InitRedrawIntValue(SETTING_SEED_IDX, direction);
                     // input_allowed stays the same, seed can be changed quickly
                     break;
                 }
-                case IE_FAIRNESS_IDX:
+                case SETTING_FAIRNESS_IDX:
                 {
-                    int old_fairness = init_entries[IE_FAIRNESS_IDX].value;
+                    int old_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
                     int new_fairness = old_fairness + random_fairness_increment * direction;
                     if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
                     if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
-                    InitRedrawIntValue(IE_FAIRNESS_IDX, (new_fairness - old_fairness));
+                    InitRedrawIntValue(SETTING_FAIRNESS_IDX, (new_fairness - old_fairness));
                     input_allowed = false;
                     break;
                 }
