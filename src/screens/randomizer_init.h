@@ -188,11 +188,10 @@ void UpdateCurrentlySelectedSwitchSetting()
     Serial.println(entry->value);
 
     // Update internal state
+    // NOTE: probably it would be better to redefine MIN_FAIRNESS here instead of using n_player macro
     UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, entry->value ? +1 : -1);
     n_players = init_settings[SETTING_PLAYER_NUMBER_IDX].value;
-
-    (&init_settings[SETTING_FAIRNESS_IDX])->value = MIN_FAIRNESS;
-    UpdateIntegerSetting(SETTING_FAIRNESS_IDX, 0);
+    UpdateIntegerSetting(SETTING_FAIRNESS_IDX, MIN_FAIRNESS - (&init_settings[SETTING_FAIRNESS_IDX])->value);
 }
 
 // Entry function of the init screen
@@ -216,9 +215,6 @@ void RandomizerInitScreen()
 
             tft.print(F("  Games: "));
             UpdateGamesSetting(n_games);
-
-            (&init_settings[SETTING_PLAYER_NUMBER_IDX])->value = n_players;
-            UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, 0);
         }
 
         initRandom();
@@ -234,6 +230,8 @@ void RandomizerInitScreen()
 
         tft.println();
         tft.println(F("Players:"));
+        (&init_settings[SETTING_PLAYER_NUMBER_IDX])->value = n_players;
+        UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, 0);
         tft.println(F("-------"));
         tft.println();
 
