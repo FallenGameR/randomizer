@@ -2,12 +2,11 @@
 #define PLAYERS_H
 
 #include "colors.h"
+#include "shared.h"
 
 // There could be max 10 players we would not be able to fit more on the screen.
 // Plus if number of players is > 16 the fairness value no longer fits into byte.
 #define MAX_PLAYERS 10
-
-byte n_players = 0;
 
 byte *player_pairs = 0;
 byte match_current = 0;
@@ -15,13 +14,6 @@ byte match_current = 0;
 byte player_index_first = -1;
 byte player_index_second = -1;
 
-// `Fairness` is how many games needs to be played out for everybody to play equal amount of times in all configurations.
-// Minimal fairness value get a chance for everybody to play as soon as possible.
-// But as it `fairness` value grows the pair distribution can become more and more strange but fair
-// on the larger scale. It could be that some players would not change seats for several games in a row
-// but after the `fairness` number of games all players will play equal amount of games regardless.
-// `Fairness` makes sense only if there are >2 players.
-byte random_fairness = 0;
 byte random_fairness_increment = 0;
 
 unsigned int playerColors[MAX_PLAYERS] = {
