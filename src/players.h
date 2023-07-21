@@ -14,7 +14,7 @@ byte match_current = 0;
 byte player_index_first = -1;
 byte player_index_second = -1;
 
-byte random_fairness_increment = 0;
+#define MIN_FAIRNESS (n_players * (n_players - 1))
 
 unsigned int playerColors[MAX_PLAYERS] = {
     CYAN,       // Player 0
@@ -72,7 +72,7 @@ void InitPlayerPairs()
 
     // Populate the pairs
     byte index = 0;
-    for (byte stage = 0; stage < random_fairness / random_fairness_increment; stage++)
+    for (byte stage = 0; stage < random_fairness / MIN_FAIRNESS; stage++)
     {
         for (byte first = 0; first < n_players; first++)
         {

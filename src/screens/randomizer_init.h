@@ -215,9 +215,7 @@ void RandomizerInitScreen()
             UpdateIntegerSetting(SETTING_SEED_IDX, 0);
 
             tft.print(F("  Fair:  "));
-            random_fairness = n_players * (n_players - 1);
-            random_fairness_increment = random_fairness;
-            (&init_settings[SETTING_FAIRNESS_IDX])->value = random_fairness;
+            (&init_settings[SETTING_FAIRNESS_IDX])->value = MIN_FAIRNESS;
             UpdateIntegerSetting(SETTING_FAIRNESS_IDX, 0);
         }
 
@@ -302,9 +300,9 @@ void RandomizerInitScreen()
                 case SETTING_FAIRNESS_IDX:
                 {
                     int old_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
-                    int new_fairness = old_fairness + random_fairness_increment * direction;
-                    if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
-                    if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
+                    int new_fairness = old_fairness + MIN_FAIRNESS * direction;
+                    if( new_fairness <= 0 ) { new_fairness += MIN_FAIRNESS; }
+                    if( new_fairness > 255 ) { new_fairness -= MIN_FAIRNESS; }
                     UpdateIntegerSetting(SETTING_FAIRNESS_IDX, (new_fairness - old_fairness));
                     input_allowed = false;
                     break;
