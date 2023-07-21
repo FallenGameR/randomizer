@@ -35,6 +35,7 @@ struct init_setting init_settings[] = {
     {  3, 9, false, 0 }, // Games
     {  4, 9, true,  0 }, // Seed
     {  5, 9, true,  0 }, // Fair
+    {  7, 9, false, 0 }, // Players number
     { 10, 2, false, 0 }, // Player 0
     { 11, 2, false, 0 }, // Player 1
     { 12, 2, false, 0 }, // Player 2
@@ -51,7 +52,8 @@ struct init_setting init_settings[] = {
 #define SETTING_GAMES_IDX 0
 #define SETTING_SEED_IDX 1
 #define SETTING_FAIRNESS_IDX 2
-#define SETTING_PLAYER_FIRST_IDX 3
+#define SETTING_PLAYER_NUMBER_IDX 3
+#define SETTING_PLAYER_FIRST_IDX 4
 #define SETTING_PLAYER_LAST_IDX (SETTING_PLAYER_FIRST_IDX + MAX_PLAYERS)
 
 // Settings table length
@@ -186,7 +188,9 @@ void UpdateCurrentlySelectedSwitchSetting()
     Serial.println(entry->value);
 
     // Update internal state
-    if( entry->value ) { n_players++; } else { n_players--; }
+    UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, entry->value ? +1 : -1);
+    n_players = init_settings[SETTING_PLAYER_NUMBER_IDX].value;
+
     (&init_settings[SETTING_FAIRNESS_IDX])->value = MIN_FAIRNESS;
     UpdateIntegerSetting(SETTING_FAIRNESS_IDX, 0);
 }
@@ -212,6 +216,9 @@ void RandomizerInitScreen()
 
             tft.print(F("  Games: "));
             UpdateGamesSetting(n_games);
+
+            (&init_settings[SETTING_PLAYER_NUMBER_IDX])->value = n_players;
+            UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, 0);
         }
 
         initRandom();
@@ -226,7 +233,7 @@ void RandomizerInitScreen()
         }
 
         tft.println();
-        tft.println(F("Players"));
+        tft.println(F("Players:"));
         tft.println(F("-------"));
         tft.println();
 
