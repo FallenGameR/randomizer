@@ -96,7 +96,7 @@ void InitDrawGamesValue(int new_value)
 }
 
 // Redraw an integer value
-void InitRedrawIntValue(size_t index, int direction, const __FlashStringHelper *serial_title)
+void InitRedrawIntValue(size_t index, int direction)
 {
     // Find the new value
     init_entry* entry = &init_entries[index];
@@ -113,6 +113,12 @@ void InitRedrawIntValue(size_t index, int direction, const __FlashStringHelper *
     tft.println(new_value);
 
     // Dump to serial
+    const __FlashStringHelper *serial_title = F("");
+    switch (index)
+    {
+        case IE_SEED_IDX: serial_title = F("Seed: "); break;
+        case IE_FAIRNESS_IDX: serial_title = F("Fair: "); break;
+    }
     Serial.print(serial_title);
     Serial.println(new_value);
 
@@ -202,13 +208,13 @@ void RandomizerInitScreen()
         {
             tft.print(F("  Seed:  "));
             (&init_entries[IE_SEED_IDX])->value = random_seed;
-            InitRedrawIntValue(IE_SEED_IDX, 0, F("Seed: "));
+            InitRedrawIntValue(IE_SEED_IDX, 0);
 
             tft.print(F("  Fair:  "));
             random_fairness = n_players * (n_players - 1);
             random_fairness_increment = random_fairness;
             (&init_entries[IE_FAIRNESS_IDX])->value = random_fairness;
-            InitRedrawIntValue(IE_FAIRNESS_IDX, 0, F("Fair: "));
+            InitRedrawIntValue(IE_FAIRNESS_IDX, 0);
         }
 
         tft.println();
@@ -278,24 +284,28 @@ void RandomizerInitScreen()
 
             switch (cursor_index)
             {
-            case IE_SEED_IDX:
-                InitRedrawIntValue(IE_SEED_IDX, direction, F("Seed: "));
-                // input_allowed stays the same, seed can be changed quickly
-                break;
-
-            case IE_FAIRNESS_IDX:
-                int old_fairness = init_entries[IE_FAIRNESS_IDX].value;
-                int new_fairness = old_fairness + random_fairness_increment * direction;
-                if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
-                if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
-                InitRedrawIntValue(IE_FAIRNESS_IDX, (new_fairness - old_fairness), F("Fair: "));
-                input_allowed = false;
-                break;
-
-            default:
-                InitRedrawBoolValue();
-                input_allowed = false;
-                break;
+                case IE_SEED_IDX:
+                {
+                    InitRedrawIntValue(IE_SEED_IDX, direction);
+                    // input_allowed stays the same, seed can be changed quickly
+                    break;
+                }
+                case IE_FAIRNESS_IDX:
+                {
+                    int old_fairness = init_entries[IE_FAIRNESS_IDX].value;
+                    int new_fairness = old_fairness + random_fairness_increment * direction;
+                    if( new_fairness <= 0 ) { new_fairness += random_fairness_increment; }
+                    if( new_fairness > 255 ) { new_fairness -= random_fairness_increment; }
+                    InitRedrawIntValue(IE_FAIRNESS_IDX, (new_fairness - old_fairness));
+                    input_allowed = false;
+                    break;
+                }
+                default:
+                {
+                    InitRedrawBoolValue();
+                    input_allowed = false;
+                    break;
+                }
             }
         }
     }
