@@ -15,11 +15,20 @@ void TotalShowScreen()
 
     if (input_allowed)
     {
-        // Black button returns to games selection without choosing of winner
+        // Black button returns to games selection with retaining the history
         if (BUTTON_BLACK)
         {
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;
+            input_allowed = false;
+            screen_redraw = true;
+        }
+
+        // Soft reset to do a quick reset
+        if (BUTTON_JOYSTICK)
+        {
+            Serial.println(F("-> Init"));
+            screen_selected = Screen::RandomizerInit;
             input_allowed = false;
             screen_redraw = true;
         }
