@@ -267,8 +267,12 @@ void RandomizerInitScreen()
 
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;
+
+            // Data preparation for the next screens
             random_seed = init_settings[SETTING_SEED_IDX].value;
             random_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
+            randomSeed(random_seed);
+
 
             input_allowed = false;
             screen_redraw = true;
