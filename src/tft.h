@@ -2,8 +2,7 @@
 #define TFT_H
 
 #include <Arduino.h>
-#include <Adafruit_GFX.h>    // Core graphics library
-#include <Adafruit_TFTLCD.h> // Hardware-specific library
+#include <Adafruit_GFX.h>
 #include <Fonts/FreeSerif24pt7b.h>
 #include <SD.h>
 #include "pins.h"
@@ -11,20 +10,6 @@
 #define FONT_SIZE 2
 #define CHAR_WIDTH (6 * FONT_SIZE)
 #define CHAR_HEIGHT (8 * FONT_SIZE)
-
-// Assign human-readable names to some common 16-bit color values:
-#define BLACK 0x0000
-#define BLUE 0x001F
-#define RED 0xF800
-#define GREEN 0x07E0
-#define CYAN 0x07FF
-#define MAGENTA 0xF81F
-#define YELLOW 0xFFE0
-#define WHITE 0xFFFF
-
-// https://learn.adafruit.com/adafruit-3-5-color-320x480-tft-touchscreen-breakout/pinouts
-// Uses 8-Bit Mode
-Adafruit_TFTLCD tft = Adafruit_TFTLCD(pin_tft_cs, pin_tft_dc, pin_tft_wr, pin_tft_rd, pin_tft_rst);
 
 // These read 16- and 32-bit types from the SD card file.
 // BMP data is stored little-endian, Arduino is little-endian too.
@@ -60,7 +45,7 @@ uint32_t read32(File &f)
 // mirror - false to display picture as is, true to mirror the image left to right
 // startX - screen position X where to draw the picture
 // startY - screen position Y where to draw the picture
-// part - what part of the picture to wraw: 1 - whole, 2 - half (centred), 3 - third (centered)
+// part - what part of the picture to draw: 1 - whole, 2 - half (centred), 3 - third (centered)
 void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int16_t part)
 {
     uint32_t startTime = millis();

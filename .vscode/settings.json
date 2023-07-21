@@ -4,9 +4,11 @@
         "PLATFORMIO_CALLER": "vscode"
     },
     "cSpell.words": [
+        "Adafruit",
         "mosi",
         "PROGMEM",
         "Randomizer",
-        "Tekken"
+        "Tekken",
+        "TFTLCD"
     ]
 }
