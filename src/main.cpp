@@ -22,8 +22,6 @@ void setup()
     // Screen init
     tft.begin(tft.readID());
     tft.setRotation(1);
-    tft.setTextSize(FONT_SIZE);
-    tft.setTextColor(WHITE, BLACK);
 
     // Begin with randomizer init screen
     Serial.println(F("-> Init"));
