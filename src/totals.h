@@ -187,14 +187,14 @@ void RenderTotals()
     // Draw legend
     for (byte player_idx = 0; player_idx < n_players; player_idx += 1)
     {
+        byte player = players[player_idx];
         tft.setTextSize(1);
-        tft.setTextColor(playerColors[player_idx], BLACK);
+        tft.setTextColor(playerColors[player], BLACK);
         tft.setCursor(
             screen.xlo + 40,
             screen.ylo + 10 + player_idx * 10);
 
-        byte player_sd_idx = players[player_idx];
-        setPlayerName(player_sd_idx);
+        setPlayerName(player);
         tft.print(bufferName);
     }
 
