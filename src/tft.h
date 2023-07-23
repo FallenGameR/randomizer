@@ -137,6 +137,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
     uint8_t r, g, b;
     uint32_t pos = 0;
     long pixelsWritten = 0;
+    bool wasCancelled = false;
 
     // setAddrWindow looks like noop for some displays/wiring options
     tft.setAddrWindow(startX, startY, width, height);
@@ -206,7 +207,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 
         if (input_allowed && BUTTON_BLACK)
         {
-            Serial.print(F(" (cancel)"));
+            wasCancelled = true;
             input_allowed = false;
             break;
         }
@@ -214,7 +215,15 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 
     // End last TFT transaction
     tft.endWrite();
-    Serial.print(F(" (done)"));
+
+    if( wasCancelled )
+    {
+        Serial.print(F(" (cancel)"));
+    }
+    else
+    {
+        Serial.print(F(" (done)"));
+    }
 
 #ifdef DEBUG
     Serial.print(F("Pixels written: "));
