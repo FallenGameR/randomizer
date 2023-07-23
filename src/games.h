@@ -7,7 +7,6 @@
 // Game variables
 byte game_index = 0;
 byte game_tag = 0;
-byte n_games = 0;
 bool isTagGame = false;
 
 // Screen is 480px and min font is 6 pixels wide (by default we actually use font that is twice as big)

@@ -37,6 +37,9 @@ byte random_fairness = 0;
 // Total number of players available for play
 byte n_players = 0;
 
+// Total number of games available for play
+byte n_games = 0;
+
 // The size is random_fairness * 2
 byte *player_pairs = 0;
 
