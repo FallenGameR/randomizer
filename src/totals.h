@@ -21,11 +21,6 @@ unsigned int playerColors[MAX_PLAYERS] = {
     DK_CYAN,    // Player 9
 };
 
-byte GetMatchCount()
-{
-    return n_match;
-}
-
 void ClearPlayerWinsArray()
 {
     for (byte i = 0; i < MAX_PLAYERS; i++)
@@ -38,7 +33,7 @@ void GroupPlayerWins()
 {
     ClearPlayerWinsArray();
 
-    for (byte i = 0; i < GetMatchCount(); i++)
+    for (byte i = 0; i < n_match; i++)
     {
         byte firstPlayer = matches[i][Stats::FirstPlayer];
         byte secondPlayer = matches[i][Stats::SecondPlayer];
@@ -86,7 +81,7 @@ box InitPlot()
 {
     box plot;
     plot.xlo = 0;
-    plot.xhi = GetMatchCount();
+    plot.xhi = n_match;
     plot.ylo = 0;
     plot.yhi = GetMaxWins();
     return plot;
@@ -155,7 +150,7 @@ void FillPlayerPlot(byte player, byte *graph)
 {
     graph[0] = 0;
 
-    for (byte i = 0; i < GetMatchCount(); i += 1)
+    for (byte i = 0; i < n_match; i += 1)
     {
         graph[i + 1] = graph[i];
         if (IsPlayerWon(player, i) || IsPlayerDraw(player, i))
@@ -196,7 +191,7 @@ void RenderTotals()
 
     // Draw game separators
     byte maxWins = GetMaxWins();
-    for (byte i = 1; i < GetMatchCount(); i += 1)
+    for (byte i = 1; i < n_match; i += 1)
     {
         bool gameChanged = matches[i][Stats::Game] != matches[i - 1][Stats::Game];
         if (gameChanged)
@@ -219,7 +214,7 @@ void RenderTotals()
 
         // Draw win streak line
         line = InitLine(screen, plot);
-        for (byte i = 0; i < GetMatchCount(); i += 1)
+        for (byte i = 0; i < n_match; i += 1)
         {
             line.xhi = i + 1;
             line.yhi = graph[i + 1];
@@ -228,7 +223,7 @@ void RenderTotals()
 
         // Draw whom did the player lost to
         line = InitLine(screen, plot);
-        for (byte i = 0; i < GetMatchCount(); i += 1)
+        for (byte i = 0; i < n_match; i += 1)
         {
             line.xhi = i + 1;
             line.yhi = graph[i + 1];

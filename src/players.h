@@ -70,7 +70,7 @@ void InitPlayerPairs()
                     continue;
                 }
 
-                // If there are only 2 players we don't need to shuffle
+                // If there are only 2 players we don't really need to shuffle
                 Serial.print("Pair: ");
                 player_pairs[index] = players[n_players <= 2 ? 0 : first];
                 Serial.print(player_pairs[index]);
@@ -80,6 +80,8 @@ void InitPlayerPairs()
                 player_pairs[index] = players[n_players <= 2 ? 1 : second];
                 Serial.print(player_pairs[index]);
                 index++;
+
+                Serial.println();
             }
         }
     }
