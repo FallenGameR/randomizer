@@ -206,7 +206,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 
         if (input_allowed && BUTTON_BLACK)
         {
-            Serial.println(F("User cancelled image render"));
+            Serial.print(F(" (cancel)"));
             input_allowed = false;
             break;
         }
@@ -214,6 +214,8 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 
     // End last TFT transaction
     tft.endWrite();
+    Serial.print(F(" (done)"));
+
 #ifdef DEBUG
     Serial.print(F("Pixels written: "));
     Serial.println(pixelsWritten);
@@ -226,7 +228,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY, int16_t part)
 {
     Serial.print(F("Drawing image: "));
-    Serial.println(filename);
+    Serial.print(filename);
 
     // Sanity check
     if ((startX >= tft.width()) || (startY >= tft.height()))
@@ -245,6 +247,7 @@ void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t start
 
     // Draw image
     drawImage(bmpFile, mirror, startX, startY, part);
+    Serial.println();
 
     // Close file
     bmpFile.close();

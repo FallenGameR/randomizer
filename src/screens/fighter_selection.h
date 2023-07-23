@@ -53,6 +53,8 @@ void FighterSelectionScreen()
         PRINT_BT(setPlayerName(player_index_second));
 
         // TFT and serial fighters
+        PRINT(F("Fighters: "), Serial);
+
         FightersToBufferLine(fighter_index_first, fighter_index_first2, fighter_index_first3);
         tft.setCursor(0, tft.height() - CHAR_HEIGHT * 2 - 2);
         PRINT2(bufferLine, tft, Serial);

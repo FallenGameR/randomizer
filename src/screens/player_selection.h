@@ -18,6 +18,7 @@ void PlayerSelectionScreen()
     player_index_first = player_pairs[pair_index * 2 + 0];
     player_index_second = player_pairs[pair_index * 2 + 1];
 
+    PRINT(F("Players: "), Serial);
     PRINT_BS(setPlayerName(player_index_first));
     PRINT(F(" and "), Serial);
     PRINT_BS(setPlayerName(player_index_second));
