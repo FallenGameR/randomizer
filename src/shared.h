@@ -37,6 +37,9 @@ byte n_fairness = 0;
 // Total number of players available for play
 byte n_players = 0;
 
+// Currently available players
+byte* players = 0;
+
 // Total number of games available for play
 byte n_games = 0;
 

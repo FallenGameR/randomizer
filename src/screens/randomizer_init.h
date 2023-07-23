@@ -290,7 +290,8 @@ void RandomizerInitScreen()
 
             // Init players array and combine pairs
             {
-                byte* players = (byte *)malloc(n_players);
+                if( players != 0 ) { free(players); }
+                players = (byte *)malloc(n_players);
                 int cursor = 0;
 
                 for( int i = 0; i < MAX_PLAYERS; i++ )
@@ -303,7 +304,6 @@ void RandomizerInitScreen()
                 }
 
                 InitPlayerPairs(players, n_players);
-                free(players);
             }
 
             Serial.println(F("-> Game"));

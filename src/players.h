@@ -49,10 +49,11 @@ void ShufflePlayerPairs()
 
 // Players array is the list of players that were selected.
 // Array value is the player index on the SD card.
-void InitPlayerPairs( byte* players, byte players_len )
+void InitPlayerPairs( byte* players, byte n_players )
 {
-    // This array would never be freed or resized
-    player_pairs = (byte *)malloc(players_len * 2);
+    // On soft reset we need to cleanup after the first run
+    if( player_pairs != 0 ) { free(player_pairs); }
+    player_pairs = (byte *)malloc(n_players * 2);
 
     // Populate the pairs
     byte index = 0;
