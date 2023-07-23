@@ -11,8 +11,6 @@
 // Plus if number of players is > 16 the fairness value no longer fits into byte.
 #define MAX_PLAYERS 10
 
-#define MIN_FAIRNESS (n_players * (n_players - 1))
-
 void PrintPairs()
 {
     for (byte pair = 0; pair < random_fairness; pair++)
@@ -56,7 +54,8 @@ void InitPlayerPairs()
 
     // Populate the pairs
     byte index = 0;
-    for (byte stage = 0; stage < random_fairness / MIN_FAIRNESS; stage++)
+    byte n_stages = random_fairness / (n_players * (n_players - 1));
+    for (byte stage = 0; stage < n_stages; stage++)
     {
         for (byte first = 0; first < n_players; first++)
         {

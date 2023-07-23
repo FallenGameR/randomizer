@@ -18,7 +18,7 @@ struct init_setting
     // Row on screen, starts with 0 from top
     int16_t row;
 
-    // Column on screen, starts with 0 from left
+    // Column on screen, starts with 0 from LEFT
     int16_t col;
 
     // Can this row be selected for edit
@@ -58,6 +58,9 @@ struct init_setting init_settings[] = {
 
 // Settings table length
 #define SETTINGS_LENGTH 13
+
+// Combination of different player pairs
+#define MIN_FAIRNESS (init_settings[SETTING_PLAYER_NUMBER_IDX].value * (init_settings[SETTING_PLAYER_NUMBER_IDX].value - 1))
 
 // Update and redraw cursor that moves between selectable settings
 void UpdateCursorPosition(int movement)
@@ -188,9 +191,7 @@ void UpdateCurrentlySelectedSwitchSetting()
     Serial.println(entry->value);
 
     // Update internal state
-    // NOTE: probably it would be better to redefine MIN_FAIRNESS here instead of using n_player macro
     UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, entry->value ? +1 : -1);
-    n_players = init_settings[SETTING_PLAYER_NUMBER_IDX].value;
     UpdateIntegerSetting(SETTING_FAIRNESS_IDX, MIN_FAIRNESS - (&init_settings[SETTING_FAIRNESS_IDX])->value);
 }
 
@@ -210,11 +211,9 @@ void RandomizerInitScreen()
 
         initSd();
         {
-            n_games = readNumberOfGames();
-            n_players = readNumberOfPlayers();
-
             tft.print(F("  Games: "));
-            UpdateGamesSetting(n_games);
+            UpdateGamesSetting(readNumberOfGames());
+            (&init_settings[SETTING_PLAYER_NUMBER_IDX])->value = readNumberOfPlayers();
         }
 
         initRandom();
@@ -230,7 +229,6 @@ void RandomizerInitScreen()
 
         tft.println();
         tft.println(F("Players:"));
-        (&init_settings[SETTING_PLAYER_NUMBER_IDX])->value = n_players;
         UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, 0);
         tft.println(F("-------"));
         tft.println();
@@ -239,7 +237,7 @@ void RandomizerInitScreen()
         {
             init_setting* player_entry = &init_settings[SETTING_PLAYER_FIRST_IDX + i];
 
-            bool is_present = i < n_players;
+            bool is_present = i < init_settings[SETTING_PLAYER_NUMBER_IDX].value;
             player_entry->value = is_present;
             player_entry->is_selectable = is_present;
 
@@ -272,20 +270,25 @@ void RandomizerInitScreen()
         if (BUTTON_BLACK)
         {
             // If there are not enough players do soft reset
-            if( n_players < MIN_PLAYERS )
+            if( init_settings[SETTING_PLAYER_NUMBER_IDX].value < MIN_PLAYERS )
             {
                 input_allowed = false;
                 screen_redraw = true;
                 return;
             }
 
-            // Data preparation for the next screens
+            // Random data preparation for the next screens
             random_seed = init_settings[SETTING_SEED_IDX].value;
             random_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
             randomSeed(random_seed);
-
-            InitPlayerPairs();
             InitStatsFile();
+
+            n_players = init_settings[SETTING_PLAYER_NUMBER_IDX].value;
+            n_games = init_settings[SETTING_GAMES_IDX].value;
+
+            // Init players array and combine pairs
+            //byte* players = (byte *)malloc(random_fairness * 2);
+            InitPlayerPairs();
 
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;
