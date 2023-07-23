@@ -203,6 +203,7 @@ void RandomizerInitScreen()
     {
         tft.fillScreen(BLACK);
         tft.setTextColor(WHITE, BLACK);
+        tft.setTextSize(FONT_SIZE);
         tft.setCursor(0, 0);
 
         tft.println(F("Randomizer"));
