@@ -165,6 +165,42 @@ void FillPlayerPlot(byte player, byte *graph)
 #define DOT_OFFSET 3
 #define DOT_WIDTH (DOT_OFFSET * 2 + 1)
 
+void RenderGraph(byte player, byte *graph, box &screen, box &plot, unsigned int color)
+{
+    // Draw win streak line
+    box line = InitLine(screen, plot);
+    for (byte i = 0; i < n_match; i += 1)
+    {
+        line.xhi = i + 1;
+        line.yhi = graph[i + 1];
+        Graph(screen, plot, line, color);
+    }
+
+    // Draw whom did the player lost to
+    line = InitLine(screen, plot);
+    for (byte i = 0; i < n_match; i += 1)
+    {
+        line.xhi = i + 1;
+        line.yhi = graph[i + 1];
+        double x = MAP_X(line.xhi, plot, screen);
+        double y = MAP_Y(line.yhi, plot, screen);
+
+        if (!IsPlayerWon(player, i))
+        {
+            byte otherPlayer = GetOtherPlayer(player, i);
+            bool playedThisMatch = otherPlayer != NO_FIGHTER;
+            if (playedThisMatch)
+            {
+                tft.fillRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, playerColors[otherPlayer]);
+                tft.drawRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, BLACK);
+            }
+        }
+
+        line.xlo = x;
+        line.ylo = y;
+    }
+}
+
 void RenderTotals()
 {
     // Init
@@ -219,42 +255,10 @@ void RenderTotals()
     // Draw win graph for each player
     for (byte player_idx = 0; player_idx < n_players; player_idx += 1)
     {
-        // Find plot points
         byte player = players[player_idx];
         FillPlayerPlot(player, graph);
-
-        // Draw win streak line
-        line = InitLine(screen, plot);
-        for (byte i = 0; i < n_match; i += 1)
-        {
-            line.xhi = i + 1;
-            line.yhi = graph[i + 1];
-            Graph(screen, plot, line, playerColors[player]);
-        }
-
-        // Draw whom did the player lost to
-        line = InitLine(screen, plot);
-        for (byte i = 0; i < n_match; i += 1)
-        {
-            line.xhi = i + 1;
-            line.yhi = graph[i + 1];
-            double x = MAP_X(line.xhi, plot, screen);
-            double y = MAP_Y(line.yhi, plot, screen);
-
-            if (!IsPlayerWon(player, i))
-            {
-                byte otherPlayer = GetOtherPlayer(player, i);
-                bool playedThisMatch = otherPlayer != NO_FIGHTER;
-                if (playedThisMatch)
-                {
-                    tft.fillRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, playerColors[otherPlayer]);
-                    tft.drawRect(x - DOT_OFFSET, y - DOT_OFFSET, DOT_WIDTH, DOT_WIDTH, BLACK);
-                }
-            }
-
-            line.xlo = x;
-            line.ylo = y;
-        }
+        unsigned int color = playerColors[player];
+        RenderGraph(player, graph, screen, plot, color);
     }
 }
 
