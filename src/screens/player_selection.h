@@ -14,7 +14,7 @@ void PlayerSelectionScreen()
     // If there are more players use the shuffled player pairs
     if (n_players > 2)
     {
-        pair_index = match_current % random_fairness;
+        pair_index = match_current % n_fairness;
 
         // Shuffle all the pairs at the start and
         // each time the whole list is traversed

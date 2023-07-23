@@ -32,7 +32,7 @@ byte screen_selected = Screen::RandomizerInit;
 // on the larger scale. It could be that some players would not change seats for several games in a row
 // but after the `fairness` number of games all players will play equal amount of games regardless.
 // `Fairness` makes sense only if there are >2 players.
-byte random_fairness = 0;
+byte n_fairness = 0;
 
 // Total number of players available for play
 byte n_players = 0;
@@ -40,7 +40,7 @@ byte n_players = 0;
 // Total number of games available for play
 byte n_games = 0;
 
-// The size is random_fairness * 2
+// The size is n_fairness * 2
 byte *player_pairs = 0;
 
 // Who is the first player

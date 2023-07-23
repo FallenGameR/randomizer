@@ -278,7 +278,7 @@ void RandomizerInitScreen()
             }
 
             // Random data preparation for the next screens
-            random_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
+            n_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
             int seed = init_settings[SETTING_SEED_IDX].value;
             randomSeed(seed);
             InitStatsFile(seed);
@@ -288,7 +288,7 @@ void RandomizerInitScreen()
 
             // Init players array and combine pairs
             {
-                byte* players = (byte *)malloc(random_fairness * 2);
+                byte* players = (byte *)malloc(n_fairness * 2);
                 InitPlayerPairs();
                 free(players);
             }
