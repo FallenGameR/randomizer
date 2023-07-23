@@ -7,6 +7,7 @@
 #include "stats.h"
 
 byte playerWins[MAX_PLAYERS];
+byte playerFairWins[MAX_PLAYERS];
 
 unsigned int playerColors[MAX_PLAYERS] = {
     CYAN,       // Player 0
@@ -27,6 +28,7 @@ void ClearPlayerWinsArray()
     for (byte i = 0; i < MAX_PLAYERS; i++)
     {
         playerWins[i] = 0;
+        playerFairWins[i] = 0;
     }
 }
 
@@ -38,20 +40,26 @@ void GroupPlayerWins()
     {
         byte firstPlayer = matches[i][Stats::FirstPlayer];
         byte secondPlayer = matches[i][Stats::SecondPlayer];
+        byte unfair = matches[i][Stats::NotFair];
+        byte fair = !unfair;
 
         switch (matches[i][Stats::Won])
         {
         case Winner::Draw:
             playerWins[firstPlayer] += 1;
             playerWins[secondPlayer] += 1;
+            playerFairWins[firstPlayer] += fair;
+            playerFairWins[secondPlayer] += fair;
             break;
 
         case Winner::First:
             playerWins[firstPlayer] += 1;
+            playerFairWins[firstPlayer] += fair;
             break;
 
         case Winner::Second:
             playerWins[secondPlayer] += 1;
+            playerFairWins[secondPlayer] += fair;
         }
     }
 }
