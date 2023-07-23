@@ -287,6 +287,7 @@ void RandomizerInitScreen()
             n_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
             n_players = init_settings[SETTING_PLAYER_NUMBER_IDX].value;
             n_games = init_settings[SETTING_GAMES_IDX].value;
+            n_match = 0;
 
             // Init players array and combine pairs
             {

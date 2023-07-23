@@ -134,20 +134,20 @@ void DumpMatch(int i)
 void RecordMatchOutcome()
 {
     // Record in the stats table
-    if (match_current < match_limit)
+    if (n_match < match_limit)
     {
-        matches[match_current][Stats::FirstPlayer] = player_index_first;
-        matches[match_current][Stats::SecondPlayer] = player_index_second;
-        matches[match_current][Stats::Game] = game_index;
-        matches[match_current][Stats::FirstFighter] = fighter_index_first;
-        matches[match_current][Stats::SecondFighter] = fighter_index_second;
-        matches[match_current][Stats::FirstFighter2] = fighter_index_first2;
-        matches[match_current][Stats::SecondFighter2] = fighter_index_second2;
-        matches[match_current][Stats::FirstFighter3] = fighter_index_first3;
-        matches[match_current][Stats::SecondFighter3] = fighter_index_second3;
-        matches[match_current][Stats::Won] = winner_selected;
-        matches[match_current][Stats::NotFair] = not_fair_win;
-        match_current++;
+        matches[n_match][Stats::FirstPlayer] = player_index_first;
+        matches[n_match][Stats::SecondPlayer] = player_index_second;
+        matches[n_match][Stats::Game] = game_index;
+        matches[n_match][Stats::FirstFighter] = fighter_index_first;
+        matches[n_match][Stats::SecondFighter] = fighter_index_second;
+        matches[n_match][Stats::FirstFighter2] = fighter_index_first2;
+        matches[n_match][Stats::SecondFighter2] = fighter_index_second2;
+        matches[n_match][Stats::FirstFighter3] = fighter_index_first3;
+        matches[n_match][Stats::SecondFighter3] = fighter_index_second3;
+        matches[n_match][Stats::Won] = winner_selected;
+        matches[n_match][Stats::NotFair] = not_fair_win;
+        n_match++;
     }
 
     // Output to console
@@ -182,19 +182,19 @@ void RecordMatchOutcome()
     Serial.println();
 
     // Just in case of failure, to be able to recover stats we dump csv line as well
-    DumpMatch(match_current - 1);
+    DumpMatch(n_match - 1);
 }
 
 void DumpStats()
 {
-    if (match_current == 0)
+    if (n_match == 0)
     {
         Serial.println(F("No stats available"));
         return;
     }
 
     Serial.println(F("Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,FirstFighter2,FirstFighter3,SecondFighter,SecondFighter2,SecondFighter3"));
-    for (int i = 0; i < match_current; i++)
+    for (int i = 0; i < n_match; i++)
     {
         DumpMatch(i);
     }

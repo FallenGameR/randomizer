@@ -7,54 +7,54 @@
 
 void MockRecordMatchOutcome()
 {
-    match_current = 0;
+    n_match = 0;
 
     for (int match = 0; match < 21; match += 1)
     {
-        matches[match_current][Stats::FirstPlayer] = random(3);
-        matches[match_current][Stats::SecondPlayer] = random(3);
-        matches[match_current][Stats::Game] = 0;
-        matches[match_current][Stats::FirstFighter] = 0;
-        matches[match_current][Stats::SecondFighter] = 0;
-        matches[match_current][Stats::FirstFighter2] = 0;
-        matches[match_current][Stats::SecondFighter2] = 0;
-        matches[match_current][Stats::FirstFighter3] = 0;
-        matches[match_current][Stats::SecondFighter3] = 0;
-        matches[match_current][Stats::Won] = random(1) ? Winner::First : Winner::Second;
-        matches[match_current][Stats::NotFair] = false;
-        match_current++;
+        matches[n_match][Stats::FirstPlayer] = random(3);
+        matches[n_match][Stats::SecondPlayer] = random(3);
+        matches[n_match][Stats::Game] = 0;
+        matches[n_match][Stats::FirstFighter] = 0;
+        matches[n_match][Stats::SecondFighter] = 0;
+        matches[n_match][Stats::FirstFighter2] = 0;
+        matches[n_match][Stats::SecondFighter2] = 0;
+        matches[n_match][Stats::FirstFighter3] = 0;
+        matches[n_match][Stats::SecondFighter3] = 0;
+        matches[n_match][Stats::Won] = random(1) ? Winner::First : Winner::Second;
+        matches[n_match][Stats::NotFair] = false;
+        n_match++;
     }
 
     for (int match = 21; match < 31; match += 1)
     {
-        matches[match_current][Stats::FirstPlayer] = random(3);
-        matches[match_current][Stats::SecondPlayer] = random(3);
-        matches[match_current][Stats::Game] = 1;
-        matches[match_current][Stats::FirstFighter] = 0;
-        matches[match_current][Stats::SecondFighter] = 0;
-        matches[match_current][Stats::FirstFighter2] = 0;
-        matches[match_current][Stats::SecondFighter2] = 0;
-        matches[match_current][Stats::FirstFighter3] = 0;
-        matches[match_current][Stats::SecondFighter3] = 0;
-        matches[match_current][Stats::Won] = random(1) ? Winner::First : Winner::Second;
-        matches[match_current][Stats::NotFair] = false;
-        match_current++;
+        matches[n_match][Stats::FirstPlayer] = random(3);
+        matches[n_match][Stats::SecondPlayer] = random(3);
+        matches[n_match][Stats::Game] = 1;
+        matches[n_match][Stats::FirstFighter] = 0;
+        matches[n_match][Stats::SecondFighter] = 0;
+        matches[n_match][Stats::FirstFighter2] = 0;
+        matches[n_match][Stats::SecondFighter2] = 0;
+        matches[n_match][Stats::FirstFighter3] = 0;
+        matches[n_match][Stats::SecondFighter3] = 0;
+        matches[n_match][Stats::Won] = random(1) ? Winner::First : Winner::Second;
+        matches[n_match][Stats::NotFair] = false;
+        n_match++;
     }
 
     for (int match = 31; match < 41; match += 1)
     {
-        matches[match_current][Stats::FirstPlayer] = random(3);
-        matches[match_current][Stats::SecondPlayer] = random(3);
-        matches[match_current][Stats::Game] = 2;
-        matches[match_current][Stats::FirstFighter] = 0;
-        matches[match_current][Stats::SecondFighter] = 0;
-        matches[match_current][Stats::FirstFighter2] = 0;
-        matches[match_current][Stats::SecondFighter2] = 0;
-        matches[match_current][Stats::FirstFighter3] = 0;
-        matches[match_current][Stats::SecondFighter3] = 0;
-        matches[match_current][Stats::Won] = random(1) ? Winner::First : Winner::Second;
-        matches[match_current][Stats::NotFair] = false;
-        match_current++;
+        matches[n_match][Stats::FirstPlayer] = random(3);
+        matches[n_match][Stats::SecondPlayer] = random(3);
+        matches[n_match][Stats::Game] = 2;
+        matches[n_match][Stats::FirstFighter] = 0;
+        matches[n_match][Stats::SecondFighter] = 0;
+        matches[n_match][Stats::FirstFighter2] = 0;
+        matches[n_match][Stats::SecondFighter2] = 0;
+        matches[n_match][Stats::FirstFighter3] = 0;
+        matches[n_match][Stats::SecondFighter3] = 0;
+        matches[n_match][Stats::Won] = random(1) ? Winner::First : Winner::Second;
+        matches[n_match][Stats::NotFair] = false;
+        n_match++;
     }
 }
 
@@ -120,7 +120,7 @@ void TesterScreen()
         if (BUTTON_BLACK)
         {
             Serial.print(F("-> Match "));
-            Serial.println(match_current + 1);
+            Serial.println(n_match + 1);
             screen_selected = Screen::PlayerSelection;
             input_allowed = false;
             screen_redraw = true;

@@ -8,10 +8,8 @@
 
 void PlayerSelectionScreen()
 {
-    // Shuffle all the pairs at the start and
-    // each time the whole list is traversed
-    byte pair_index = match_current % n_fairness;
-
+    // Reshuffle if we reached end of list
+    byte pair_index = n_match % n_fairness;
     if (pair_index == 0)
     {
         ShufflePlayerPairs();

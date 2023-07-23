@@ -23,7 +23,7 @@ unsigned int playerColors[MAX_PLAYERS] = {
 
 byte GetMatchCount()
 {
-    return match_current;
+    return n_match;
 }
 
 void ClearPlayerWinsArray()

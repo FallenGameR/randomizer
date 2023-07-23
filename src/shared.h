@@ -54,6 +54,6 @@ byte player_index_first = -1;
 byte player_index_second = -1;
 
 // Number of the current fighting match
-byte match_current = 0;
+byte n_match = 0;
 
 #endif // SHARED_H

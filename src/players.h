@@ -77,7 +77,7 @@ void InitPlayerPairs()
                 index++;
 
                 Serial.print(" vs ");
-                player_pairs[index] = players[n_players <= 2 ? 0 :second];
+                player_pairs[index] = players[n_players <= 2 ? 1 : second];
                 Serial.print(player_pairs[index]);
                 index++;
             }
