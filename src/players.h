@@ -59,6 +59,15 @@ void InitPlayerPairs( byte* players, byte players_len )
     byte n_stages = n_fairness / (n_players * (n_players - 1));
     for (byte stage = 0; stage < n_stages; stage++)
     {
+        // If there are only 2 players we don't need to shuffle
+        if( n_players <= 2 )
+        {
+            player_pairs[index++] = players[0];
+            player_pairs[index++] = players[1];
+            continue;
+        }
+
+        // Shuffle otherwise
         for (byte first = 0; first < n_players; first++)
         {
             for (byte second = 0; second < n_players; second++)

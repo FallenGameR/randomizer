@@ -209,7 +209,7 @@ void RenderTotals()
         }
     }
 
-    // Graw win graph for each player
+    // Draw win graph for each player
     byte graph[match_limit + 1];
 
     for (byte player = 0; player < n_players; player += 1)

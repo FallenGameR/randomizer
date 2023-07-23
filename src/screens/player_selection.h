@@ -8,20 +8,13 @@
 
 void PlayerSelectionScreen()
 {
-    // By default for two players choose always first pair
-    byte pair_index = 0;
+    // Shuffle all the pairs at the start and
+    // each time the whole list is traversed
+    byte pair_index = match_current % n_fairness;
 
-    // If there are more players use the shuffled player pairs
-    if (n_players > 2)
+    if (pair_index == 0)
     {
-        pair_index = match_current % n_fairness;
-
-        // Shuffle all the pairs at the start and
-        // each time the whole list is traversed
-        if (pair_index == 0)
-        {
-            ShufflePlayerPairs();
-        }
+        ShufflePlayerPairs();
     }
 
     player_index_first = player_pairs[pair_index * 2 + 0];
