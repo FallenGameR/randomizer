@@ -301,9 +301,11 @@ void RandomizerInitScreen()
 
                     players[cursor] = i;
                     cursor++;
+                    Serial.print(F("Player available: "));
+                    Serial.println(i);
                 }
 
-                InitPlayerPairs(players, n_players);
+                InitPlayerPairs();
             }
 
             Serial.println(F("-> Game"));
