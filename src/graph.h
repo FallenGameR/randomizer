@@ -93,13 +93,14 @@ void InitializeAxes(
     tft.print(xlabel);
 }
 
-void Graph(box &screen, box &plot, box &line, unsigned int color)
+void Graph(box &screen, box &plot, box &line, unsigned int color, bool isBold)
 {
     double x = MAP_X(line.xhi, plot, screen);
     double y = MAP_Y(line.yhi, plot, screen);
-    tft.drawLine(line.xlo, line.ylo - 1, x, y - 1, color);
+
+    if( isBold ) { tft.drawLine(line.xlo, line.ylo - 1, x, y - 1, color); }
     tft.drawLine(line.xlo, line.ylo + 0, x, y + 0, color);
-    tft.drawLine(line.xlo, line.ylo + 1, x, y + 1, color);
+    if( isBold ) { tft.drawLine(line.xlo, line.ylo + 1, x, y + 1, color); }
     line.xlo = x;
     line.ylo = y;
 }

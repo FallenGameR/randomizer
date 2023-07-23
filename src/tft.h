@@ -49,6 +49,7 @@ uint32_t read32(File &f)
 void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int16_t part)
 {
     uint32_t startTime = millis();
+    (void) startTime;
 
     // BMP signature
     if (read16(bmpFile) != 0x4D42)
@@ -59,6 +60,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 
     // BMP header
     uint32_t fileSize = read32(bmpFile);
+    (void) fileSize;
 #ifdef DEBUG
     Serial.print(F("File size: "));
     Serial.println(fileSize);
@@ -66,6 +68,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
     read32(bmpFile);
     uint32_t bmpImageOffset = read32(bmpFile);
     uint32_t headerSize = read32(bmpFile);
+    (void) headerSize;
 
 #ifdef DEBUG
     Serial.print(F("Image offset: "));

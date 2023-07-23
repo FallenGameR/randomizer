@@ -148,7 +148,7 @@ byte GetOtherPlayer(byte player, byte match)
 // Function assumes that plot is allocated and has length of match_limit + 1
 // First element is always 0
 // Elements until GetMatchCount are filled, the remainder left as is
-void FillPlayerPlot(byte player, byte *graph)
+void FillPlayerWinsGraph(byte player, byte *graph)
 {
     graph[0] = 0;
 
@@ -162,10 +162,30 @@ void FillPlayerPlot(byte player, byte *graph)
     }
 }
 
+void FillPlayerFairWinsGraph(byte player, byte *graph)
+{
+    graph[0] = 0;
+
+    for (byte i = 0; i < n_match; i += 1)
+    {
+        graph[i + 1] = graph[i];
+
+        if( matches[i][Stats::NotFair] )
+        {
+            continue;
+        }
+
+        if (IsPlayerWon(player, i) || IsPlayerDraw(player, i))
+        {
+            graph[i + 1] += 1;
+        }
+    }
+}
+
 #define DOT_OFFSET 3
 #define DOT_WIDTH (DOT_OFFSET * 2 + 1)
 
-void RenderGraph(byte player, byte *graph, box &screen, box &plot, unsigned int color)
+void RenderGraph(byte player, byte *graph, box &screen, box &plot, unsigned int color, bool isBold)
 {
     // Draw win streak line
     box line = InitLine(screen, plot);
@@ -173,7 +193,7 @@ void RenderGraph(byte player, byte *graph, box &screen, box &plot, unsigned int 
     {
         line.xhi = i + 1;
         line.yhi = graph[i + 1];
-        Graph(screen, plot, line, color);
+        Graph(screen, plot, line, color, isBold);
     }
 
     // Draw whom did the player lost to
@@ -256,9 +276,13 @@ void RenderTotals()
     for (byte player_idx = 0; player_idx < n_players; player_idx += 1)
     {
         byte player = players[player_idx];
-        FillPlayerPlot(player, graph);
         unsigned int color = playerColors[player];
-        RenderGraph(player, graph, screen, plot, color);
+
+        FillPlayerFairWinsGraph(player, graph);
+        RenderGraph(player, graph, screen, plot, color, false);
+
+        FillPlayerWinsGraph(player, graph);
+        RenderGraph(player, graph, screen, plot, color, true);
     }
 }
 
