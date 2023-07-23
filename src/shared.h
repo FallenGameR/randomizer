@@ -46,11 +46,10 @@ byte n_games = 0;
 // The size is n_fairness * 2
 byte *player_pairs = 0;
 
-// Who is the first player
-// NOTE: Is it index on SD or is it index in the available players array?
+// Who is the first player, that is SD card index
 byte player_index_first = -1;
 
-// Who is the second player
+// Who is the second player, that is SD card index
 byte player_index_second = -1;
 
 // Number of the current fighting match

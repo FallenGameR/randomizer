@@ -21,6 +21,7 @@ unsigned int playerColors[MAX_PLAYERS] = {
     DK_CYAN,    // Player 9
 };
 
+
 void ClearPlayerWinsArray()
 {
     for (byte i = 0; i < MAX_PLAYERS; i++)
@@ -177,15 +178,16 @@ void RenderTotals()
     InitializeAxes(screen, plot, "Totals", "matches", "wins", RED, WHITE, BLACK);
 
     // Draw legend
-    for (byte player = 0; player < n_players; player += 1)
+    for (byte player_idx = 0; player_idx < n_players; player_idx += 1)
     {
+        byte player_sd_idx = players[player_idx];
         tft.setTextSize(1);
-        tft.setTextColor(playerColors[player], BLACK);
+        tft.setTextColor(playerColors[player_idx], BLACK);
         tft.setCursor(
             screen.xlo + 40,
-            screen.ylo + 10 + player * 10);
+            screen.ylo + 10 + player_idx * 10);
 
-        setPlayerName(player);
+        setPlayerName(player_sd_idx);
         tft.print(bufferName);
     }
 
@@ -207,9 +209,10 @@ void RenderTotals()
     // Draw win graph for each player
     byte graph[match_limit + 1];
 
-    for (byte player = 0; player < n_players; player += 1)
+    for (byte player_idx = 0; player_idx < n_players; player_idx += 1)
     {
         // Find plot points
+        byte player = players[player_idx];
         FillPlayerPlot(player, graph);
 
         // Draw win streak line
