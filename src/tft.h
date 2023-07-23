@@ -58,20 +58,28 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
     }
 
     // BMP header
+#ifdef DEBUG
     Serial.print(F("File size: "));
     Serial.println(read32(bmpFile));
+#endif
     read32(bmpFile);
     uint32_t bmpImageOffset = read32(bmpFile);
+
+#ifdef DEBUG
     Serial.print(F("Image offset: "));
     Serial.println(bmpImageOffset);
     Serial.print(F("Header size: "));
     Serial.println(read32(bmpFile));
+#endif
     int bmpWidth = read32(bmpFile);
     int bmpHeight = read32(bmpFile);
+
+#ifdef DEBUG
     Serial.print(F("Image size: "));
     Serial.print(bmpWidth);
     Serial.print('x');
     Serial.println(bmpHeight);
+#endif
 
     if (read16(bmpFile) != 1)
     {
@@ -80,8 +88,11 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
     }
 
     uint8_t bmpBitsPerPixel = read16(bmpFile);
+
+#ifdef DEBUG
     Serial.print(F("Bit Depth: "));
     Serial.println(bmpBitsPerPixel);
+#endif
 
     if (bmpBitsPerPixel != 24)
     {
