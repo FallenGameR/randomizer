@@ -216,10 +216,10 @@ void RandomizerInitScreen()
             (&init_settings[SETTING_PLAYER_NUMBER_IDX])->value = readNumberOfPlayers();
         }
 
-        initRandom();
+        int entropy_seed = initEntropy();
         {
             tft.print(F("  Seed:  "));
-            (&init_settings[SETTING_SEED_IDX])->value = random_seed;
+            (&init_settings[SETTING_SEED_IDX])->value = entropy_seed;
             UpdateIntegerSetting(SETTING_SEED_IDX, 0);
 
             tft.print(F("  Fair:  "));
@@ -278,17 +278,20 @@ void RandomizerInitScreen()
             }
 
             // Random data preparation for the next screens
-            random_seed = init_settings[SETTING_SEED_IDX].value;
             random_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
-            randomSeed(random_seed);
-            InitStatsFile();
+            int seed = init_settings[SETTING_SEED_IDX].value;
+            randomSeed(seed);
+            InitStatsFile(seed);
 
             n_players = init_settings[SETTING_PLAYER_NUMBER_IDX].value;
             n_games = init_settings[SETTING_GAMES_IDX].value;
 
             // Init players array and combine pairs
-            //byte* players = (byte *)malloc(random_fairness * 2);
-            InitPlayerPairs();
+            {
+                byte* players = (byte *)malloc(random_fairness * 2);
+                InitPlayerPairs();
+                free(players);
+            }
 
             Serial.println(F("-> Game"));
             screen_selected = Screen::GameIconSelection;

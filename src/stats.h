@@ -55,9 +55,9 @@ File statsFile;
         PRINT2_BSF_F(fighter_index);                    \
     }
 
-void InitStatsFile()
+void InitStatsFile(int random_seed)
 {
-    setStatsPath();
+    setStatsPath(random_seed);
     statsFile = SD.open(bufferPath, FILE_WRITE);
     statsFile.println(F("Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,FirstFighter2,FirstFighter3,SecondFighter,SecondFighter2,SecondFighter3"));
 }

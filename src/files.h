@@ -204,7 +204,7 @@ void setGameName(byte gameIndex)
 }
 
 // Sets bufferName to something like "/SCORE/<random seed>.csv"
-void setStatsPath()
+void setStatsPath(int random_seed)
 {
     strcpy_P(bufferPath, path_score);
     itoa(random_seed, bufferPath + strlen_P(path_score), 10);

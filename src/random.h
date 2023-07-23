@@ -7,12 +7,11 @@
 // Entropy library actually returns uint32_t,
 // but negative values are fun when changing
 // the seed manually
-int random_seed = 0;
 
-void initRandom()
+int initEntropy()
 {
     Entropy.Initialize();
-    random_seed = Entropy.random();
+    return Entropy.random();
 }
 
 byte nextRandom(byte* array, const size_t size, size_t* position)
