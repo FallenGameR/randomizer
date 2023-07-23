@@ -15,6 +15,7 @@ void PrintPairs()
 {
     for (byte pair = 0; pair < n_fairness; pair++)
     {
+        Serial.print("Player pair: ");
         Serial.print(player_pairs[pair * 2 + 0]);
         Serial.print(" vs ");
         Serial.print(player_pairs[pair * 2 + 1]);

@@ -17,6 +17,7 @@ void GameSelectionScreen()
         tft.setTextSize(FONT_SIZE);
         tft.setTextColor(WHITE, BLACK);
 
+        Serial.print(F("Game selected: "));
         PRINT2_B(setGameName(game_index), tft, Serial);
         Serial.println();
 
