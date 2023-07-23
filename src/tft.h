@@ -58,18 +58,20 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
     }
 
     // BMP header
+    uint32_t fileSize = read32(bmpFile);
 #ifdef DEBUG
     Serial.print(F("File size: "));
-    Serial.println(read32(bmpFile));
+    Serial.println(fileSize);
 #endif
     read32(bmpFile);
     uint32_t bmpImageOffset = read32(bmpFile);
+    uint32_t headerSize = read32(bmpFile);
 
 #ifdef DEBUG
     Serial.print(F("Image offset: "));
     Serial.println(bmpImageOffset);
     Serial.print(F("Header size: "));
-    Serial.println(read32(bmpFile));
+    Serial.println(headerSize);
 #endif
     int bmpWidth = read32(bmpFile);
     int bmpHeight = read32(bmpFile);
@@ -212,11 +214,13 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 
     // End last TFT transaction
     tft.endWrite();
+#ifdef DEBUG
     Serial.print(F("Pixels written: "));
     Serial.println(pixelsWritten);
     Serial.print(F("Rendered in: "));
     Serial.print(millis() - startTime);
     Serial.println("ms");
+#endif
 }
 
 void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY, int16_t part)

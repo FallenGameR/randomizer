@@ -16,6 +16,7 @@ void GameIconSelectionScreen()
         setGamePath(game_index, path_icon);
         bmpDraw(bufferPath, false, 0, 0, 1);
 
+        Serial.print(F("Game selected: "));
         PRINT_BS(setGameName(game_index));
         Serial.println();
 

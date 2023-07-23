@@ -163,6 +163,8 @@ void UpdateIntegerSetting(size_t index, int increment)
     {
         case SETTING_SEED_IDX: serial_title = F("Seed: "); break;
         case SETTING_FAIRNESS_IDX: serial_title = F("Fair: "); break;
+        default: serial_title = F("Players: "); break;
+
     }
     Serial.print(serial_title);
     Serial.println(new_value);
