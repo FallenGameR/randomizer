@@ -297,7 +297,7 @@ void RandomizerInitScreen()
                 for( int i = 0; i < MAX_PLAYERS; i++ )
                 {
                     init_setting* player_entry = &init_settings[SETTING_PLAYER_FIRST_IDX + i];
-                    if( !player_entry->is_selectable ) { continue; }
+                    if( !player_entry->value ) { continue; }
 
                     players[cursor] = i;
                     cursor++;
