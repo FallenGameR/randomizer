@@ -60,14 +60,6 @@ void InitPlayerPairs()
     byte n_stages = n_fairness / (n_players * (n_players - 1));
     for (byte stage = 0; stage < n_stages; stage++)
     {
-        // If there are only 2 players we don't need to shuffle
-        if( n_players <= 2 )
-        {
-            player_pairs[index++] = players[0];
-            player_pairs[index++] = players[1];
-            continue;
-        }
-
         // Shuffle otherwise
         for (byte first = 0; first < n_players; first++)
         {
@@ -78,8 +70,16 @@ void InitPlayerPairs()
                     continue;
                 }
 
-                player_pairs[index++] = players[first];
-                player_pairs[index++] = players[second];
+                // If there are only 2 players we don't need to shuffle
+                Serial.print("Pair: ");
+                player_pairs[index] = players[n_players <= 2 ? 0 : first];
+                Serial.print(player_pairs[index]);
+                index++;
+
+                Serial.print(" vs ");
+                player_pairs[index] = players[n_players <= 2 ? 0 :second];
+                Serial.print(player_pairs[index]);
+                index++;
             }
         }
     }
