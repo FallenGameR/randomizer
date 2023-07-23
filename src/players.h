@@ -47,10 +47,12 @@ void ShufflePlayerPairs()
 #endif
 }
 
-void InitPlayerPairs()
+// Players array is the list of players that were selected.
+// Array value is the player index on the SD card.
+void InitPlayerPairs( byte* players, byte players_len )
 {
     // This array would never be freed or resized
-    player_pairs = (byte *)malloc(n_fairness * 2);
+    player_pairs = (byte *)malloc(players_len * 2);
 
     // Populate the pairs
     byte index = 0;
@@ -66,8 +68,8 @@ void InitPlayerPairs()
                     continue;
                 }
 
-                player_pairs[index++] = first;
-                player_pairs[index++] = second;
+                player_pairs[index++] = players[first];
+                player_pairs[index++] = players[second];
             }
         }
     }

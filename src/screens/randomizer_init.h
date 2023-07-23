@@ -277,19 +277,31 @@ void RandomizerInitScreen()
                 return;
             }
 
-            // Random data preparation for the next screens
-            n_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
+            // Random preparation
             int seed = init_settings[SETTING_SEED_IDX].value;
             randomSeed(seed);
             InitStatsFile(seed);
 
+            // Command data preparation
+            n_fairness = init_settings[SETTING_FAIRNESS_IDX].value;
             n_players = init_settings[SETTING_PLAYER_NUMBER_IDX].value;
             n_games = init_settings[SETTING_GAMES_IDX].value;
 
             // Init players array and combine pairs
             {
-                byte* players = (byte *)malloc(n_fairness * 2);
-                InitPlayerPairs();
+                byte* players = (byte *)malloc(n_players);
+                int cursor = 0;
+
+                for( int i = 0; i < MAX_PLAYERS; i++ )
+                {
+                    init_setting* player_entry = &init_settings[SETTING_PLAYER_FIRST_IDX + i];
+                    if( !player_entry->is_selectable ) { continue; }
+
+                    players[cursor] = i;
+                    cursor++;
+                }
+
+                InitPlayerPairs(players, n_players);
                 free(players);
             }
 

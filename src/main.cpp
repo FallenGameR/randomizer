@@ -1,4 +1,4 @@
-// #define DEBUG
+#define DEBUG
 
 #include "screens\randomizer_init.h"
 #include "screens\game_selection.h"
