@@ -185,10 +185,12 @@ void UpdateCurrentlySelectedSwitchSetting()
     tft.print('#');
 
     // Dump to serial
+#ifdef DEBUG
     Serial.print("Toggled [");
     Serial.print(cursor_index);
     Serial.print("] = ");
     Serial.println(entry->value);
+#endif
 
     // Update internal state
     UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, entry->value ? +1 : -1);
