@@ -60,6 +60,8 @@ void MockRecordMatchOutcome()
 
 void TesterScreen()
 {
+    // seed = 30065
+
     // MockRecordMatchOutcome();
     // RenderTotals();
     // delay(60000);

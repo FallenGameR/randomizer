@@ -3,6 +3,7 @@
 
 #include "pins.h"
 #include "tft.h"
+#include "colors.h"
 #include <TouchScreen.h>
 
 // Calibration data for the raw touch data to the screen coordinates
