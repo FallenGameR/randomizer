@@ -104,6 +104,7 @@ void GameIconSelectionScreen()
             input_allowed = false;
         }
 
+        /*
         if (X_RIGHT)
         {
             game_index = (game_index + n_games + 1) % n_games;
@@ -119,6 +120,7 @@ void GameIconSelectionScreen()
             input_allowed = false;
             screen_redraw = true;
         }
+        */
 
         /*
         if (Y_UP)
@@ -144,6 +146,7 @@ void GameIconSelectionScreen()
         {
             Serial.print(F("-> Match "));
             Serial.println(n_match + 1);
+            SelectGame(game_index);
             screen_selected = Screen::PlayerSelection;
             input_allowed = false;
             screen_redraw = true;

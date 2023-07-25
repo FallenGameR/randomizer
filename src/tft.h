@@ -208,7 +208,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
         // User cancel if needed
         readInput();
 
-        if (input_allowed && (BUTTON_BLACK || X_LEFT || X_RIGHT || Y_UP || Y_DOWN | BUTTON_JOYSTICK))
+        if (input_allowed && (BUTTON_BLACK)) // || X_LEFT || X_RIGHT || Y_UP || Y_DOWN | BUTTON_JOYSTICK)) for some reason on match screen that causes the recording of the match outcome
         {
             wasCancelled = true;
             input_allowed = false; // NOTE: for games selection that is not needed - we want to move the cursor ASAP
