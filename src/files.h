@@ -65,44 +65,43 @@ void setBufferName(File file)
     bufferName[index++] = 0;
 }
 
-// Reads number of known games
-// Takes ~88ms to finish
-byte readNumberOfGames()
+// Takes ~88ms to count games or players
+void readElementsInFolder(const String &path, byte &files, byte &dirs)
 {
-    File dir = SD.open(F("/games/"));
-    byte result = 0;
+    files = 0;
+    dirs = 0;
 
-    while (File entry = dir.openNextFile())
+    File dir = SD.open(path);
+
+    while( File entry = dir.openNextFile() )
     {
-        if (entry.isDirectory())
+        if( entry.isDirectory() )
         {
-            result += 1;
+            dirs += 1;
+        }
+        else
+        {
+            files += 1;
         }
 
         entry.close();
     }
-
-    return result;
 }
 
-// Reads number of players
-// Takes ~88ms to finish
+// Reads number of known games
+byte readNumberOfGames()
+{
+    byte files, dirs;
+    readElementsInFolder(F("/games/"), files, dirs);
+    return dirs;
+}
+
+// Reads number of known players
 byte readNumberOfPlayers()
 {
-    File dir = SD.open(F("/players/"));
-    byte result = 0;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (!entry.isDirectory())
-        {
-            result += 1;
-        }
-
-        entry.close();
-    }
-
-    return result;
+    byte files, dirs;
+    readElementsInFolder(F("/players/"), files, dirs);
+    return files;
 }
 
 // Returns unclosed <index> subfolder from /GAMES/ folder on SD card
