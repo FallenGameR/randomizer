@@ -39,11 +39,14 @@ File empty;
 // SD card initialization
 void initSd()
 {
-    while (SD.begin(pin_sd_ccs))
+    Serial.print("Initializing SD card ");
+
+    while( SD.begin(pin_sd_ccs) )
     {
-        Serial.println("Initializing SD card...");
+        Serial.print("...");
     }
-    Serial.println("SD card initialized");
+
+    Serial.println(" done");
 }
 
 // Set bufferName to content of the file, with new line chars trimmed

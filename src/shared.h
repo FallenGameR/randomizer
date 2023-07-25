@@ -26,6 +26,9 @@ bool screen_redraw = true;
 // What screen is currently selected
 byte screen_selected = Screen::RandomizerInit;
 
+// Index of the currently selected entry in the table on the current screen
+size_t cursor_index = 0;
+
 // `Fairness` is how many games needs to be played out for everybody to play equal amount of times in all configurations.
 // Minimal fairness value get a chance for everybody to play as soon as possible.
 // But as it `fairness` value grows the pair distribution can become more and more strange but fair

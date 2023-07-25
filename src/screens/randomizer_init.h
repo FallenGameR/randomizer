@@ -9,9 +9,6 @@
 #include "..\stats.h"
 
 
-// Index of the currently selected entry in the table
-size_t cursor_index = 0;
-
 // Structure that describes setting that can be edited on the init screen
 struct init_setting
 {
@@ -211,7 +208,9 @@ void RandomizerInitScreen()
         tft.setCursor(0, 0);
 
         tft.println(F("Randomizer"));
+        tft.setTextColor(DK_CYAN, BLACK);
         tft.println(F("=========="));
+        tft.setTextColor(WHITE, BLACK);
         tft.println();
 
         initSd();
@@ -235,7 +234,9 @@ void RandomizerInitScreen()
         tft.println();
         tft.println(F("Players:"));
         UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, 0);
+        tft.setTextColor(DK_CYAN, BLACK);
         tft.println(F("-------"));
+        tft.setTextColor(WHITE, BLACK);
         tft.println();
 
         for( int i = 0; i < MAX_PLAYERS; i++ )
