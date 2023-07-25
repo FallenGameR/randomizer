@@ -56,8 +56,6 @@ void GameIconSelectionScreen()
 
         game_index = random(n_games);
         UpdateGameCursorPosition(0);
-        SelectGame(game_index);
-
 
         /*
         isTagGame = random(2);
@@ -98,13 +96,11 @@ void GameIconSelectionScreen()
             screen_redraw = true;
         }
 
-
         // Cursor vertical movement
         if (Y_UP || Y_DOWN)
         {
             int direction = Y_UP ? -1 : +1;
             UpdateGameCursorPosition(direction);
-            SelectGame(game_index);
             input_allowed = false;
         }
 

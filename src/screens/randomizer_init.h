@@ -8,6 +8,8 @@
 #include "..\tft.h"
 #include "..\stats.h"
 
+// Index of the currently selected entry in the table on the current screen
+size_t cursor_index = 0;
 
 // Structure that describes setting that can be edited on the init screen
 struct init_setting

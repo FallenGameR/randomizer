@@ -42,10 +42,22 @@ void SelectGame(byte gameIndex)
     fighters_right_position = 0;
 
     game_tag = readGameTag(gameIndex);
+
     if (game_tag == 0)
     {
         isTagGame = false;
     }
+
+    Serial.println(F("Game selected:"));
+
+    Serial.print(F("  index = "));
+    Serial.println(gameIndex);
+
+    Serial.print(F("  tag =  "));
+    Serial.println(game_tag);
+
+    Serial.print(F("  fighters =  "));
+    Serial.println(n_fighters);
 }
 
 #endif // GAMES_H
