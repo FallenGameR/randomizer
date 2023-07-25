@@ -8,34 +8,6 @@
 #include "players.h"
 #include "files_lib.h"
 
-// We move as much constant strings to program memory as possible to
-// free up very limited 2k of space used for variables and stats table
-// https://www.arduino.cc/reference/en/language/variables/utilities/progmem/
-
-// Path constants
-const char path_games[] PROGMEM = "/games/";
-const char path_score[] PROGMEM = "/score/";
-const char path_fighters[] PROGMEM = "/Fighters/";
-const char path_name[] PROGMEM = "/name.txt";
-const char path_tag[] PROGMEM = "/tag.txt";
-const char path_icon[] PROGMEM = "/icon.bmp";
-const char path_csv[] PROGMEM = ".csv";
-const char path_separator[] PROGMEM = "/";
-
-// Constant string for comma
-const char str_comma[] PROGMEM = ", ";
-
-// The longest path should be 42 chars long
-// \games\12345678\FIGHTERS\12345678\name.txt
-// plus trailing zero
-#define BUFFER_PATH_MAX_LENGTH 43
-char bufferPath[BUFFER_PATH_MAX_LENGTH];
-
-// 16 is max LCD text length plus trailing zero
-#define BUFFER_NAME_MAX_LENGTH 17
-char bufferName[BUFFER_NAME_MAX_LENGTH];
-
-File empty;
 
 // SD card initialization
 void initSd()
@@ -64,103 +36,6 @@ void setBufferName(File file)
         bufferName[index++] = c;
     }
     bufferName[index++] = 0;
-}
-
-// Reads number of known games
-byte readNumberOfGames()
-{
-    byte files, dirs;
-    readElementsInFolder(F("/games/"), files, dirs);
-    return dirs;
-}
-
-// Reads number of known players
-byte readNumberOfPlayers()
-{
-    byte files, dirs;
-    readElementsInFolder(F("/players/"), files, dirs);
-    return files;
-}
-
-// Returns unclosed <index> subfolder from /GAMES/ folder on SD card
-File openGameFolder(byte gameIndex)
-{
-    File dir = SD.open(F("/games/"));
-    byte skip = gameIndex;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (entry.isDirectory())
-        {
-            if (skip)
-            {
-                skip -= 1;
-            }
-            else
-            {
-                dir.close();
-                return entry;
-            }
-        }
-
-        entry.close();
-    }
-
-    dir.close();
-    return empty;
-}
-
-// Returns unclosed <index> file  from /PLAYERS/ folder on SD card
-File openPlayerFile(byte playerIndex)
-{
-    File dir = SD.open(F("/players/"));
-    byte skip = playerIndex;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (!entry.isDirectory())
-        {
-            if (skip)
-            {
-                skip -= 1;
-            }
-            else
-            {
-                dir.close();
-                return entry;
-            }
-        }
-
-        entry.close();
-    }
-
-    dir.close();
-    return empty;
-}
-
-// Set bufferPath to something like "/GAMES/<name_from_index>/<path>"
-void setGamePath(byte gameIndex, const char *path)
-{
-    File dir = openGameFolder(gameIndex);
-    if (!dir)
-    {
-#ifdef DEBUG
-        Serial.print(F("Can't open dir with index: "));
-        Serial.println(gameIndex);
-#endif
-        return;
-    }
-
-    strcpy_P(bufferPath, path_games);
-    strcpy(bufferPath + strlen_P(path_games), dir.name());
-    strcpy_P(bufferPath + strlen(bufferPath), path);
-
-    dir.close();
-
-#ifdef DEBUG
-    Serial.print(F("Path set to: "));
-    Serial.println(bufferPath);
-#endif
 }
 
 // Sets bufferName to something like "Tekken 7"
@@ -222,40 +97,6 @@ byte readNumberOfFighters(byte gameIndex)
     Serial.println(result);
 #endif
     return result;
-}
-
-// Returns unclosed <index> subfolder from /GAMES/<game index> folder on SD card
-File openFighterFolder(byte gameIndex, byte fighterIndex)
-{
-    setGamePath(gameIndex, path_fighters);
-    File dir = SD.open(bufferPath);
-    if (!dir)
-    {
-        return empty;
-    }
-
-    byte skip = fighterIndex;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (entry.isDirectory())
-        {
-            if (skip)
-            {
-                skip -= 1;
-            }
-            else
-            {
-                dir.close();
-                return entry;
-            }
-        }
-
-        entry.close();
-    }
-
-    dir.close();
-    return empty;
 }
 
 // Set bufferPath to something like "/GAMES/<game index>/FIGHTERS/<fighter index>/<path>"
