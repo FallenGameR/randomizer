@@ -6,6 +6,7 @@
 #include "pins.h"
 #include "random.h"
 #include "players.h"
+#include "files_lib.h"
 
 // We move as much constant strings to program memory as possible to
 // free up very limited 2k of space used for variables and stats table
@@ -63,29 +64,6 @@ void setBufferName(File file)
         bufferName[index++] = c;
     }
     bufferName[index++] = 0;
-}
-
-// Takes ~88ms to count games or players
-void readElementsInFolder(const String &path, byte &files, byte &dirs)
-{
-    files = 0;
-    dirs = 0;
-
-    File dir = SD.open(path);
-
-    while( File entry = dir.openNextFile() )
-    {
-        if( entry.isDirectory() )
-        {
-            dirs += 1;
-        }
-        else
-        {
-            files += 1;
-        }
-
-        entry.close();
-    }
 }
 
 // Reads number of known games
