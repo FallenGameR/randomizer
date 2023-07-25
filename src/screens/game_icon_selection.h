@@ -16,12 +16,12 @@ void UpdateGameCursorPosition(int movement)
     size_t new_index = (cursor_index + movement + n_games) % n_games;
 
     // Clear previous value
-    tft.setCursor(GAMES_START_ROW * CHAR_WIDTH, cursor_index * (CHAR_HEIGHT + GAMES_SPACING));
+    tft.setCursor(0 * CHAR_WIDTH, GAMES_START_ROW * CHAR_HEIGHT + cursor_index * (CHAR_HEIGHT + GAMES_SPACING));
     tft.setTextColor(BLACK, BLACK);
     tft.print('>');
 
     // Set new value
-    tft.setCursor(GAMES_START_ROW * CHAR_WIDTH, new_index * (CHAR_HEIGHT + GAMES_SPACING));
+    tft.setCursor(0 * CHAR_WIDTH, GAMES_START_ROW * CHAR_HEIGHT + new_index * (CHAR_HEIGHT + GAMES_SPACING));
     tft.setTextColor(WHITE, BLACK);
     tft.print('>');
 
@@ -110,7 +110,7 @@ void GameIconSelectionScreen()
         if (Y_UP || Y_DOWN)
         {
             int direction = Y_UP ? -1 : +1;
-            UpdateCursorPosition(direction);
+            UpdateGameCursorPosition(direction);
             input_allowed = false;
         }
 

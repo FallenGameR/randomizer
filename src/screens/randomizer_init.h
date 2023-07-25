@@ -60,7 +60,7 @@ struct init_setting init_settings[] = {
 #define MIN_FAIRNESS (init_settings[SETTING_PLAYER_NUMBER_IDX].value * (init_settings[SETTING_PLAYER_NUMBER_IDX].value - 1))
 
 // Update and redraw cursor that moves between selectable settings
-void UpdateCursorPosition(int movement)
+void UpdateInitCursorPosition(int movement)
 {
     // Find the new index
     size_t new_index = cursor_index;
@@ -257,7 +257,7 @@ void RandomizerInitScreen()
         }
 
         cursor_index = 1;
-        UpdateCursorPosition(0);
+        UpdateInitCursorPosition(0);
 
         screen_redraw = false;
     }
@@ -324,7 +324,7 @@ void RandomizerInitScreen()
         if (Y_UP || Y_DOWN)
         {
             int direction = Y_UP ? -1 : +1;
-            UpdateCursorPosition(direction);
+            UpdateInitCursorPosition(direction);
             input_allowed = false;
         }
 
