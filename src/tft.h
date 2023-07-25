@@ -211,7 +211,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
         if (input_allowed && (BUTTON_BLACK || X_LEFT || X_RIGHT || Y_UP || Y_DOWN | BUTTON_JOYSTICK))
         {
             wasCancelled = true;
-            input_allowed = false;
+            input_allowed = false; // NOTE: for games selection that is not needed - we want to move the cursor ASAP
             break;
         }
     }
