@@ -31,6 +31,34 @@ void readElementsInFolder(const String &path, byte &files, byte &dirs)
     }
 }
 
+// Opens <index> file or folder from <path> on SD card
+File openElementInFolder(const String &path, byte index, bool isDir)
+{
+    File dir = SD.open(path);
+    byte skip = index;
+
+    while( File entry = dir.openNextFile() )
+    {
+        if( entry.isDirectory() == isDir )
+        {
+            if( skip )
+            {
+                skip -= 1;
+            }
+            else
+            {
+                dir.close();
+                return entry;
+            }
+        }
+
+        entry.close();
+    }
+
+    dir.close();
+    return empty;
+}
+
 byte readNumberOfGames()
 {
     byte files, dirs;
@@ -45,58 +73,14 @@ byte readNumberOfPlayers()
     return files;
 }
 
-File openGameFolder(byte gameIndex)
+File openGameFolder(byte game_index)
 {
-    File dir = SD.open(F("/games/"));
-    byte skip = gameIndex;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (entry.isDirectory())
-        {
-            if (skip)
-            {
-                skip -= 1;
-            }
-            else
-            {
-                dir.close();
-                return entry;
-            }
-        }
-
-        entry.close();
-    }
-
-    dir.close();
-    return empty;
+    return openElementInFolder(F("/games/"), game_index, true);
 }
 
-File openPlayerFile(byte playerIndex)
+File openPlayerFile(byte player_index)
 {
-    File dir = SD.open(F("/players/"));
-    byte skip = playerIndex;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (!entry.isDirectory())
-        {
-            if (skip)
-            {
-                skip -= 1;
-            }
-            else
-            {
-                dir.close();
-                return entry;
-            }
-        }
-
-        entry.close();
-    }
-
-    dir.close();
-    return empty;
+    return openElementInFolder(F("/players/"), player_index, false);
 }
 
 // Returns unclosed <index> subfolder from /GAMES/<game index> folder on SD card

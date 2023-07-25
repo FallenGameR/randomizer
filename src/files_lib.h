@@ -16,8 +16,6 @@ const char path_tag[] PROGMEM = "/tag.txt";
 const char path_icon[] PROGMEM = "/icon.bmp";
 const char path_csv[] PROGMEM = ".csv";
 const char path_separator[] PROGMEM = "/";
-
-// Constant string for comma
 const char str_comma[] PROGMEM = ", ";
 
 // The longest path should be 42 chars long
@@ -28,6 +26,7 @@ extern char bufferPath[];
 
 // 16 is max LCD text length plus trailing zero
 #define BUFFER_NAME_MAX_LENGTH 17
+
 extern char bufferName[];
 
 // Reads number of known games
@@ -36,11 +35,13 @@ byte readNumberOfGames();
 // Reads number of known players
 byte readNumberOfPlayers();
 
+// Functions below likely could be almost all made internal
+
 // Returns unclosed <index> subfolder from /GAMES/ folder on SD card
-File openGameFolder(byte gameIndex);
+File openGameFolder(byte game_index);
 
 // Returns unclosed <index> file  from /PLAYERS/ folder on SD card
-File openPlayerFile(byte playerIndex);
+File openPlayerFile(byte player_index);
 
 // Returns unclosed <index> subfolder from /GAMES/<game index> folder on SD card
 File openFighterFolder(byte gameIndex, byte fighterIndex);
