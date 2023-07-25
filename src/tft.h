@@ -208,7 +208,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
         // User cancel if needed
         readInput();
 
-        if (input_allowed && BUTTON_BLACK)
+        if (input_allowed && (BUTTON_BLACK || X_LEFT || X_RIGHT || Y_UP || Y_DOWN | BUTTON_JOYSTICK))
         {
             wasCancelled = true;
             input_allowed = false;
