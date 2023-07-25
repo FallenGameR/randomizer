@@ -3,8 +3,6 @@
 
 #include "..\tft.h"
 #include "..\games.h"
-#include "..\shared.h"
-
 
 #define GAMES_START_ROW 3
 #define GAMES_SPACING 5
@@ -13,10 +11,10 @@
 void UpdateGameCursorPosition(int movement)
 {
     // Find the new index
-    size_t new_index = (cursor_index + movement + n_games) % n_games;
+    size_t new_index = (game_index + movement + n_games) % n_games;
 
     // Clear previous value
-    tft.setCursor(0 * CHAR_WIDTH, GAMES_START_ROW * CHAR_HEIGHT + cursor_index * (CHAR_HEIGHT + GAMES_SPACING));
+    tft.setCursor(0 * CHAR_WIDTH, GAMES_START_ROW * CHAR_HEIGHT + game_index * (CHAR_HEIGHT + GAMES_SPACING));
     tft.setTextColor(BLACK, BLACK);
     tft.print('>');
 
@@ -26,7 +24,7 @@ void UpdateGameCursorPosition(int movement)
     tft.print('>');
 
     // Update internal state
-    cursor_index = new_index;
+    game_index = new_index;
 }
 
 void GameIconSelectionScreen()
@@ -56,11 +54,12 @@ void GameIconSelectionScreen()
             tft.setCursor(x, y + GAMES_SPACING);
         }
 
-        cursor_index = 0;
+        game_index = random(n_games);
         UpdateGameCursorPosition(0);
+        SelectGame(game_index);
+
 
         /*
-        game_index = random(n_games);
         isTagGame = random(2);
         SelectGame(game_index);
 
@@ -90,6 +89,25 @@ void GameIconSelectionScreen()
 
     if (input_allowed)
     {
+        // Soft reset to do a quick reset
+        if (BUTTON_JOYSTICK)
+        {
+            Serial.println(F("-> Init"));
+            screen_selected = Screen::RandomizerInit;
+            input_allowed = false;
+            screen_redraw = true;
+        }
+
+
+        // Cursor vertical movement
+        if (Y_UP || Y_DOWN)
+        {
+            int direction = Y_UP ? -1 : +1;
+            UpdateGameCursorPosition(direction);
+            SelectGame(game_index);
+            input_allowed = false;
+        }
+
         if (X_RIGHT)
         {
             game_index = (game_index + n_games + 1) % n_games;
@@ -104,14 +122,6 @@ void GameIconSelectionScreen()
             screen_selected = Screen::GameSelection;
             input_allowed = false;
             screen_redraw = true;
-        }
-
-        // Cursor vertical movement
-        if (Y_UP || Y_DOWN)
-        {
-            int direction = Y_UP ? -1 : +1;
-            UpdateGameCursorPosition(direction);
-            input_allowed = false;
         }
 
         /*
