@@ -8,18 +8,7 @@
 #include "players.h"
 #include "files_lib.h"
 
-// SD card initialization
-void initSd()
-{
-    Serial.print("Initializing SD card ");
 
-    while( SD.begin(pin_sd_ccs) )
-    {
-        Serial.print("...");
-    }
-
-    Serial.println(" done");
-}
 
 // Set b_name to content of the file, with new line chars trimmed
 void setBufferName(File file)
