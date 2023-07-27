@@ -65,7 +65,7 @@ char* setGameName(byte game_index)
 // Sets b_string to something like "Kasumi"
 char* setFighterName(byte gameIndex, byte fighterIndex)
 {
-    setFighterPath(gameIndex, fighterIndex, path_name);
+    setFighterRelativePathBuffer(gameIndex, fighterIndex, path_name);
 
     File file = SD.open(b_path);
     char* buffer = readString(file);

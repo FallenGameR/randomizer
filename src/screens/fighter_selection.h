@@ -78,20 +78,20 @@ void FighterSelectionScreen()
         digitalWrite(pin_led_blue, LOW);
 
         // Portrait draw
-        setFighterPath(game_index, fighter_index_first, path_icon);
+        setFighterRelativePathBuffer(game_index, fighter_index_first, path_icon);
         bmpDraw(b_path, false, position, CHAR_HEIGHT, part);
         position += halfScreen;
-        setFighterPath(game_index, fighter_index_second, path_icon);
+        setFighterRelativePathBuffer(game_index, fighter_index_second, path_icon);
         bmpDraw(b_path, true, position, CHAR_HEIGHT, part);
         position -= halfScreen;
 
         if (part >= 2)
         {
             position += partIncrement;
-            setFighterPath(game_index, fighter_index_first2, path_icon);
+            setFighterRelativePathBuffer(game_index, fighter_index_first2, path_icon);
             bmpDraw(b_path, false, position, CHAR_HEIGHT, part);
             position += halfScreen;
-            setFighterPath(game_index, fighter_index_second2, path_icon);
+            setFighterRelativePathBuffer(game_index, fighter_index_second2, path_icon);
             bmpDraw(b_path, true, position, CHAR_HEIGHT, part);
             position -= halfScreen;
         }
@@ -99,10 +99,10 @@ void FighterSelectionScreen()
         if (part >= 3)
         {
             position += partIncrement;
-            setFighterPath(game_index, fighter_index_first3, path_icon);
+            setFighterRelativePathBuffer(game_index, fighter_index_first3, path_icon);
             bmpDraw(b_path, false, position, CHAR_HEIGHT, part);
             position += halfScreen;
-            setFighterPath(game_index, fighter_index_second3, path_icon);
+            setFighterRelativePathBuffer(game_index, fighter_index_second3, path_icon);
             bmpDraw(b_path, true, position, CHAR_HEIGHT, part);
             position -= halfScreen;
         }

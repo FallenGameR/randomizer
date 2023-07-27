@@ -60,6 +60,6 @@ char* setGameRelativePathBuffer(byte gameIndex, const char *progmem_path);
 
 // Set b_path to /games/<game_name_from_index>/fighters/<fighter_name_from_index>/<progmem_path>
 // progmem_path should be a path constant stored in PROGMEM
-char* setFighterPath(byte gameIndex, byte fighterIndex, const char *path);
+char* setFighterRelativePathBuffer(byte gameIndex, byte fighterIndex, const char *path);
 
 #endif // FILES_LIB_H

@@ -145,15 +145,15 @@ char* setGameRelativePathBuffer(byte game_index, const char *progmem_path)
     return b_path;
 }
 
-char* setFighterPath(byte gameIndex, byte fighterIndex, const char *path)
+char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const char *progmem_path)
 {
-    File game = openGameFolder(gameIndex);
+    File game = openGameFolder(game_index);
     if (!game)
     {
         return;
     }
 
-    File fighter = openFighterFolder(gameIndex, fighterIndex);
+    File fighter = openFighterFolder(game_index, fighter_index);
     if (!fighter)
     {
         game.close();
@@ -165,7 +165,7 @@ char* setFighterPath(byte gameIndex, byte fighterIndex, const char *path)
     strcpy_P(b_path + strlen(b_path), path_fighters);
     strcpy(b_path + strlen(b_path), fighter.name());
     strcpy_P(b_path + strlen(b_path), path_separator);
-    strcpy_P(b_path + strlen(b_path), path);
+    strcpy_P(b_path + strlen(b_path), progmem_path);
 
     game.close();
     fighter.close();
