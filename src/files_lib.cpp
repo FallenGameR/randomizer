@@ -9,7 +9,7 @@ File empty;
 
 char b_path[BUFFER_PATH_MAX_LENGTH];
 
-char b_name[BUFFER_NAME_MAX_LENGTH];
+char b_string[BUFFER_STRING_MAX_LENGTH];
 
 //------------------------------------------------------------------------------/ PRIVATE FUNCTIONS
 

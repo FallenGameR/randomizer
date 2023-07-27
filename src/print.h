@@ -6,7 +6,7 @@
 
 #define PRINT_B(buffer_setup, stream) \
     buffer_setup;                     \
-    stream.print(b_name);
+    stream.print(b_string);
 
 #define PRINT2(printable, stream1, stream2) \
     PRINT(printable, stream1);              \
@@ -14,7 +14,7 @@
 
 #define PRINT2_B(buffer_setup, stream1, stream2) \
     buffer_setup;                                \
-    PRINT2(b_name, stream1, stream2);
+    PRINT2(b_string, stream1, stream2);
 
 // Print buffer on tft
 #define PRINT_BT(buffer_setup) \
@@ -28,9 +28,9 @@
 #define PRINT2_SF(printable) \
     PRINT2(printable, Serial, statsFile)
 
-// print b_name to serial, file
+// print b_string to serial, file
 #define PRINT2_BSF(buffer_name_setup) \
     buffer_name_setup;                \
-    PRINT2_SF(b_name)
+    PRINT2_SF(b_string)
 
 #endif // PRINT_H

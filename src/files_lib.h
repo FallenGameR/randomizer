@@ -23,14 +23,16 @@ const char str_comma[] PROGMEM = ", ";
 // plus trailing zero
 #define BUFFER_PATH_MAX_LENGTH 43
 
-// 16 is max LCD text length plus trailing zero
-#define BUFFER_NAME_MAX_LENGTH 17
+// 16 is max LCD text length we could use to support
+// tag games with 3 fighters plus a trailing zero
+#define BUFFER_STRING_MAX_LENGTH 17
 
 // Buffer for path to a file or folder
 extern char b_path[];
 
-// Buffer for a name of a game, player or fighter
-extern char b_name[];
+// Buffer for a string that we read in a file
+// It is for a name of a game, player or fighter
+extern char b_string[];
 
 // SD card initialization
 void initSd();
