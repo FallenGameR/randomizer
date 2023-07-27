@@ -32,6 +32,9 @@ extern char b_path[];
 // Buffer for a name of a game, player or fighter
 extern char b_name[];
 
+// SD card initialization
+void initSd();
+
 // Reads number of known games
 byte readNumberOfGames();
 

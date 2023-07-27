@@ -1,5 +1,8 @@
 #include <SD.h>
 #include "files_lib.h"
+#include "pins.h"
+
+//------------------------------------------------------------------------------/ DATA
 
 // Empty file to return when no file is found
 File empty;
@@ -7,6 +10,8 @@ File empty;
 char b_path[BUFFER_PATH_MAX_LENGTH];
 
 char b_name[BUFFER_NAME_MAX_LENGTH];
+
+//------------------------------------------------------------------------------/ PRIVATE FUNCTIONS
 
 // Takes ~88ms to count games or players
 void readElementsInFolder(const String &path, byte &files, byte &dirs)
@@ -65,6 +70,20 @@ File openElementInFolder(const String &path, byte index, bool isDir)
 
     dir.close();
     return empty;
+}
+
+//------------------------------------------------------------------------------/ PUBLIC FUNCTIONS
+
+void initSd()
+{
+    Serial.print("Initializing SD card ");
+
+    while( SD.begin(pin_sd_ccs) )
+    {
+        Serial.print("...");
+    }
+
+    Serial.println(" done");
 }
 
 byte readNumberOfGames()
