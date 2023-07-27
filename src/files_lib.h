@@ -51,6 +51,6 @@ File openFighterFolder(byte game_index, byte fighter_index);
 
 // Set b_path to something like "/games/<game_folder_name_from_index>/<progmem_path>"
 // progmem_path should be a path constant stored in PROGMEM
-char* setGamePath(byte gameIndex, const char *progmem_path);
+char* setGameRelativePath(byte gameIndex, const char *progmem_path);
 
 #endif // FILES_LIB_H

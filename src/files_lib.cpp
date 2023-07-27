@@ -93,27 +93,36 @@ File openPlayerFile(byte player_index)
 
 File openFighterFolder(byte game_index, byte fighter_index)
 {
-    setGamePath(game_index, path_fighters);
+    setGameRelativePath(game_index, path_fighters);
     return openElementInFolder(b_path, fighter_index, true);
 }
 
-// Set b_path to something like "/GAMES/<name_from_index>/<path>"
-void setGamePath(byte gameIndex, const char *path)
+char* setGameRelativePath(byte game_index, const char *progmem_path)
 {
-    File dir = openGameFolder(gameIndex);
+    File dir = openGameFolder(game_index);
     if( !dir )
     {
-        return;
+        Serial.print(F("Can't open game folder: "));
+        Serial.println(game_index);
+        memset(b_path, 0, BUFFER_PATH_MAX_LENGTH);
+        return b_path;
     }
 
-    strcpy_P(b_path, path_games);
-    strcpy(b_path + strlen_P(path_games), dir.name());
-    strcpy_P(b_path + strlen(b_path), path);
+    size_t len = strlen_P(path_games) + strlen(dir.name()) + strlen_P(progmem_path) + 1;
+    if( len > BUFFER_PATH_MAX_LENGTH )
+    {
+        Serial.print(F("Path is too long: "));
+        Serial.println(len);
+        memset(b_path, 0, BUFFER_PATH_MAX_LENGTH);
+    }
+    else
+    {
+        // b_path = "/games/<game folder name>/<path>"
+        strcpy_P(b_path, path_games);
+        strcpy(b_path + strlen_P(path_games), dir.name());
+        strcpy_P(b_path + strlen(b_path), progmem_path);
+    }
 
     dir.close();
-
-#ifdef DEBUG
-    Serial.print(F("Path set to: "));
-    Serial.println(b_path);
-#endif
+    return b_path;
 }

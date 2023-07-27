@@ -41,7 +41,7 @@ void setBufferName(File file)
 // Sets b_name to something like "Tekken 7"
 void setGameName(byte gameIndex)
 {
-    setGamePath(gameIndex, path_name);
+    setGameRelativePath(gameIndex, path_name);
 
     File file = SD.open(b_path);
     if (!file)
@@ -74,7 +74,7 @@ void setStatsPath(int random_seed)
 // Reads number of fighters
 byte readNumberOfFighters(byte gameIndex)
 {
-    setGamePath(gameIndex, path_fighters);
+    setGameRelativePath(gameIndex, path_fighters);
     File dir = SD.open(b_path);
     if (!dir)
     {
@@ -159,7 +159,7 @@ byte readGameTag(byte gameIndex)
         return 0;
     }
 
-    setGamePath(gameIndex, path_tag);
+    setGameRelativePath(gameIndex, path_tag);
 
     File file = SD.open(b_path);
     if (!file)
