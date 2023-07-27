@@ -40,16 +40,17 @@ byte readNumberOfPlayers();
 
 // Functions below likely could be almost all made internal
 
-// Returns unclosed <index> subfolder from /GAMES/ folder on SD card
+// Returns unclosed <index> subfolder from /games/ folder on SD card
 File openGameFolder(byte game_index);
 
-// Returns unclosed <index> file  from /PLAYERS/ folder on SD card
+// Returns unclosed <index> file  from /players/ folder on SD card
 File openPlayerFile(byte player_index);
 
 // Returns unclosed <fighter_index> subfolder from /games/<game_index>/fighters/ folder on SD card
 File openFighterFolder(byte game_index, byte fighter_index);
 
-// Set b_path to something like "/GAMES/<name_from_index>/<path>"
-void setGamePath(byte gameIndex, const char *path);
+// Set b_path to something like "/games/<game_folder_name_from_index>/<progmem_path>"
+// progmem_path should be a path constant stored in PROGMEM
+char* setGamePath(byte gameIndex, const char *progmem_path);
 
 #endif // FILES_LIB_H
