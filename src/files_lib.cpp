@@ -90,6 +90,7 @@ File openFighterFolder(byte gameIndex, byte fighterIndex)
     File dir = SD.open(bufferPath);
     if (!dir)
     {
+
         return empty;
     }
 
