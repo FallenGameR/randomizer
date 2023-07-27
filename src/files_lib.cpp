@@ -112,13 +112,10 @@ File openPlayerFile(byte player_index)
 
 File openFighterFolder(byte game_index, byte fighter_index)
 {
-    return openElementInFolder(
-        setGameRelativePath(game_index, path_fighters),
-        fighter_index,
-        true); // isDir
+    return openElementInFolder(setGameRelativePathBuffer(game_index, path_fighters), fighter_index, true);
 }
 
-char* setGameRelativePath(byte game_index, const char *progmem_path)
+char* setGameRelativePathBuffer(byte game_index, const char *progmem_path)
 {
     File dir = openGameFolder(game_index);
     if( !dir )

@@ -8,10 +8,8 @@
 #include "players.h"
 #include "files_lib.h"
 
-
-
-// Set b_name to content of the file, with new line chars trimmed
-void setBufferName(File file)
+// Set b_name to content of a file, with new line chars trimmed
+void setNameBuffer(File file)
 {
     byte index = 0;
     while (file.available() && index < BUFFER_NAME_MAX_LENGTH - 1)
@@ -29,13 +27,13 @@ void setBufferName(File file)
 // Sets b_name to something like "Tekken 7"
 void setGameName(byte game_index)
 {
-    File file = SD.open(setGameRelativePath(game_index, path_name));
+    File file = SD.open(setGameRelativePathBuffer(game_index, path_name));
     if (!file)
     {
         return;
     }
 
-    setBufferName(file);
+    setNameBuffer(file);
     file.close();
 
 #ifdef DEBUG
@@ -60,7 +58,7 @@ void setStatsPath(int random_seed)
 // Reads number of fighters
 byte readNumberOfFighters(byte game_index)
 {
-    File dir = SD.open(setGameRelativePath(game_index, path_fighters));
+    File dir = SD.open(setGameRelativePathBuffer(game_index, path_fighters));
     if (!dir)
     {
         return 0;
@@ -127,7 +125,7 @@ void setFighterName(byte gameIndex, byte fighterIndex)
         return;
     }
 
-    setBufferName(file);
+    setNameBuffer(file);
     file.close();
 
 #ifdef DEBUG
@@ -144,7 +142,7 @@ byte readGameTag(byte game_index)
         return 0;
     }
 
-    File file = SD.open(setGameRelativePath(game_index, path_tag));
+    File file = SD.open(setGameRelativePathBuffer(game_index, path_tag));
     if (!file)
     {
         return 0;
@@ -170,7 +168,7 @@ void setPlayerName(byte playerIndex)
         return;
     }
 
-    setBufferName(file);
+    setNameBuffer(file);
     file.close();
 
 #ifdef DEBUG
