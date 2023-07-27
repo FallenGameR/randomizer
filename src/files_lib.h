@@ -19,8 +19,8 @@ const char path_separator[] PROGMEM = "/";
 const char str_comma[] PROGMEM = ", ";
 
 // The longest path should be 42 chars long
-// \games\12345678\FIGHTERS\12345678\name.txt
-// plus trailing zero
+// /games/12345678/fighters/12345678/name.txt
+// plus a trailing zero
 #define BUFFER_PATH_MAX_LENGTH 43
 
 // 16 is max LCD text length we could use to support
@@ -30,8 +30,8 @@ const char str_comma[] PROGMEM = ", ";
 // Buffer for path to a file or folder
 extern char b_path[];
 
-// Buffer for a string that we read in a file
-// It is for a name of a game, player or fighter
+// Buffer for a string that we read from a file.
+// It is for a name of a game, player or fighter.
 extern char b_string[];
 
 // SD card initialization

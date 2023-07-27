@@ -8,20 +8,36 @@
 #include "players.h"
 #include "files_lib.h"
 
-// Read file from the current position and till the next EOL into b_string
-void setNameBuffer(File file)
+bool isEol(int c)
 {
-    byte index = 0;
-    while (file.available() && index < BUFFER_STRING_MAX_LENGTH - 1)
+    return (c == '\r') || (c == '\n');
+}
+
+// Read string from the current position in a file and till the next EOL into b_string
+char* readString(File file)
+{
+    // Skip EOL if we are standing on it
+    for( int c = file.read(); c > 0; c = file.read() )
     {
-        int c = file.read();
-        if ((c == '\r') || (c == '\n'))
+        if( !isEol(c) )
         {
+            file.seek(file.position() - 1);
             break;
         }
-        b_string[index++] = c;
     }
+
+    // Read into b_string buffer until EOL
+    byte index = 0;
+
+    for( int c = file.read(); (c > 0) && !isEol(c); c = file.read() )
+    {
+        b_string[index++] = c;
+        if( index >= BUFFER_STRING_MAX_LENGTH - 1 ) { break; }
+    }
+
+    // Make sure b_string is null-terminated
     b_string[index++] = 0;
+    return b_string;
 }
 
 // Sets b_string to something like "Tekken 7"
@@ -33,7 +49,7 @@ void setGameName(byte game_index)
         return;
     }
 
-    setNameBuffer(file);
+    readString(file);
     file.close();
 
 #ifdef DEBUG
@@ -125,7 +141,7 @@ void setFighterName(byte gameIndex, byte fighterIndex)
         return;
     }
 
-    setNameBuffer(file);
+    readString(file);
     file.close();
 
 #ifdef DEBUG
@@ -168,7 +184,7 @@ void setPlayerName(byte playerIndex)
         return;
     }
 
-    setNameBuffer(file);
+    readString(file);
     file.close();
 
 #ifdef DEBUG
