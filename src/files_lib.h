@@ -43,8 +43,8 @@ File openGameFolder(byte game_index);
 // Returns unclosed <index> file  from /PLAYERS/ folder on SD card
 File openPlayerFile(byte player_index);
 
-// Returns unclosed <index> subfolder from /GAMES/<game index> folder on SD card
-File openFighterFolder(byte gameIndex, byte fighterIndex);
+// Returns unclosed <fighter_index> subfolder from /games/<game_index>/fighters/ folder on SD card
+File openFighterFolder(byte game_index, byte fighter_index);
 
 // Set bufferPath to something like "/GAMES/<name_from_index>/<path>"
 void setGamePath(byte gameIndex, const char *path);

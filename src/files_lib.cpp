@@ -55,6 +55,14 @@ File openElementInFolder(const String &path, byte index, bool isDir)
         entry.close();
     }
 
+    Serial.print(F("Can't open "));
+    Serial.print(isDir ? F("dir") : F("file"));
+    Serial.print(F(" '"));
+    Serial.print(path);
+    Serial.print(F("'["));
+    Serial.print(index);
+    Serial.println(F("]"));
+
     dir.close();
     return empty;
 }
@@ -83,51 +91,18 @@ File openPlayerFile(byte player_index)
     return openElementInFolder(F("/players/"), player_index, false);
 }
 
-// Returns unclosed <index> subfolder from /GAMES/<game index> folder on SD card
-File openFighterFolder(byte gameIndex, byte fighterIndex)
+File openFighterFolder(byte game_index, byte fighter_index)
 {
-    setGamePath(gameIndex, path_fighters);
-    File dir = SD.open(bufferPath);
-    if (!dir)
-    {
-
-        return empty;
-    }
-
-    byte skip = fighterIndex;
-
-    while (File entry = dir.openNextFile())
-    {
-        if (entry.isDirectory())
-        {
-            if (skip)
-            {
-                skip -= 1;
-            }
-            else
-            {
-                dir.close();
-                return entry;
-            }
-        }
-
-        entry.close();
-    }
-
-    dir.close();
-    return empty;
+    setGamePath(game_index, path_fighters);
+    return openElementInFolder(bufferPath, fighter_index, true);
 }
 
 // Set bufferPath to something like "/GAMES/<name_from_index>/<path>"
 void setGamePath(byte gameIndex, const char *path)
 {
     File dir = openGameFolder(gameIndex);
-    if (!dir)
+    if( !dir )
     {
-#ifdef DEBUG
-        Serial.print(F("Can't open dir with index: "));
-        Serial.println(gameIndex);
-#endif
         return;
     }
 
