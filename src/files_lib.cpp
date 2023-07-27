@@ -144,3 +144,34 @@ char* setGameRelativePathBuffer(byte game_index, const char *progmem_path)
     dir.close();
     return b_path;
 }
+
+char* setFighterPath(byte gameIndex, byte fighterIndex, const char *path)
+{
+    File game = openGameFolder(gameIndex);
+    if (!game)
+    {
+        return;
+    }
+
+    File fighter = openFighterFolder(gameIndex, fighterIndex);
+    if (!fighter)
+    {
+        game.close();
+        return;
+    }
+
+    strcpy_P(b_path, path_games);
+    strcpy(b_path + strlen(b_path), game.name());
+    strcpy_P(b_path + strlen(b_path), path_fighters);
+    strcpy(b_path + strlen(b_path), fighter.name());
+    strcpy_P(b_path + strlen(b_path), path_separator);
+    strcpy_P(b_path + strlen(b_path), path);
+
+    game.close();
+    fighter.close();
+
+#ifdef DEBUG
+    Serial.print(F("Path set to: "));
+    Serial.println(b_path);
+#endif
+}

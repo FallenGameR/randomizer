@@ -11,9 +11,9 @@
 const char path_games[] PROGMEM = "/games/";
 const char path_score[] PROGMEM = "/score/";
 const char path_fighters[] PROGMEM = "/Fighters/";
-const char path_name[] PROGMEM = "/name.txt";
-const char path_tag[] PROGMEM = "/tag.txt";
-const char path_icon[] PROGMEM = "/icon.bmp";
+const char path_name[] PROGMEM = "name.txt";
+const char path_tag[] PROGMEM = "tag.txt";
+const char path_icon[] PROGMEM = "icon.bmp";
 const char path_csv[] PROGMEM = ".csv";
 const char path_separator[] PROGMEM = "/";
 const char str_comma[] PROGMEM = ", ";
@@ -54,8 +54,12 @@ File openPlayerFile(byte player_index);
 // Returns unclosed <fighter_index> subfolder from /games/<game_index>/fighters/ folder on SD card
 File openFighterFolder(byte game_index, byte fighter_index);
 
-// Set b_path to something like "/games/<game_folder_name_from_index>/<progmem_path>"
+// Set b_path to /games/<game_name_from_index>/<progmem_path>
 // progmem_path should be a path constant stored in PROGMEM
 char* setGameRelativePathBuffer(byte gameIndex, const char *progmem_path);
+
+// Set b_path to /games/<game_name_from_index>/fighters/<fighter_name_from_index>/<progmem_path>
+// progmem_path should be a path constant stored in PROGMEM
+char* setFighterPath(byte gameIndex, byte fighterIndex, const char *path);
 
 #endif // FILES_LIB_H
