@@ -8,7 +8,6 @@
 #include "players.h"
 #include "files_lib.h"
 
-
 // SD card initialization
 void initSd()
 {
@@ -39,11 +38,9 @@ void setBufferName(File file)
 }
 
 // Sets b_name to something like "Tekken 7"
-void setGameName(byte gameIndex)
+void setGameName(byte game_index)
 {
-    setGameRelativePath(gameIndex, path_name);
-
-    File file = SD.open(b_path);
+    File file = SD.open(setGameRelativePath(game_index, path_name));
     if (!file)
     {
         return;
@@ -72,10 +69,9 @@ void setStatsPath(int random_seed)
 }
 
 // Reads number of fighters
-byte readNumberOfFighters(byte gameIndex)
+byte readNumberOfFighters(byte game_index)
 {
-    setGameRelativePath(gameIndex, path_fighters);
-    File dir = SD.open(b_path);
+    File dir = SD.open(setGameRelativePath(game_index, path_fighters));
     if (!dir)
     {
         return 0;
@@ -151,7 +147,7 @@ void setFighterName(byte gameIndex, byte fighterIndex)
 #endif
 }
 
-byte readGameTag(byte gameIndex)
+byte readGameTag(byte game_index)
 {
     // No tag matches in multiplayer - too long wait time
     if (n_players >= 3)
@@ -159,9 +155,7 @@ byte readGameTag(byte gameIndex)
         return 0;
     }
 
-    setGameRelativePath(gameIndex, path_tag);
-
-    File file = SD.open(b_path);
+    File file = SD.open(setGameRelativePath(game_index, path_tag));
     if (!file)
     {
         return 0;
