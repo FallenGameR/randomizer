@@ -22,12 +22,15 @@ const char str_comma[] PROGMEM = ", ";
 // \games\12345678\FIGHTERS\12345678\name.txt
 // plus trailing zero
 #define BUFFER_PATH_MAX_LENGTH 43
-extern char bufferPath[];
 
 // 16 is max LCD text length plus trailing zero
 #define BUFFER_NAME_MAX_LENGTH 17
 
-extern char bufferName[];
+// Buffer for path to a file or folder
+extern char b_path[];
+
+// Buffer for a name of a game, player or fighter
+extern char b_name[];
 
 // Reads number of known games
 byte readNumberOfGames();
@@ -46,7 +49,7 @@ File openPlayerFile(byte player_index);
 // Returns unclosed <fighter_index> subfolder from /games/<game_index>/fighters/ folder on SD card
 File openFighterFolder(byte game_index, byte fighter_index);
 
-// Set bufferPath to something like "/GAMES/<name_from_index>/<path>"
+// Set b_path to something like "/GAMES/<name_from_index>/<path>"
 void setGamePath(byte gameIndex, const char *path);
 
 #endif // FILES_LIB_H

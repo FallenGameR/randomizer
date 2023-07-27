@@ -17,20 +17,20 @@ char bufferLine[480 / 6];
 void FightersToBufferLine(byte a, byte b, byte c)
 {
     setFighterName(game_index, a);
-    strcpy(bufferLine, bufferName);
+    strcpy(bufferLine, b_name);
 
     if (b != NO_FIGHTER)
     {
         strcat_P(bufferLine, str_comma);
         setFighterName(game_index, b);
-        strcat(bufferLine, bufferName);
+        strcat(bufferLine, b_name);
     }
 
     if (c != NO_FIGHTER)
     {
         strcat_P(bufferLine, str_comma);
         setFighterName(game_index, c);
-        strcat(bufferLine, bufferName);
+        strcat(bufferLine, b_name);
     }
 }
 

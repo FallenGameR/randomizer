@@ -22,7 +22,7 @@ void initSd()
     Serial.println(" done");
 }
 
-// Set bufferName to content of the file, with new line chars trimmed
+// Set b_name to content of the file, with new line chars trimmed
 void setBufferName(File file)
 {
     byte index = 0;
@@ -33,17 +33,17 @@ void setBufferName(File file)
         {
             break;
         }
-        bufferName[index++] = c;
+        b_name[index++] = c;
     }
-    bufferName[index++] = 0;
+    b_name[index++] = 0;
 }
 
-// Sets bufferName to something like "Tekken 7"
+// Sets b_name to something like "Tekken 7"
 void setGameName(byte gameIndex)
 {
     setGamePath(gameIndex, path_name);
 
-    File file = SD.open(bufferPath);
+    File file = SD.open(b_path);
     if (!file)
     {
         return;
@@ -54,20 +54,20 @@ void setGameName(byte gameIndex)
 
 #ifdef DEBUG
     Serial.print(F("Game name is: "));
-    Serial.println(bufferName);
+    Serial.println(b_name);
 #endif
 }
 
-// Sets bufferName to something like "/SCORE/<random seed>.csv"
+// Sets b_name to something like "/SCORE/<random seed>.csv"
 void setStatsPath(int random_seed)
 {
-    strcpy_P(bufferPath, path_score);
-    itoa(random_seed, bufferPath + strlen_P(path_score), 10);
-    strcpy_P(bufferPath + strlen(bufferPath), path_csv);
+    strcpy_P(b_path, path_score);
+    itoa(random_seed, b_path + strlen_P(path_score), 10);
+    strcpy_P(b_path + strlen(b_path), path_csv);
 
 #ifdef DEBUG
     Serial.print(F("Stats file: "));
-    Serial.println(bufferName);
+    Serial.println(b_name);
 #endif
 }
 
@@ -75,7 +75,7 @@ void setStatsPath(int random_seed)
 byte readNumberOfFighters(byte gameIndex)
 {
     setGamePath(gameIndex, path_fighters);
-    File dir = SD.open(bufferPath);
+    File dir = SD.open(b_path);
     if (!dir)
     {
         return 0;
@@ -99,7 +99,7 @@ byte readNumberOfFighters(byte gameIndex)
     return result;
 }
 
-// Set bufferPath to something like "/GAMES/<game index>/FIGHTERS/<fighter index>/<path>"
+// Set b_path to something like "/GAMES/<game index>/FIGHTERS/<fighter index>/<path>"
 void setFighterPath(byte gameIndex, byte fighterIndex, const char *path)
 {
     File game = openGameFolder(gameIndex);
@@ -115,28 +115,28 @@ void setFighterPath(byte gameIndex, byte fighterIndex, const char *path)
         return;
     }
 
-    strcpy_P(bufferPath, path_games);
-    strcpy(bufferPath + strlen(bufferPath), game.name());
-    strcpy_P(bufferPath + strlen(bufferPath), path_fighters);
-    strcpy(bufferPath + strlen(bufferPath), fighter.name());
-    strcpy_P(bufferPath + strlen(bufferPath), path_separator);
-    strcpy_P(bufferPath + strlen(bufferPath), path);
+    strcpy_P(b_path, path_games);
+    strcpy(b_path + strlen(b_path), game.name());
+    strcpy_P(b_path + strlen(b_path), path_fighters);
+    strcpy(b_path + strlen(b_path), fighter.name());
+    strcpy_P(b_path + strlen(b_path), path_separator);
+    strcpy_P(b_path + strlen(b_path), path);
 
     game.close();
     fighter.close();
 
 #ifdef DEBUG
     Serial.print(F("Path set to: "));
-    Serial.println(bufferPath);
+    Serial.println(b_path);
 #endif
 }
 
-// Sets bufferName to something like "Kasumi"
+// Sets b_name to something like "Kasumi"
 void setFighterName(byte gameIndex, byte fighterIndex)
 {
     setFighterPath(gameIndex, fighterIndex, path_name);
 
-    File file = SD.open(bufferPath);
+    File file = SD.open(b_path);
     if (!file)
     {
         return;
@@ -147,7 +147,7 @@ void setFighterName(byte gameIndex, byte fighterIndex)
 
 #ifdef DEBUG
     Serial.print(F("Fighter name is: "));
-    Serial.println(bufferName);
+    Serial.println(b_name);
 #endif
 }
 
@@ -161,7 +161,7 @@ byte readGameTag(byte gameIndex)
 
     setGamePath(gameIndex, path_tag);
 
-    File file = SD.open(bufferPath);
+    File file = SD.open(b_path);
     if (!file)
     {
         return 0;
@@ -178,7 +178,7 @@ byte readGameTag(byte gameIndex)
     return (byte)tag;
 }
 
-// Set bufferName to something like "FallenGameR"
+// Set b_name to something like "FallenGameR"
 void setPlayerName(byte playerIndex)
 {
     File file = openPlayerFile(playerIndex);
@@ -192,7 +192,7 @@ void setPlayerName(byte playerIndex)
 
 #ifdef DEBUG
     Serial.print(F("Player name is: "));
-    Serial.println(bufferName);
+    Serial.println(b_name);
 #endif
 }
 

@@ -63,7 +63,7 @@ void GameIconSelectionScreen()
 
         tft.fillScreen(WHITE);
         setGamePath(game_index, path_icon);
-        bmpDraw(bufferPath, false, 0, 0, 1);
+        bmpDraw(b_path, false, 0, 0, 1);
 
         Serial.print(F("Game selected: "));
         PRINT_BS(setGameName(game_index));

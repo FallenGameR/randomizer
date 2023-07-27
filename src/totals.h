@@ -251,7 +251,7 @@ void RenderTotals()
             screen.ylo + 10 + player_idx * 10);
 
         setPlayerName(player);
-        tft.print(bufferName);
+        tft.print(b_name);
     }
 
     // Draw game separators

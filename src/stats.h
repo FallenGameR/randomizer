@@ -58,7 +58,7 @@ File statsFile;
 void InitStatsFile(int random_seed)
 {
     setStatsPath(random_seed);
-    statsFile = SD.open(bufferPath, FILE_WRITE);
+    statsFile = SD.open(b_path, FILE_WRITE);
     statsFile.println(F("Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,FirstFighter2,FirstFighter3,SecondFighter,SecondFighter2,SecondFighter3"));
 }
 

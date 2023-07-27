@@ -4,9 +4,9 @@
 // Empty file to return when no file is found
 File empty;
 
-char bufferPath[BUFFER_PATH_MAX_LENGTH];
+char b_path[BUFFER_PATH_MAX_LENGTH];
 
-char bufferName[BUFFER_NAME_MAX_LENGTH];
+char b_name[BUFFER_NAME_MAX_LENGTH];
 
 // Takes ~88ms to count games or players
 void readElementsInFolder(const String &path, byte &files, byte &dirs)
@@ -94,10 +94,10 @@ File openPlayerFile(byte player_index)
 File openFighterFolder(byte game_index, byte fighter_index)
 {
     setGamePath(game_index, path_fighters);
-    return openElementInFolder(bufferPath, fighter_index, true);
+    return openElementInFolder(b_path, fighter_index, true);
 }
 
-// Set bufferPath to something like "/GAMES/<name_from_index>/<path>"
+// Set b_path to something like "/GAMES/<name_from_index>/<path>"
 void setGamePath(byte gameIndex, const char *path)
 {
     File dir = openGameFolder(gameIndex);
@@ -106,14 +106,14 @@ void setGamePath(byte gameIndex, const char *path)
         return;
     }
 
-    strcpy_P(bufferPath, path_games);
-    strcpy(bufferPath + strlen_P(path_games), dir.name());
-    strcpy_P(bufferPath + strlen(bufferPath), path);
+    strcpy_P(b_path, path_games);
+    strcpy(b_path + strlen_P(path_games), dir.name());
+    strcpy_P(b_path + strlen(b_path), path);
 
     dir.close();
 
 #ifdef DEBUG
     Serial.print(F("Path set to: "));
-    Serial.println(bufferPath);
+    Serial.println(b_path);
 #endif
 }
