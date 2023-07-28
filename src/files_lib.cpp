@@ -150,6 +150,8 @@ char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const ch
     File game = openGameFolder(game_index);
     if( !game )
     {
+        Serial.print(F("Can't open game folder: "));
+        Serial.println(game_index);
         memset(b_path, 0, BUFFER_PATH_MAX_LENGTH);
         return b_path;
     }
@@ -157,27 +159,60 @@ char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const ch
     File fighter = openFighterFolder(game_index, fighter_index);
     if( !fighter )
     {
+        Serial.print(F("Can't open fighter folder: "));
+        Serial.println(fighter_index);
         game.close();
         memset(b_path, 0, BUFFER_PATH_MAX_LENGTH);
         return b_path;
     }
 
-    //String result = String(F("/games/")) + game.name() + F("/fighters/") + fighter.name() + F("/") + String(progmem_path);
+    size_t len_game_folder = strlen_P(path_games);
+    size_t len_game_name = strlen(game.name());
+    size_t len_fighter_folder = strlen_P(path_fighters);
+    size_t len_fighter_name = strlen(fighter.name());
+    size_t len_separator = strlen_P(path_separator);
+    size_t len_progmem_path = strlen_P(progmem_path);
+    size_t len_trailing_zero = 1;
+
+    size_t len =
+        len_game_folder +
+        len_game_name +
+        len_fighter_folder +
+        len_fighter_name +
+        len_separator +
+        len_progmem_path +
+        len_trailing_zero;
+
+    if( len >= BUFFER_PATH_MAX_LENGTH )
+    {
+        Serial.print(F("Path is too long: "));
+        Serial.println(len);
+        game.close();
+        fighter.close();
+        memset(b_path, 0, BUFFER_PATH_MAX_LENGTH);
+        return b_path;
+    }
+
+    len = 0;
     strcpy_P(b_path, path_games);
-    strcpy(b_path + strlen(b_path), game.name());
-    strcpy_P(b_path + strlen(b_path), path_fighters);
-    strcpy(b_path + strlen(b_path), fighter.name());
-    strcpy_P(b_path + strlen(b_path), path_separator);
-    strcpy_P(b_path + strlen(b_path), progmem_path);
+
+    len += len_game_folder;
+    strcpy(b_path + len, game.name());
+
+    len += len_game_name;
+    strcpy_P(b_path + len, path_fighters);
+
+    len += len_fighter_folder;
+    strcpy(b_path + len, fighter.name());
+
+    len += len_fighter_name;
+    strcpy_P(b_path + len, path_separator);
+
+    len += len_separator;
+    strcpy_P(b_path + len, progmem_path);
 
     game.close();
     fighter.close();
 
-#ifdef DEBUG
-    Serial.print(F("Path set to: "));
-    Serial.println(b_path);
-#endif
-
-    //strcpy(b_path, result.c_str());
     return b_path;
 }
