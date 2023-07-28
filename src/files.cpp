@@ -161,24 +161,9 @@ byte readNumberOfPlayers()
 
 byte readNumberOfFighters(byte game_index)
 {
-    File dir = SD.open(setGameRelativePathBuffer(game_index, path_fighters));
-    if (!dir)
-    {
-        return 0;
-    }
-
-    byte result = 0;
-    while (File entry = dir.openNextFile())
-    {
-        if (entry.isDirectory())
-        {
-            result += 1;
-        }
-
-        entry.close();
-    }
-
-    return result;
+    byte files, dirs;
+    readElementsInFolder(setGameRelativePathBuffer(game_index, path_fighters), files, dirs);
+    return dirs;
 }
 
 byte readGameTag(byte game_index)
