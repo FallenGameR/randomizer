@@ -183,7 +183,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
             if (rgbBufferIndex >= sizeof(rgbBuffer))
             {
                 tft.endWrite();
-                bmpFile.read(rgbBuffer, sizeof(rgbBuffer)); // check bmpFile.readBytes performance when buffer is large 512?
+                bmpFile.read(rgbBuffer, sizeof(rgbBuffer));
                 rgbBufferIndex = 0;
                 tft.startWrite();
             }
