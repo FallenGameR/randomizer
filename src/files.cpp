@@ -73,6 +73,64 @@ File openElementInFolder(const String &path, byte index, bool isDir)
     return empty;
 }
 
+// Returns unclosed <index> subfolder from /games/ folder on SD card
+File openGameFolder(byte game_index)
+{
+    return openElementInFolder(F("/games/"), game_index, true);
+}
+
+// Returns unclosed <index> file  from /players/ folder on SD card
+File openPlayerFile(byte player_index)
+{
+    return openElementInFolder(F("/players/"), player_index, false);
+}
+
+// Returns unclosed <fighter_index> subfolder from /games/<game_index>/fighters/ folder on SD card
+File openFighterFolder(byte game_index, byte fighter_index)
+{
+    return openElementInFolder(setGameRelativePathBuffer(game_index, path_fighters), fighter_index, true);
+}
+
+// Check if character is EOL
+bool isEol(int c)
+{
+    return (c == '\r') || (c == '\n');
+}
+
+// Read string from the current position in a file and till the next EOL into b_string
+char* readString(File file)
+{
+    // Sanity check
+    if( !file )
+    {
+        memset(b_string, 0, BUFFER_STRING_MAX_LENGTH);
+        return b_string;
+    }
+
+    // Skip EOL if we are standing on it
+    for( int c = file.read(); c > 0; c = file.read() )
+    {
+        if( !isEol(c) )
+        {
+            file.seek(file.position() - 1);
+            break;
+        }
+    }
+
+    // Read into b_string buffer until EOL
+    byte index = 0;
+
+    for( int c = file.read(); (c > 0) && !isEol(c); c = file.read() )
+    {
+        b_string[index++] = c;
+        if( index >= BUFFER_STRING_MAX_LENGTH - 1 ) { break; }
+    }
+
+    // Make sure b_string is null-terminated
+    b_string[index++] = 0;
+    return b_string;
+}
+
 //------------------------------------------------------------------------------/ PUBLIC FUNCTIONS
 
 void initSd()
@@ -101,19 +159,46 @@ byte readNumberOfPlayers()
     return files;
 }
 
-File openGameFolder(byte game_index)
+byte readNumberOfFighters(byte game_index)
 {
-    return openElementInFolder(F("/games/"), game_index, true);
+    File dir = SD.open(setGameRelativePathBuffer(game_index, path_fighters));
+    if (!dir)
+    {
+        return 0;
+    }
+
+    byte result = 0;
+    while (File entry = dir.openNextFile())
+    {
+        if (entry.isDirectory())
+        {
+            result += 1;
+        }
+
+        entry.close();
+    }
+
+    return result;
 }
 
-File openPlayerFile(byte player_index)
+byte readGameTag(byte game_index)
 {
-    return openElementInFolder(F("/players/"), player_index, false);
-}
+    // No tag matches in multiplayer - too long wait time
+    if (n_players >= 3)
+    {
+        return 0;
+    }
 
-File openFighterFolder(byte game_index, byte fighter_index)
-{
-    return openElementInFolder(setGameRelativePathBuffer(game_index, path_fighters), fighter_index, true);
+    File file = SD.open(setGameRelativePathBuffer(game_index, path_tag));
+    if (!file)
+    {
+        return 0;
+    }
+
+    int tag = file.parseInt(SKIP_WHITESPACE);
+    file.close();
+
+    return (byte)tag;
 }
 
 char* setGameRelativePathBuffer(byte game_index, const char *progmem_path)
@@ -218,58 +303,6 @@ char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const ch
     return b_path;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-bool isEol(int c)
-{
-    return (c == '\r') || (c == '\n');
-}
-
-char* readString(File file)
-{
-    // Sanity check
-    if( !file )
-    {
-        memset(b_string, 0, BUFFER_STRING_MAX_LENGTH);
-        return b_string;
-    }
-
-    // Skip EOL if we are standing on it
-    for( int c = file.read(); c > 0; c = file.read() )
-    {
-        if( !isEol(c) )
-        {
-            file.seek(file.position() - 1);
-            break;
-        }
-    }
-
-    // Read into b_string buffer until EOL
-    byte index = 0;
-
-    for( int c = file.read(); (c > 0) && !isEol(c); c = file.read() )
-    {
-        b_string[index++] = c;
-        if( index >= BUFFER_STRING_MAX_LENGTH - 1 ) { break; }
-    }
-
-    // Make sure b_string is null-terminated
-    b_string[index++] = 0;
-    return b_string;
-}
-
 char* setGameName(byte game_index)
 {
     File file = SD.open(setGameRelativePathBuffer(game_index, path_name));
@@ -299,46 +332,4 @@ void setStatsPath(int random_seed)
     strcpy_P(b_path, path_score);
     itoa(random_seed, b_path + strlen_P(path_score), 10);
     strcpy_P(b_path + strlen(b_path), path_csv);
-}
-
-byte readNumberOfFighters(byte game_index)
-{
-    File dir = SD.open(setGameRelativePathBuffer(game_index, path_fighters));
-    if (!dir)
-    {
-        return 0;
-    }
-
-    byte result = 0;
-    while (File entry = dir.openNextFile())
-    {
-        if (entry.isDirectory())
-        {
-            result += 1;
-        }
-
-        entry.close();
-    }
-
-    return result;
-}
-
-byte readGameTag(byte game_index)
-{
-    // No tag matches in multiplayer - too long wait time
-    if (n_players >= 3)
-    {
-        return 0;
-    }
-
-    File file = SD.open(setGameRelativePathBuffer(game_index, path_tag));
-    if (!file)
-    {
-        return 0;
-    }
-
-    int tag = file.parseInt(SKIP_WHITESPACE);
-    file.close();
-
-    return (byte)tag;
 }
