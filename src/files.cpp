@@ -15,7 +15,7 @@ char b_string[BUFFER_STRING_MAX_LENGTH];
 //------------------------------------------------------------------------------/ PRIVATE FUNCTIONS
 
 // Takes ~88ms to count games or players
-void readElementsInFolder(const String &path, byte &files, byte &dirs)
+void countElementsInFolder(const String &path, byte &files, byte &dirs)
 {
     files = 0;
     dirs = 0;
@@ -35,6 +35,20 @@ void readElementsInFolder(const String &path, byte &files, byte &dirs)
 
         entry.close();
     }
+}
+
+byte countDirsInFolder(const String &path)
+{
+    byte files, dirs;
+    countElementsInFolder(path, files, dirs);
+    return dirs;
+}
+
+byte countFilesInFolder(const String &path)
+{
+    byte files, dirs;
+    countElementsInFolder(path, files, dirs);
+    return files;
 }
 
 // Opens <index> file or folder from <path> on SD card
@@ -147,23 +161,17 @@ void initSd()
 
 byte readNumberOfGames()
 {
-    byte files, dirs;
-    readElementsInFolder(F("/games/"), files, dirs);
-    return dirs;
+    return countDirsInFolder(F("/games/"));
 }
 
 byte readNumberOfPlayers()
 {
-    byte files, dirs;
-    readElementsInFolder(F("/players/"), files, dirs);
-    return files;
+    return countFilesInFolder(F("/players/"));
 }
 
 byte readNumberOfFighters(byte game_index)
 {
-    byte files, dirs;
-    readElementsInFolder(setGameRelativePathBuffer(game_index, path_fighters), files, dirs);
-    return dirs;
+    return countDirsInFolder(setGameRelativePathBuffer(game_index, path_fighters));
 }
 
 byte readGameTag(byte game_index)
