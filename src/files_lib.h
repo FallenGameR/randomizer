@@ -11,9 +11,9 @@
 const char path_games[] PROGMEM = "/games/";
 const char path_score[] PROGMEM = "/score/";
 const char path_fighters[] PROGMEM = "/Fighters/";
-const char path_name[] PROGMEM = "name.txt";
-const char path_tag[] PROGMEM = "tag.txt";
-const char path_icon[] PROGMEM = "icon.bmp";
+const char path_name[] PROGMEM = "/name.txt";
+const char path_tag[] PROGMEM = "/tag.txt";
+const char path_icon[] PROGMEM = "/icon.bmp";
 const char path_csv[] PROGMEM = ".csv";
 const char path_separator[] PROGMEM = "/";
 const char str_comma[] PROGMEM = ", ";
