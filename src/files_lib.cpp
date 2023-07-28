@@ -1,5 +1,6 @@
 #include <SD.h>
 #include "files_lib.h"
+#include "shared.h"
 #include "pins.h"
 
 //------------------------------------------------------------------------------/ DATA
@@ -215,4 +216,129 @@ char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const ch
     fighter.close();
 
     return b_path;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool isEol(int c)
+{
+    return (c == '\r') || (c == '\n');
+}
+
+char* readString(File file)
+{
+    // Sanity check
+    if( !file )
+    {
+        memset(b_string, 0, BUFFER_STRING_MAX_LENGTH);
+        return b_string;
+    }
+
+    // Skip EOL if we are standing on it
+    for( int c = file.read(); c > 0; c = file.read() )
+    {
+        if( !isEol(c) )
+        {
+            file.seek(file.position() - 1);
+            break;
+        }
+    }
+
+    // Read into b_string buffer until EOL
+    byte index = 0;
+
+    for( int c = file.read(); (c > 0) && !isEol(c); c = file.read() )
+    {
+        b_string[index++] = c;
+        if( index >= BUFFER_STRING_MAX_LENGTH - 1 ) { break; }
+    }
+
+    // Make sure b_string is null-terminated
+    b_string[index++] = 0;
+    return b_string;
+}
+
+char* setGameName(byte game_index)
+{
+    File file = SD.open(setGameRelativePathBuffer(game_index, path_name));
+    char* buffer = readString(file);
+    file.close();
+    return buffer;
+}
+
+char* setFighterName(byte gameIndex, byte fighterIndex)
+{
+    File file = SD.open(setFighterRelativePathBuffer(gameIndex, fighterIndex, path_name));
+    char* buffer = readString(file);
+    file.close();
+    return buffer;
+}
+
+char* setPlayerName(byte playerIndex)
+{
+    File file = openPlayerFile(playerIndex);
+    char* buffer = readString(file);
+    file.close();
+    return buffer;
+}
+
+void setStatsPath(int random_seed)
+{
+    strcpy_P(b_path, path_score);
+    itoa(random_seed, b_path + strlen_P(path_score), 10);
+    strcpy_P(b_path + strlen(b_path), path_csv);
+}
+
+byte readNumberOfFighters(byte game_index)
+{
+    File dir = SD.open(setGameRelativePathBuffer(game_index, path_fighters));
+    if (!dir)
+    {
+        return 0;
+    }
+
+    byte result = 0;
+    while (File entry = dir.openNextFile())
+    {
+        if (entry.isDirectory())
+        {
+            result += 1;
+        }
+
+        entry.close();
+    }
+
+    return result;
+}
+
+byte readGameTag(byte game_index)
+{
+    // No tag matches in multiplayer - too long wait time
+    if (n_players >= 3)
+    {
+        return 0;
+    }
+
+    File file = SD.open(setGameRelativePathBuffer(game_index, path_tag));
+    if (!file)
+    {
+        return 0;
+    }
+
+    int tag = file.parseInt(SKIP_WHITESPACE);
+    file.close();
+
+    return (byte)tag;
 }

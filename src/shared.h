@@ -3,12 +3,10 @@
 
 #include <Arduino.h>
 #include <Adafruit_TFTLCD.h>
-#include "screens/screens.h"
-#include "pins.h"
 
 // https://learn.adafruit.com/adafruit-3-5-color-320x480-tft-touchscreen-breakout/pinouts
 // Uses 8-Bit Mode
-Adafruit_TFTLCD tft = Adafruit_TFTLCD(pin_tft_cs, pin_tft_dc, pin_tft_wr, pin_tft_rd, pin_tft_rst);
+extern Adafruit_TFTLCD tft;
 
 // Input becomes allowed if joystick had a chance to get back
 // into it's neutral position while there was no button pressed.
@@ -18,13 +16,13 @@ Adafruit_TFTLCD tft = Adafruit_TFTLCD(pin_tft_cs, pin_tft_dc, pin_tft_wr, pin_tf
 // is done normally this flag gets set to false. Unless the code
 // processes a continuously pressed button or joystick left in a
 // particular direction.
-bool input_allowed = false;
+extern bool input_allowed;
 
 // If full screen redraw is needed
-bool screen_redraw = true;
+extern bool screen_redraw;
 
 // What screen is currently selected
-byte screen_selected = Screen::RandomizerInit;
+extern byte screen_selected;
 
 // `Fairness` is how many games needs to be played out for everybody to play equal amount of times in all configurations.
 // Minimal fairness value get a chance for everybody to play as soon as possible.
@@ -32,27 +30,27 @@ byte screen_selected = Screen::RandomizerInit;
 // on the larger scale. It could be that some players would not change seats for several games in a row
 // but after the `fairness` number of games all players will play equal amount of games regardless.
 // `Fairness` makes sense only if there are >2 players.
-byte n_fairness = 0;
+extern byte n_fairness;
 
 // Total number of players available for play
-byte n_players = 0;
+extern byte n_players;
 
 // Currently available players
-byte* players = 0;
+extern byte* players;
 
 // Total number of games available for play
-byte n_games = 0;
+extern byte n_games;
 
 // The size is n_fairness * 2
-byte *player_pairs = 0;
+extern byte *player_pairs;
 
 // Who is the first player, that is SD card index
-byte player_index_first = -1;
+extern byte player_index_first;
 
 // Who is the second player, that is SD card index
-byte player_index_second = -1;
+extern byte player_index_second;
 
 // Number of the current fighting match
-byte n_match = 0;
+extern byte n_match;
 
 #endif // SHARED_H
