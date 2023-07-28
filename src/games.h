@@ -2,7 +2,7 @@
 #define GAMES_H
 
 #include "fighters.h"
-#include "files_lib.h"
+#include "files.h"
 
 // Game variables
 byte game_index = 0;

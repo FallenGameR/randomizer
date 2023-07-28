@@ -5,7 +5,7 @@
 #include "colors.h"
 #include "graph.h"
 #include "stats.h"
-#include "files_lib.h"
+#include "files.h"
 
 // Used only for finding out borders of the graph
 byte playerWins[MAX_PLAYERS];
