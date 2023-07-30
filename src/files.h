@@ -57,16 +57,13 @@ char* setGameRelativePathBuffer(byte game_index, const char *progmem_path);
 // progmem_path should be a path constant stored in PROGMEM
 char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const char *progmem_path);
 
+// Set b_string to something like "FallenGameR"
+char* setPlayerName(byte player_index);
+
 // Sets b_string to something like "Tekken 7"
 char* setGameName(byte game_index);
 
 // Sets b_string to something like "Kasumi"
-char* setFighterName(byte gameIndex, byte fighterIndex);
-
-// Set b_string to something like "FallenGameR"
-char* setPlayerName(byte playerIndex);
-
-// Sets b_string to something like "/SCORE/<random seed>.csv"
-void setStatsPath(int random_seed);
+char* setFighterName(byte game_index, byte fighter_index);
 
 #endif // FILES_H

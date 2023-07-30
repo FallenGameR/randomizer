@@ -87,24 +87,6 @@ File openElementInFolder(const String &path, byte index, bool isDir)
     return empty;
 }
 
-// Returns unclosed <index> subfolder from /games/ folder on SD card
-File openGameFolder(byte game_index)
-{
-    return openElementInFolder(F("/games/"), game_index, true);
-}
-
-// Returns unclosed <index> file  from /players/ folder on SD card
-File openPlayerFile(byte player_index)
-{
-    return openElementInFolder(F("/players/"), player_index, false);
-}
-
-// Returns unclosed <fighter_index> subfolder from /games/<game_index>/fighters/ folder on SD card
-File openFighterFolder(byte game_index, byte fighter_index)
-{
-    return openElementInFolder(setGameRelativePathBuffer(game_index, path_fighters), fighter_index, true);
-}
-
 // Check if character is EOL
 bool isEol(int c)
 {
@@ -196,7 +178,7 @@ byte readGameTag(byte game_index)
 
 char* setGameRelativePathBuffer(byte game_index, const char *progmem_path)
 {
-    File dir = openGameFolder(game_index);
+    File dir = openElementInFolder(F("/games/"), game_index, true);
     if( !dir )
     {
         Serial.print(F("Can't open game folder: "));
@@ -226,7 +208,7 @@ char* setGameRelativePathBuffer(byte game_index, const char *progmem_path)
 
 char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const char *progmem_path)
 {
-    File game = openGameFolder(game_index);
+    File game = openElementInFolder(F("/games/"), game_index, true);
     if( !game )
     {
         Serial.print(F("Can't open game folder: "));
@@ -235,7 +217,7 @@ char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const ch
         return b_path;
     }
 
-    File fighter = openFighterFolder(game_index, fighter_index);
+    File fighter = openElementInFolder(setGameRelativePathBuffer(game_index, path_fighters), fighter_index, true);
     if( !fighter )
     {
         Serial.print(F("Can't open fighter folder: "));
@@ -296,6 +278,14 @@ char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const ch
     return b_path;
 }
 
+char* setPlayerName(byte player_index)
+{
+    File file = openElementInFolder(F("/players/"), player_index, false);
+    char* buffer = readString(file);
+    file.close();
+    return buffer;
+}
+
 char* setGameName(byte game_index)
 {
     File file = SD.open(setGameRelativePathBuffer(game_index, path_name));
@@ -304,25 +294,10 @@ char* setGameName(byte game_index)
     return buffer;
 }
 
-char* setFighterName(byte gameIndex, byte fighterIndex)
+char* setFighterName(byte game_index, byte fighter_index)
 {
-    File file = SD.open(setFighterRelativePathBuffer(gameIndex, fighterIndex, path_name));
+    File file = SD.open(setFighterRelativePathBuffer(game_index, fighter_index, path_name));
     char* buffer = readString(file);
     file.close();
     return buffer;
-}
-
-char* setPlayerName(byte playerIndex)
-{
-    File file = openPlayerFile(playerIndex);
-    char* buffer = readString(file);
-    file.close();
-    return buffer;
-}
-
-void setStatsPath(int random_seed)
-{
-    strcpy_P(b_path, path_score);
-    itoa(random_seed, b_path + strlen_P(path_score), 10);
-    strcpy_P(b_path + strlen(b_path), path_csv);
 }

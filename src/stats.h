@@ -55,9 +55,16 @@ File statsFile;
         PRINT2_BSF_F(fighter_index);                    \
     }
 
+void setStatsFilePathBuffer(int random_seed)
+{
+    strcpy_P(b_path, path_score);
+    itoa(random_seed, b_path + strlen_P(path_score), 10);
+    strcpy_P(b_path + strlen(b_path), path_csv);
+}
+
 void InitStatsFile(int random_seed)
 {
-    setStatsPath(random_seed);
+    setStatsFilePathBuffer(random_seed);
     statsFile = SD.open(b_path, FILE_WRITE);
     statsFile.println(F("Match,FirstPlayer,SecondPlayer,Game,Winner,Fair,FirstFighter,FirstFighter2,FirstFighter3,SecondFighter,SecondFighter2,SecondFighter3"));
 }
