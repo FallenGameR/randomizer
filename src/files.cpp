@@ -159,13 +159,13 @@ byte readNumberOfFighters(byte game_index)
 byte readGameTag(byte game_index)
 {
     // No tag matches in multiplayer - too long wait time
-    if (n_players >= 3)
+    if( n_players > 2 )
     {
         return 0;
     }
 
     File file = SD.open(setGameRelativePathBuffer(game_index, path_tag));
-    if (!file)
+    if( !file )
     {
         return 0;
     }
