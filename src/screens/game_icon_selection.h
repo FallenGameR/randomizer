@@ -46,7 +46,7 @@ void GameIconSelectionScreen()
         for( int i = 0; i < n_games; i++ )
         {
             tft.print(F("  "));
-            PRINT_BT(setGameName(i));
+            PRINT_BT(readGameName(i));
             tft.println();
 
             int16_t x = tft.getCursorX();
@@ -66,7 +66,7 @@ void GameIconSelectionScreen()
         bmpDraw(b_path, false, 0, 0, 1);
 
         Serial.print(F("Game selected: "));
-        PRINT_BS(setGameName(game_index));
+        PRINT_BS(readGameName(game_index));
         Serial.println();
 
         if (isTagGame)

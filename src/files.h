@@ -58,12 +58,12 @@ char* setGameRelativePathBuffer(byte game_index, const char *progmem_path);
 char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const char *progmem_path);
 
 // Set b_string to something like "FallenGameR"
-char* setPlayerName(byte player_index);
+char* readPlayerName(byte player_index);
 
 // Sets b_string to something like "Tekken 7"
-char* setGameName(byte game_index);
+char* readGameName(byte game_index);
 
 // Sets b_string to something like "Kasumi"
-char* setFighterName(byte game_index, byte fighter_index);
+char* readFighterName(byte game_index, byte fighter_index);
 
 #endif // FILES_H

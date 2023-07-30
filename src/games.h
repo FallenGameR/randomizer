@@ -16,48 +16,42 @@ char bufferLine[480 / 6];
 
 void FightersToBufferLine(byte a, byte b, byte c)
 {
-    setFighterName(game_index, a);
+    readFighterName(game_index, a);
     strcpy(bufferLine, b_string);
 
     if (b != NO_FIGHTER)
     {
         strcat_P(bufferLine, str_comma);
-        setFighterName(game_index, b);
+        readFighterName(game_index, b);
         strcat(bufferLine, b_string);
     }
 
     if (c != NO_FIGHTER)
     {
         strcat_P(bufferLine, str_comma);
-        setFighterName(game_index, c);
+        readFighterName(game_index, c);
         strcat(bufferLine, b_string);
     }
 }
 
 // Select current game
-void SelectGame(byte gameIndex)
+void SelectGame(byte game_index)
 {
-    n_fighters = readNumberOfFighters(gameIndex);
+    n_fighters = readNumberOfFighters(game_index);
     fighters_left_position = 0;
     fighters_right_position = 0;
 
-    game_tag = readGameTag(gameIndex);
+    game_tag = readGameTag(game_index);
 
     if (game_tag == 0)
     {
         isTagGame = false;
     }
 
-    Serial.println(F("Game selected:"));
-
-    Serial.print(F("  index = "));
-    Serial.println(gameIndex);
-
-    Serial.print(F("  tag =  "));
+    Serial.print(F("Game selected: "));
+    Serial.print(game_index);
+    Serial.print(F(", tag = "));
     Serial.println(game_tag);
-
-    Serial.print(F("  fighters =  "));
-    Serial.println(n_fighters);
 }
 
 #endif // GAMES_H

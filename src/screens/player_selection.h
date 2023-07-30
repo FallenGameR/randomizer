@@ -19,9 +19,9 @@ void PlayerSelectionScreen()
     player_index_second = player_pairs[pair_index * 2 + 1];
 
     PRINT(F("Players: "), Serial);
-    PRINT_BS(setPlayerName(player_index_first));
+    PRINT_BS(readPlayerName(player_index_first));
     PRINT(F(" and "), Serial);
-    PRINT_BS(setPlayerName(player_index_second));
+    PRINT_BS(readPlayerName(player_index_second));
     Serial.println();
 
     screen_selected = Screen::FighterSelection;

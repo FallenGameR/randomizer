@@ -18,7 +18,7 @@ void GameSelectionScreen()
         tft.setTextColor(WHITE, BLACK);
 
         Serial.print(F("Game selected: "));
-        PRINT2_B(setGameName(game_index), tft, Serial);
+        PRINT2_B(readGameName(game_index), tft, Serial);
         Serial.println();
 
         if (isTagGame)

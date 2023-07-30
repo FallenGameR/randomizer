@@ -278,7 +278,7 @@ char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const ch
     return b_path;
 }
 
-char* setPlayerName(byte player_index)
+char* readPlayerName(byte player_index)
 {
     File file = openElementInFolder(F("/players/"), player_index, false);
     char* buffer = readString(file);
@@ -286,7 +286,7 @@ char* setPlayerName(byte player_index)
     return buffer;
 }
 
-char* setGameName(byte game_index)
+char* readGameName(byte game_index)
 {
     File file = SD.open(setGameRelativePathBuffer(game_index, path_name));
     char* buffer = readString(file);
@@ -294,7 +294,7 @@ char* setGameName(byte game_index)
     return buffer;
 }
 
-char* setFighterName(byte game_index, byte fighter_index)
+char* readFighterName(byte game_index, byte fighter_index)
 {
     File file = SD.open(setFighterRelativePathBuffer(game_index, fighter_index, path_name));
     char* buffer = readString(file);

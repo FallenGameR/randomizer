@@ -252,7 +252,7 @@ void RandomizerInitScreen()
             if( is_present )
             {
                 tft.print(F("  # "));
-                PRINT_BT(setPlayerName(i));
+                PRINT_BT(readPlayerName(i));
             }
 
             tft.println();

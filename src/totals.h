@@ -251,7 +251,7 @@ void RenderTotals()
             screen.xlo + 40,
             screen.ylo + 10 + player_idx * 10);
 
-        setPlayerName(player);
+        readPlayerName(player);
         tft.print(b_string);
     }
 

@@ -47,7 +47,7 @@ byte matches[match_limit][Stats::Size];
 File statsFile;
 
 #define PRINT2_BSF_F(fighter_index) \
-    PRINT2_BSF(setFighterName(matches[i][Stats::Game], matches[i][Stats::fighter_index]));
+    PRINT2_BSF(readFighterName(matches[i][Stats::Game], matches[i][Stats::fighter_index]));
 
 #define PRINT2_BSF_F_OPT(fighter_index)                 \
     if (matches[i][Stats::fighter_index] != NO_FIGHTER) \
@@ -74,13 +74,13 @@ void DumpMatch(int i)
     PRINT2_SF(i + 1);
     PRINT2_SF(F(","));
 
-    PRINT2_BSF(setPlayerName(matches[i][Stats::FirstPlayer]));
+    PRINT2_BSF(readPlayerName(matches[i][Stats::FirstPlayer]));
     PRINT2_SF(F(","));
 
-    PRINT2_BSF(setPlayerName(matches[i][Stats::SecondPlayer]));
+    PRINT2_BSF(readPlayerName(matches[i][Stats::SecondPlayer]));
     PRINT2_SF(F(","));
 
-    PRINT2_BSF(setGameName(matches[i][Stats::Game]));
+    PRINT2_BSF(readGameName(matches[i][Stats::Game]));
     PRINT2_SF(F(","));
 
     switch (matches[i][Stats::Won])
@@ -90,11 +90,11 @@ void DumpMatch(int i)
         break;
 
     case Winner::First:
-        PRINT2_BSF(setPlayerName(matches[i][Stats::FirstPlayer]));
+        PRINT2_BSF(readPlayerName(matches[i][Stats::FirstPlayer]));
         break;
 
     case Winner::Second:
-        PRINT2_BSF(setPlayerName(matches[i][Stats::SecondPlayer]));
+        PRINT2_BSF(readPlayerName(matches[i][Stats::SecondPlayer]));
         break;
 
     case Winner::Draw:
@@ -165,7 +165,7 @@ void RecordMatchOutcome()
         break;
 
     case Winner::First:
-        PRINT_BS(setPlayerName(player_index_first));
+        PRINT_BS(readPlayerName(player_index_first));
         PRINT(F(" won ("), Serial);
         FightersToBufferLine(fighter_index_first, fighter_index_first2, fighter_index_first3);
         PRINT(bufferLine, Serial);
@@ -173,7 +173,7 @@ void RecordMatchOutcome()
         break;
 
     case Winner::Second:
-        PRINT_BS(setPlayerName(player_index_second));
+        PRINT_BS(readPlayerName(player_index_second));
         PRINT(F(" won ("), Serial);
         FightersToBufferLine(fighter_index_second, fighter_index_second2, fighter_index_second3);
         PRINT(bufferLine, Serial);
