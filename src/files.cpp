@@ -156,6 +156,33 @@ byte readNumberOfFighters(byte game_index)
     return countDirsInFolder(setGameRelativePathBuffer(game_index, path_fighters));
 }
 
+char* readPlayerName(byte player_index)
+{
+    // Every player has a flag if it participated in games
+    File file = openElementInFolder(F("/players/"), player_index, false);
+    char* buffer = readString(file);
+    file.close();
+    return buffer;
+}
+
+char* readGameName(byte game_index)
+{
+    // Every game has a flag if it was selected before?
+    // It is better to store it in a separate file.
+    File file = SD.open(setGameRelativePathBuffer(game_index, path_name));
+    char* buffer = readString(file);
+    file.close();
+    return buffer;
+}
+
+char* readFighterName(byte game_index, byte fighter_index)
+{
+    File file = SD.open(setFighterRelativePathBuffer(game_index, fighter_index, path_name));
+    char* buffer = readString(file);
+    file.close();
+    return buffer;
+}
+
 byte readGameTag(byte game_index)
 {
     // No tag matches in multiplayer - too long wait time
@@ -276,28 +303,4 @@ char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const ch
     fighter.close();
 
     return b_path;
-}
-
-char* readPlayerName(byte player_index)
-{
-    File file = openElementInFolder(F("/players/"), player_index, false);
-    char* buffer = readString(file);
-    file.close();
-    return buffer;
-}
-
-char* readGameName(byte game_index)
-{
-    File file = SD.open(setGameRelativePathBuffer(game_index, path_name));
-    char* buffer = readString(file);
-    file.close();
-    return buffer;
-}
-
-char* readFighterName(byte game_index, byte fighter_index)
-{
-    File file = SD.open(setFighterRelativePathBuffer(game_index, fighter_index, path_name));
-    char* buffer = readString(file);
-    file.close();
-    return buffer;
 }
