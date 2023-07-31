@@ -141,9 +141,32 @@ void FighterSelectionScreen()
         // After fairness modifier switch disable the input so that we don't keep flipping the modifier
         if (Y_DOWN)
         {
+            winner_selected = Winner::None;
             not_fair_win = !not_fair_win;
             input_allowed = false;
         }
+
+        // Draw
+        if (Y_UP)
+        {
+            winner_selected = Winner::Draw;
+        }
+
+        // Left won
+        if (X_LEFT)
+        {
+            winner_selected = Winner::First;
+        }
+
+        // Right won
+        if (X_RIGHT)
+        {
+            winner_selected = Winner::Second;
+        }
+
+        // LEDs show what the input would be on winner finalization
+        digitalWrite(pin_led_green, winner_selected != Winner::None);
+        digitalWrite(pin_led_blue, not_fair_win);
 
         // Here is what happens event-wise when we select winner:
         // - joystick selection, this one doesn't specify final win yet (since we may want to cancel this input before completing it)
@@ -160,32 +183,6 @@ void FighterSelectionScreen()
             screen_redraw = true;
         }
     }
-
-    // Note that win selection don't reset input_allowed to allow
-    // for choice change without resetting joystick postion to neutral
-    if (Y_DOWN)
-    {
-        winner_selected = Winner::None;
-    }
-
-    if (Y_UP)
-    {
-        winner_selected = Winner::Draw;
-    }
-
-    if (X_LEFT)
-    {
-        winner_selected = Winner::First;
-    }
-
-    if (X_RIGHT)
-    {
-        winner_selected = Winner::Second;
-    }
-
-    // LEDs show what the input would be on winner finalization
-    digitalWrite(pin_led_green, winner_selected != Winner::None);
-    digitalWrite(pin_led_blue, not_fair_win);
 }
 
 #endif // FIGHTER_SELECTION_H
