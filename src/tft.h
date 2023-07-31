@@ -46,7 +46,7 @@ uint32_t read32(File &f)
 // startX - screen position X where to draw the picture
 // startY - screen position Y where to draw the picture
 // part - what part of the picture to draw: 1 - whole, 2 - half (centred), 3 - third (centered)
-void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int16_t part)
+void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int16_t part, bool allowInputOnCancel = false)
 {
     uint32_t startTime = millis();
     (void) startTime;
@@ -208,10 +208,22 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
         // User cancel if needed
         readInput();
 
-        if (input_allowed && (BUTTON_BLACK)) // || X_LEFT || X_RIGHT || Y_UP || Y_DOWN | BUTTON_JOYSTICK)) for some reason on match screen that causes the recording of the match outcome
+        if (input_allowed && (BUTTON_BLACK || X_LEFT || X_RIGHT || Y_UP || Y_DOWN | BUTTON_JOYSTICK))
         {
             wasCancelled = true;
-            input_allowed = false; // NOTE: for games selection that is not needed - we want to move the cursor ASAP
+
+            if( BUTTON_JOYSTICK )
+            {
+                // Soft reset always terminates all other input
+                input_allowed = false;
+            }
+            else
+            {
+                // Most of the time we want to stop before considering next input (false)
+                // But for the game selection menu we actually want to process the up/down command as well (true)
+                input_allowed = allowInputOnCancel;
+            }
+
             break;
         }
     }
