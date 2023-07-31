@@ -12,6 +12,16 @@ void FighterSelectionScreen()
 {
     if (screen_redraw)
     {
+        // LEDs blink to signal start of new match
+        digitalWrite(pin_led_green, LOW);
+        digitalWrite(pin_led_blue, LOW);
+        delay(200);
+        digitalWrite(pin_led_green, HIGH);
+        digitalWrite(pin_led_blue, HIGH);
+        delay(200);
+        digitalWrite(pin_led_green, LOW);
+        digitalWrite(pin_led_blue, LOW);
+
         // Fighter init
         fighter_index_first = nextRandom(fighters_left, n_fighters, &fighters_left_position);
         fighter_index_second = nextRandom(fighters_right, n_fighters, &fighters_right_position);
@@ -67,15 +77,6 @@ void FighterSelectionScreen()
 
         Serial.println();
 
-        // LEDs blink to signal start of new match
-        digitalWrite(pin_led_green, LOW);
-        digitalWrite(pin_led_blue, LOW);
-        delay(200);
-        digitalWrite(pin_led_green, HIGH);
-        digitalWrite(pin_led_blue, HIGH);
-        delay(200);
-        digitalWrite(pin_led_green, LOW);
-        digitalWrite(pin_led_blue, LOW);
 
         // Portrait draw
         setFighterRelativePathBuffer(game_index, fighter_index_first, path_icon);
