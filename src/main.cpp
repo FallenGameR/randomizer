@@ -1,7 +1,6 @@
 //#define DEBUG
 
 #include "screens\randomizer_init.h"
-#include "screens\game_selection.h"
 #include "screens\player_selection.h"
 #include "screens\fighter_selection.h"
 #include "screens\game_icon_selection.h"
@@ -41,10 +40,6 @@ void loop()
 
     case Screen::GameIconSelection:
         GameIconSelectionScreen();
-        break;
-
-    case Screen::GameSelection:
-        GameSelectionScreen();
         break;
 
     case Screen::PlayerSelection:

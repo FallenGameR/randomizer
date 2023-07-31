@@ -57,13 +57,17 @@ void GameIconSelectionScreen()
         game_index = random(n_games);
         UpdateGameCursorPosition(0);
 
+
+        int16_t halfScreen = tft.width() / 2;
+        setGameRelativePathBuffer(game_index, path_icon);
+        bmpDraw(b_path, false, halfScreen, 0, 1);
+
         /*
         isTagGame = random(2);
         SelectGame(game_index);
 
         tft.fillScreen(WHITE);
-        setGameRelativePathBuffer(game_index, path_icon);
-        bmpDraw(b_path, false, 0, 0, 1);
+
 
         Serial.print(F("Game selected: "));
         PRINT_BS(readGameName(game_index));
