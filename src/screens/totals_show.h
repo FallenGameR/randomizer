@@ -24,7 +24,7 @@ void TotalShowScreen()
             screen_redraw = true;
         }
 
-        // Soft reset to do a quick reset
+        // Soft reset to do a soft reset
         if (BUTTON_JOYSTICK)
         {
             Serial.println(F("-> Init"));

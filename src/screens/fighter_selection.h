@@ -121,20 +121,20 @@ void FighterSelectionScreen()
     // input_allowed means we just were in neutral state and now test for new input that is tested in nested ifs
     if (input_allowed)
     {
-        // Black button returns to games selection without choosing of winner
+        // Black button proceeds to stats
         if (BUTTON_BLACK)
         {
-            Serial.println(F("-> Game"));
-            screen_selected = Screen::GameIconSelection;
+            Serial.println(F("-> Stats"));
+            screen_selected = Screen::TotalsShow;
             input_allowed = false;
             screen_redraw = true;
         }
 
-        // Joystick button goes to the current stats screen
+        // Soft reset to do a quick reset
         if (BUTTON_JOYSTICK)
         {
-            Serial.println(F("-> Stats"));
-            screen_selected = Screen::TotalsShow;
+            Serial.println(F("-> Init"));
+            screen_selected = Screen::RandomizerInit;
             input_allowed = false;
             screen_redraw = true;
         }
