@@ -29,6 +29,8 @@ void UpdateGameCursorPosition(int movement)
 
 void GameIconSelectionScreen()
 {
+    int16_t halfScreen = tft.width() / 2;
+
     // Full redraw
     if (screen_redraw)
     {
@@ -57,10 +59,9 @@ void GameIconSelectionScreen()
         game_index = random(n_games);
         UpdateGameCursorPosition(0);
 
-
-        int16_t halfScreen = tft.width() / 2;
+        // Draw icon
         setGameRelativePathBuffer(game_index, path_icon);
-        bmpDraw(b_path, false, halfScreen, 0, 1);
+        bmpDraw(b_path, false, halfScreen, 0, 1, true);
 
         /*
         isTagGame = random(2);
@@ -106,32 +107,14 @@ void GameIconSelectionScreen()
             int direction = Y_UP ? -1 : +1;
             UpdateGameCursorPosition(direction);
             input_allowed = false;
+
+            // Draw icon
+            tft.fillRect(halfScreen, 0, halfScreen, tft.height(), BLACK);
+            setGameRelativePathBuffer(game_index, path_icon);
+            bmpDraw(b_path, false, halfScreen, 0, 1, true);
         }
 
         /*
-        if (X_RIGHT)
-        {
-            game_index = (game_index + n_games + 1) % n_games;
-            screen_selected = Screen::GameSelection;
-            input_allowed = false;
-            screen_redraw = true;
-        }
-
-        if (X_LEFT)
-        {
-            game_index = (game_index + n_games - 1) % n_games;
-            screen_selected = Screen::GameSelection;
-            input_allowed = false;
-            screen_redraw = true;
-        }
-        */
-
-        /*
-        if (Y_UP)
-        {
-            input_allowed = false;
-            screen_redraw = true;
-        }
 
         if (Y_DOWN)
         {

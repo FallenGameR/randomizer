@@ -249,7 +249,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 #endif
 }
 
-void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY, int16_t part)
+void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY, int16_t part, bool allowInputOnCancel = false)
 {
     Serial.print(F("Drawing image: "));
     Serial.print(filename);
@@ -270,7 +270,7 @@ void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t start
     }
 
     // Draw image
-    drawImage(bmpFile, mirror, startX, startY, part);
+    drawImage(bmpFile, mirror, startX, startY, part, allowInputOnCancel);
     Serial.println();
 
     // Close file

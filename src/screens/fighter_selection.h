@@ -7,6 +7,7 @@
 #include "..\print.h"
 #include "..\random.h"
 #include "..\fighters.h"
+#include "..\totals.h"
 
 void FighterSelectionScreen()
 {
@@ -55,12 +56,24 @@ void FighterSelectionScreen()
         tft.setTextSize(FONT_SIZE);
         tft.setTextColor(WHITE, BLACK);
 
-        // TFT players
+        // First player
         tft.setCursor(0, 0);
         PRINT_BT(readPlayerName(player_index_first));
 
-        tft.setCursor(tft.width() / 2, 0);
-        PRINT_BT(readPlayerName(player_index_second));
+        // Score
+        byte firstWins = countPlayerWins(player_index_first);
+        byte charPositions = firstWins < 10 ? 1 : 2;
+        tft.setCursor(tft.width() / 2 - CHAR_WIDTH * (charPositions + 0.5), 0);
+        tft.setTextColor(DK_GREY, BLACK);
+        tft.print(firstWins);
+        tft.print(" ");
+        tft.print(countPlayerWins(player_index_second));
+        tft.setTextColor(WHITE, BLACK);
+
+        // Second player
+        char* name = readPlayerName(player_index_second);
+        tft.setCursor(tft.width() - strlen(name) * CHAR_WIDTH, 0);
+        PRINT_BT(name);
 
         // TFT and serial fighters
         PRINT(F("Fighters: "), Serial);

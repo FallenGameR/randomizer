@@ -32,6 +32,32 @@ void ClearPlayerWinsArray()
     }
 }
 
+byte countPlayerWins(byte player)
+{
+    byte wins = 0;
+
+    for (byte i = 0; i < n_match; i++)
+    {
+        if( matches[i][Stats::FirstPlayer] == player )
+        {
+            if( (matches[i][Stats::Won] == Winner::First) || (matches[i][Stats::Won] == Winner::Draw) )
+            {
+                wins++;
+            }
+        }
+
+        if( matches[i][Stats::SecondPlayer] == player )
+        {
+            if( (matches[i][Stats::Won] == Winner::Second) || (matches[i][Stats::Won] == Winner::Draw) )
+            {
+                wins++;
+            }
+        }
+    }
+
+    return wins;
+}
+
 void GroupPlayerWins()
 {
     ClearPlayerWinsArray();
