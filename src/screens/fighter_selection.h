@@ -63,7 +63,7 @@ void FighterSelectionScreen()
         // Score
         byte firstWins = countPlayerWins(player_index_first);
         byte charPositions = firstWins < 10 ? 1 : 2;
-        tft.setCursor(tft.width() / 2 - CHAR_WIDTH * (charPositions + 0.5), 0);
+        tft.setCursor(tft.width() / 2 - CHAR_WIDTH * (charPositions + 0.4), 0);
         tft.setTextColor(DK_GREY, BLACK);
         tft.print(firstWins);
         tft.print(" ");
