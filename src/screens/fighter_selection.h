@@ -73,7 +73,7 @@ void FighterSelectionScreen()
         // Second player
         char* name = readPlayerName(player_index_second);
         tft.setCursor(tft.width() - strlen(name) * CHAR_WIDTH, 0);
-        PRINT_BT(name);
+        tft.print(name);
 
         // TFT and serial fighters
         PRINT(F("Fighters: "), Serial);

@@ -3,6 +3,9 @@
 
 #include "..\tft.h"
 #include "..\games.h"
+#include "..\colors.h"
+#include "..\input.h"
+#include "screens.h"
 
 #define GAMES_START_ROW 3
 #define GAMES_SPACING 5
@@ -63,30 +66,6 @@ void GameIconSelectionScreen()
         setGameRelativePathBuffer(game_index, path_icon);
         bmpDraw(b_path, false, halfScreen, 40, 1, true);
 
-        /*
-        isTagGame = random(2);
-        SelectGame(game_index);
-
-        tft.fillScreen(WHITE);
-
-
-        Serial.print(F("Game selected: "));
-        PRINT_BS(readGameName(game_index));
-        Serial.println();
-
-        if (isTagGame)
-        {
-            tft.setFont(&FreeSerif24pt7b);
-            tft.setCursor(340, 180);
-            tft.setTextColor(BLACK);
-            tft.println(F("tag"));
-            tft.setFont();
-            tft.setTextColor(WHITE);
-
-            Serial.println(F("Tag"));
-        }
-        */
-
         screen_redraw = false;
     }
 
@@ -113,21 +92,6 @@ void GameIconSelectionScreen()
             setGameRelativePathBuffer(game_index, path_icon);
             bmpDraw(b_path, false, halfScreen, 40, 1, true);
         }
-
-        /*
-
-        if (Y_DOWN)
-        {
-            if (game_tag > 0)
-            {
-                isTagGame = !isTagGame;
-            }
-
-            screen_selected = Screen::GameSelection;
-            input_allowed = false;
-            screen_redraw = true;
-        }
-        */
 
         if (BUTTON_BLACK)
         {
