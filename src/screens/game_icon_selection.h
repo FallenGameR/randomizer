@@ -61,7 +61,7 @@ void GameIconSelectionScreen()
 
         // Draw icon
         setGameRelativePathBuffer(game_index, path_icon);
-        bmpDraw(b_path, false, halfScreen, 0, 1, true);
+        bmpDraw(b_path, false, halfScreen, 40, 1, true);
 
         /*
         isTagGame = random(2);
@@ -111,7 +111,7 @@ void GameIconSelectionScreen()
             // Draw icon
             tft.fillRect(halfScreen, 0, halfScreen, tft.height(), BLACK);
             setGameRelativePathBuffer(game_index, path_icon);
-            bmpDraw(b_path, false, halfScreen, 0, 1, true);
+            bmpDraw(b_path, false, halfScreen, 40, 1, true);
         }
 
         /*
