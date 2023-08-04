@@ -5,7 +5,7 @@
 #include "..\games.h"
 #include "..\colors.h"
 #include "..\input.h"
-#include "screens.h"
+#include "..\screens.h"
 
 #define GAMES_START_ROW 3
 #define GAMES_SPACING 5

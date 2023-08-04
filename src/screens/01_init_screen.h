@@ -1,7 +1,7 @@
 #ifndef RANDOMIZER_INIT_H
 #define RANDOMIZER_INIT_H
 
-#include "screens.h"
+#include "..\screens.h"
 #include "..\random.h"
 #include "..\input.h"
 #include "..\players.h"

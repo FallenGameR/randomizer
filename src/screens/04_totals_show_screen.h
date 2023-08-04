@@ -1,7 +1,7 @@
 #ifndef TOTALS_SHOW_H
 #define TOTALS_SHOW_H
 
-#include "screens.h"
+#include "..\screens.h"
 #include "..\totals.h"
 
 void TotalShowScreen()

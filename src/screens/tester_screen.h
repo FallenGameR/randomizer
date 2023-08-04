@@ -1,7 +1,7 @@
 #ifndef TESTER_H
 #define TESTER_H
 
-#include "screens.h"
+#include "..\screens.h"
 #include "..\totals.h"
 #include "..\random.h"
 

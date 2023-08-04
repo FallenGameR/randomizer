@@ -1,7 +1,7 @@
 #ifndef FIGHTER_SELECTION_H
 #define FIGHTER_SELECTION_H
 
-#include "screens.h"
+#include "..\screens.h"
 #include "..\input.h"
 #include "..\stats.h"
 #include "..\print.h"

@@ -1,6 +1,6 @@
 #include "shared.h"
 #include "pins.h"
-#include "screens/screens.h"
+#include "screens.h"
 
 Adafruit_TFTLCD tft = Adafruit_TFTLCD(pin_tft_cs, pin_tft_dc, pin_tft_wr, pin_tft_rd, pin_tft_rst);
 bool input_allowed = false;
