@@ -1,9 +1,9 @@
 //#define DEBUG
 
-#include "screens\randomizer_init.h"
+#include "screens\01_init_screen.h"
 #include "screens\player_selection.h"
 #include "screens\fighter_selection.h"
-#include "screens\game_icon_selection.h"
+#include "screens\02_game_selection_screen.h"
 #include "screens\totals_show.h"
 #include "screens\tester.h"
 
