@@ -6,7 +6,7 @@
 #include "..\players.h"
 #include "..\print.h"
 
-void PlayerSelectionScreen()
+void SelectPlayers()
 {
     // Reshuffle if we reached end of list
     byte pair_index = n_match % n_fairness;

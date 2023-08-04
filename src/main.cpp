@@ -43,7 +43,7 @@ void loop()
         break;
 
     case Screen::PlayerSelection:
-        PlayerSelectionScreen();
+        SelectPlayers();
         break;
 
     case Screen::FighterSelection:
