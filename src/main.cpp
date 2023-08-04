@@ -1,9 +1,8 @@
 //#define DEBUG
 
 #include "screens\01_init_screen.h"
-#include "screens\player_selection.h"
-#include "screens\03_fighter_selection_screen.h"
 #include "screens\02_game_selection_screen.h"
+#include "screens\03_fighter_selection_screen.h"
 #include "screens\04_totals_show_screen.h"
 #include "screens\tester_screen.h"
 
