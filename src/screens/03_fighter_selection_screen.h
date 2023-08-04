@@ -192,7 +192,8 @@ void FighterSelectionScreen()
 
             Serial.print(F("-> Match "));
             Serial.println(n_match + 1);
-            screen_selected = Screen::PlayerSelection;
+            SelectPlayers();
+            screen_selected = Screen::FighterSelection;
             input_allowed = false;
             screen_redraw = true;
         }

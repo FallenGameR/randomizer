@@ -6,25 +6,5 @@
 #include "..\players.h"
 #include "..\print.h"
 
-void SelectPlayers()
-{
-    // Reshuffle if we reached end of list
-    byte pair_index = n_match % n_fairness;
-    if (pair_index == 0)
-    {
-        ShufflePlayerPairs();
-    }
-
-    player_index_first = player_pairs[pair_index * 2 + 0];
-    player_index_second = player_pairs[pair_index * 2 + 1];
-
-    PRINT(F("Players: "), Serial);
-    PRINT_BS(readPlayerName(player_index_first));
-    PRINT(F(" and "), Serial);
-    PRINT_BS(readPlayerName(player_index_second));
-    Serial.println();
-
-    screen_selected = Screen::FighterSelection;
-}
 
 #endif // PLAYER_SELECTION_H

@@ -42,10 +42,6 @@ void loop()
         GameIconSelectionScreen();
         break;
 
-    case Screen::PlayerSelection:
-        SelectPlayers();
-        break;
-
     case Screen::FighterSelection:
         FighterSelectionScreen();
         break;
