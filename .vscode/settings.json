@@ -4,13 +4,21 @@
         "PLATFORMIO_CALLER": "vscode"
     },
     "cSpell.words": [
+        "acolor",
         "Adafruit",
         "atmega",
+        "bcolor",
+        "gcolor",
         "Kasumi",
         "mosi",
         "PROGMEM",
         "Randomizer",
+        "tcolor",
         "Tekken",
-        "TFTLCD"
+        "TFTLCD",
+        "xinc",
+        "xlabel",
+        "yinc",
+        "ylabel"
     ]
 }
