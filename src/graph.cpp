@@ -1,5 +1,6 @@
 #include "graph.h"
-#include <tft.h>
+#include "tft.h"
+#include "shared.h"
 #include "colors.h"
 #include "input.h"
 

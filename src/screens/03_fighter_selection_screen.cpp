@@ -1,11 +1,12 @@
-#include "..\screens.h"
 #include "..\input.h"
-#include "..\stats.h"
+#include "..\pins.h"
 #include "..\print.h"
 #include "..\random.h"
-#include "..\totals.h"
+#include "..\screens.h"
+#include "..\shared.h"
+#include "..\stats.h"
 #include "..\tft.h"
-#include "..\pins.h"
+#include "..\totals.h"
 
 // Actually it is 54 as per scripts/Find-MaxFighters.ps1, but we'll round it up
 #define MAX_FIGHTERS_IN_GAME 64

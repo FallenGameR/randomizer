@@ -2,16 +2,16 @@
 
 #include "screens.h"
 
-#include "screens.h"
 #include "colors.h"
 #include "files.h"
 #include "games.h"
 #include "input.h"
+#include "pins.h"
 #include "players.h"
 #include "random.h"
+#include "shared.h"
 #include "stats.h"
 #include "tft.h"
-#include "pins.h"
 
 void setup()
 {

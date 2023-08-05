@@ -1,7 +1,9 @@
 #include <Arduino.h>
 
-#include "..\screens.h"
 #include "..\colors.h"
+#include "..\input.h"
+#include "..\screens.h"
+#include "..\shared.h"
 #include "..\stats.h"
 #include "..\tft.h"
 

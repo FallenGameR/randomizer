@@ -1,12 +1,13 @@
 #include <Arduino.h>
 
-#include "..\screens.h"
-#include "..\random.h"
-#include "..\input.h"
-#include "..\tft.h"
-#include "..\stats.h"
 #include "..\colors.h"
+#include "..\input.h"
 #include "..\random.h"
+#include "..\random.h"
+#include "..\screens.h"
+#include "..\shared.h"
+#include "..\stats.h"
+#include "..\tft.h"
 
 // Indexes of various settings in the table
 #define SETTING_GAMES_IDX 0

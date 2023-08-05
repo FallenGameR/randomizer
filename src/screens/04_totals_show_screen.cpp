@@ -1,8 +1,10 @@
 #include "..\screens.h"
+
 #include <Arduino.h>
 
 #include "..\totals.h"
 #include "..\input.h"
+#include "..\shared.h"
 
 void TotalShowScreen()
 {
