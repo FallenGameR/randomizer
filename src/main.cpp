@@ -1,10 +1,19 @@
 //#define DEBUG
 
 #include "screens.h"
-#include "screens\02_game_selection_screen.h"
 #include "screens\03_fighter_selection_screen.h"
 #include "screens\04_totals_show_screen.h"
 #include "screens\tester_screen.h"
+
+#include "screens.h"
+#include "colors.h"
+#include "files.h"
+#include "games.h"
+#include "input.h"
+#include "players.h"
+#include "random.h"
+#include "stats.h"
+#include "tft.h"
 
 void setup()
 {

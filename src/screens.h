@@ -15,4 +15,7 @@ enum Screen
 // Entry function of the init screen
 void RandomizerInitScreen();
 
+// Entry function of the game screen
+void GameIconSelectionScreen();
+
 #endif // SCREENS_H

@@ -1,14 +1,14 @@
-#include "02_game_selection_screen.h"
+#include <Arduino.h>
 
 #include "..\screens.h"
-#include "..\random.h"
-#include "..\input.h"
-#include "..\players.h"
-#include "..\tft.h"
-#include "..\stats.h"
 #include "..\colors.h"
-#include "..\files.h"
+#include "..\stats.h"
+#include "..\tft.h"
 
+#define GAMES_START_ROW 3
+#define GAMES_SPACING 5
+
+// Update and redraw cursor that moves between selectable settings
 void UpdateGameCursorPosition(int movement)
 {
     // Find the new index
