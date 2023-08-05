@@ -8,8 +8,6 @@
 // Plus if number of players is > 16 the fairness value no longer fits into byte.
 #define MAX_PLAYERS 10
 
-void PrintPairs();
-
 // Shuffle the pairs in a random unbiased way
 void ShufflePlayerPairs();
 
