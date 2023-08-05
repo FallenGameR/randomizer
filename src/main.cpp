@@ -11,6 +11,7 @@
 #include "random.h"
 #include "stats.h"
 #include "tft.h"
+#include "pins.h"
 
 void setup()
 {

@@ -1,5 +1,10 @@
 #include "input.h"
 
+#include <Arduino.h>
+#include "shared.h"
+#include "pins.h"
+
+const unsigned long input_threshold_ms = 100;
 bool input_current[Input::size];
 unsigned long input_started[Input::size];
 bool input_ready[Input::size];
