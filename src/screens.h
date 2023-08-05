@@ -18,4 +18,7 @@ void RandomizerInitScreen();
 // Entry function of the game screen
 void GameIconSelectionScreen();
 
+// Entry function of the fighter screen
+void FighterSelectionScreen();
+
 #endif // SCREENS_H

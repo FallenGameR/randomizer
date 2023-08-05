@@ -1,4 +1,3 @@
-#include "03_fighter_selection_screen.h"
 #include "..\screens.h"
 #include "..\input.h"
 #include "..\stats.h"
@@ -88,7 +87,6 @@ void FighterSelectionScreen()
         PRINT2(bufferLine, tft, Serial);
 
         Serial.println();
-
 
         // Portrait draw
         setFighterRelativePathBuffer(game_index, fighter_index_first, path_icon);

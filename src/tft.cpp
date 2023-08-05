@@ -18,7 +18,7 @@ uint32_t read32(File &f)
     return result;
 }
 
-void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int16_t part, bool allowInputOnCancel = false)
+void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int16_t part, bool allowInputOnCancel)
 {
     uint32_t startTime = millis();
     (void) startTime;
@@ -221,7 +221,7 @@ void drawImage(File bmpFile, boolean mirror, int16_t startX, int16_t startY, int
 #endif
 }
 
-void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY, int16_t part, bool allowInputOnCancel = false)
+void bmpDraw(const char *filename, boolean mirror, int16_t startX, int16_t startY, int16_t part, bool allowInputOnCancel)
 {
     Serial.print(F("Drawing image: "));
     Serial.print(filename);
