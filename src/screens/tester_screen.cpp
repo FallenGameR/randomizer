@@ -1,5 +1,3 @@
-#include "tester_screen.h"
-
 #include "..\screens.h"
 #include "..\totals.h"
 #include "..\random.h"

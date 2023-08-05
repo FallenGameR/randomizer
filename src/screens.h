@@ -24,4 +24,7 @@ void FighterSelectionScreen();
 // Entry function of the totals screen
 void TotalShowScreen();
 
+// Entry function of the tester screen
+void TesterScreen();
+
 #endif // SCREENS_H

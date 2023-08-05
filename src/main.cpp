@@ -1,7 +1,6 @@
 //#define DEBUG
 
 #include "screens.h"
-#include "screens\tester_screen.h"
 
 #include "screens.h"
 #include "colors.h"
