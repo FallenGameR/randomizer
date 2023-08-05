@@ -2,43 +2,13 @@
 #define RANDOM_H
 
 #include <Arduino.h>
-#include <Entropy.h>
 
 // Entropy library actually returns uint32_t,
 // but negative values are fun when changing
 // the seed manually
 
-int initEntropy()
-{
-    Entropy.Initialize();
-    return Entropy.random();
-}
+int initEntropy();
 
-byte nextRandom(byte* array, const size_t size, size_t* position)
-{
-    // Initialize the array on the first usage
-    if( *position == 0 )
-    {
-        // Populate the array with indexes
-        for( size_t i = 0; i < size; i++ )
-        {
-            array[i] = i;
-        }
-
-        // Shuffle the array
-        for (size_t current = 0; current < size - 1; current++)
-        {
-            size_t other = random(current + 1, size);
-            byte temp = array[current];
-            array[current] = array[other];
-            array[other] = temp;
-        }
-    }
-
-    // Return the next value and increment the position
-    byte result = array[*position];
-    *position = (*position + 1) % size;
-    return result;
-}
+byte nextRandom(byte* array, const size_t size, size_t* position);
 
 #endif // RANDOM_H
