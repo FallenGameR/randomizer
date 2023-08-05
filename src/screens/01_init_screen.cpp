@@ -6,6 +6,7 @@
 #include "..\tft.h"
 #include "..\stats.h"
 #include "..\colors.h"
+#include "..\random.h"
 
 // Indexes of various settings in the table
 #define SETTING_GAMES_IDX 0

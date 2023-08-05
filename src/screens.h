@@ -21,4 +21,7 @@ void GameIconSelectionScreen();
 // Entry function of the fighter screen
 void FighterSelectionScreen();
 
+// Entry function of the totals screen
+void TotalShowScreen();
+
 #endif // SCREENS_H
