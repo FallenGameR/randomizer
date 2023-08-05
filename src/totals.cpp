@@ -1,9 +1,18 @@
 #include "totals.h"
-#include <Arduino.h>
-#include "players.h"
-#include "colors.h"
-#include "graph.h"
 
+#include "colors.h"
+#include "colors.h"
+#include "files.h"
+#include "graph.h"
+#include "graph.h"
+#include "players.h"
+#include "shared.h"
+#include "stats.h"
+
+#define DOT_OFFSET 3
+#define DOT_WIDTH (DOT_OFFSET * 2 + 1)
+
+// Used only for finding out borders of the graph
 byte playerWins[MAX_PLAYERS];
 
 unsigned int playerColors[MAX_PLAYERS] = {
@@ -167,6 +176,9 @@ byte GetOtherPlayer(byte player, byte match)
     return NO_FIGHTER;
 }
 
+// Function assumes that plot is allocated and has length of match_limit + 1
+// First element is always 0
+// Elements until GetMatchCount are filled, the remainder left as is
 void FillPlayerWinsGraph(byte player, byte *graph)
 {
     graph[0] = 0;

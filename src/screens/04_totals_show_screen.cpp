@@ -5,6 +5,7 @@
 #include "..\totals.h"
 #include "..\input.h"
 #include "..\shared.h"
+#include "..\stats.h"
 
 void TotalShowScreen()
 {

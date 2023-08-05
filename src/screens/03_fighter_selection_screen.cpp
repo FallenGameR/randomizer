@@ -1,3 +1,4 @@
+#include "..\colors.h"
 #include "..\input.h"
 #include "..\pins.h"
 #include "..\print.h"

@@ -2,6 +2,8 @@
 #include "..\totals.h"
 #include "..\random.h"
 #include "..\input.h"
+#include "..\shared.h"
+#include "..\stats.h"
 
 void MockRecordMatchOutcome()
 {
