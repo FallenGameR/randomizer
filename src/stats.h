@@ -43,6 +43,7 @@ extern byte fighter_index_first3;
 extern byte fighter_index_second3;
 
 extern byte winner_selected;
+
 extern bool not_fair_win;
 
 // Arduino UNO is short on data memory even when we move all static strings into PROGMEM.
@@ -53,22 +54,8 @@ extern bool not_fair_win;
 
 const int match_limit = 100;
 extern byte matches[match_limit][Stats::Size];
-extern File statsFile;
-
-#define PRINT2_BSF_F(fighter_index) \
-    PRINT2_BSF(readFighterName(matches[i][Stats::Game], matches[i][Stats::fighter_index]));
-
-#define PRINT2_BSF_F_OPT(fighter_index)                 \
-    if (matches[i][Stats::fighter_index] != NO_FIGHTER) \
-    {                                                   \
-        PRINT2_BSF_F(fighter_index);                    \
-    }
-
-void setStatsFilePathBuffer(int random_seed);
 
 void InitStatsFile(int random_seed);
-
-void DumpMatch(int i);
 
 void RecordMatchOutcome();
 

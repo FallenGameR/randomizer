@@ -3,6 +3,19 @@
 #include <SD.h>
 #include "shared.h"
 
+#define PRINT2_BSF_F(fighter_index) \
+    PRINT2_BSF(readFighterName(matches[i][Stats::Game], matches[i][Stats::fighter_index]));
+
+#define PRINT2_BSF_F_OPT(fighter_index)                 \
+    if (matches[i][Stats::fighter_index] != NO_FIGHTER) \
+    {                                                   \
+        PRINT2_BSF_F(fighter_index);                    \
+    }
+
+// print to serial, file
+#define PRINT2_SF(printable) \
+    PRINT2(printable, Serial, statsFile)
+
 byte fighter_index_first = NO_FIGHTER;
 byte fighter_index_second = NO_FIGHTER;
 byte fighter_index_first2 = NO_FIGHTER;
@@ -13,6 +26,7 @@ byte fighter_index_second3 = NO_FIGHTER;
 byte winner_selected;
 bool not_fair_win;
 byte matches[match_limit][Stats::Size];
+
 File statsFile;
 
 void setStatsFilePathBuffer(int random_seed)

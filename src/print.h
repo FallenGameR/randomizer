@@ -24,10 +24,6 @@
 #define PRINT_BS(buffer_setup) \
     PRINT_B(buffer_setup, Serial);
 
-// print to serial, file
-#define PRINT2_SF(printable) \
-    PRINT2(printable, Serial, statsFile)
-
 // print b_string to serial, file
 #define PRINT2_BSF(buffer_name_setup) \
     buffer_name_setup;                \
