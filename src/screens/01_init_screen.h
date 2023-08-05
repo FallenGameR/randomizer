@@ -7,6 +7,7 @@
 #include "..\players.h"
 #include "..\tft.h"
 #include "..\stats.h"
+#include "..\colors.h"
 
 // Index of the currently selected entry in the table on the current screen
 size_t cursor_index = 0;
