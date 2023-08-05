@@ -7,6 +7,19 @@
 #include "..\totals.h"
 #include "..\tft.h"
 
+// Actually it is 54 as per scripts/Find-MaxFighters.ps1, but we'll round it up
+#define MAX_FIGHTERS_IN_GAME 64
+
+// We randomize fighters in a way that every fighter is used at least once before repeating
+// But at the same time it is ok for the same fighter to be present on both sides
+// This logic maximizes the number of unique fighters in the game session while allowing for twin matches
+
+// Randomized fighters for the left seat
+byte fighters_left[MAX_FIGHTERS_IN_GAME];
+
+// Randomized fighters for the right seat
+byte fighters_right[MAX_FIGHTERS_IN_GAME];
+
 void FighterSelectionScreen()
 {
     if (screen_redraw)
