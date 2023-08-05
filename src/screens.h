@@ -12,4 +12,7 @@ enum Screen
     Tester,
 };
 
+// Entry function of the init screen
+void RandomizerInitScreen();
+
 #endif // SCREENS_H
