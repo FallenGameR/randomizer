@@ -3,6 +3,13 @@
 #include <SD.h>
 #include "shared.h"
 
+byte fighter_index_first = NO_FIGHTER;
+byte fighter_index_second = NO_FIGHTER;
+byte fighter_index_first2 = NO_FIGHTER;
+byte fighter_index_second2 = NO_FIGHTER;
+byte fighter_index_first3 = NO_FIGHTER;
+byte fighter_index_second3 = NO_FIGHTER;
+
 byte winner_selected;
 bool not_fair_win;
 byte matches[match_limit][Stats::Size];

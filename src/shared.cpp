@@ -14,3 +14,6 @@ byte *player_pairs = 0;
 byte player_index_first = -1;
 byte player_index_second = -1;
 byte n_match = 0;
+byte n_fighters = 0;
+size_t fighters_left_position = 0;
+size_t fighters_right_position = 0;

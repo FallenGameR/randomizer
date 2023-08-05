@@ -3,7 +3,6 @@
 #include "..\stats.h"
 #include "..\print.h"
 #include "..\random.h"
-#include "..\fighters.h"
 #include "..\totals.h"
 #include "..\tft.h"
 

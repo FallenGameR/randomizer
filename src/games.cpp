@@ -1,5 +1,4 @@
 #include "games.h"
-#include "fighters.h"
 #include "files.h"
 #include "shared.h"
 #include "screens.h"

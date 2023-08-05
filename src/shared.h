@@ -53,4 +53,16 @@ extern byte player_index_second;
 // Number of the current fighting match
 extern byte n_match;
 
+// Placeholder for empty fighter index
+#define NO_FIGHTER 255
+
+// Number of fighters in the current game
+extern byte n_fighters;
+
+// Current position in the fighters on the left seat array
+extern size_t fighters_left_position;
+
+// Current position in the fighters on the right seat array
+extern size_t fighters_right_position;
+
 #endif // SHARED_H

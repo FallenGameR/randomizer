@@ -5,7 +5,6 @@
 #include <SD.h>
 #include "games.h"
 #include "players.h"
-#include "fighters.h"
 #include "print.h"
 #include "files.h"
 
@@ -32,6 +31,16 @@ enum Stats
     NotFair,
     Size,
 };
+
+// For regular matches
+extern byte fighter_index_first;
+extern byte fighter_index_second;
+
+// For tag matches
+extern byte fighter_index_first2;
+extern byte fighter_index_second2;
+extern byte fighter_index_first3;
+extern byte fighter_index_second3;
 
 extern byte winner_selected;
 extern bool not_fair_win;
