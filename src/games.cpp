@@ -1,13 +1,11 @@
 #include "games.h"
-#include "files.h"
-#include "shared.h"
-#include "screens.h"
-#include "players.h"
+
 #include <Arduino.h>
 
-byte game_index = 0;
-byte game_tag = 0;
-bool isTagGame = false;
+#include "files.h"
+#include "players.h"
+#include "screens.h"
+#include "shared.h"
 
 // Screen is 480px and min font is 6 pixels wide (by default we actually use font that is twice as big)
 // For safety there should also be logic for making sure we don't reach the end of buffer
@@ -44,7 +42,7 @@ void selectGame(byte game_index)
 
     if (game_tag == 0)
     {
-        isTagGame = false;
+        game_is_tag = false;
     }
 
     Serial.print(F("Game selected: "));

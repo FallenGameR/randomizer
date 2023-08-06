@@ -45,7 +45,7 @@ void FighterSelectionScreen()
         fighter_index_second3 = NO_FIGHTER;
         byte part = 1;
 
-        if (isTagGame)
+        if (game_is_tag)
         {
             if (game_tag >= 2)
             {

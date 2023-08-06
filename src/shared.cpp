@@ -17,3 +17,6 @@ byte n_match = 0;
 byte n_fighters = 0;
 size_t fighters_left_position = 0;
 size_t fighters_right_position = 0;
+byte game_index = 0;
+byte game_tag = 0;
+bool game_is_tag = false;

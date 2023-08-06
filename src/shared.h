@@ -65,4 +65,16 @@ extern size_t fighters_left_position;
 // Current position in the fighters on the right seat array
 extern size_t fighters_right_position;
 
+// Current game index
+extern byte game_index;
+
+// Current game tag value
+extern byte game_tag;
+
+// If current game is a tag game
+extern bool game_is_tag;
+
+// Buffer that holds one line of text that fits the screen with the default font
+extern char b_line[];
+
 #endif // SHARED_H
