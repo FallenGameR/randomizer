@@ -49,14 +49,6 @@ byte readNumberOfFighters(byte game_index);
 // Reads value of the game tag
 byte readGameTag(byte game_index);
 
-// Set b_path to /games/<game_name_from_index>/<progmem_path>
-// progmem_path should be a path constant stored in PROGMEM
-char* setGameRelativePathBuffer(byte game_index, const char *progmem_path);
-
-// Set b_path to /games/<game_name_from_index>/fighters/<fighter_name_from_index>/<progmem_path>
-// progmem_path should be a path constant stored in PROGMEM
-char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const char *progmem_path);
-
 // Set b_string to something like "FallenGameR"
 char* readPlayerName(byte player_index);
 
@@ -65,5 +57,16 @@ char* readGameName(byte game_index);
 
 // Sets b_string to something like "Kasumi"
 char* readFighterName(byte game_index, byte fighter_index);
+
+// Write selected game index to /games/selected.txt
+void writeSelectedGame(byte game_index);
+
+// Set b_path to /games/<game_name_from_index>/<progmem_path>
+// progmem_path should be a path constant stored in PROGMEM
+char* setGameRelativePathBuffer(byte game_index, const char *progmem_path);
+
+// Set b_path to /games/<game_name_from_index>/fighters/<fighter_name_from_index>/<progmem_path>
+// progmem_path should be a path constant stored in PROGMEM
+char* setFighterRelativePathBuffer(byte game_index, byte fighter_index, const char *progmem_path);
 
 #endif // FILES_H

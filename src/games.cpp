@@ -45,6 +45,8 @@ void selectGame(byte game_index)
         game_is_tag = false;
     }
 
+    writeSelectedGame(game_index);
+
     Serial.print(F("Game selected: "));
     Serial.print(game_index);
     Serial.print(F(", tag = "));

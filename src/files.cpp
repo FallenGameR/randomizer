@@ -203,6 +203,19 @@ byte readGameTag(byte game_index)
     return (byte)tag;
 }
 
+void writeSelectedGame(byte game_index)
+{
+    File file = SD.open(F("/games/selected.txt"), FILE_WRITE);
+    if( !file )
+    {
+        Serial.println(F("Can't open selected game file for write"));
+        return;
+    }
+
+    file.print(game_index);
+    file.close();
+}
+
 char* setGameRelativePathBuffer(byte game_index, const char *progmem_path)
 {
     File dir = openElementInFolder(F("/games/"), game_index, true);
