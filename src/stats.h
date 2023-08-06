@@ -59,6 +59,6 @@ void InitStatsFile(int random_seed);
 
 void RecordMatchOutcome();
 
-void DumpStats();
+void dumpStats();
 
 #endif // STATS_H

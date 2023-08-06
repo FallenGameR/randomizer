@@ -11,8 +11,8 @@ void TotalShowScreen()
 {
     if (screen_redraw)
     {
-        RenderTotals();
-        DumpStats();
+        renderTotals();
+        dumpStats();
         screen_redraw = false;
     }
 

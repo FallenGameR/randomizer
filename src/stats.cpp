@@ -3,6 +3,11 @@
 #include <SD.h>
 #include "shared.h"
 
+// print b_string to serial, file
+#define PRINT2_BSF(buffer_name_setup) \
+    buffer_name_setup;                \
+    PRINT2_SF(b_string)
+
 #define PRINT2_BSF_F(fighter_index) \
     PRINT2_BSF(readFighterName(matches[i][Stats::Game], matches[i][Stats::fighter_index]));
 
@@ -166,7 +171,7 @@ void RecordMatchOutcome()
     DumpMatch(n_match - 1);
 }
 
-void DumpStats()
+void dumpStats()
 {
     if (n_match == 0)
     {

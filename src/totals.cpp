@@ -249,7 +249,7 @@ void RenderGraph(byte player, byte *graph, box &screen, box &plot, unsigned int 
     }
 }
 
-void RenderTotals()
+void renderTotals()
 {
     // Init
     GroupPlayerWins();
