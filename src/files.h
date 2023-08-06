@@ -58,6 +58,10 @@ char* readGameName(byte game_index);
 // Sets b_string to something like "Kasumi"
 char* readFighterName(byte game_index, byte fighter_index);
 
+// Reads selected game index from /games/selected.txt
+// -1 means we couldn't read the file
+int readSelectedGame();
+
 // Write selected game index to /games/selected.txt
 void writeSelectedGame(byte game_index);
 

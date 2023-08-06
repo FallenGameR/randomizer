@@ -203,8 +203,25 @@ byte readGameTag(byte game_index)
     return (byte)tag;
 }
 
-void writeSelectedGame(byte game_index)
+int readSelectedGame()
 {
+    File file = SD.open(F("/games/selected.txt"));
+    if( !file )
+    {
+        Serial.println(F("Can't open selected game file for read"));
+        return 0;
+    }
+
+    int saved = file.parseInt(SKIP_WHITESPACE);
+    file.close();
+
+    return saved;
+}
+
+void writeSelectedGame(byte index)
+{
+    SD.remove(F("/games/selected.txt"));
+
     File file = SD.open(F("/games/selected.txt"), FILE_WRITE);
     if( !file )
     {
@@ -212,7 +229,7 @@ void writeSelectedGame(byte game_index)
         return;
     }
 
-    file.print(game_index);
+    file.print(index);
     file.close();
 }
 

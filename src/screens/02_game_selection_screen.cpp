@@ -59,7 +59,12 @@ void GameIconSelectionScreen()
             tft.setCursor(x, y + GAMES_SPACING);
         }
 
-        game_index = random(n_games);
+        int saved_index = readSelectedGame();
+        Serial.print(F("Restoring game index: "));
+        Serial.println(saved_index);
+        game_index = saved_index < 0
+            ? random(n_games)
+            : (saved_index % n_games);
         UpdateGameCursorPosition(0);
 
         // Draw icon
