@@ -87,7 +87,7 @@ void TesterScreen()
 
         if (BUTTON_BLACK)
         {
-            SelectPlayers();
+            selectPlayers();
             screen_selected = Screen::FighterSelection;
             input_allowed = false;
             screen_redraw = true;

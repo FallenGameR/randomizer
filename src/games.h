@@ -13,16 +13,16 @@ extern byte game_tag;
 extern bool isTagGame;
 
 // Buffer that holds one line of text that fits the screen with the default font
-extern char bufferLine[];
+extern char b_line[];
 
-// Populate bufferLine with fighter names
+// Populate b_line with fighter names
 // a, b, c - indexes of fighters
-void FightersToBufferLine(byte a, byte b, byte c);
+void setFightersToLineBuffer(byte a, byte b, byte c);
 
 // Select current game
-void SelectGame(byte game_index);
+void selectGame(byte game_index);
 
 // Select players for the current match
-void SelectPlayers();
+void selectPlayers();
 
 #endif // GAMES_H

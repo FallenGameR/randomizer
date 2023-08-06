@@ -97,8 +97,8 @@ void GameIconSelectionScreen()
         {
             Serial.print(F("-> Match "));
             Serial.println(n_match + 1);
-            SelectGame(game_index);
-            SelectPlayers();
+            selectGame(game_index);
+            selectPlayers();
             screen_selected = Screen::FighterSelection;
             input_allowed = false;
             screen_redraw = true;

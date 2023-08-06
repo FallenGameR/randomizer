@@ -146,16 +146,16 @@ void RecordMatchOutcome()
     case Winner::First:
         PRINT_BS(readPlayerName(player_index_first));
         PRINT(F(" won ("), Serial);
-        FightersToBufferLine(fighter_index_first, fighter_index_first2, fighter_index_first3);
-        PRINT(bufferLine, Serial);
+        setFightersToLineBuffer(fighter_index_first, fighter_index_first2, fighter_index_first3);
+        PRINT(b_line, Serial);
         Serial.print(F(")"));
         break;
 
     case Winner::Second:
         PRINT_BS(readPlayerName(player_index_second));
         PRINT(F(" won ("), Serial);
-        FightersToBufferLine(fighter_index_second, fighter_index_second2, fighter_index_second3);
-        PRINT(bufferLine, Serial);
+        setFightersToLineBuffer(fighter_index_second, fighter_index_second2, fighter_index_second3);
+        PRINT(b_line, Serial);
         Serial.print(F(")"));
         break;
     }

@@ -91,15 +91,15 @@ void FighterSelectionScreen()
         // TFT and serial fighters
         PRINT(F("Fighters: "), Serial);
 
-        FightersToBufferLine(fighter_index_first, fighter_index_first2, fighter_index_first3);
+        setFightersToLineBuffer(fighter_index_first, fighter_index_first2, fighter_index_first3);
         tft.setCursor(0, tft.height() - CHAR_HEIGHT * 2 - 2);
-        PRINT2(bufferLine, tft, Serial);
+        PRINT2(b_line, tft, Serial);
 
         PRINT(F(" vs "), Serial);
 
-        FightersToBufferLine(fighter_index_second, fighter_index_second2, fighter_index_second3);
-        tft.setCursor(tft.width() - strlen(bufferLine) * CHAR_WIDTH, tft.height() - CHAR_HEIGHT * 1);
-        PRINT2(bufferLine, tft, Serial);
+        setFightersToLineBuffer(fighter_index_second, fighter_index_second2, fighter_index_second3);
+        tft.setCursor(tft.width() - strlen(b_line) * CHAR_WIDTH, tft.height() - CHAR_HEIGHT * 1);
+        PRINT2(b_line, tft, Serial);
 
         Serial.println();
 
@@ -204,7 +204,7 @@ void FighterSelectionScreen()
 
             Serial.print(F("-> Match "));
             Serial.println(n_match + 1);
-            SelectPlayers();
+            selectPlayers();
             screen_selected = Screen::FighterSelection;
             input_allowed = false;
             screen_redraw = true;
