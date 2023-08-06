@@ -241,6 +241,8 @@ void RandomizerInitScreen()
         tft.setTextColor(WHITE, BLACK);
         tft.println();
 
+        byte skipped = 0;
+
         for( int i = 0; i < MAX_PLAYERS; i++ )
         {
             init_setting* player_entry = &init_settings[SETTING_PLAYER_FIRST_IDX + i];
@@ -251,11 +253,30 @@ void RandomizerInitScreen()
 
             if( is_present )
             {
-                tft.print(F("  # "));
-                PRINT_BT(readPlayerName(i));
+                bool isSelected = false;
+                readPlayerNameAndStatus(i, (char**) &b_string, isSelected);
+                player_entry->value = isSelected;
+
+                if( isSelected )
+                {
+                    tft.print(F("  # "));
+                }
+                else
+                {
+                    tft.print(F("    "));
+                    skipped += 1;
+                }
+
+                PRINT_BT(b_string);
             }
 
             tft.println();
+        }
+
+        if( skipped > 0 )
+        {
+            UpdateIntegerSetting(SETTING_PLAYER_NUMBER_IDX, -skipped);
+            UpdateIntegerSetting(SETTING_FAIRNESS_IDX, MIN_FAIRNESS - (&init_settings[SETTING_FAIRNESS_IDX])->value);
         }
 
         cursor_index = 1;

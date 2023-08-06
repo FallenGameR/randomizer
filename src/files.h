@@ -52,6 +52,10 @@ byte readGameTag(byte game_index);
 // Set b_string to something like "FallenGameR"
 char* readPlayerName(byte player_index);
 
+// Set name and selection status for a player
+// Returns true if read was successful
+bool readPlayerNameAndStatus(byte player_index, char** name, bool& status);
+
 // Sets b_string to something like "Tekken 7"
 char* readGameName(byte game_index);
 

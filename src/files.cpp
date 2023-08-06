@@ -93,17 +93,9 @@ bool isEol(int c)
     return (c == '\r') || (c == '\n');
 }
 
-// Read string from the current position in a file and till the next EOL into b_string
-char* readString(File file)
+// Skip EOL if we are standing on it
+void skipEol(File& file)
 {
-    // Sanity check
-    if( !file )
-    {
-        memset(b_string, 0, BUFFER_STRING_MAX_LENGTH);
-        return b_string;
-    }
-
-    // Skip EOL if we are standing on it
     for( int c = file.read(); c > 0; c = file.read() )
     {
         if( !isEol(c) )
@@ -112,6 +104,19 @@ char* readString(File file)
             break;
         }
     }
+}
+
+// Read string from the current position in a file and till the next EOL into b_string
+char* readString(File& file)
+{
+    // Sanity check
+    if( !file )
+    {
+        memset(b_string, 0, BUFFER_STRING_MAX_LENGTH);
+        return b_string;
+    }
+
+    skipEol(file);
 
     // Read into b_string buffer until EOL
     byte index = 0;
@@ -125,6 +130,28 @@ char* readString(File file)
     // Make sure b_string is null-terminated
     b_string[index++] = 0;
     return b_string;
+}
+
+// Read file from the current position and read a bool value as 0 or 1
+// Returns true if we could read the file and found the bool value in it
+bool readBool(File& file, bool& result)
+{
+    // By default assume false
+    result = false;
+
+    // Sanity check
+    if( !file )
+    {
+        return false;
+    }
+
+    skipEol(file);
+
+    // Read bool
+    int c = file.read();
+    if( c == '0' ) { result = false; return true; }
+    if( c == '1' ) { result = true; return true; }
+    return false;
 }
 
 //------------------------------------------------------------------------------/ PUBLIC FUNCTIONS
@@ -163,6 +190,18 @@ char* readPlayerName(byte player_index)
     char* buffer = readString(file);
     file.close();
     return buffer;
+}
+
+bool readPlayerNameAndStatus(byte player_index, char** name, bool& status)
+{
+    // Every player has a flag if it participated in games
+    File file = openElementInFolder(F("/players/"), player_index, false);
+    readString(file);
+    readBool(file, status); // can use return status here
+    file.close();
+
+    // readString needs to be updated to use new semantics
+    return true;
 }
 
 char* readGameName(byte game_index)
