@@ -1,50 +1,16 @@
 #ifndef GAMES_H
 #define GAMES_H
 
-#include "fighters.h"
-#include "files.h"
+#include <Arduino.h>
 
-// Game variables
-byte game_index = 0;
-byte game_tag = 0;
-byte n_games = 0;
-bool isTagGame = false;
-
-// Screen is 480px and min font is 6 pixels wide (by default we actually use font that is twise as big)
-// For safety there should also be logic for making sure we don't reach the end of buffer
-// But we can add it later on, for now we just have large buffer
-char bufferLine[480 / 6];
-
-void FightersToBufferLine(byte a, byte b, byte c)
-{
-    setFighterName(game_index, a);
-    strcpy(bufferLine, bufferName);
-
-    if (b != NO_FIGHTER)
-    {
-        strcat_P(bufferLine, str_comma);
-        setFighterName(game_index, b);
-        strcat(bufferLine, bufferName);
-    }
-
-    if (c != NO_FIGHTER)
-    {
-        strcat_P(bufferLine, str_comma);
-        setFighterName(game_index, c);
-        strcat(bufferLine, bufferName);
-    }
-}
+// Populate b_line with fighter names
+// a, b, c - indexes of fighters
+void setFightersToLineBuffer(byte a, byte b, byte c);
 
 // Select current game
-void SelectGame(byte gameIndex)
-{
-    n_fighters = readNumberOfFighters(gameIndex);
-    game_tag = readGameTag(gameIndex);
+void selectGame(byte game_index);
 
-    if (game_tag == 0)
-    {
-        isTagGame = false;
-    }
-}
+// Select players for the current match
+void selectPlayers();
 
 #endif // GAMES_H

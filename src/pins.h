@@ -1,6 +1,8 @@
 #ifndef PINS_H
 #define PINS_H
 
+#include <Arduino.h>
+
 // LEDs
 const byte pin_led_green = 32;
 const byte pin_led_blue = 33;
