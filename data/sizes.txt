@@ -1,4 +1,5 @@
+BMP are saved in 24 bits per pixel mode
+Portrait: 240x270
 Full screen: 480x320 - 3/2
 Half screen: 240x320 - 3/4
 Char: 6x8
-Portrait: 240x272
